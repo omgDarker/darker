@@ -11,6 +11,7 @@ public class DarkerApplicationTests {
 
     @Test
     public void contextLoads() {
+        System.out.println("Hello SpringBott!");
     }
 
 }

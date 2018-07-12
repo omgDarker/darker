@@ -1,0 +1,4 @@
+#前端访问路径
+http://localhost:8080/index
+#后端访问路径
+http://localhost:8080/admin
