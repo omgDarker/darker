@@ -24,7 +24,7 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public int addVisitor(Visitor visitor) {
-        return visitorDao.insertSelective(visitor);
+        return visitorDao.insert(visitor);
     }
 
     @Override

@@ -2,3 +2,7 @@
 http://localhost:8080/index
 #后端访问路径
 http://localhost:8080/admin
+#新增游客请求路径
+http://localhost:8080/visitor/add
+#查询游客列表路径
+http://localhost:8080/visitor/all?pageNum=1&pageSize=2

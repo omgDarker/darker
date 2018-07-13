@@ -4,12 +4,7 @@ import com.vip.darker.model.Visitor;
 import com.vip.darker.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author : P2M.WBA
@@ -25,13 +20,17 @@ public class VisitorController {
     @Qualifier(value = "visitorService")
     private VisitorService visitorService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @PostMapping(value = "/add", produces = {"application/json;charset=UTF-8"})
     public int addVisitor(Visitor visitor) {
         return visitorService.addVisitor(visitor);
     }
 
-    @RequestMapping(value = "all/{pageNum}/{pageSize}", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
-    public Object  getAllVisitor(@PathVariable(value = "pageNum") int pageNum, @PathVariable(value = "pageSize") int pageSize) {
+    @GetMapping(value = "/all", produces = {"application/json;charset=UTF-8"})
+    public Object getAllVisitor(
+            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
+                    int pageNum,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10")
+                    int pageSize) {
         return visitorService.queryAllVisitor(pageNum, pageSize);
     }
 }
