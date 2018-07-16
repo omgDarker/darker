@@ -1,0 +1,51 @@
+#端口
+server:
+  port: 8080
+
+#数据库相关配置
+spring:
+     datasource:
+        name: darker_pool
+        type: com.alibaba.druid.pool.DruidDataSource
+        #druid连接池相关配置
+        druid:
+          #监控统计拦截的filters
+          filters: stat
+          driver-class-name: com.mysql.jdbc.Driver
+          #基本属性
+          url: jdbc:mysql://127.0.0.1:3306/darker?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+          username: root
+          password: root
+          #配置初始化大小/最小/最大
+          initial-size: 1
+          min-idle: 1
+          max-active: 20
+          #最大建立连接等待时间.如果超过此时间将接到异常.设为-1表示无限制,单位是ms
+          max-wait: 60000
+          #间隔多久进行一次检测,检测需要关闭的空间连接
+          time-between-eviction-runs-millis: 60000
+          #一个连接在池中最小生存的时间
+          min-evictable-idle-time-millis: 300000
+          #验证数据库连接有效性
+          validation-query: SELECT '1'
+          test-while-idle: true
+          test-on-borrow: false
+          test-on-return: false
+          #打开PSCache,并指定每个连接上PSCache的大小.oracle设为true,mysql设为false.分库分表较多推荐设置为false
+          #解决了sql语句可以被预编译,对于oracle可以绕过数据库编译,对于mysql没有那么明显
+          pool-prepared-statements: false
+          max-pool-prepared-statement-per-connection-size: 20
+
+#持久层
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.vip.darker.model
+
+#分页
+  pagehelper:
+    helperDoalect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    returnPageInfo: check
+
