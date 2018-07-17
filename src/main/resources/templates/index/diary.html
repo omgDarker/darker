@@ -1,170 +1,102 @@
 <!doctype html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="gb2312">
-<title>╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М</title>
-<meta name="keywords" content="╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М" />
-<meta name="description" content="╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М" />
-<link href="css/base.css" rel="stylesheet">
-<link href="css/main.css" rel="stylesheet">
-<link href="css/m.css" rel="stylesheet">
-<!--[if lt IE 9]>
-<script src="js/modernizr.js"></script>
-<![endif]-->
-<script type="text/javascript" src="js/jquery.js"></script>
-<script>
-window.onload = function ()
-{
-	var oH2 = document.getElementsByTagName("h2")[0];
-	var oUl = document.getElementsByTagName("ul")[0];
-	oH2.onclick = function ()
-	{
-		var style = oUl.style;
-		style.display = style.display == "block" ? "none" : "block";
-		oH2.className = style.display == "block" ? "open" : ""
-	}
-}
-</script>
+    <meta charset="UTF-8">
+    <title>darkerФ≈╔Х╝╟</title>
+    <meta name="keywords" content="Ф≈╔Х╝╟"/>
+    <meta name="description" content="darkerФ≈╔Х╝╟"/>
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/m.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <script src="/js/jquery.js" type="text/javascript"></script>
+    <script>
+        window.onload = function () {
+            var oH2 = document.getElementsByTagName("h2")[0];
+            var oUl = document.getElementsByTagName("ul")[0];
+            oH2.onclick = function () {
+                var style = oUl.style;
+                style.display = style.display === "block" ? "none" : "block";
+                oH2.className = style.display === "block" ? "open" : ""
+            }
+        }
+    </script>
 </head>
 <body>
 <div id="wrapper">
-<header>
-  <div class="headtop"></div>
-  <div class="contenttop">
-    <div class="logo f_l">╫╜дод╚╬М</div>
-    <div class="search f_r">
-      <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
-        <input name="keyboard" id="keyboard" class="input_text" value="гКйДхК╧ь╪Эвж" style="color: rgb(153, 153, 153);" onfocus="if(value=='гКйДхК╧ь╪Эвж'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='гКйДхК╧ь╪Эвж'}" type="text">
-        <input name="show" value="title" type="hidden">
-        <input name="tempid" value="1" type="hidden">
-        <input name="tbname" value="news" type="hidden">
-        <input name="Submit" class="input_submit" value="кякВ" type="submit">
-      </form>
-    </div>
-    <div class="blank"></div>
-    <div id="mnav">
-    <h2><span class="navicon"></span></h2>
-    <ul>
-      <li><a href="/">мЬу╬йврЁ</a></li>
-      <li><a href="/about.html">╧ьсзнр</a></li>
-      <li><a href="/download/">дё╟Е╥жоМ</a>
-         <ul>
-         <li><a href="#.html">╧ьсзнр</a></li>
-         <li><a href="#.html">╧ьсзнр</a></li>
-         <li><a href="#.html">╧ьсзнр</a></li>
-          </ul>
-        </li>
-      <li><a href="/jstt/">я╖нчж╧╬Ё</a>
-            <ul>
-         <li><a href="#.html">╧ьсзнр</a></li>
-         <li><a href="#.html">╧ьсзнр</a></li>
-         <li><a href="#.html">╧ьсзнр</a></li>
-          </ul></li>
-      <li><a href="/news/">бЩиЗ╩Н</a>
-            <ul>
-         <li><a href="#.html">╧ьсзнр</a></li>
-         <li><a href="#.html">╧ьсзнр</a></li>
-         <li><a href="#.html">╧ьсзнр</a></li>
-          </ul></li>
-      <li><a href="/e/tool/gbook/?bid=3">аТят</a></li>
-    </ul>
-  </div>
-    <nav>
-      <div  class="navigation">
-        <ul class="menu">
-          <li><a href="index.html">мЬу╬йврЁ</a></li>
-          <li><a href="#">╧ьсзнр</a>
-            <ul>
-              <li><a href="about.html">╦Жхк╪Р╫И</a></li>
-              <li><a href="listpic.html">╦ЖхкоЮ╡А</a></li>
-            </ul>
-          </li>
-          <li><a href="#">нр╣дху╪г</a>
-            <ul>
-              <li><a href="newslistpic.html">╦Жхкху╪г</a></li>
-              <li><a href="newslistpic.html">я╖о╟╠й╪г</a></li>
-            </ul>
-          </li>
-          <li><a href="newslistpic.html">╪╪йУндуб</a> </li>
-          <li><a href="#">╦ЬнраТят</a> </li>
-        </ul>
-      </div>
-    </nav>
-    <SCRIPT type=text/javascript>
-	// Navigation Menu
-	$(function() {
-		$(".menu ul").css({display: "none"}); // Opera Fix
-		$(".menu li").hover(function(){
-			$(this).find('ul:first').css({visibility: "visible",display: "none"}).slideDown("normal");
-		},function(){
-			$(this).find('ul:first').css({visibility: "hidden"});
-		});
-	});
-</SCRIPT> 
-  </div>
-</header>
-<div class="container">
-  <div class="con_content">
-    <div class="about_box">
-      <h2 class="nh1"><span>дЗожтз╣дн╩жцйгё╨<a href="/" target="_blank">мЬу╬йврЁ</a>>><a href="#" target="_blank">╦Жхкху╪г</a></span><b>╦Жхкху╪г</b></h2>
-      <div class="dtxw box">
-        <li>
-          <div class="dttext">
-            <div class="xwpic"><a href="/"><img src="images/02.jpg"></a></div>
-            <ul>
-              <h2><a href="/">╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М</a></h2>
-              <p>╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬Мт╜ж╜т╜н╤жьож╬╜╣Д....</p>
-              <div class="binfo"><span class="lm"><a href="/">╦Жхкху╪г</a></span><span>рясп100хктд╤а</span><span class="atime">2017-3-10</span></div>
-            </ul>
-          </div>
-        </li>
-       <li>
-          <div class="dttext">
-            <div class="xwpic"><a href="/"><img src="images/01.jpg"></a></div>
-            <ul>
-              <h2><a href="/">╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М</a></h2>
-              <p>╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬Мт╜ж╜т╜н╤жьож╬╜╣Д....</p>
-              <div class="binfo"><span class="lm"><a href="/">╦Жхкху╪г</a></span><span>рясп100хктд╤а</span><span class="atime">2017-3-10</span></div>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="dttext">
-           
-            <ul>
-              <h2><a href="/">╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М</a></h2>
-              <p>╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬Мт╜ж╜т╜н╤жьож╬╜╣Д....</p>
-              <div class="binfo"><span class="lm"><a href="/">╦Жхкху╪г</a></span><span>рясп100хктд╤а</span><span class="atime">2017-3-10</span></div>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <div class="dttext">
-            <div class="xwpic"><a href="/"><img src="images/04.jpg"></a></div>
-            <ul>
-              <h2><a href="/">╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М</a></h2>
-              <p>╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬М╦Жхк╡╘©мдё╟Е╧е╣До╣апж╝║╙║╙╫╜дод╚╬Мт╜ж╜т╜н╤жьож╬╜╣Д....</p>
-              <div class="binfo"><span class="lm"><a href="/">╦Жхкху╪г</a></span><span>рясп100хктд╤а</span><span class="atime">2017-3-10</span></div>
-            </ul>
-          </div>
-        </li>
-      </div>
-      <div class="pagelist"><a href="/">йврЁ</a><a href="/">иор╩рЁ</a><a href="/">обр╩рЁ</a><a href="/">н╡рЁ</a></div>
-    </div>
-  </div>
-  <div class="blank"></div>
-  <!-- container╢ЗбК ╫АйЬ -->
- </div> 
-  <footer>
-    <div class="footer">
-      <div class="f_l">
-        <p>All Rights Reserved ╟Фх╗кЫспё╨<a href="http://www.yangqq.com">яНгЮ╦Жхк╡╘©м</a> ╠╦╟╦╨её╨йЯICP╠╦00000000╨е</p>
-      </div>
-      <div class="f_r textr">
-        <p>Design by DanceSmile</p>
-      </div>
-    </div>
-  </footer>
+    <!-- Е╓╢Ф√┤Д╩╤ -->
+    <div th:include="common/header.html :: header"></div>
+    <!-- Е├┘Е╝╧Е╓╢CSS-->
+    <div class="jztop"></div>
+    <!-- container -->
+    <div class="container">
+        <div class="con_content">
+            <div class="about_box">
+                <h2 class="nh1">
+                    <span>
+                        Ф┌╗Г▌╟Е°╗Г └Д╫█Г╫╝Ф≤╞О╪ <a href="/index/home" target="_blank">Г╫▒Г╚≥И╕√И║╣</a>>><a href="#" target="_blank">Ф╞▐Е▒╗Д╦─Х╝╟</a>
+                    </span>
+                    <b>Ф╞▐Е▒╗Д╦─Х╝╟</b>
+                </h2>
+                <div class="dtxw box">
+                    <li>
+                        <div class="dttext">
+                            <div class="xwpic"><a href="/"><img src="/images/02.jpg"></a></div>
+                            <ul>
+                                <h2><a href="/">Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥</a></h2>
+                                <p>Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Е▌÷Ф╠│Е▌÷Е▒ЁИ┤█Г▌╟Г╩▐Е┘╦....</p>
+                                <div class="binfo"><span class="lm"><a
+                                        href="/">Д╦╙Д╨╨Ф≈╔Х╝╟</a></span><span>Е╥╡Ф°┴100Д╨╨И≤┘Х╞╩</span><span
+                                        class="atime">2017-3-10</span></div>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dttext">
+                            <div class="xwpic"><a href="/"><img src="/images/01.jpg"></a></div>
+                            <ul>
+                                <h2><a href="/">Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥</a></h2>
+                                <p>Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Е▌÷Ф╠│Е▌÷Е▒ЁИ┤█Г▌╟Г╩▐Е┘╦....</p>
+                                <div class="binfo"><span class="lm"><a
+                                        href="/">Д╦╙Д╨╨Ф≈╔Х╝╟</a></span><span>Е╥╡Ф°┴100Д╨╨И≤┘Х╞╩</span><span
+                                        class="atime">2017-3-10</span></div>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dttext">
 
+                            <ul>
+                                <h2><a href="/">Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥</a></h2>
+                                <p>Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Е▌÷Ф╠│Е▌÷Е▒ЁИ┤█Г▌╟Г╩▐Е┘╦....</p>
+                                <div class="binfo"><span class="lm"><a
+                                        href="/">Д╦╙Д╨╨Ф≈╔Х╝╟</a></span><span>Е╥╡Ф°┴100Д╨╨И≤┘Х╞╩</span><span
+                                        class="atime">2017-3-10</span></div>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dttext">
+                            <div class="xwpic"><a href="/"><img src="/images/04.jpg"></a></div>
+                            <ul>
+                                <h2><a href="/">Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥</a></h2>
+                                <p>Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Д╦╙Д╨╨Е█ Е╝╒Ф╗║Ф²©Е▐╓Е┘╦ГЁ╩Е┬≈Д╧▀Б─∙Б─∙Ф╠÷Е█≈Е╒╗Е█╥Е▌÷Ф╠│Е▌÷Е▒ЁИ┤█Г▌╟Г╩▐Е┘╦....</p>
+                                <div class="binfo"><span class="lm"><a
+                                        href="/">Д╦╙Д╨╨Ф≈╔Х╝╟</a></span><span>Е╥╡Ф°┴100Д╨╨И≤┘Х╞╩</span><span
+                                        class="atime">2017-3-10</span></div>
+                            </ul>
+                        </div>
+                    </li>
+                </div>
+                <div class="pagelist"><a href="/">И╕√И║╣</a><a href="/">Д╦┼Д╦─И║╣</a><a href="/">Д╦▀Д╦─И║╣</a><a href="/">Е╟╬И║╣</a></div>
+            </div>
+        </div>
+        <div class="blank"></div>
+    </div>
+    <!-- Е├┘Е╝╧Х└ CSS-->
+    <div class="jzend"></div>
+    <!-- И║╣Х└  -->
+    <div th:include="common/footer :: footer"></div>
+</div>
 </body>
 </html>

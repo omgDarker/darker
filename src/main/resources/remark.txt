@@ -6,3 +6,4 @@ http://localhost:8080/admin
 http://localhost:8080/visitor/add
 #查询游客列表路径
 http://localhost:8080/visitor/all?pageNum=1&pageSize=2
+#static:资源,templates:页面

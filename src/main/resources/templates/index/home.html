@@ -1,94 +1,26 @@
 <!doctype html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>darker</title>
+    <title>darker博客</title>
     <meta name="keywords" content="darker"/>
     <meta name="description" content="darker博客"/>
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
-    <link href="css/m.css" rel="stylesheet">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/m.css" rel="stylesheet">
+    <link href="/images/favicon-.ico" rel="shortcut icon" type="image/x-icon"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
     <!--[if lt IE 9]
-      <script src="js/modernizr.js"></script>
-    [endif]-->
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <link rel="shortcut icon" href="images/favicon-.ico" type="image/x-icon"/>
+     <script src="js/modernizr.js"></script>
+   [endif]-->
 </head>
 <body>
 <div id="wrapper">
-    <header>
-        <div class="headtop"></div>
-        <div class="contenttop">
-            <div class="logo f_l">darker博客</div>
-            <div class="search f_r">
-                <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
-                    <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字"
-                           style="color: rgb(153, 153, 153);"
-                           onfocus="if(value==='请输入关键字'){this.style.color='#000';value=''}"
-                           onblur="if(value===''){this.style.color='#999';value='请输入关键字'}" type="text">
-                    <!-- 高频率搜索词start -->
-                    <input name="show" value="title" type="hidden">
-                    <input name="tempid" value="1" type="hidden">
-                    <input name="tbname" value="news" type="hidden">
-                    <!-- 高频率搜索词end -->
-                    <input name="Submit" class="input_submit" value="搜索" type="submit">
-                </form>
-            </div>
-            <div class="blank"></div>
-            <nav>
-                <div class="navigation">
-                    <ul class="menu">
-                        <li><a href="index.html">网站首页</a></li>
-                        <li><a href="#">关于我</a>
-                            <ul>
-                                <li><a href="index/about.html">简介</a></li>
-                                <li><a href="index/picture.html">相册</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">学无止境</a>
-                            <ul>
-                                <li><a href="index/diary.html">每周一记</a></li>
-                                <li><a href="index/note.html">随笔记录</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">技术文章</a>
-                            <ul>
-                                <li><a href="index/template.html">前端技术</a></li>
-                                <li><a href="index/template.html">后端技术</a></li>
-                                <li><a href="index/template.html">网络编程</a></li>
-                                <li><a href="index/template.html">设计模式</a></li>
-                                <li><a href="index/template.html">Spring</a></li>
-                                <li><a href="index/template.html">Mybatis</a></li>
-                                <li><a href="index/template.html">Hibernate</a></li>
-                                <li><a href="index/template.html">MySQL</a></li>
-                                <li><a href="index/template.html">NoSQL</a></li>
-                                <li><a href="index/template.html">工具类</a>
-                                    <ul>
-                                        <li><a href="index/template.html">[文件]工具类</a></li>
-                                        <li><a href="index/template.html">[其它]工具类</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="index/message.html">留言板</a></li>
-                    </ul>
-                </div>
-            </nav>
-            <script type=text/javascript>
-                // Navigation Menu
-                $(function () {
-                    $(".menu ul").css({display: "none"}); // Opera Fix
-                    $(".menu li").hover(function () {
-                        $(this).find('ul:first').css({visibility: "visible", display: "none"}).slideDown("normal");
-                    }, function () {
-                        $(this).find('ul:first').css({visibility: "hidden"});
-                    });
-                });
-            </script>
-        </div>
-    </header>
+    <!-- 页头 -->
+    <div th:include="common/header.html :: header"></div>
+    <!-- 内容头CSS -->
     <div class="jztop"></div>
-    <!-- container代码 开始 -->
+    <!-- container -->
     <div class="container">
         <!-- 左侧栏 -->
         <div class="bloglist f_l">
@@ -103,7 +35,7 @@
                     <div class="bloginfo">
                         <span class="blogpic">
                             <a href="/jstt/css3/2018-03-26/812.html" title="帝国cms 首页或者列表无图，不使用默认图片的方法">
-                                <img src="images/01.jpg" alt="帝国cms 首页或者列表无图，不使用默认图片的方法">
+                                <img src="/images/01.jpg" alt="帝国cms 首页或者列表无图，不使用默认图片的方法">
                             </a>
                         </span>
                         <p>帝国cms列表页图文展示，或者首页图文展示，如果使用全图和文字，编辑起来比较麻烦，因为每一篇文章，你都得花时间去配图，所以，可有使用以下方法来实现。</p>
@@ -151,20 +83,20 @@
                 <h3 class="tit">图文推荐</h3>
                 <ul>
                     <li>
-                        <a href="/"><i><img src="images/01.jpg"></i><b>住在手机里的朋友</b></a>
+                        <a href="/"><i><img src="/images/01.jpg"></i><b>住在手机里的朋友</b></a>
                         <p><span class="tulanmu"><a href="/">所属相册</a></span><span class="tutime">2015-02-15</span></p>
                     </li>
-                    <li><a href="/"><i><img src="images/02.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
+                    <li><a href="/"><i><img src="/images/02.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
                         <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
                     </li>
 
-                    <li><a href="/"><i><img src="images/06.jpg"></i><b>住在手机里的朋友</b></a>
+                    <li><a href="/"><i><img src="/images/06.jpg"></i><b>住在手机里的朋友</b></a>
                         <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
                     </li>
-                    <li><a href="/"><i><img src="images/04.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
+                    <li><a href="/"><i><img src="/images/04.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
                         <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
                     </li>
-                    <li><a href="/"><i><img src="images/02.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
+                    <li><a href="/"><i><img src="/images/02.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
                         <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
                     </li>
                 </ul>
@@ -200,7 +132,8 @@
                         <a href="/jstt/web/2014-12-18/736.html" title="2014年度优秀个人博客评选活动" target="_blank">2014年度优秀个人博客评选活动</a>
                     </li>
                     <li>
-                        <a href="/jstt/css3/2014-12-09/734.html" title="使用CSS3制作文字、图片倒影" target="_blank">使用CSS3制作文字、图片倒影</a></li>
+                        <a href="/jstt/css3/2014-12-09/734.html" title="使用CSS3制作文字、图片倒影"
+                           target="_blank">使用CSS3制作文字、图片倒影</a></li>
                     <li>
                         <a href="/jstt/css3/2014-11-18/733.html" title="【分享】css3侧边栏导航不同方向划出效果" target="_blank">【分享】css3侧边栏导航不同方向划出效果</a>
                     </li>
@@ -209,19 +142,13 @@
                     </li>
                 </ul>
             </div>
-            <div class="ad"><img src="images/03.jpg"></div>
+            <div class="ad"><img src="/images/03.jpg"></div>
         </div>
     </div>
-    <!-- container代码 结束 -->
+    <!-- 内容脚CSS -->
     <div class="jzend"></div>
     <!-- 页脚 -->
-    <footer>
-        <div class="footer">
-            <div class="f_l">
-                <p>All Rights Reserved 版权所有：<a href="http://www.yangqq.com">darker个人博客</a> 备案号：京ICP备88888888号</p>
-            </div>
-        </div>
-    </footer>
+    <div th:include="common/footer :: footer"></div>
 </div>
 </body>
 </html>

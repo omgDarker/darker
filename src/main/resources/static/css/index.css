@@ -21,7 +21,7 @@ h3.blogtitle { line-height: 30px; height: 30px; margin: 10px 0; }
 .autor span a { color: #333; }
 .autor span a:hover { text-decoration: underline }
 .dtime { background: url(../images/posttime.gif) no-repeat left center }
-.viewnum { background: url(../images/newsbg04.png) no-repeat left center }
+.viewnum { background: url(../images/scanIcon.png) no-repeat left center }
 .blogpic img { width: 100%;-webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -o-transition: all 0.5s;  }
