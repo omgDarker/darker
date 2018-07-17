@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author : P2M.WBA
- * @description ：首页访问CONTROLLER
+ * @description ：博客CONTROLLER
  * @date : 2018/7/17 11:05
  */
 @Controller
@@ -17,7 +17,7 @@ public class IndexController {
     private static final String INDEX = "index";
 
     /**
-     * 首页
+     * 博客首页
      *
      * @return
      */
