@@ -1,12 +1,12 @@
 package com.vip.darker.dao;
 
-import com.vip.darker.model.Visitor;
+import com.vip.darker.model.VisitorModel;
 
 import java.util.List;
 
 public interface VisitorDao {
 
-    int insert(Visitor visitor);
+    int insert(VisitorModel visitorModel);
 
-    List<Visitor> selectAllVisitor();
+    List<VisitorModel> selectAllVisitor();
 }

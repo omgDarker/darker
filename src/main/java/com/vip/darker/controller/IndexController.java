@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * @author : P2M.WBA
  * @description ：博客CONTROLLER
  * @date : 2018/7/17 11:05
  */
@@ -47,29 +46,20 @@ public class IndexController {
     }
 
     /**
-     * 日记
+     * 慢生活
      *
+     * @param classify 日记分类{1.每周一记 2.随笔记录}
      * @return
      */
-    @RequestMapping(value = "/diary", method = RequestMethod.GET)
-    public String diary() {
+    @RequestMapping(value = "/diary/{classify}", method = RequestMethod.GET)
+    public String diary(@PathVariable(value = "classify") String classify) {
         return INDEX + "/diary";
     }
 
     /**
-     * 笔记
+     * 学无止境
      *
-     * @return
-     */
-    @RequestMapping(value = "/note", method = RequestMethod.GET)
-    public String note() {
-        return INDEX + "/note";
-    }
-
-    /**
-     * 技术文章
-     *
-     * @param classify 分类
+     * @param classify 文章分类
      * @return
      */
     @RequestMapping(value = "/article/{classify}", method = RequestMethod.GET)

@@ -42,10 +42,18 @@ spring:
            suffix: .html
          static-path-pattern: /**
 
-#持久层
-mybatis:
+# 配置MP
+mybatis-plus:
+  # 配置扫描xml
   mapper-locations: classpath:mapper/*.xml
+  # 实体扫描，多个package用逗号或者分号分隔
   type-aliases-package: com.vip.darker.model
+  # 全部配置
+  global-config:
+    # 逻辑删除配置
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
 
 #分页
   pagehelper:

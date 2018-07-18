@@ -1,6 +1,6 @@
 package com.vip.darker.model;
 
-public class Visitor {
+public class VisitorModel {
 
     private Integer userId;
 

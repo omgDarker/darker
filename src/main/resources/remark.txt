@@ -15,9 +15,9 @@ http://localhost:8080/index/article/{param="文章类型"}
 http://localhost:8080/index/message
 
 #内容后台管理
-http://localhost:8080/admin
+http://localhost:8080/admin/home
 
 #新增游客请求路径
-http://localhost:8080/visitor/add
+http://localhost:8080/visitorModel/add
 #查询游客列表路径
-http://localhost:8080/visitor/all?pageNum=1&pageSize=2
+http://localhost:8080/visitorModel/all?pageNum=1&pageSize=2

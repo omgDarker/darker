@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vip.darker.dao.PhotoDao">
+    <resultMap id="BaseResultMap" type="com.vip.darker.model.PhotoModel">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="readAmount" property="readAmount" jdbcType="INTEGER"/>
+        <result column="likeAmount" property="likeAmount" jdbcType="INTEGER"/>
+        <result column="classify" property="classify" jdbcType="VARCHAR"/>
+        <result column="isDelete" property="isDelete" jdbcType="INTEGER"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, title, description, path, readAmount, likeAmount, classify, isDelete, creator, 
+    createTime, updateTime
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from content_photo
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from content_photo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.vip.darker.model.PhotoModel">
+    insert into content_photo (id, title, description, 
+      path, readAmount, likeAmount, 
+      classify, isDelete, creator, 
+      createTime, updateTime)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{readAmount,jdbcType=INTEGER}, #{likeAmount,jdbcType=INTEGER}, 
+      #{classify,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, #{creator,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.vip.darker.model.PhotoModel">
+        insert into content_photo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="readAmount != null">
+                readAmount,
+            </if>
+            <if test="likeAmount != null">
+                likeAmount,
+            </if>
+            <if test="classify != null">
+                classify,
+            </if>
+            <if test="isDelete != null">
+                isDelete,
+            </if>
+            <if test="creator != null">
+                creator,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="updateTime != null">
+                updateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="readAmount != null">
+                #{readAmount,jdbcType=INTEGER},
+            </if>
+            <if test="likeAmount != null">
+                #{likeAmount,jdbcType=INTEGER},
+            </if>
+            <if test="classify != null">
+                #{classify,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.vip.darker.model.PhotoModel">
+        update content_photo
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="readAmount != null">
+                readAmount = #{readAmount,jdbcType=INTEGER},
+            </if>
+            <if test="likeAmount != null">
+                likeAmount = #{likeAmount,jdbcType=INTEGER},
+            </if>
+            <if test="classify != null">
+                classify = #{classify,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                isDelete = #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="creator != null">
+                creator = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.vip.darker.model.PhotoModel">
+    update content_photo
+    set title = #{title,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      readAmount = #{readAmount,jdbcType=INTEGER},
+      likeAmount = #{likeAmount,jdbcType=INTEGER},
+      classify = #{classify,jdbcType=VARCHAR},
+      isDelete = #{isDelete,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
