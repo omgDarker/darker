@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @Auther: Darker
+ * @Date: 2018/7/19 21:55
+ * @Description: 资源管理controller
+ */
 @RestController
 @RequestMapping(value = "resource")
 public class ResourceController {
@@ -22,10 +27,12 @@ public class ResourceController {
     }
 
     /**
-     * 资源新增
+     * 功能描述:资源新增
      *
-     * @param resourceModel
-     * @return
+     * @param: [resourceModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 21:59
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public boolean addResource(ResourceModel resourceModel) {
@@ -33,10 +40,12 @@ public class ResourceController {
     }
 
     /**
-     * 资源更新
+     * 功能描述: 资源更新
      *
-     * @param resourceModel
-     * @return
+     * @param: [resourceModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 22:00
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public boolean updateResource(@RequestBody ResourceModel resourceModel) {
@@ -44,11 +53,12 @@ public class ResourceController {
     }
 
     /**
-     * 资源更新{id}
+     * 功能描述: 资源更新
      *
-     * @param id
-     * @param resourceModel
-     * @return
+     * @param: [id, resourceModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 22:00
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public boolean updateResourceById(@PathVariable(value = "id") Integer id, @RequestBody ResourceModel resourceModel) {
@@ -56,10 +66,12 @@ public class ResourceController {
     }
 
     /**
-     * 资源删除(AR模式<-效率低->)
+     * 功能描述: 资源删除(AR模式<-效率低->)
      *
-     * @param resourceModel
-     * @return
+     * @param: [resourceModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 22:01
      */
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public boolean deleteReource(@RequestBody ResourceModel resourceModel) {
@@ -67,10 +79,12 @@ public class ResourceController {
     }
 
     /**
-     * 资源删除{id}
+     * 功能描述: 资源删除{id}
      *
-     * @param id
-     * @return
+     * @param: [id]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 22:01
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public boolean deleteReouseceById(@PathVariable(value = "id") Integer id) {
@@ -78,11 +92,12 @@ public class ResourceController {
     }
 
     /**
-     * 资源分页查询
+     * 功能描述: 资源查询分页
      *
-     * @param pageNum
-     * @param pageSize
-     * @return
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<com.vip.darker.model.ResourceModel>
+     * @auther: darker
+     * @date: 2018/7/19 22:02
      */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<ResourceModel> queryAllResource(
@@ -90,6 +105,6 @@ public class ResourceController {
                     int pageNum,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10")
                     int pageSize) {
-        return resourceService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+            return resourceService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

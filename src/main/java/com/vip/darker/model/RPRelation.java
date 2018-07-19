@@ -1,9 +1,23 @@
 package com.vip.darker.model;
 
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class RPRelation {
+/**
+ * 功能描述: 角色权限实体
+ *
+ * @auther: darker
+ * @date: 2018/7/19 23:21
+ */
+@TableName(value = "relation_role_permission")
+public class RPRelation extends Model<RPRelation> {
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private Integer roleId;
@@ -72,5 +86,10 @@ public class RPRelation {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
     }
 }

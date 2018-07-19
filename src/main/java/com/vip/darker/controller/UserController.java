@@ -1,0 +1,120 @@
+package com.vip.darker.controller;
+
+import com.baomidou.mybatisplus.plugins.Page;
+import com.vip.darker.model.PermissionModel;
+import com.vip.darker.model.RoleModel;
+import com.vip.darker.model.UserModel;
+import com.vip.darker.service.PermissionService;
+import com.vip.darker.service.RoleService;
+import com.vip.darker.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * @Auther: Darker
+ * @Date: 2018/7/19 22:27
+ * @Description: 用户管理controller
+ */
+@RestController
+@RequestMapping(value = "user")
+public class UserController {
+
+    private final UserService userService;
+    private final RoleService roleService;
+    private final PermissionService permissionService;
+
+    @Autowired
+    public UserController(@Qualifier(value = "userService") UserService userService,
+                          @Qualifier(value = "roleService") RoleService roleService,
+                          @Qualifier(value = "permissionService") PermissionService permissionService) {
+        this.userService = userService;
+        this.roleService = roleService;
+        this.permissionService = permissionService;
+    }
+
+
+    /**
+     * 功能描述: 用户新增
+     *
+     * @param: [userModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 22:38
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public boolean addUser(UserModel userModel) {
+        return userService.insert(userModel);
+    }
+
+    /**
+     * 功能描述: 用户更新
+     *
+     * @param: [userModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 22:40
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public boolean updateUser(@RequestBody UserModel userModel) {
+        return userService.updateById(userModel);
+    }
+
+    /**
+     * 功能描述: 用户删除
+     *
+     * @param: [id]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 22:43
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public boolean deleteUser(@PathVariable(value = "id") Integer id) {
+        return userService.deleteById(id);
+    }
+
+    /**
+     * 功能描述: 用户分页查询
+     *
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<com.vip.darker.model.UserModel>
+     * @auther: darker
+     * @date: 2018/7/19 22:47
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<UserModel> queryAllUser(
+            @RequestParam(value = "pageNum",required = false,defaultValue = "1")
+                    Integer pageNum,
+            @RequestParam(value = "pageSize",required = false,defaultValue = "10")
+                    Integer pageSize) {
+            return userService.selectPage(new Page<>(pageNum,pageSize)).getRecords();
+    }
+
+    /**
+     * 功能描述: 角色新增
+     *
+     * @param: [roleModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 22:50
+     */
+    @RequestMapping(value = "/addRole", method = RequestMethod.POST)
+    public boolean addRole(RoleModel roleModel) {
+        return roleService.insert(roleModel);
+    }
+
+    /**
+     * 功能描述: 权限新增
+     *
+     * @param: [permissionModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/19 23:04
+     */
+    @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
+    public boolean addPermission(PermissionModel permissionModel) {
+        return permissionService.insert(permissionModel);
+    }
+}

@@ -17,6 +17,7 @@ http://localhost:8080/index/message
 #内容后台管理
 http://localhost:8080/admin/home
 
+#XML配置
 #新增游客请求路径
 http://localhost:8080/visitorModel/add
 #查询游客列表路径

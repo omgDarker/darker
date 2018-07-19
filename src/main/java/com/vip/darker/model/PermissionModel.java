@@ -1,9 +1,17 @@
 package com.vip.darker.model;
 
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class PermissionModel {
+@TableName(value = "blog_permission")
+public class PermissionModel extends Model<PermissionModel> {
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private String name;
@@ -72,5 +80,10 @@ public class PermissionModel {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
     }
 }

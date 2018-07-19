@@ -1,9 +1,17 @@
 package com.vip.darker.model;
 
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class DiaryModel {
+@TableName(value = "content_diary")
+public class DiaryModel extends Model<DiaryModel> {
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private String title;
@@ -102,5 +110,10 @@ public class DiaryModel {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
     }
 }
