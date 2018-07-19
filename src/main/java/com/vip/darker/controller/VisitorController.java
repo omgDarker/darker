@@ -7,16 +7,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @description : 游客controller
+ * @description : 游客controller(example)
  * @date : Create in 2018-07-13 14:02
  */
 @RestController // @Controller+@ResponseBody
 @RequestMapping(value = "/visitor")
 public class VisitorController {
 
+    private final VisitorService visitorService;
+
     @Autowired
-    @Qualifier(value = "visitorService")
-    private VisitorService visitorService;
+    public VisitorController(@Qualifier(value = "visitorService") VisitorService visitorService) {
+        this.visitorService = visitorService;
+    }
 
     @PostMapping(value = "/add", produces = {"application/json;charset=UTF-8"})
     public int addVisitor(VisitorModel visitorModel) {

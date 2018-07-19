@@ -21,3 +21,6 @@ http://localhost:8080/admin/home
 http://localhost:8080/visitorModel/add
 #查询游客列表路径
 http://localhost:8080/visitorModel/all?pageNum=1&pageSize=2
+
+#durid
+http://localhost:8080/druid/index.html
