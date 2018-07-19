@@ -1,9 +1,17 @@
 package com.vip.darker.model;
 
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class ResourceModel {
+@TableName(value = "blog_resource")
+public class ResourceModel extends Model<ResourceModel> {
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private Float code;
@@ -92,5 +100,11 @@ public class ResourceModel {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    // 指定主键
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
     }
 }
