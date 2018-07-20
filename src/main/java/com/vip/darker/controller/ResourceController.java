@@ -3,7 +3,9 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.ResourceModel;
+import com.vip.darker.model.TrashModel;
 import com.vip.darker.service.ResourceService;
+import com.vip.darker.service.TrashService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +22,14 @@ import java.util.List;
 public class ResourceController {
 
     private final ResourceService resourceService;
+    private final TrashService trashService;
 
     @Autowired
-    public ResourceController(@Qualifier(value = "resourceService") ResourceService resourceService) {
+    public ResourceController(
+            @Qualifier(value = "resourceService") ResourceService resourceService,
+            @Qualifier(value = "trashService") TrashService trashService) {
         this.resourceService = resourceService;
+        this.trashService = trashService;
     }
 
     /**
@@ -105,6 +111,62 @@ public class ResourceController {
                     int pageNum,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10")
                     int pageSize) {
-            return resourceService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return resourceService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+    }
+
+    /**
+     * 功能描述: 回收站资源新增
+     *
+     * @param: [trashModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/20 12:03
+     */
+    @RequestMapping(value = "/addTrash", method = RequestMethod.POST)
+    public boolean addTrash(TrashModel trashModel) {
+        return trashService.insert(trashModel);
+    }
+
+    /**
+     * 功能描述: 回收站资源更新
+     *
+     * @param: [trashModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/20 12:06
+     */
+    @RequestMapping(value = "/updateTrash", method = RequestMethod.PUT)
+    public boolean updateTrash(@RequestBody TrashModel trashModel) {
+        return trashService.updateById(trashModel);
+    }
+
+    /**
+     * 功能描述: 回收站资源删除
+     *
+     * @param: [id]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/20 12:08
+     */
+    @RequestMapping(value = "/deleteTrash/{id}", method = RequestMethod.DELETE)
+    public boolean deleteTrash(@PathVariable(value = "id") Integer id) {
+        return trashService.deleteById(id);
+    }
+
+    /**
+     * 功能描述: 回收站资源分页查询
+     *
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<com.vip.darker.model.TrashModel>
+     * @auther: darker
+     * @date: 2018/7/20 12:11
+     */
+    @RequestMapping(value = "/allTrash", method = RequestMethod.GET)
+    public List<TrashModel> queryAllTrash(
+            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
+                    Integer pageNum,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
+                    Integer pageSize) {
+        return trashService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

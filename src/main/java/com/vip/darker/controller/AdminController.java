@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * @description ：内容管理CONTROLLER
+ * @Auther: Darker
+ * @description ：内容管理页面CONTROLLER
  * @date : 2018/7/17 23:08
  */
 @Controller

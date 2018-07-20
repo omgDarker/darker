@@ -85,11 +85,11 @@ public class UserController {
      */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<UserModel> queryAllUser(
-            @RequestParam(value = "pageNum",required = false,defaultValue = "1")
+            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
                     Integer pageNum,
-            @RequestParam(value = "pageSize",required = false,defaultValue = "10")
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-            return userService.selectPage(new Page<>(pageNum,pageSize)).getRecords();
+        return userService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -106,6 +106,49 @@ public class UserController {
     }
 
     /**
+     * 功能描述: 角色更新
+     *
+     * @param: [roleModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/20 11:26
+     */
+    @RequestMapping(value = "/updateRole", method = RequestMethod.PUT)
+    public boolean updateRole(@RequestBody RoleModel roleModel) {
+        return roleService.updateById(roleModel);
+    }
+
+    /**
+     * 功能描述: 角色删除
+     *
+     * @param: [id]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/20 11:30
+     */
+    @RequestMapping(value = "/deleteRole/{id}", method = RequestMethod.DELETE)
+    public boolean deleteRole(@PathVariable(value = "id") Integer id) {
+        return roleService.deleteById(id);
+    }
+
+    /**
+     * 功能描述: 角色分页查询
+     *
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<com.vip.darker.model.RoleModel>
+     * @auther: darker
+     * @date: 2018/7/20 11:34
+     */
+    @RequestMapping(value = "/allRole", method = RequestMethod.GET)
+    public List<RoleModel> queryAllRole(
+            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
+                    Integer pageNum,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
+                    Integer pageSize) {
+        return roleService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+    }
+
+    /**
      * 功能描述: 权限新增
      *
      * @param: [permissionModel]
@@ -116,5 +159,48 @@ public class UserController {
     @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
     public boolean addPermission(PermissionModel permissionModel) {
         return permissionService.insert(permissionModel);
+    }
+
+    /**
+     * 功能描述: 权限更新
+     *
+     * @param: [permissionModel]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/20 11:37
+     */
+    @RequestMapping(value = "/updatePermission", method = RequestMethod.PUT)
+    public boolean updatePermission(@RequestBody PermissionModel permissionModel) {
+        return permissionService.updateById(permissionModel);
+    }
+
+    /**
+     * 功能描述: 权限删除
+     *
+     * @param: [id]
+     * @return: boolean
+     * @auther: darker
+     * @date: 2018/7/20 11:39
+     */
+    @RequestMapping(value = "/deletePermission/{id}", method = RequestMethod.DELETE)
+    public boolean deletePermission(@PathVariable(value = "id") Integer id) {
+        return permissionService.deleteById(id);
+    }
+
+    /**
+     * 功能描述: 权限分页查询
+     *
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<com.vip.darker.model.PermissionModel>
+     * @auther: darker
+     * @date: 2018/7/20 11:42
+     */
+    @RequestMapping(value = "/allPermission", method = RequestMethod.GET)
+    public List<PermissionModel> queryAllPermission(
+            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
+                    Integer pageNum,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
+                    Integer pageSize) {
+        return permissionService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }
