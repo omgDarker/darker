@@ -1,12 +1,9 @@
 package com.vip.darker.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.PermissionModel;
-import com.vip.darker.model.RoleModel;
-import com.vip.darker.model.UserModel;
-import com.vip.darker.service.PermissionService;
-import com.vip.darker.service.RoleService;
-import com.vip.darker.service.UserService;
+import com.vip.darker.model.*;
+import com.vip.darker.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -25,41 +22,71 @@ public class UserController {
     private final UserService userService;
     private final RoleService roleService;
     private final PermissionService permissionService;
+    private final URRelationService urRelationService;
+    private final RPRelationService rpRelationService;
 
     @Autowired
     public UserController(@Qualifier(value = "userService") UserService userService,
                           @Qualifier(value = "roleService") RoleService roleService,
-                          @Qualifier(value = "permissionService") PermissionService permissionService) {
+                          @Qualifier(value = "permissionService") PermissionService permissionService,
+                          @Qualifier(value = "urRelationService") URRelationService urRelationService,
+                          @Qualifier(value = "rpRelationService") RPRelationService rpRelationService) {
         this.userService = userService;
         this.roleService = roleService;
         this.permissionService = permissionService;
+        this.urRelationService = urRelationService;
+        this.rpRelationService = rpRelationService;
     }
 
 
     /**
      * 功能描述: 用户新增
      *
-     * @param: [userModel]
+     * @param: [roleId, userModel]
      * @return: boolean
      * @auther: darker
      * @date: 2018/7/19 22:38
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public boolean addUser(UserModel userModel) {
-        return userService.insert(userModel);
+    public boolean addUser(@RequestParam(value = "roleId") Integer roleId, UserModel userModel) {
+
+        try {
+            // 用户新增
+            userService.insert(userModel);
+            // 用户角色关系数据新增
+            URRelation relation = new URRelation();
+            relation.setUserId(userModel.getId());
+            relation.setRoleId(roleId);
+            urRelationService.insert(relation);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * 功能描述: 用户更新
      *
-     * @param: [userModel]
+     * @param: [roleId, userModel]
      * @return: boolean
      * @auther: darker
      * @date: 2018/7/19 22:40
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public boolean updateUser(@RequestBody UserModel userModel) {
-        return userService.updateById(userModel);
+    public boolean updateUser(@RequestBody Integer roleId, @RequestBody UserModel userModel) {
+
+        try {
+            // 用户更新
+            userService.updateById(userModel);
+            // 用户角色关系数据更新
+            URRelation relation = new URRelation();
+            relation.setUserId(userModel.getId());
+            relation.setRoleId(roleId);
+            urRelationService.update(relation, new EntityWrapper<URRelation>().where("userId={0}", userModel.getId()));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -72,7 +99,16 @@ public class UserController {
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public boolean deleteUser(@PathVariable(value = "id") Integer id) {
-        return userService.deleteById(id);
+
+        try {
+            // 用户删除
+            userService.deleteById(id);
+            // 用户角色关系数据删除
+            urRelationService.delete(new EntityWrapper<URRelation>().where("userId={0}", id));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -95,27 +131,51 @@ public class UserController {
     /**
      * 功能描述: 角色新增
      *
-     * @param: [roleModel]
+     * @param: [permissionId, roleModel]
      * @return: boolean
      * @auther: darker
      * @date: 2018/7/19 22:50
      */
     @RequestMapping(value = "/addRole", method = RequestMethod.POST)
-    public boolean addRole(RoleModel roleModel) {
-        return roleService.insert(roleModel);
+    public boolean addRole(@RequestParam(value = "permissionId") Integer permissionId, RoleModel roleModel) {
+
+        try {
+            // 角色新增
+            roleService.insert(roleModel);
+            // 角色权限关系数据新增
+            RPRelation relation = new RPRelation();
+            relation.setRoleId(roleModel.getId());
+            relation.setPermissionId(permissionId);
+            rpRelationService.insert(relation);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * 功能描述: 角色更新
      *
-     * @param: [roleModel]
+     * @param: [permissionId, roleModel]
      * @return: boolean
      * @auther: darker
      * @date: 2018/7/20 11:26
      */
     @RequestMapping(value = "/updateRole", method = RequestMethod.PUT)
-    public boolean updateRole(@RequestBody RoleModel roleModel) {
-        return roleService.updateById(roleModel);
+    public boolean updateRole(@RequestBody Integer permissionId, @RequestBody RoleModel roleModel) {
+
+        try {
+            // 角色更新
+            roleService.updateById(roleModel);
+            // 角色权限关系数据更新
+            RPRelation relation = new RPRelation();
+            relation.setRoleId(roleModel.getId());
+            relation.setPermissionId(permissionId);
+            rpRelationService.update(relation, new EntityWrapper<RPRelation>().where("roleId={0}", roleModel.getId()));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -128,7 +188,16 @@ public class UserController {
      */
     @RequestMapping(value = "/deleteRole/{id}", method = RequestMethod.DELETE)
     public boolean deleteRole(@PathVariable(value = "id") Integer id) {
-        return roleService.deleteById(id);
+
+        try {
+            // 角色删除
+            roleService.deleteById(id);
+            // 角色权限关系数据删除
+            rpRelationService.delete(new EntityWrapper<RPRelation>().where("roleId={0}", id));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     /**
