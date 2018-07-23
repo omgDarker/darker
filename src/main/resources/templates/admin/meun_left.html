@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="meun_left">
+    <!-- 左侧菜单 -->
+    <div class="leftMeun" id="leftMeun">
+        <div id="logoDiv">
+            <p id="logoP">
+                <img id="logo" alt="darker" src="/images/logo.png">
+                <span>darker</span>
+            </p>
+        </div>
+        <!-- ADMIN -->
+        <div class="meun-title">ADMIN</div>
+        <!-- 资源管理 -->
+        <div class="meun-item meun-item-active" href="#resource" aria-controls="resource" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-folder-close"></span>资源管理
+        </div>
+        <div class="meun-item" href="#user" aria-controls="user" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-user"></span>用户管理
+        </div>
+        <div class="meun-item" href="#role" aria-controls="role" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-king"></span>角色管理
+        </div>
+        <div class="meun-item" href="#permission" aria-controls="permission" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-eye-open"></span>权限管理
+        </div>
+        <div class="meun-item" href="#trash" aria-controls="trash" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-trash"></span>回收站
+        </div>
+        <!-- 内容管理 -->
+        <div class="meun-title">内容管理</div>
+        <div class="meun-item" href="#diary" aria-controls="diary" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-book"></span>日记管理
+        </div>
+        <div class="meun-item" href="#article" aria-controls="article" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-list-alt"></span>文章管理
+        </div>
+        <div class="meun-item" href="#photo" aria-controls="photo" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-picture"></span>图片管理
+        </div>
+        <div class="meun-item" href="#message" aria-controls="message" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-tags"></span>留言板管理
+        </div>
+        <!-- 监控统计 -->
+        <div class="meun-title">监控统计</div>
+        <div class="meun-item" href="#statistics" aria-controls="statistics" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-signal"></span>统计信息
+        </div>
+        <div class="meun-item" href="#monitor" aria-controls="monitor" role="tab" data-toggle="tab">
+            <span class="iconcss glyphicon glyphicon-cog"></span>网站监控
+        </div>
+    </div>
+</div>
