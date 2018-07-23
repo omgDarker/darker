@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="time">
+    <div role="tabpanel" class="tab-pane" id="time">
+        <div class="check-div form-inline">
+                    <span href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab" style="cursor: pointer;"><span
+                            class="glyphicon glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;返回上一页</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-yellow btn-xs " data-toggle="modal" data-target="#addTime">添加时间段</button>
+
+        </div>
+        <div class="data-div">
+            <div class="row tableHeader">
+                <div class="col-xs-3 ">
+                    编码
+                </div>
+                <div class="col-xs-3">
+                    开始
+                </div>
+                <div class="col-xs-3">
+                    结束
+                </div>
+
+                <div class="col-xs-3">
+                    操作
+                </div>
+            </div>
+            <div class="tablebody">
+
+                <div class="row">
+                    <div class="col-xs-3 ">
+                        6426398978
+                    </div>
+                    <div class="col-xs-3">
+                        10:10
+                    </div>
+                    <div class="col-xs-3">
+                        19:30
+                    </div>
+                    <div class="col-xs-3">
+                        <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeTime">
+                            修改
+                        </button>
+                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteTime">删除
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--页码块-->
+        <footer class="footer">
+            <ul class="pagination">
+                <li>
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                    页
+                </li>
+                <li class="gray">
+                    共20页
+                </li>
+                <li>
+                    <i class="glyphicon glyphicon-menu-left">
+                    </i>
+                </li>
+                <li>
+                    <i class="glyphicon glyphicon-menu-right">
+                    </i>
+                </li>
+            </ul>
+        </footer>
+        <!--弹出增加时间段窗口-->
+        <div class="modal fade" id="addTime" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">时间段设置</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form class="form-horizontal">
+                                <div class="form-group ">
+                                    <label for="sName" class="col-xs-3 control-label">开始时间：</label>
+                                    <div class="col-xs-8 ">
+                                        <input type="email" class="form-control input-sm" id="sName"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="sName" class="col-xs-3 control-label">结束时间：</label>
+                                    <div class="col-xs-8 ">
+                                        <input type="email" class="form-control input-sm" id="sName"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                        <button type="button" class="btn btn-xs btn-green">保 存</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--修改增加时间段窗口-->
+        <div class="modal fade" id="changeTime" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">修改时间段</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form class="form-horizontal">
+                                <div class="form-group ">
+                                    <label for="sName" class="col-xs-3 control-label">开始时间：</label>
+                                    <div class="col-xs-8 ">
+                                        <input type="email" class="form-control input-sm duiqi" id="sName"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="sName" class="col-xs-3 control-label">结束时间：</label>
+                                    <div class="col-xs-8 ">
+                                        <input type="email" class="form-control input-sm duiqi" id="sName"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                        <button type="button" class="btn btn-green btn-xs">保 存</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!--弹出删除时间段警告窗口-->
+        <div class="modal fade" id="deleteTime" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            确定要删除该时间段？
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                        <button type="button" class="btn btn-danger btn-xs">保 存</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+</div>
