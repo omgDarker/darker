@@ -36,9 +36,11 @@
                     <span th:text="${resource.path}"></span>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateSource">修改
+                    <button class="btn btn-success btn-xs" data-toggle="modal" data-id="${resource.id}"
+                            data-target="#updateSource">修改
                     </button>
-                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除
+                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-id="${resource.id}"
+                            data-target="#deleteSource">删除
                     </button>
                 </div>
             </div>
@@ -190,12 +192,9 @@
                     </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal -->
-    <!--弹出删除资源警告窗口-->
+    <!--弹出窗口 删除资源-->
     <div class="modal fade" id="deleteSource" role="dialog" aria-labelledby="gridSystemModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -210,13 +209,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-xs btn-danger">确 认</button>
                     <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                    <button type="button" class="btn btn-xs btn-danger">保 存</button>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal -->
 </div>

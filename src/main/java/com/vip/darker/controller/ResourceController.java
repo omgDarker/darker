@@ -8,6 +8,8 @@ import com.vip.darker.service.ResourceService;
 import com.vip.darker.service.TrashService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
  * @Date: 2018/7/19 21:55
  * @Description: 资源管理controller
  */
-@RestController
+@Controller
 @RequestMapping(value = "resource")
 public class ResourceController {
 
@@ -25,9 +27,7 @@ public class ResourceController {
     private final TrashService trashService;
 
     @Autowired
-    public ResourceController(
-            @Qualifier(value = "resourceService") ResourceService resourceService,
-            @Qualifier(value = "trashService") TrashService trashService) {
+    public ResourceController(@Qualifier(value = "resourceService") ResourceService resourceService, @Qualifier(value = "trashService") TrashService trashService) {
         this.resourceService = resourceService;
         this.trashService = trashService;
     }
@@ -36,13 +36,21 @@ public class ResourceController {
      * 功能描述:资源新增
      *
      * @param: [resourceModel]
-     * @return: boolean
+     * @return: java.lang.String
      * @auther: darker
      * @date: 2018/7/19 21:59
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public boolean addResource(ResourceModel resourceModel) {
-        return resourceService.insert(resourceModel);
+    public String addResource(Model model, ResourceModel resourceModel) {
+
+        boolean flag = resourceService.insert( resourceModel );
+
+        if (flag) {
+            model.addAttribute( "msg", "数据新增成功！" );
+        } else {
+            model.addAttribute( "msg", "数据新增失败！" );
+        }
+        return "redirect:/admin/home";
     }
 
     /**
@@ -55,7 +63,7 @@ public class ResourceController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public boolean updateResource(ResourceModel resourceModel) {
-        return resourceService.updateById(resourceModel);
+        return resourceService.updateById( resourceModel );
     }
 
     /**
@@ -68,7 +76,7 @@ public class ResourceController {
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public boolean updateResourceById(@PathVariable(value = "id") Integer id, @RequestBody ResourceModel resourceModel) {
-        return resourceService.update(resourceModel, new EntityWrapper<ResourceModel>().eq("id", id));
+        return resourceService.update( resourceModel, new EntityWrapper<ResourceModel>().eq( "id", id ) );
     }
 
     /**
@@ -94,7 +102,7 @@ public class ResourceController {
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public boolean deleteReouseceById(@PathVariable(value = "id") Integer id) {
-        return resourceService.deleteById(id);
+        return resourceService.deleteById( id );
     }
 
     /**
@@ -106,12 +114,8 @@ public class ResourceController {
      * @date: 2018/7/19 22:02
      */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<ResourceModel> queryAllResource(
-            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
-                    int pageNum,
-            @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                    int pageSize) {
-        return resourceService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+    public List<ResourceModel> queryAllResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum, @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return resourceService.selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
     }
 
     /**
@@ -124,7 +128,7 @@ public class ResourceController {
      */
     @RequestMapping(value = "/addTrash", method = RequestMethod.POST)
     public boolean addTrash(TrashModel trashModel) {
-        return trashService.insert(trashModel);
+        return trashService.insert( trashModel );
     }
 
     /**
@@ -137,7 +141,7 @@ public class ResourceController {
      */
     @RequestMapping(value = "/updateTrash", method = RequestMethod.PUT)
     public boolean updateTrash(@RequestBody TrashModel trashModel) {
-        return trashService.updateById(trashModel);
+        return trashService.updateById( trashModel );
     }
 
     /**
@@ -150,7 +154,7 @@ public class ResourceController {
      */
     @RequestMapping(value = "/deleteTrash/{id}", method = RequestMethod.DELETE)
     public boolean deleteTrash(@PathVariable(value = "id") Integer id) {
-        return trashService.deleteById(id);
+        return trashService.deleteById( id );
     }
 
     /**
@@ -162,11 +166,7 @@ public class ResourceController {
      * @date: 2018/7/20 12:11
      */
     @RequestMapping(value = "/allTrash", method = RequestMethod.GET)
-    public List<TrashModel> queryAllTrash(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
-                    Integer pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
-                    Integer pageSize) {
-        return trashService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+    public List<TrashModel> queryAllTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+        return trashService.selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
     }
 }

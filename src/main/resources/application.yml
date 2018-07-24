@@ -41,7 +41,9 @@ spring:
            prefix: /templates/
            suffix: .html
          static-path-pattern: /**
-
+     #禁止thymeleaf缓存（建议：开发环境设置为false，生成环境设置为true）
+     thymeleaf:
+          cache : true
 # 配置MP
 mybatis-plus:
   # 配置扫描xml
