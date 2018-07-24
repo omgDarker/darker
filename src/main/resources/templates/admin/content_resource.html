@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="resouce" role="tabpanel" class="tab-pane active" id="resource">
+    <!-- 资源管理模块 -->
+    <div class="check-div form-inline">
+        <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addSource">添加资源</button>
+    </div>
+    <div class="data-div">
+        <!-- 列名 -->
+        <div class="row tableHeader">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 ">
+                序号
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                资源名称
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                资源链接
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                资源操作
+            </div>
+        </div>
+        <!-- 数据 -->
+        <div class="tablebody">
+            <!--/*@thymesVar id="resourceList" type="java.util.List"*/-->
+            <div class="row" th:each="resource : ${resourceList}">
+                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3 ">
+                    <span th:text="${resource.id}"></span>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  levl3">
+                    <span class=""> &nbsp;</span>
+                    <span th:text="${resource.name}"></span>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <span th:text="${resource.path}"></span>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#updateSource">修改
+                    </button>
+                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--页码块-->
+    <footer class="footer">
+        <ul class="pagination">
+            <li>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                </select>
+                页
+            </li>
+            <li class="gray">
+                共20页
+            </li>
+            <li>
+                <i class="glyphicon glyphicon-menu-left">
+                </i>
+            </li>
+            <li>
+                <i class="glyphicon glyphicon-menu-right">
+                </i>
+            </li>
+        </ul>
+    </footer>
+    <!--弹出窗口 添加资源-->
+    <div class="modal fade" id="addSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- 弹窗头 -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">添加资源</h4>
+                </div>
+                <!-- 弹窗体 -->
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form class="form-horizontal" action="/resource/add" method="POST">
+                            <div class="form-group ">
+                                <label for="name" class="col-xs-3 control-label">资源名称：</label>
+                                <div class="col-xs-8 ">
+                                    <input type="text" class="form-control input-sm duiqi" id="name"
+                                           name="name" placeholder="请输入资源名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="path" class="col-xs-3 control-label">资源链接：</label>
+                                <div class="col-xs-8 ">
+                                    <input type="text" class="form-control input-sm duiqi" id="path"
+                                           name="path" placeholder="请输入资源链接">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="parentName" class="col-xs-3 control-label">父节点：</label>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control input-sm duiqi" id="parentName"
+                                           name="parentName" placeholder="请输入父节点">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">资源类型：</label>
+                                <div class="col-xs-8">
+                                    <label class="control-label" for="index">
+                                        <input type="radio" name="classify" id="index" value="index">index</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="control-label" for="admin">
+                                        <input type="radio" name="classify" id="admin" value="admin">admin</label>
+                                </div>
+                            </div>
+                            <!-- 按钮 -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-xs btn-xs btn-green">保 存</button>
+                                <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--弹出窗口 修改资源-->
+    <div class="modal fade" id="updateSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">修改资源</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form class="form-horizontal" action="/resource/update" method="POST">
+                            <!-- form表单不支持put请求方式的解决方案 -->
+                            <input type="hidden" name="_method" value="PUT"/>
+                            <input type="hidden" name="id" th:value="id">
+                            <div class="form-group ">
+                                <label for="name" class="col-xs-3 control-label">资源名称：</label>
+                                <div class="col-xs-8 ">
+                                    <input type="text" class="form-control input-sm duiqi" id="name"
+                                           name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="path" class="col-xs-3 control-label">资源链接：</label>
+                                <div class="col-xs-8 ">
+                                    <input type="text" class="form-control input-sm duiqi" id="path"
+                                           name="path">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="parentName" class="col-xs-3 control-label">父节点：</label>
+                                <div class="col-xs-8">
+                                    <input type="text" class="form-control input-sm duiqi" id="parentName"
+                                           name="parentName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">资源类型：</label>
+                                <div class="col-xs-8">
+                                    <label class="control-label" for="index">
+                                        <input type="radio" name="classify" id="index" value="index">index</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="control-label" for="admin">
+                                        <input type="radio" name="classify" id="admin" value="admin">admin</label>
+                                </div>
+                            </div>
+                            <!-- 按钮 -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-xs btn-xs btn-green">保 存</button>
+                                <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--弹出删除资源警告窗口-->
+    <div class="modal fade" id="deleteSource" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        确定要删除该资源？删除后不可恢复！
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-xs btn-danger">保 存</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</div>

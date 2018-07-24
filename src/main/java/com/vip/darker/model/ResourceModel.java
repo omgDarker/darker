@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,6 +22,8 @@ public class ResourceModel extends Model<ResourceModel> {
     private String path;
 
     private String parentName;
+
+    private String classify;
 
     private Integer isDelete;
 
@@ -51,7 +54,7 @@ public class ResourceModel extends Model<ResourceModel> {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getPath() {
@@ -59,7 +62,7 @@ public class ResourceModel extends Model<ResourceModel> {
     }
 
     public void setPath(String path) {
-        this.path = path == null ? null : path.trim();
+        this.path = path;
     }
 
     public String getParentName() {
@@ -67,7 +70,15 @@ public class ResourceModel extends Model<ResourceModel> {
     }
 
     public void setParentName(String parentName) {
-        this.parentName = parentName == null ? null : parentName.trim();
+        this.parentName = parentName;
+    }
+
+    public String getClassify() {
+        return classify;
+    }
+
+    public void setClassify(String classify) {
+        this.classify = classify;
     }
 
     public Integer getIsDelete() {
@@ -75,7 +86,11 @@ public class ResourceModel extends Model<ResourceModel> {
     }
 
     public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
+        if (isDelete != null) {
+            this.isDelete = isDelete;
+        } else {
+            this.isDelete = 0;
+        }
     }
 
     public String getCreator() {
@@ -83,7 +98,12 @@ public class ResourceModel extends Model<ResourceModel> {
     }
 
     public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+        if (StringUtils.isNotBlank(creator)) {
+            this.creator = creator;
+        } else {
+            this.creator = "darker";
+        }
+
     }
 
     public Date getCreateTime() {
@@ -91,7 +111,11 @@ public class ResourceModel extends Model<ResourceModel> {
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        if (createTime != null) {
+            this.createTime = createTime;
+        } else {
+            this.createTime = new Date();
+        }
     }
 
     public Date getUpdateTime() {

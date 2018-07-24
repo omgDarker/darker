@@ -25,7 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *                             `=---='
  *
  *          .............................................
- *                   佛祖镇楼                  BUG辟易
+ *                   [佛祖镇楼]       [BUG辟易]
  *           佛曰:
  *                   写字楼里写字间，写字间里程序员；
  *                   程序人员写程序，又拿程序换酒钱。
@@ -39,7 +39,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication // 启动类注释
 @MapperScan("com.vip.darker.dao")
 public class DarkerApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(DarkerApplication.class, args);
     }

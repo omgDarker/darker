@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,22 +19,6 @@
                 // 新增选中菜单激活样式
                 $(this).addClass("meun-item-active");
             });
-            $("#topAD").click(function () {
-                $("#topA").toggleClass("glyphicon-triangle-right");
-                $("#topA").toggleClass("glyphicon-triangle-bottom");
-            });
-            $("#topBD").click(function () {
-                $("#topB").toggleClass("glyphicon-triangle-right");
-                $("#topB").toggleClass("glyphicon-triangle-bottom");
-            });
-            $("#topCD").click(function () {
-                $("#topC").toggleClass("glyphicon-triangle-right");
-                $("#topC").toggleClass("glyphicon-triangle-bottom");
-            });
-            $(".toggle-btn").click(function () {
-                $("#leftMeun").toggleClass("show");
-                $("#rightContent").toggleClass("pd0px");
-            })
         })
     </script>
     <link rel="shortcut icon" href="/images/favicon-.ico" type="image/x-icon"/>

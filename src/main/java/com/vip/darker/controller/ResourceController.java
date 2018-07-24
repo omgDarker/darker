@@ -54,7 +54,7 @@ public class ResourceController {
      * @date: 2018/7/19 22:00
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public boolean updateResource(@RequestBody ResourceModel resourceModel) {
+    public boolean updateResource(ResourceModel resourceModel) {
         return resourceService.updateById(resourceModel);
     }
 
