@@ -36,12 +36,11 @@
                     <span th:text="${resource.path}"></span>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <button class="btn btn-success btn-xs" data-toggle="modal" data-id="${resource.id}"
-                            data-target="#updateSource">修改
-                    </button>
-                    <button class="btn btn-danger btn-xs" data-toggle="modal" data-id="${resource.id}"
-                            data-target="#deleteSource">删除
-                    </button>
+                    <a class="btn btn-success btn-xs" data-toggle="modal" data-id="${resource.id}"
+                       data-target="#updateSource">修改
+                    </a>
+                    <a class="btn btn-danger btn-xs" data-toggle="modal"
+                       th:onclick="'javascript:deleteAll(\''+${resource.id}+'\',\''+resource+'\');'">删除</a>
                 </div>
             </div>
         </div>
@@ -209,8 +208,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-xs btn-danger">确 认</button>
-                    <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-xs btn-danger" value="true">确 认</button>
+                    <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" value="false">取 消</button>
                 </div>
             </div>
         </div>
