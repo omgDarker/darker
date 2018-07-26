@@ -36,12 +36,13 @@
                     <span th:text="${resource.path}"></span>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <a class="btn btn-success btn-xs" data-toggle="modal" data-id="${resource.id}"
-                       data-target="#updateResource"
-                       th:onclick="'javascript:queryResource(\''+${resource.id}+'\');'">修改</a>;
-                    <!--th:href="@{/resource/all/{id}(id=${resource.id})}"-->
-                    <a class="btn btn-danger btn-xs" data-toggle="modal"
-                       th:onclick="'javascript:deleteAll(\''+${resource.id}+'\',\''+resource+'\');'">删除</a>
+                    <button class="btn btn-success btn-xs" data-toggle="modal" data-id="${resource.id}"
+                            data-target="#updateResource"
+                            th:onclick="'javascript:queryResource(\''+${resource.id}+'\');'">修改
+                    </button>
+                    <button class="btn btn-danger btn-xs" data-toggle="modal"
+                            th:onclick="'javascript:deleteResource(\''+${resource.id}+'\');'">删除
+                    </button>
                 </div>
             </div>
         </div>
@@ -95,21 +96,21 @@
                             <div class="form-group ">
                                 <label for="name" class="col-xs-3 control-label">资源名称：</label>
                                 <div class="col-xs-8 ">
-                                    <input type="text" class="form-control input-sm duiqi" id="name"
+                                    <input type="text" class="form-control input-sm duiqi"
                                            name="name" placeholder="请输入资源名称">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="path" class="col-xs-3 control-label">资源链接：</label>
                                 <div class="col-xs-8 ">
-                                    <input type="text" class="form-control input-sm duiqi" id="path"
+                                    <input type="text" class="form-control input-sm duiqi"
                                            name="path" placeholder="请输入资源链接">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="parentName" class="col-xs-3 control-label">父节点：</label>
                                 <div class="col-xs-8">
-                                    <input type="text" class="form-control input-sm duiqi" id="parentName"
+                                    <input type="text" class="form-control input-sm duiqi"
                                            name="parentName" placeholder="请输入父节点">
                                 </div>
                             </div>
@@ -117,13 +118,12 @@
                                 <label for="" class="col-xs-3 control-label">资源类型：</label>
                                 <div class="col-xs-8">
                                     <label class="control-label" for="index">
-                                        <input type="radio" name="classify" id="index" value="index">index</label>
+                                        <input type="radio" name="classify" value="index">index</label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label class="control-label" for="admin">
-                                        <input type="radio" name="classify" id="admin" value="admin">admin</label>
+                                        <input type="radio" name="classify" value="admin">admin</label>
                                 </div>
                             </div>
-                            <!-- 按钮 -->
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-xs btn-xs btn-green">保 存</button>
                                 <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消
@@ -150,26 +150,26 @@
                         <form class="form-horizontal" action="/resource/update" method="POST">
                             <!-- form表单不支持put请求方式的解决方案 -->
                             <input type="hidden" name="_method" value="PUT"/>
-                            <input type="hidden" name="id" value="${resource.id}">
+                            <input type="hidden" id="id" name="id" value="">
                             <div class="form-group ">
                                 <label for="name" class="col-xs-3 control-label">资源名称：</label>
                                 <div class="col-xs-8 ">
                                     <input type="text" class="form-control input-sm duiqi" id="name"
-                                           name="name" th:value="${resource.name}">
+                                           name="name" value="">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="path" class="col-xs-3 control-label">资源链接：</label>
                                 <div class="col-xs-8 ">
                                     <input type="text" class="form-control input-sm duiqi" id="path"
-                                           name="path" th:value="${resource.path}">
+                                           name="path" value="">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="parentName" class="col-xs-3 control-label">父节点：</label>
                                 <div class="col-xs-8">
                                     <input type="text" class="form-control input-sm duiqi" id="parentName"
-                                           name="parentName" th:value="${resource.parentName}">
+                                           name="parentName" value="">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -194,25 +194,93 @@
             </div>
         </div>
     </div>
-    <!--弹出窗口 删除资源-->
-    <div class="modal fade" id="deleteSource" role="dialog" aria-labelledby="gridSystemModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        确定要删除该资源？删除后不可恢复！
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-xs btn-danger" value="true">确 认</button>
-                    <button type="button" class="btn btn-xs btn-white" data-dismiss="modal" value="false">取 消</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+        // 查询资源实体
+        function queryResource(id) {
+            $.ajax({
+                //请求URL地址,controller的名称
+                url: "/resource/all/" + id,
+                //请求返回数据格式为json,还可以是text等
+                dataType: "json",
+                //请求是否为异步,默认是true
+                async: true,
+                //是否从浏览器缓存中加载数据信息
+                cache: false,
+                //设置请求超时时间
+                timeout: 1000,
+                //参数值,如果URL带参数,这里就可以不用写了
+                data: {},
+                //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                type: "GET",
+                //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                beforeSend: function () {
+                },
+                //请求成功时的处理函数,参数(返回数据,返回状态)
+                success: function (data) {
+                    // 隐藏模态框
+                    $("#updateSource").modal('hide');
+                    // 返回实体类
+                    $("#id").val(data.id);
+                    $("#name").val(data.name);
+                    $("#path").val(data.path);
+                    $("#parentName").val(data.parentName);
+                    // 资源选项
+                    if (data.classify === 'admin') {
+                        $("#admin").attr("checked", "checked");
+                    } else if (data.classify === 'index') {
+                        $("#index").attr("checked", "checked");
+                    }
+                    // 显示模态框
+                    $("#updateSource").modal('show');
+                },
+                //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                complete: function () {
+                },
+                //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                error: function () {
+                }
+            });
+        };
+
+        // 删除操作
+        function deleteResource(id) {
+
+            if (confirm("确认删除此条数据吗?")) {
+
+                $.ajax({
+                    //请求URL地址,controller的名称
+                    url: "/resource/delete/" + id,
+                    //请求返回数据格式为json,还可以是text等
+                    dataType: "json",
+                    //请求是否为异步,默认是true
+                    async: true,
+                    //是否从浏览器缓存中加载数据信息
+                    cache: false,
+                    //设置请求超时时间
+                    timeout: 1000,
+                    //参数值,如果URL带参数,这里就可以不用写了
+                    data: {},
+                    //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                    type: "DELETE",
+                    //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                    beforeSend: function () {
+                    },
+                    //请求成功时的处理函数,参数(返回数据,返回状态)
+                    success: function (data) {
+                        // 提示信息
+                        alert(JSON.stringify(data.msg));
+                        // 刷新页面
+                        window.location.href = "/admin/home";
+                    },
+                    //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                    complete: function () {
+                    },
+                    //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                    error: function () {
+                    }
+                });
+            }
+        };
+    </script>
 </div>
+
