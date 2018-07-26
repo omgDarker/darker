@@ -6,6 +6,7 @@ import com.vip.darker.model.MonitorModel;
 import com.vip.darker.service.MonitorService;
 import org.springframework.stereotype.Service;
 
-@Service(value = "monitorService")
+@Service(value = MonitorServiceImpl.BEAN_NAME)
 public class MonitorServiceImpl extends ServiceImpl<MonitorMapper, MonitorModel> implements MonitorService {
+    public static final String BEAN_NAME = "monitorService";
 }

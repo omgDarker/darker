@@ -4,11 +4,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.controller.base.BaseController;
 import com.vip.darker.model.ResourceModel;
 import com.vip.darker.model.TrashModel;
-import com.vip.darker.service.ResourceService;
-import com.vip.darker.service.TrashService;
+import com.vip.darker.system.locator.SystemServiceLocator;
 import com.vip.darker.util.Constant;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,17 +23,6 @@ import java.util.Map;
 @RequestMapping(value = "resource")
 public class ResourceController extends BaseController {
 
-    private final ResourceService resourceService;
-    private final TrashService trashService;
-
-    @Autowired
-    public ResourceController(
-            @Qualifier(value = "resourceService") ResourceService resourceService,
-            @Qualifier(value = "trashService") TrashService trashService) {
-        this.resourceService = resourceService;
-        this.trashService = trashService;
-    }
-
     /**
      * 功能描述: 资源新增
      *
@@ -48,7 +34,7 @@ public class ResourceController extends BaseController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView addResource(ResourceModel resourceModel) {
 
-        boolean flag = resourceService.insert(resourceModel);
+        boolean flag = SystemServiceLocator.getResourceService().insert(resourceModel);
 
         ModelAndView model = new ModelAndView(Constant.ADMIN_HOME_REDIRECT);
 
@@ -68,7 +54,7 @@ public class ResourceController extends BaseController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ModelAndView updateResource(ResourceModel resourceModel) {
 
-        boolean flag = resourceService.updateById(resourceModel);
+        boolean flag = SystemServiceLocator.getResourceService().updateById(resourceModel);
 
         ModelAndView model = new ModelAndView(Constant.ADMIN_HOME_REDIRECT);
 
@@ -89,7 +75,7 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public Map<String, Object> deleteReouseceById(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = resourceService.deleteById(id);
+        boolean flag = SystemServiceLocator.getResourceService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -109,7 +95,7 @@ public class ResourceController extends BaseController {
     @RequestMapping(value = "/all/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResourceModel queryResouceById(@PathVariable(value = "id") Integer id) {
-        return resourceService.selectById(id);
+        return SystemServiceLocator.getResourceService().selectById(id);
     }
 
     /**
@@ -126,7 +112,7 @@ public class ResourceController extends BaseController {
                     int pageNum,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10")
                     int pageSize) {
-        return resourceService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getResourceService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -139,7 +125,7 @@ public class ResourceController extends BaseController {
      */
     @RequestMapping(value = "/addTrash", method = RequestMethod.POST)
     public boolean addTrash(TrashModel trashModel) {
-        return trashService.insert(trashModel);
+        return SystemServiceLocator.getTrashService().insert(trashModel);
     }
 
     /**
@@ -152,7 +138,7 @@ public class ResourceController extends BaseController {
      */
     @RequestMapping(value = "/updateTrash", method = RequestMethod.PUT)
     public boolean updateTrash(@RequestBody TrashModel trashModel) {
-        return trashService.updateById(trashModel);
+        return SystemServiceLocator.getTrashService().updateById(trashModel);
     }
 
     /**
@@ -165,7 +151,7 @@ public class ResourceController extends BaseController {
      */
     @RequestMapping(value = "/deleteTrash/{id}", method = RequestMethod.DELETE)
     public boolean deleteTrash(@PathVariable(value = "id") Integer id) {
-        return trashService.deleteById(id);
+        return SystemServiceLocator.getTrashService().deleteById(id);
     }
 
     /**
@@ -182,6 +168,6 @@ public class ResourceController extends BaseController {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return trashService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getTrashService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

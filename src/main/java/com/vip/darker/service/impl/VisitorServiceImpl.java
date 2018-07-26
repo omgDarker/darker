@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service(value = "visitorService")
+@Service(value = VisitorServiceImpl.BEAN_NAME)
 public class VisitorServiceImpl implements VisitorService {
+
+    public static final String BEAN_NAME = "visitorService";
 
     @Autowired
     private VisitorDao visitorDao;

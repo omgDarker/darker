@@ -1,8 +1,10 @@
 package com.vip.darker;
 
+import com.vip.darker.system.SpringBootApplicationContent;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 /**
  *                             _ooOoo_
@@ -40,6 +42,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.vip.darker.dao")
 public class DarkerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DarkerApplication.class, args);
+        ApplicationContext applicationContext = SpringApplication.run(DarkerApplication.class, args);
+        // 获取容器上下文
+        SpringBootApplicationContent.setApplicationContext(applicationContext);
     }
 }

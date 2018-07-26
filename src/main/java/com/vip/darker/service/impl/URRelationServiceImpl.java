@@ -6,11 +6,7 @@ import com.vip.darker.model.URRelation;
 import com.vip.darker.service.URRelationService;
 import org.springframework.stereotype.Service;
 
-/**
- * @Auther: Darker
- * @Date: 2018/7/21 10:10
- * @Description:
- */
-@Service(value = "urRelationService")
+@Service(value = URRelationServiceImpl.BEAN_NAME)
 public class URRelationServiceImpl extends ServiceImpl<URRelationMapper, URRelation> implements URRelationService {
+    public static final String BEAN_NAME = "urRelationService";
 }

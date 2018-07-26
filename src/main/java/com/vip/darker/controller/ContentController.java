@@ -5,11 +5,7 @@ import com.vip.darker.model.ArticleModel;
 import com.vip.darker.model.DiaryModel;
 import com.vip.darker.model.MessageModel;
 import com.vip.darker.model.PhotoModel;
-import com.vip.darker.service.ArticleService;
-import com.vip.darker.service.DiaryService;
-import com.vip.darker.service.MessageService;
-import com.vip.darker.service.PhotoService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.vip.darker.system.locator.SystemServiceLocator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,22 +19,6 @@ import java.util.List;
 @RequestMapping(value = "content")
 public class ContentController {
 
-    private DiaryService diaryService;
-    private ArticleService articleService;
-    private PhotoService photoService;
-    private MessageService messageService;
-
-    public ContentController(
-            @Qualifier(value = "diaryService") DiaryService diaryService,
-            @Qualifier(value = "articleService") ArticleService articleService,
-            @Qualifier(value = "photoService") PhotoService photoService,
-            @Qualifier(value = "messageService") MessageService messageService) {
-        this.diaryService = diaryService;
-        this.articleService = articleService;
-        this.photoService = photoService;
-        this.messageService = messageService;
-    }
-
     /**
      * 功能描述:日志新增
      *
@@ -49,7 +29,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/addDiary", method = RequestMethod.POST)
     public boolean addDiary(DiaryModel diaryModel) {
-        return diaryService.insert(diaryModel);
+        return SystemServiceLocator.getDiaryService().insert(diaryModel);
     }
 
     /**
@@ -62,7 +42,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/updateDiary", method = RequestMethod.PUT)
     public boolean updateDiary(@RequestBody DiaryModel diaryModel) {
-        return diaryService.updateById(diaryModel);
+        return SystemServiceLocator.getDiaryService().updateById(diaryModel);
     }
 
     /**
@@ -75,7 +55,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/deleteDiary/{id}", method = RequestMethod.DELETE)
     public boolean deleteDiary(@PathVariable(value = "id") Integer id) {
-        return diaryService.deleteById(id);
+        return SystemServiceLocator.getDiaryService().deleteById(id);
     }
 
     /**
@@ -92,7 +72,7 @@ public class ContentController {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return diaryService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getDiaryService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -105,7 +85,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
     public boolean addArticle(ArticleModel articleModel) {
-        return articleService.insert(articleModel);
+        return SystemServiceLocator.getArticleService().insert(articleModel);
     }
 
     /**
@@ -118,7 +98,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
     public boolean updateArticle(@RequestBody ArticleModel articleModel) {
-        return articleService.updateById(articleModel);
+        return SystemServiceLocator.getArticleService().updateById(articleModel);
     }
 
     /**
@@ -131,7 +111,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/deleteArticle/{id}", method = RequestMethod.DELETE)
     public boolean deleteArticle(@PathVariable(value = "id") Integer id) {
-        return articleService.deleteById(id);
+        return SystemServiceLocator.getArticleService().deleteById(id);
     }
 
     /**
@@ -148,7 +128,7 @@ public class ContentController {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return articleService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -161,7 +141,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
     public boolean addPhoto(PhotoModel photoModel) {
-        return photoService.insert(photoModel);
+        return SystemServiceLocator.getPhotoService().insert(photoModel);
     }
 
     /**
@@ -174,7 +154,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/updatePhoto", method = RequestMethod.PUT)
     public boolean updatePhoto(@RequestBody PhotoModel photoModel) {
-        return photoService.updateById(photoModel);
+        return SystemServiceLocator.getPhotoService().updateById(photoModel);
     }
 
     /**
@@ -187,7 +167,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/deletePhoto/{id}", method = RequestMethod.DELETE)
     public boolean deletePhoto(@PathVariable(value = "id") Integer id) {
-        return photoService.deleteById(id);
+        return SystemServiceLocator.getPhotoService().deleteById(id);
     }
 
     /**
@@ -204,7 +184,7 @@ public class ContentController {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return photoService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -217,7 +197,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
     public boolean addMessage(MessageModel messageModel) {
-        return messageService.insert(messageModel);
+        return SystemServiceLocator.getMessageService().insert(messageModel);
     }
 
     /**
@@ -230,7 +210,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/updateMessage", method = RequestMethod.PUT)
     public boolean updateMessage(@RequestBody MessageModel messageModel) {
-        return messageService.updateById(messageModel);
+        return SystemServiceLocator.getMessageService().updateById(messageModel);
     }
 
     /**
@@ -243,7 +223,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/deleteMessage/{id}", method = RequestMethod.DELETE)
     public boolean deleteMessage(@PathVariable(value = "id") Integer id) {
-        return messageService.deleteById(id);
+        return SystemServiceLocator.getMessageService().deleteById(id);
     }
 
     /**
@@ -260,6 +240,6 @@ public class ContentController {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return messageService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

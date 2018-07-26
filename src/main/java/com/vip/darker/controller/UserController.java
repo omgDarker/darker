@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.*;
 import com.vip.darker.service.*;
+import com.vip.darker.system.locator.SystemServiceLocator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -19,26 +20,6 @@ import java.util.List;
 @RequestMapping(value = "user")
 public class UserController {
 
-    private final UserService userService;
-    private final RoleService roleService;
-    private final PermissionService permissionService;
-    private final URRelationService urRelationService;
-    private final RPRelationService rpRelationService;
-
-    @Autowired
-    public UserController(@Qualifier(value = "userService") UserService userService,
-                          @Qualifier(value = "roleService") RoleService roleService,
-                          @Qualifier(value = "permissionService") PermissionService permissionService,
-                          @Qualifier(value = "urRelationService") URRelationService urRelationService,
-                          @Qualifier(value = "rpRelationService") RPRelationService rpRelationService) {
-        this.userService = userService;
-        this.roleService = roleService;
-        this.permissionService = permissionService;
-        this.urRelationService = urRelationService;
-        this.rpRelationService = rpRelationService;
-    }
-
-
     /**
      * 功能描述: 用户新增
      *
@@ -52,12 +33,12 @@ public class UserController {
 
         try {
             // 用户新增
-            userService.insert(userModel);
+            SystemServiceLocator.getUserService().insert(userModel);
             // 用户角色关系数据新增
             URRelation relation = new URRelation();
             relation.setUserId(userModel.getId());
             relation.setRoleId(roleId);
-            urRelationService.insert(relation);
+            SystemServiceLocator.getURRelationService().insert(relation);
         } catch (Exception e) {
             return false;
         }
@@ -77,12 +58,12 @@ public class UserController {
 
         try {
             // 用户更新
-            userService.updateById(userModel);
+            SystemServiceLocator.getUserService().updateById(userModel);
             // 用户角色关系数据更新
             URRelation relation = new URRelation();
             relation.setUserId(userModel.getId());
             relation.setRoleId(roleId);
-            urRelationService.update(relation, new EntityWrapper<URRelation>().where("userId={0}", userModel.getId()));
+            SystemServiceLocator.getURRelationService().update(relation, new EntityWrapper<URRelation>().where("userId={0}", userModel.getId()));
         } catch (Exception e) {
             return false;
         }

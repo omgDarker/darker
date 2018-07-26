@@ -3,9 +3,7 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.MonitorModel;
 import com.vip.darker.model.StatisticsModel;
-import com.vip.darker.service.MonitorService;
-import com.vip.darker.service.StatisticsService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.vip.darker.system.locator.SystemServiceLocator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +15,6 @@ import java.util.List;
  */
 public class OperationContorller {
 
-    private StatisticsService statisticsService;
-    private MonitorService monitorService;
-
-    public OperationContorller(
-            @Qualifier(value = "statisticsService") StatisticsService statisticsService,
-            @Qualifier(value = "monitorService") MonitorService monitorService) {
-        this.statisticsService = statisticsService;
-        this.monitorService = monitorService;
-    }
-
     /**
      * 功能描述: 统计新增
      *
@@ -37,7 +25,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/addStatistics", method = RequestMethod.POST)
     public boolean addStatistics(StatisticsModel statisticsModel) {
-        return statisticsService.insert(statisticsModel);
+        return SystemServiceLocator.getStatisticsService().insert(statisticsModel);
     }
 
     /**
@@ -50,7 +38,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/deleteStatistics/{id}", method = RequestMethod.DELETE)
     public boolean deleteStatistics(@PathVariable(value = "id") Integer id) {
-        return statisticsService.deleteById(id);
+        return SystemServiceLocator.getStatisticsService().deleteById(id);
     }
 
     /**
@@ -63,7 +51,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/updateStatistics", method = RequestMethod.PUT)
     public boolean updateStatistics(StatisticsModel statisticsModel) {
-        return statisticsService.updateById(statisticsModel);
+        return SystemServiceLocator.getStatisticsService().updateById(statisticsModel);
     }
 
     /**
@@ -79,7 +67,7 @@ public class OperationContorller {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return statisticsService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getStatisticsService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -92,7 +80,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/addMonitor", method = RequestMethod.POST)
     public boolean addMonitor(MonitorModel monitorModel) {
-        return monitorService.insert(monitorModel);
+        return SystemServiceLocator.getMonitorService().insert(monitorModel);
     }
 
     /**
@@ -105,7 +93,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/updateMonitor", method = RequestMethod.PUT)
     public boolean updateMonitor(@RequestBody MonitorModel monitorModel) {
-        return monitorService.updateById(monitorModel);
+        return SystemServiceLocator.getMonitorService().updateById(monitorModel);
     }
 
     /**
@@ -118,7 +106,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/deleteMonitor/{id}", method = RequestMethod.DELETE)
     public boolean deleteMonitor(@PathVariable(value = "id") Integer id) {
-        return monitorService.deleteById(id);
+        return SystemServiceLocator.getMonitorService().deleteById(id);
     }
 
     /**
@@ -135,6 +123,6 @@ public class OperationContorller {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return monitorService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getMonitorService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

@@ -6,6 +6,7 @@ import com.vip.darker.model.RPRelation;
 import com.vip.darker.service.RPRelationService;
 import org.springframework.stereotype.Service;
 
-@Service(value = "rpRelationService")
+@Service(value = RPRelationServiceImpl.BEAN_NAME)
 public class RPRelationServiceImpl extends ServiceImpl<RPRelationMapper, RPRelation> implements RPRelationService {
+    public static final String BEAN_NAME = "rpRelationService";
 }

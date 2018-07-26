@@ -6,11 +6,7 @@ import com.vip.darker.model.PermissionModel;
 import com.vip.darker.service.PermissionService;
 import org.springframework.stereotype.Service;
 
-/**
- * @Auther: Darker
- * @Date: 2018/7/19 23:00
- * @Description: 权限service
- */
-@Service(value = "permissionService")
+@Service(value = PermissionServiceImpl.BEAN_NAME)
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, PermissionModel> implements PermissionService {
+    public static final String BEAN_NAME = "permissionService";
 }

@@ -6,11 +6,7 @@ import com.vip.darker.model.TrashModel;
 import com.vip.darker.service.TrashService;
 import org.springframework.stereotype.Service;
 
-/**
- * @Auther: Darker
- * @Date: 2018/7/19 23:00
- * @Description: 回收service
- */
-@Service(value = "trashService")
+@Service(value = TrashServiceImpl.BEAN_NAME)
 public class TrashServiceImpl extends ServiceImpl<TrashMapper, TrashModel> implements TrashService {
+    public static final String BEAN_NAME = "trashService";
 }

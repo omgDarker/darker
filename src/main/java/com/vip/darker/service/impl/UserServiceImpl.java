@@ -7,13 +7,10 @@ import com.vip.darker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * @Auther: Darker
- * @Date: 2018/7/19 22:30
- * @Description: 用户service
- */
-@Service(value = "userService")
+@Service(value = UserServiceImpl.BEAN_NAME)
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserModel> implements UserService {
+
+    public static final String BEAN_NAME = "userService";
 
     @Autowired
     private UserMapper userMapper;

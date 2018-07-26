@@ -6,6 +6,7 @@ import com.vip.darker.model.PhotoModel;
 import com.vip.darker.service.PhotoService;
 import org.springframework.stereotype.Service;
 
-@Service(value = "photoService")
+@Service(value = PhotoServiceImpl.BEAN_NAME)
 public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, PhotoModel> implements PhotoService {
+    public static final String BEAN_NAME = "photoService";
 }

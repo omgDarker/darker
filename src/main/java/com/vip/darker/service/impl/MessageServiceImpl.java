@@ -6,6 +6,7 @@ import com.vip.darker.model.MessageModel;
 import com.vip.darker.service.MessageService;
 import org.springframework.stereotype.Service;
 
-@Service(value = "messageService")
+@Service(value = MessageServiceImpl.BEAN_NAME)
 public class MessageServiceImpl extends ServiceImpl<MessageMapper, MessageModel> implements MessageService {
+    public static final String BEAN_NAME = "messageService";
 }

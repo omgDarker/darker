@@ -6,6 +6,7 @@ import com.vip.darker.model.DiaryModel;
 import com.vip.darker.service.DiaryService;
 import org.springframework.stereotype.Service;
 
-@Service(value = "diaryService")
-public class DiaryServiceImpl extends ServiceImpl<DiaryMapper,DiaryModel> implements DiaryService {
+@Service(value = DiaryServiceImpl.BEAN_NAME)
+public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, DiaryModel> implements DiaryService {
+    public static final String BEAN_NAME = "diaryService";
 }
