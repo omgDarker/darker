@@ -244,9 +244,18 @@
 
         // 删除操作
         function deleteResource(id) {
-
-            if (confirm("确认删除此条数据吗?")) {
-
+            swal({
+                title: "操作提示",      //弹出框的title
+                text: "确定删除吗？",   //弹出框里面的提示文本
+                type: "warning",        //弹出框类型
+                showCancelButton: true, //是否显示取消按钮
+                confirmButtonColor: "#DD6B55",//确定按钮颜色
+                cancelButtonText: "取消",//取消按钮文本
+                confirmButtonText: "是的，确定删除！",//确定按钮上面的文档
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: false
+            }).then(function (isConfirm) {
                 $.ajax({
                     //请求URL地址,controller的名称
                     url: "/resource/delete/" + id,
@@ -268,9 +277,11 @@
                     //请求成功时的处理函数,参数(返回数据,返回状态)
                     success: function (data) {
                         // 提示信息
-                        alert(JSON.stringify(data.msg));
+                        swal("删除成功", "数据已被删除！", data.msg);
                         // 刷新页面
-                        window.location.href = "/admin/home";
+                        location.reload(true);
+                        // window.location.reload();
+                        // window.location.href = "/admin/home";
                     },
                     //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                     complete: function () {
@@ -279,7 +290,16 @@
                     error: function () {
                     }
                 });
-            }
+            }, function (dismiss) {
+                // dismiss的值可以是'cancel', 'overlay','close', 'timer'
+                if (dismiss === 'cancel') {
+                    swal(
+                        '已取消！',
+                        '你的虚拟文件是安全的:)',
+                        'error'
+                    );
+                }
+            });
         };
     </script>
 </div>
