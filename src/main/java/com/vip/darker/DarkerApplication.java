@@ -43,7 +43,7 @@ import org.springframework.context.ApplicationContext;
 public class DarkerApplication {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(DarkerApplication.class, args);
-        // 获取容器上下文
+        // 设置容器上下文
         SpringBootApplicationContent.setApplicationContext(applicationContext);
     }
 }

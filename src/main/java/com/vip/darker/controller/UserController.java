@@ -3,10 +3,7 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.*;
-import com.vip.darker.service.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -83,9 +80,9 @@ public class UserController {
 
         try {
             // 用户删除
-            userService.deleteById(id);
+            SystemServiceLocator.getUserService().deleteById(id);
             // 用户角色关系数据删除
-            urRelationService.delete(new EntityWrapper<URRelation>().where("userId={0}", id));
+            SystemServiceLocator.getURRelationService().delete(new EntityWrapper<URRelation>().where("userId={0}", id));
         } catch (Exception e) {
             return false;
         }
@@ -106,7 +103,7 @@ public class UserController {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return userService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -122,12 +119,12 @@ public class UserController {
 
         try {
             // 角色新增
-            roleService.insert(roleModel);
+            SystemServiceLocator.getRoleService().insert(roleModel);
             // 角色权限关系数据新增
             RPRelation relation = new RPRelation();
             relation.setRoleId(roleModel.getId());
             relation.setPermissionId(permissionId);
-            rpRelationService.insert(relation);
+            SystemServiceLocator.getRPRelationService().insert(relation);
         } catch (Exception e) {
             return false;
         }
@@ -147,12 +144,12 @@ public class UserController {
 
         try {
             // 角色更新
-            roleService.updateById(roleModel);
+            SystemServiceLocator.getRoleService().updateById(roleModel);
             // 角色权限关系数据更新
             RPRelation relation = new RPRelation();
             relation.setRoleId(roleModel.getId());
             relation.setPermissionId(permissionId);
-            rpRelationService.update(relation, new EntityWrapper<RPRelation>().where("roleId={0}", roleModel.getId()));
+            SystemServiceLocator.getRPRelationService().update(relation, new EntityWrapper<RPRelation>().where("roleId={0}", roleModel.getId()));
         } catch (Exception e) {
             return false;
         }
@@ -172,9 +169,9 @@ public class UserController {
 
         try {
             // 角色删除
-            roleService.deleteById(id);
+            SystemServiceLocator.getRoleService().deleteById(id);
             // 角色权限关系数据删除
-            rpRelationService.delete(new EntityWrapper<RPRelation>().where("roleId={0}", id));
+            SystemServiceLocator.getRPRelationService().delete(new EntityWrapper<RPRelation>().where("roleId={0}", id));
         } catch (Exception e) {
             return false;
         }
@@ -195,7 +192,7 @@ public class UserController {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return roleService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getRoleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -208,7 +205,7 @@ public class UserController {
      */
     @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
     public boolean addPermission(PermissionModel permissionModel) {
-        return permissionService.insert(permissionModel);
+        return SystemServiceLocator.getPermissionService().insert(permissionModel);
     }
 
     /**
@@ -221,7 +218,7 @@ public class UserController {
      */
     @RequestMapping(value = "/updatePermission", method = RequestMethod.PUT)
     public boolean updatePermission(@RequestBody PermissionModel permissionModel) {
-        return permissionService.updateById(permissionModel);
+        return SystemServiceLocator.getPermissionService().updateById(permissionModel);
     }
 
     /**
@@ -234,7 +231,7 @@ public class UserController {
      */
     @RequestMapping(value = "/deletePermission/{id}", method = RequestMethod.DELETE)
     public boolean deletePermission(@PathVariable(value = "id") Integer id) {
-        return permissionService.deleteById(id);
+        return SystemServiceLocator.getPermissionService().deleteById(id);
     }
 
     /**
@@ -251,6 +248,6 @@ public class UserController {
                     Integer pageNum,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10")
                     Integer pageSize) {
-        return permissionService.selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getPermissionService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }
