@@ -5,10 +5,8 @@ import com.vip.darker.controller.base.BaseController;
 import com.vip.darker.model.ResourceModel;
 import com.vip.darker.model.TrashModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
-import com.vip.darker.util.Constant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,15 +30,16 @@ public class ResourceController extends BaseController {
      * @date: 2018/7/26 15:32
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addResource(ResourceModel resourceModel) {
+    @ResponseBody
+    public Map<String, Object> addResource(ResourceModel resourceModel) {
 
         boolean flag = SystemServiceLocator.getResourceService().insert(resourceModel);
 
-        ModelAndView model = new ModelAndView(Constant.ADMIN_HOME_REDIRECT);
+        Map<String, Object> map = new HashMap<>();
 
-        model.addObject("msg", flag ? "新增成功!" : "新增失败!");
+        map.put("msg", flag ? "新增成功!" : "新增失败!");
 
-        return model;
+        return map;
     }
 
     /**
@@ -52,15 +51,16 @@ public class ResourceController extends BaseController {
      * @date: 2018/7/26 15:33
      */
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    public ModelAndView updateResource(ResourceModel resourceModel) {
+    @ResponseBody
+    public Map<String, Object> updateResource(ResourceModel resourceModel) {
 
         boolean flag = SystemServiceLocator.getResourceService().updateById(resourceModel);
 
-        ModelAndView model = new ModelAndView(Constant.ADMIN_HOME_REDIRECT);
+        Map<String, Object> map = new HashMap<>();
 
-        model.addObject("msg", flag ? "更新成功!" : "更新失败!");
+        map.put("msg", flag ? "更新成功!" : "更新失败!");
 
-        return model;
+        return map;
     }
 
     /**
@@ -107,11 +107,8 @@ public class ResourceController extends BaseController {
      * @date: 2018/7/19 22:02
      */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public List<ResourceModel> queryAllResource(
-            @RequestParam(name = "pageNum", required = false, defaultValue = "1")
-                    int pageNum,
-            @RequestParam(name = "pageSize", required = false, defaultValue = "10")
-                    int pageSize) {
+    @ResponseBody
+    public List<ResourceModel> queryAllResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum, @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return SystemServiceLocator.getResourceService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -163,11 +160,7 @@ public class ResourceController extends BaseController {
      * @date: 2018/7/20 12:11
      */
     @RequestMapping(value = "/allTrash", method = RequestMethod.GET)
-    public List<TrashModel> queryAllTrash(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
-                    Integer pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
-                    Integer pageSize) {
+    public List<TrashModel> queryAllTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SystemServiceLocator.getTrashService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

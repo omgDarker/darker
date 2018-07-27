@@ -8,4 +8,6 @@ package com.vip.darker.util;
 public class Constant {
 
     public static final String ADMIN_HOME_REDIRECT = "redirect:/admin/home";
+    // 每页条数
+    public static final int PAGE_SIZE = 10;
 }

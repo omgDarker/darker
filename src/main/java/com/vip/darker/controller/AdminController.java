@@ -1,21 +1,19 @@
 package com.vip.darker.controller;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ResourceModel;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.system.locator.SystemServiceLocator;
-import org.springframework.stereotype.Controller;
+import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 /**
  * @Auther: Darker
  * @description ：内容管理页面CONTROLLER
  * @date : 2018/7/17 23:08
  */
-@Controller
+@RestController
 @RequestMapping(value = "admin")
 public class AdminController {
 
@@ -29,9 +27,13 @@ public class AdminController {
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView admin() {
-        List<ResourceModel> list = SystemServiceLocator.getResourceService().selectPage(new Page<>(1, 10)).getRecords();
+
         ModelAndView modelAndView = new ModelAndView("admin/home");
-        modelAndView.addObject("resourceList", list);
+
+        int count = SystemServiceLocator.getResourceService().selectCount(new EntityWrapper<>());
+
+        modelAndView.addObject("maxPage", count / Constant.PAGE_SIZE + 1);
+
         return modelAndView;
     }
 }

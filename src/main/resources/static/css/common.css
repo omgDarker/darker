@@ -168,8 +168,9 @@ body {
 .tableHeader {
 	height: 35px;
 	line-height: 35px;
-	font-size: 12px;
+	font-size: 16px; /* 设置字体大小 */
 	font-weight: bold;
+	font-family: \5b8b\4f53, sans-serif; /* 设置字体类型 */
 	color: #646987;
 	background-color: #e3e8ee;
 	padding: 0 30px;
