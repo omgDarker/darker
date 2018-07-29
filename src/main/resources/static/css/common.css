@@ -153,7 +153,7 @@ body {
 	font-weight: bold;
 }
 .check-div select {
-	height: 26px;
+	/*height: 26px;*/
 	width: 120px!important;
 	display: inline;
 	color: #ccc;
@@ -326,7 +326,7 @@ select {
 	margin-right: -100px!important;
 }
 .select-duiqi {
-	height: 25px!important;
+	/*height: 25px!important;*/
 	color: #ccc!important;
 	margin-left: -25px;
 	margin-top: 6px;
