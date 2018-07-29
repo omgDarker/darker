@@ -28,11 +28,11 @@ public class AdminController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView admin() {
 
-        ModelAndView modelAndView = new ModelAndView("admin/home");
+        ModelAndView modelAndView = new ModelAndView( "admin/home" );
 
-        int count = SystemServiceLocator.getResourceService().selectCount(new EntityWrapper<>());
+        int count = SystemServiceLocator.getResourceService().selectCount( new EntityWrapper<>() );
 
-        modelAndView.addObject("maxPage", count / Constant.PAGE_SIZE + 1);
+        modelAndView.addObject( "maxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
 
         return modelAndView;
     }
