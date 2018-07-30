@@ -90,11 +90,11 @@ body {
 	color: #B3BCC5;
 	text-decoration: underline;
 }
-#userName {
+/*#userName {
 	font-size: 15px!important;
 	padding: 0;
 	margin: 0;
-}
+}*/
 .line-div {
 	color: #F00;
 	height: 5px;

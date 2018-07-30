@@ -16,6 +16,12 @@ public class UserModel extends Model<UserModel> {
 
     private String name;
 
+    private String email;
+
+    private String ip;
+
+    private String area;
+
     private Integer isDelete;
 
     private String creator;
@@ -37,7 +43,31 @@ public class UserModel extends Model<UserModel> {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public Integer getIsDelete() {
@@ -53,7 +83,7 @@ public class UserModel extends Model<UserModel> {
     }
 
     public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+        this.creator = creator;
     }
 
     public Date getCreateTime() {

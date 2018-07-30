@@ -15,14 +15,11 @@
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
         </div>
         <!-- 数据 -->
-        <div class="tablebody" id="tablebody">
-            <!-- 总页数 -->
-            <input type="hidden" id="maxPage" th:value="${maxPage}">
-        </div>
+        <div class="tablebody" id="userTablebody"></div>
     </div>
     <!-- 分页 -->
     <footer class="footer" style="padding:10px;">
-        <ul class="pagination" id="pagination"></ul>
+        <ul class="pagination" id="userPagination"></ul>
     </footer>
     <!--弹出窗口 添加用户-->
     <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel">
@@ -35,34 +32,34 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" id="userAddForm">
                             <div class="form-group ">
-                                <label for="sName" class="col-xs-3 control-label">用户名：</label>
+                                <label for="" class="col-xs-3 control-label">用户名：</label>
                                 <div class="col-xs-8 ">
-                                    <input type="email" class="form-control input-sm duiqi" id="name"
+                                    <input type="text" class="form-control input-sm duiqi"
                                            name="name" placeholder="请输入用户名称">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3 control-label">角色：</label>
                                 <div class="col-xs-8 ">
-                                    <select class="form-control select-duiqi">
+                                    <select class="form-control select-duiqi" name="roleId">
                                         <option value="1" name="roleId">管理员</option>
-                                        <option value="0" name="roleId">游客</option>
+                                        <option value="2" name="roleId">游客</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="sOrd" class="col-xs-3 control-label">邮箱：</label>
+                                <label for="" class="col-xs-3 control-label">邮箱：</label>
                                 <div class="col-xs-8">
-                                    <input type="" class="form-control input-sm duiqi" id="email"
+                                    <input type="" class="form-control input-sm duiqi"
                                            name="email" placeholder="请输入邮箱">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="sKnot" class="col-xs-3 control-label">地区：</label>
+                                <label for="" class="col-xs-3 control-label">地区：</label>
                                 <div class="col-xs-8">
-                                    <input type="" class="form-control input-sm duiqi" id="area"
+                                    <input type="" class="form-control input-sm duiqi"
                                            name="area" placeholder="请输入地区">
                                 </div>
                             </div>
@@ -98,19 +95,22 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <form class="form-horizontal" id="userUpdateForm">
+                            <!-- form表单不支持put请求方式的解决方案 -->
+                            <!-- <input type="hidden" name="_method" value="PUT"/> -->
+                            <input type="hidden" name="id" id="userId" value="">
                             <div class="form-group ">
                                 <label for="" class="col-xs-3 control-label">用户名：</label>
                                 <div class="col-xs-8 ">
-                                    <input type="email" class="form-control input-sm duiqi" id="name"
+                                    <input type="email" class="form-control input-sm duiqi" id="userName"
                                            name="name" value="">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3 control-label">角色：</label>
                                 <div class="col-xs-8 ">
-                                    <select class="form-control select-duiqi">
+                                    <select class="form-control select-duiqi" name="roleId">
                                         <option value="1" name="roleId">管理员</option>
-                                        <option value="0" name="roleId">游客</option>
+                                        <option value="2" name="roleId">游客</option>
                                     </select>
                                 </div>
                             </div>
@@ -132,10 +132,10 @@
                                 <label for="" class="col-xs-3 control-label">状态：</label>
                                 <div class="col-xs-8">
                                     <label class="control-label">
-                                        <input type="radio" name="isDelete" value="0">正常</label>
+                                        <input type="radio" name="isDelete" id="normal" value="0">正常</label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label class="control-label">
-                                        <input type="radio" name="isDelete" value="1"> 禁用</label>
+                                        <input type="radio" name="isDelete" id="forbidden" value="1"> 禁用</label>
                                 </div>
                             </div>
                         </form>
@@ -149,25 +149,18 @@
         </div>
     </div>
     <script>
-        // 总页数
-        var maxPage = parseInt($("#maxPage").val());
-        // 分页操作
-        $.jqPaginator('#pagination', {
-            totalPages: maxPage, // 总页数
-            visiblePages: 10, // 显示的页码数量
-            currentPage: 1, // 当前页
-            prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
-            first: '<li class="first"><a href="javascript:;">首页</a></li>',
-            next: '<li class=""><a href="javascript:;">下一页</a></li>',
-            last: '<li class="last"><a href="javascript:;">尾页</a></li>',
-            page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
-            onPageChange: function (num, type) {
-                // num->当前页
+        // 选项卡激活后的点击事件
+        $('div[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            // 判断是哪个选项卡
+            var controls = $(this).attr('aria-controls');
+
+            if ('user' === controls) {
+                // ajax请求获取用户最大页数
                 $.ajax({
                     //请求URL地址,controller的名称
-                    url: "/user/all",
+                    url: "/user/userMaxPage",
                     //请求返回数据格式为json,还可以是text等
-                    dataType: "json",
+                    dataType: "JSON",
                     //请求是否为异步,默认是true
                     async: true,
                     //是否从浏览器缓存中加载数据信息
@@ -175,7 +168,7 @@
                     //设置请求超时时间
                     timeout: 1000,
                     //参数值,如果URL带参数,这里就可以不用写了
-                    data: {'pageNum': num},
+                    data: {},
                     //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
                     type: "GET",
                     //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
@@ -184,8 +177,8 @@
                     },
                     //请求成功时的处理函数,参数(返回数据,返回状态)
                     success: function (data) {
-                        // 组装HTML页面
-                        parseHtmlContent(data);
+                        // 调用分页
+                        userPagination(data.userMaxPage);
                     },
                     //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                     complete: function () {
@@ -197,8 +190,56 @@
             }
         });
 
+        // 分页操作
+        function userPagination(userMaxPage) {
+            $.jqPaginator('#userPagination', {
+                totalPages: userMaxPage, // 总页数
+                visiblePages: 10, // 显示的页码数量
+                currentPage: 1, // 当前页
+                prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+                first: '<li class="first"><a href="javascript:;">首页</a></li>',
+                next: '<li class=""><a href="javascript:;">下一页</a></li>',
+                last: '<li class="last"><a href="javascript:;">尾页</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                onPageChange: function (num, type) {
+                    // num->当前页
+                    $.ajax({
+                        //请求URL地址,controller的名称
+                        url: "/user/all",
+                        //请求返回数据格式为json,还可以是text等
+                        dataType: "json",
+                        //请求是否为异步,默认是true
+                        async: true,
+                        //是否从浏览器缓存中加载数据信息
+                        cache: false,
+                        //设置请求超时时间
+                        timeout: 1000,
+                        //参数值,如果URL带参数,这里就可以不用写了
+                        data: {'pageNum': num},
+                        //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                        type: "GET",
+                        //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                        beforeSend: function () {
+
+                        },
+                        //请求成功时的处理函数,参数(返回数据,返回状态)
+                        success: function (data) {
+                            // 组装HTML页面
+                            parseUserHtmlContent(data);
+                        },
+                        //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                        complete: function () {
+                        },
+                        //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                        error: function () {
+                        }
+                    });
+                }
+            });
+        }
+
         // 查询数据填充至HTML
-        function parseHtmlContent(data) {
+        function parseUserHtmlContent(data) {
 
             var htmlContent = "";
 
@@ -207,11 +248,17 @@
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
                 htmlContent += ' <span>' + data[i].id + '</span>';
                 htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
+                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
                 htmlContent += ' <span>' + data[i].name + '</span>';
                 htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
-                htmlContent += ' <span>' + data[i].path + '</span>';
+                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <span>' + data[i].roleName + '</span>';
+                htmlContent += ' </div>';
+                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <span>' + data[i].email + '</span>';
+                htmlContent += ' </div>';
+                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <span>' + data[i].area + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
                 htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updateUser" onclick="javascript:queryUser(\'' + data[i].id + '\');">修改</button>';
@@ -219,7 +266,7 @@
                 htmlContent += ' </div>';
                 htmlContent += ' </div>';
             }
-            $("#tablebody").html(htmlContent);
+            $("#userTablebody").html(htmlContent);
         };
 
         // 新增操作
@@ -246,12 +293,13 @@
                 },
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
+                    // 弹窗提示信息
+                    swal(data.msg, '', "success");
                     setTimeout(function () {
-                        swal(data.msg, '', "success");
-                    }, 100);
-                    //2秒后刷新页面，足够显示swal()的信息
-                    setTimeout(function () {
-                        window.location.reload();
+                        // 自动关闭弹窗
+                        swal.close();
+                        // 点击响应tab刷新页面
+                        $("div[aria-controls='user']").click();
                     }, 2000);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -286,15 +334,15 @@
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
                     // 返回实体类
-                    $("#id").val(data.id);
-                    $("#name").val(data.name);
-                    $("#path").val(data.path);
-                    $("#parentName").val(data.parentName);
+                    $("#userId").val(data.id);
+                    $("#userName").val(data.name);
+                    $("#email").val(data.email);
+                    $("#area").val(data.area);
                     // 资源选项
-                    if (data.classify === 'admin') {
-                        $("#admin").attr("checked", "checked");
-                    } else if (data.classify === 'index') {
-                        $("#index").attr("checked", "checked");
+                    if (data.isDelete === 0) {
+                        $("#normal").attr("checked", "checked");
+                    } else if (data.classify === 1) {
+                        $("#forbidden").attr("checked", "checked");
                     }
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -330,12 +378,13 @@
                 },
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
+                    // 弹窗提示信息
+                    swal(data.msg, '', "success");
                     setTimeout(function () {
-                        swal(data.msg, '', "success");
-                    }, 100);
-                    //2秒后刷新页面，足够显示swal()的信息
-                    setTimeout(function () {
-                        window.location.reload();
+                        // 自动关闭弹窗
+                        swal.close();
+                        // 点击响应tab刷新页面
+                        $("div[aria-controls='user']").click();
                     }, 2000);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -384,12 +433,13 @@
                         },
                         //请求成功时的处理函数,参数(返回数据,返回状态)
                         success: function (data) {
+                            // 弹窗提示信息
+                            swal(data.msg, '', "success");
                             setTimeout(function () {
-                                swal(data.msg, '', "success");
-                            }, 100);
-                            //2秒后刷新页面，足够显示swal()的信息
-                            setTimeout(function () {
-                                window.location.reload();
+                                // 自动关闭弹窗
+                                swal.close();
+                                // 点击响应tab刷新页面
+                                $("div[aria-controls='user']").click();
                             }, 2000);
                         },
                         //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用

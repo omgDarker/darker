@@ -7,3 +7,7 @@ CREATE TABLE blog_role (
 	createTime datetime COMMENT '创建时间',
 	updateTime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT = '角色管理表';
+
+/*================================[DML<数据操作语言>:20180730]================================*/
+INSERT INTO blog_role (name) VALUES ('管理员');
+INSERT INTO blog_role (name) VALUES ('游客');
