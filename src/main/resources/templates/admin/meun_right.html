@@ -6,10 +6,14 @@
         <div class="tab-content">
             <!-- 资源管理模块 -->
             <div th:replace="admin/content_resource.html :: resouce"></div>
-            <!-- 权限管理模块 -->
-            <div th:replace="admin/content_premission.html :: permission"></div>
             <!-- 用户管理模块 -->
             <div th:replace="admin/content_user.html :: user"></div>
+            <!-- 角色管理模块 -->
+            <div th:replace="admin/content_role.html :: role"></div>
+            <!-- 权限管理模块 -->
+            <div th:replace="admin/content_premission.html :: permission"></div>
+            <!-- 回收站管理模块 -->
+            <div th:replace="admin/content_trash.html :: trash"></div>
             <!-- 修改密码模块 -->
             <div th:replace="admin/content_password.html :: password"></div>
             <!-- 地区管理模块 -->
@@ -22,8 +26,7 @@
             <div th:replace="admin/content_seat.html :: seat"></div>
             <!-- 座位详情模块 -->
             <div th:replace="admin/content_seat_detail.html :: seatDetail"></div>
-            <!--人员管理模块-->
-            <div th:replace="admin/content_role.html :: role"></div>
+
         </div>
     </div>
 </div>

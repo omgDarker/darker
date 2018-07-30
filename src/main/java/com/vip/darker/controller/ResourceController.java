@@ -1,10 +1,12 @@
 package com.vip.darker.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.controller.base.BaseController;
 import com.vip.darker.model.ResourceModel;
 import com.vip.darker.model.TrashModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.util.Constant;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +17,10 @@ import java.util.Map;
 /**
  * @Auther: Darker
  * @Date: 2018/7/19 21:55
+ * @DateUpdate: 2018/7/30
  * @Description: 资源管理controller
  */
-@Controller
+@RestController
 @RequestMapping(value = "resource")
 public class ResourceController extends BaseController {
 
@@ -33,11 +36,11 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public Map<String, Object> addResource(ResourceModel resourceModel) {
 
-        boolean flag = SystemServiceLocator.getResourceService().insert(resourceModel);
+        boolean flag = SystemServiceLocator.getResourceService().insert( resourceModel );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "新增成功!" : "新增失败!");
+        map.put( "msg", flag ? "新增成功!" : "新增失败!" );
 
         return map;
     }
@@ -54,11 +57,11 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public Map<String, Object> updateResource(ResourceModel resourceModel) {
 
-        boolean flag = SystemServiceLocator.getResourceService().updateById(resourceModel);
+        boolean flag = SystemServiceLocator.getResourceService().updateById( resourceModel );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "更新成功!" : "更新失败!");
+        map.put( "msg", flag ? "更新成功!" : "更新失败!" );
 
         return map;
     }
@@ -75,11 +78,11 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public Map<String, Object> deleteReouseceById(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getResourceService().deleteById(id);
+        boolean flag = SystemServiceLocator.getResourceService().deleteById( id );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "删除成功!" : "删除失败!");
+        map.put( "msg", flag ? "删除成功!" : "删除失败!" );
 
         return map;
     }
@@ -95,7 +98,7 @@ public class ResourceController extends BaseController {
     @RequestMapping(value = "/all/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResourceModel queryResouceById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getResourceService().selectById(id);
+        return SystemServiceLocator.getResourceService().selectById( id );
     }
 
     /**
@@ -109,46 +112,27 @@ public class ResourceController extends BaseController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
     public List<ResourceModel> queryAllResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum, @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return SystemServiceLocator.getResourceService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
-    }
-
-    /**
-     * 功能描述: 回收站资源新增
-     *
-     * @param: [trashModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 12:03
-     */
-    @RequestMapping(value = "/addTrash", method = RequestMethod.POST)
-    public boolean addTrash(TrashModel trashModel) {
-        return SystemServiceLocator.getTrashService().insert(trashModel);
-    }
-
-    /**
-     * 功能描述: 回收站资源更新
-     *
-     * @param: [trashModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 12:06
-     */
-    @RequestMapping(value = "/updateTrash", method = RequestMethod.PUT)
-    public boolean updateTrash(@RequestBody TrashModel trashModel) {
-        return SystemServiceLocator.getTrashService().updateById(trashModel);
+        return SystemServiceLocator.getResourceService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
     }
 
     /**
      * 功能描述: 回收站资源删除
      *
      * @param: [id]
-     * @return: boolean
+     * @return: java.util.Map<>
      * @auther: darker
      * @date: 2018/7/20 12:08
      */
     @RequestMapping(value = "/deleteTrash/{id}", method = RequestMethod.DELETE)
-    public boolean deleteTrash(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getTrashService().deleteById(id);
+    public Map<String, Object> deleteTrash(@PathVariable(value = "id") Integer id) {
+
+        boolean flag = SystemServiceLocator.getTrashService().deleteById( id );
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put( "msg", flag ? "删除成功!" : "删除失败!" );
+
+        return map;
     }
 
     /**
@@ -161,6 +145,27 @@ public class ResourceController extends BaseController {
      */
     @RequestMapping(value = "/allTrash", method = RequestMethod.GET)
     public List<TrashModel> queryAllTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getTrashService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getTrashService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
     }
+
+    /**
+     * 功能描述: 回收站分页查询,最大页数
+     *
+     * @param: []
+     * @return: java.util.Map<>
+     * @auther: darker
+     * @date: 2018/7/30 10:48
+     */
+    @RequestMapping(value = "/trashMaxPage", method = RequestMethod.GET)
+    public Map<String, Object> getTrashMaxPage() {
+
+        Map<String, Object> map = new HashMap<>();
+
+        int count = SystemServiceLocator.getTrashService().selectCount( new EntityWrapper<>() );
+
+        map.put( "trashMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+
+        return map;
+    }
+
 }

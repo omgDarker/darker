@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="trash" role="tabpanel" class="tab-pane" id="trash">
+    <div class="check-div">
+        <div class="col-lg-4 col-xs-5">
+            <input type="text" class=" form-control input-sm " id="trashContent" placeholder="输入文字搜索">
+            <button class="btn btn-white" onclick="searchContent()">查 询</button>
+        </div>
+    </div>
+    <div class="data-div">
+        <!-- 列名 -->
+        <div class="row tableHeader">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">序号</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">描述</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">所属模块</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">回收操作</div>
+        </div>
+        <!-- 数据 -->
+        <div class="tablebody" id="trashTablebody"></div>
+    </div>
+    <!-- 分页 -->
+    <footer class="footer" style="padding:10px;">
+        <ul class="pagination" id="trashPagination"></ul>
+    </footer>
+    <script>
+        // 选项卡激活后的点击事件
+        $('div[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            // 判断是哪个选项卡
+            var controls = $(this).attr('aria-controls');
+
+            if ('trash' === controls) {
+                // ajax请求获取用户最大页数
+                $.ajax({
+                    //请求URL地址,controller的名称
+                    url: "/resource/trashMaxPage",
+                    //请求返回数据格式为json,还可以是text等
+                    dataType: "JSON",
+                    //请求是否为异步,默认是true
+                    async: true,
+                    //是否从浏览器缓存中加载数据信息
+                    cache: false,
+                    //设置请求超时时间
+                    timeout: 1000,
+                    //参数值,如果URL带参数,这里就可以不用写了
+                    data: {},
+                    //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                    type: "GET",
+                    //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                    beforeSend: function () {
+
+                    },
+                    //请求成功时的处理函数,参数(返回数据,返回状态)
+                    success: function (data) {
+                        // 调用分页
+                        TrashPagination(data.trashMaxPage);
+                    },
+                    //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                    complete: function () {
+                    },
+                    //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                    error: function () {
+                    }
+                });
+            }
+        });
+
+        // 分页操作
+        function TrashPagination(trashMaxPage) {
+            $.jqPaginator('#trashPagination', {
+                totalPages: trashMaxPage, // 总页数
+                visiblePages: 10, // 显示的页码数量
+                currentPage: 1, // 当前页
+                prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+                first: '<li class="first"><a href="javascript:;">首页</a></li>',
+                next: '<li class=""><a href="javascript:;">下一页</a></li>',
+                last: '<li class="last"><a href="javascript:;">尾页</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                onPageChange: function (num, type) {
+                    // num->当前页
+                    $.ajax({
+                        //请求URL地址,controller的名称
+                        url: "/resource/allTrash",
+                        //请求返回数据格式为json,还可以是text等
+                        dataType: "json",
+                        //请求是否为异步,默认是true
+                        async: true,
+                        //是否从浏览器缓存中加载数据信息
+                        cache: false,
+                        //设置请求超时时间
+                        timeout: 1000,
+                        //参数值,如果URL带参数,这里就可以不用写了
+                        data: {'pageNum': num},
+                        //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                        type: "GET",
+                        //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                        beforeSend: function () {
+
+                        },
+                        //请求成功时的处理函数,参数(返回数据,返回状态)
+                        success: function (data) {
+                            // 组装HTML页面
+                            parseTrashHtmlContent(data);
+                        },
+                        //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                        complete: function () {
+                        },
+                        //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                        error: function () {
+                        }
+                    });
+                }
+            });
+        }
+
+        // 查询数据填充至HTML
+        function parseTrashHtmlContent(data) {
+
+            var htmlContent = "";
+
+            for (var i in data) {
+                htmlContent += ' <div class="row" >';
+                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <span>' + data[i].id + '</span>';
+                htmlContent += ' </div>';
+                htmlContent += ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
+                htmlContent += ' <span>' + data[i].description + '</span>';
+                htmlContent += ' </div>';
+                htmlContent += ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
+                htmlContent += ' <span>' + data[i].classify + '</span>';
+                htmlContent += ' </div>';
+                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <button class="btn btn-danger" data-toggle="modal" onclick="javascript:deleteTrash(\'' + data[i].id + '\');">清楚记录</button>';
+                htmlContent += ' </div>';
+                htmlContent += ' </div>';
+            }
+            $("#trashTablebody").html(htmlContent);
+        };
+
+        // 删除操作
+        function deleteTrash(id) {
+            swal({
+                title: '确定删除吗?',  //弹出框的title
+                text: '你将无法恢复它!', //弹出框里面的提示文本
+                type: 'warning', //弹出框类型
+                showCancelButton: true, //是否显示取消按钮
+                confirmButtonColor: '#3085d6', //确定按钮颜色
+                cancelButtonColor: '#d33', //取消按钮颜色
+                confirmButtonText: '确定删除', //确认按钮文本
+                cancelButtonText: '取消删除', //取消按钮文本
+                confirmButtonClass: 'btn btn-success', //确认按钮样式
+                cancelButtonClass: 'btn btn-danger', //取消按钮样式
+                buttonsStyling: false //禁止使用默认按钮样式
+            }).then(function (isConfirm) {
+
+                if (isConfirm.value === true) {
+                    $.ajax({
+                        //请求URL地址,controller的名称
+                        url: "/resource/deleteTrash/" + id,
+                        //请求返回数据格式为json,还可以是text等
+                        dataType: "json",
+                        //请求是否为异步,默认是true
+                        async: true,
+                        //是否从浏览器缓存中加载数据信息
+                        cache: false,
+                        //设置请求超时时间
+                        timeout: 1000,
+                        //参数值,如果URL带参数,这里就可以不用写了
+                        data: {},
+                        //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                        type: "DELETE",
+                        //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                        beforeSend: function () {
+                        },
+                        //请求成功时的处理函数,参数(返回数据,返回状态)
+                        success: function (data) {
+                            // 弹窗提示信息
+                            swal(data.msg, '', "success");
+                            setTimeout(function () {
+                                // 自动关闭弹窗
+                                swal.close();
+                                // 点击响应tab刷新页面
+                                $("div[aria-controls='trash']").click();
+                            }, 2000);
+                        },
+                        //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                        complete: function () {
+                        },
+                        //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                        error: function () {
+                        }
+                    });
+                } else if (isConfirm.dismiss === 'cancel') {
+                    // dismiss的值可以是'cancel', 'overlay','close', 'timer'
+                    swal(
+                        '已取消',
+                        '',
+                        'error'
+                    );
+                } else {
+                    swal(
+                        '已关闭',
+                        '',
+                        'error'
+                    );
+                }
+            });
+        };
+
+        // 搜索操作
+        function searchContent() {
+            // 检索词
+            var key = $("#trashContent").val();
+            // out
+            console.info("检索词:" + key);
+        };
+    </script>
+</div>

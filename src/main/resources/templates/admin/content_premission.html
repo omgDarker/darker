@@ -10,7 +10,7 @@
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">序号</div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">权限</div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">描述</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">权限操作</div>
         </div>
         <!-- 数据 -->
         <div class="tablebody" id="permissionTablebody"></div>
@@ -97,10 +97,11 @@
                                 <label for="" class="col-xs-3 control-label">状态：</label>
                                 <div class="col-xs-8">
                                     <label class="control-label">
-                                        <input type="radio" name="isDelete" id="normal" value="0">正常</label>
+                                        <input type="radio" name="isDelete" id="permissionNormal" value="0">正常</label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label class="control-label">
-                                        <input type="radio" name="isDelete" id="forbidden" value="1"> 禁用</label>
+                                        <input type="radio" name="isDelete" id="permissionForbidden" value="1">
+                                        禁用</label>
                                 </div>
                             </div>
                         </form>
@@ -299,9 +300,9 @@
                     $("#permissionDescription").val(data.description);
                     // 资源选项
                     if (data.isDelete === 0) {
-                        $("#normal").attr("checked", "checked");
-                    } else if (data.classify === 1) {
-                        $("#forbidden").attr("checked", "checked");
+                        $("#permissionNormal").attr("checked", "checked");
+                    } else if (data.isDelete === 1) {
+                        $("#permissionForbidden").attr("checked", "checked");
                     }
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用

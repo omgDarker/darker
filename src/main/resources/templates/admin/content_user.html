@@ -12,7 +12,7 @@
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">角色</div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">邮箱</div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">地区</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">用户操作</div>
         </div>
         <!-- 数据 -->
         <div class="tablebody" id="userTablebody"></div>
@@ -44,8 +44,9 @@
                                 <label for="" class="col-xs-3 control-label">角色：</label>
                                 <div class="col-xs-8 ">
                                     <select class="form-control select-duiqi" name="roleId">
-                                        <option value="1" name="roleId">管理员</option>
-                                        <option value="2" name="roleId">游客</option>
+                                        <option value="1" name="roleId">超级管理员</option>
+                                        <option value="2" name="roleId">管理员</option>
+                                        <option value="3" name="roleId">游客</option>
                                     </select>
                                 </div>
                             </div>
@@ -109,8 +110,9 @@
                                 <label for="" class="col-xs-3 control-label">角色：</label>
                                 <div class="col-xs-8 ">
                                     <select class="form-control select-duiqi" name="roleId">
-                                        <option value="1" name="roleId">管理员</option>
-                                        <option value="2" name="roleId">游客</option>
+                                        <option value="1" name="roleId">超级管理员</option>
+                                        <option value="2" name="roleId">管理员</option>
+                                        <option value="3" name="roleId">游客</option>
                                     </select>
                                 </div>
                             </div>
@@ -132,10 +134,10 @@
                                 <label for="" class="col-xs-3 control-label">状态：</label>
                                 <div class="col-xs-8">
                                     <label class="control-label">
-                                        <input type="radio" name="isDelete" id="normal" value="0">正常</label>
+                                        <input type="radio" name="isDelete" id="userNormal" value="0">正常</label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <label class="control-label">
-                                        <input type="radio" name="isDelete" id="forbidden" value="1"> 禁用</label>
+                                        <input type="radio" name="isDelete" id="userForbidden" value="1"> 禁用</label>
                                 </div>
                             </div>
                         </form>
@@ -340,9 +342,9 @@
                     $("#area").val(data.area);
                     // 资源选项
                     if (data.isDelete === 0) {
-                        $("#normal").attr("checked", "checked");
-                    } else if (data.classify === 1) {
-                        $("#forbidden").attr("checked", "checked");
+                        $("#userNormal").attr("checked", "checked");
+                    } else if (data.isDelete === 1) {
+                        $("#userForbidden").attr("checked", "checked");
                     }
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用

@@ -8,3 +8,7 @@ CREATE TABLE blog_trash (
 	createTime datetime COMMENT '创建时间',
 	updateTime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT = '回收站表';
+
+/*================================[DML<数据操作语言>:20180730]================================*/
+insert into blog_trash (description,classify) values('资源数据删除','资源模块');
+insert into blog_trash (description,classify) values('用户数据删除','用户模块');
