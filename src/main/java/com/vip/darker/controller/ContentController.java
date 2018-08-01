@@ -1,14 +1,15 @@
 package com.vip.darker.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ArticleModel;
-import com.vip.darker.model.DiaryModel;
-import com.vip.darker.model.MessageModel;
-import com.vip.darker.model.PhotoModel;
+import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: Darker
@@ -28,8 +29,15 @@ public class ContentController {
      * @date: 2018/7/20 15:20
      */
     @RequestMapping(value = "/addDiary", method = RequestMethod.POST)
-    public boolean addDiary(DiaryModel diaryModel) {
-        return SystemServiceLocator.getDiaryService().insert(diaryModel);
+    public Map<String, Object> addDiary(DiaryModel diaryModel) {
+
+        boolean flag = SystemServiceLocator.getDiaryService().insert(diaryModel);
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("msg", flag ? "新增成功!" : "新增失败!");
+
+        return map;
     }
 
     /**
@@ -41,8 +49,15 @@ public class ContentController {
      * @date: 2018/7/20 15:26
      */
     @RequestMapping(value = "/updateDiary", method = RequestMethod.PUT)
-    public boolean updateDiary(@RequestBody DiaryModel diaryModel) {
-        return SystemServiceLocator.getDiaryService().updateById(diaryModel);
+    public Map<String, Object> updateDiary(DiaryModel diaryModel) {
+
+        boolean flag = SystemServiceLocator.getDiaryService().updateById(diaryModel);
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("msg", flag ? "更新成功!" : "更新失败!");
+
+        return map;
     }
 
     /**
@@ -54,8 +69,28 @@ public class ContentController {
      * @date: 2018/7/20 15:33
      */
     @RequestMapping(value = "/deleteDiary/{id}", method = RequestMethod.DELETE)
-    public boolean deleteDiary(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getDiaryService().deleteById(id);
+    public Map<String, Object> deleteDiary(@PathVariable(value = "id") Integer id) {
+
+        boolean flag = SystemServiceLocator.getDiaryService().deleteById(id);
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("msg", flag ? "删除成功!" : "删除失败!");
+
+        return map;
+    }
+
+    /**
+     * 功能描述: 日记实体查询
+     *
+     * @param: [id]
+     * @return: com.vip.darker.model.DiaryModel
+     * @auther: darker
+     * @date: 2018/8/1 16:49
+     */
+    @RequestMapping(value = "/allDiary/{id}", method = RequestMethod.GET)
+    public DiaryModel queryResouceById(@PathVariable(value = "id") Integer id) {
+        return SystemServiceLocator.getDiaryService().selectById(id);
     }
 
     /**
@@ -67,12 +102,28 @@ public class ContentController {
      * @date: 2018/7/20 15:52
      */
     @RequestMapping(value = "/allDiary", method = RequestMethod.GET)
-    public List<DiaryModel> queryAllDiary(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
-                    Integer pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
-                    Integer pageSize) {
+    public List<DiaryModel> queryAllDiary(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SystemServiceLocator.getDiaryService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+    }
+
+    /**
+     * 功能描述: 日记分页查询,最大页数
+     *
+     * @param: []
+     * @return: java.util.Map<>
+     * @auther: darker
+     * @date: 2018/7/30 10:48
+     */
+    @RequestMapping(value = "/diaryMaxPage", method = RequestMethod.GET)
+    public Map<String, Object> getDiaryMaxPage() {
+
+        Map<String, Object> map = new HashMap<>();
+
+        int count = SystemServiceLocator.getDiaryService().selectCount(new EntityWrapper<>());
+
+        map.put("diaryMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+
+        return map;
     }
 
     /**
@@ -123,11 +174,7 @@ public class ContentController {
      * @date: 2018/7/20 15:49
      */
     @RequestMapping(value = "/allArticle", method = RequestMethod.GET)
-    public List<ArticleModel> queryAllArticle(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
-                    Integer pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
-                    Integer pageSize) {
+    public List<ArticleModel> queryAllArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -179,11 +226,7 @@ public class ContentController {
      * @date: 2018/7/20 15:46
      */
     @RequestMapping(value = "/allPhoto", method = RequestMethod.GET)
-    public List<PhotoModel> queryAllPhoto(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
-                    Integer pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
-                    Integer pageSize) {
+    public List<PhotoModel> queryAllPhoto(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -235,11 +278,7 @@ public class ContentController {
      * @date: 2018/7/20 15:43
      */
     @RequestMapping(value = "/allMessage", method = RequestMethod.GET)
-    public List<MessageModel> queryAllMessage(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1")
-                    Integer pageNum,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10")
-                    Integer pageSize) {
+    public List<MessageModel> queryAllMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SystemServiceLocator.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }
