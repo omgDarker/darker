@@ -17,11 +17,14 @@ import java.util.Map;
 /**
  * @Auther: Darker
  * @Date: 2018/7/20 15:05
+ * @DateUpdate: 2018/8/2
  * @Description: 内容管理Controller
  */
 @RestController
 @RequestMapping(value = "content")
 public class ContentController {
+
+    //****************************************日志模块****************************************//
 
     /**
      * 功能描述:日志新增
@@ -34,11 +37,11 @@ public class ContentController {
     @RequestMapping(value = "/addDiary", method = RequestMethod.POST)
     public Map<String, Object> addDiary(DiaryModel diaryModel) {
 
-        boolean flag = SystemServiceLocator.getDiaryService().insert(diaryModel);
+        boolean flag = SystemServiceLocator.getDiaryService().insert( diaryModel );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "新增成功!" : "新增失败!");
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
 
         return map;
     }
@@ -54,11 +57,11 @@ public class ContentController {
     @RequestMapping(value = "/updateDiary", method = RequestMethod.PUT)
     public Map<String, Object> updateDiary(DiaryModel diaryModel) {
 
-        boolean flag = SystemServiceLocator.getDiaryService().updateById(diaryModel);
+        boolean flag = SystemServiceLocator.getDiaryService().updateById( diaryModel );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "更新成功!" : "更新失败!");
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
 
         return map;
     }
@@ -74,39 +77,13 @@ public class ContentController {
     @RequestMapping(value = "/deleteDiary/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteDiary(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getDiaryService().deleteById(id);
+        boolean flag = SystemServiceLocator.getDiaryService().deleteById( id );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "删除成功!" : "删除失败!");
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
 
         return map;
-    }
-
-    /**
-     * 功能描述: 日记实体查询
-     *
-     * @param: [id]
-     * @return: com.vip.darker.model.DiaryModel
-     * @auther: darker
-     * @date: 2018/8/1 16:49
-     */
-    @RequestMapping(value = "/allDiary/{id}", method = RequestMethod.GET)
-    public DiaryModel queryDiaryById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getDiaryService().selectById(id);
-    }
-
-    /**
-     * 功能描述: 日志分页查询
-     *
-     * @param: [pageNum, pageSize]
-     * @return: java.util.List<com.vip.darker.model.DiaryModel>
-     * @auther: darker
-     * @date: 2018/7/20 15:52
-     */
-    @RequestMapping(value = "/allDiary", method = RequestMethod.GET)
-    public List<DiaryModel> queryAllDiary(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getDiaryService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -122,12 +99,40 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getDiaryService().selectCount(new EntityWrapper<>());
+        int count = SystemServiceLocator.getDiaryService().selectCount( new EntityWrapper<>() );
 
-        map.put("diaryMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put( "diaryMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
 
         return map;
     }
+
+    /**
+     * 功能描述: 日记实体查询
+     *
+     * @param: [id]
+     * @return: com.vip.darker.model.DiaryModel
+     * @auther: darker
+     * @date: 2018/8/1 16:49
+     */
+    @RequestMapping(value = "/allDiary/{id}", method = RequestMethod.GET)
+    public DiaryModel queryDiaryById(@PathVariable(value = "id") Integer id) {
+        return SystemServiceLocator.getDiaryService().selectById( id );
+    }
+
+    /**
+     * 功能描述: 日志分页查询
+     *
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<com.vip.darker.model.DiaryModel>
+     * @auther: darker
+     * @date: 2018/7/20 15:52
+     */
+    @RequestMapping(value = "/allDiary", method = RequestMethod.GET)
+    public List<DiaryModel> queryAllDiary(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+        return SystemServiceLocator.getDiaryService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
+    }
+
+    //****************************************文章模块****************************************//
 
     /**
      * 功能描述: 文章新增
@@ -140,11 +145,11 @@ public class ContentController {
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
     public Map<String, Object> addArticle(ArticleModel articleModel) {
 
-        boolean flag = SystemServiceLocator.getArticleService().insert(articleModel);
+        boolean flag = SystemServiceLocator.getArticleService().insert( articleModel );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "新增成功!" : "新增失败!");
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
 
         return map;
     }
@@ -160,11 +165,11 @@ public class ContentController {
     @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
     public Map<String, Object> updateArticle(ArticleModel articleModel) {
 
-        boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
+        boolean flag = SystemServiceLocator.getArticleService().updateById( articleModel );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "更新成功!" : "更新失败!");
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
 
         return map;
     }
@@ -180,11 +185,11 @@ public class ContentController {
     @RequestMapping(value = "/deleteArticle/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteArticle(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getArticleService().deleteById(id);
+        boolean flag = SystemServiceLocator.getArticleService().deleteById( id );
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("msg", flag ? "删除成功!" : "删除失败!");
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
 
         return map;
     }
@@ -202,9 +207,9 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
+        int count = SystemServiceLocator.getArticleService().selectCount( new EntityWrapper<>() );
 
-        map.put("articleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put( "articleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
 
         return map;
     }
@@ -219,7 +224,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allArticle/{id}", method = RequestMethod.GET)
     public ArticleModel queryArticleById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getArticleService().selectById(id);
+        return SystemServiceLocator.getArticleService().selectById( id );
     }
 
     /**
@@ -232,8 +237,10 @@ public class ContentController {
      */
     @RequestMapping(value = "/allArticle", method = RequestMethod.GET)
     public List<ArticleModel> queryAllArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getArticleService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
     }
+
+    //****************************************图片模块****************************************//
 
     /**
      * 功能描述: 图片新增
@@ -244,8 +251,15 @@ public class ContentController {
      * @date: 2018/7/20 15:23
      */
     @RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
-    public boolean addPhoto(PhotoModel photoModel) {
-        return SystemServiceLocator.getPhotoService().insert(photoModel);
+    public Map<String, Object> addPhoto(PhotoModel photoModel) {
+
+        boolean flag = SystemServiceLocator.getPhotoService().insert( photoModel );
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
+
+        return map;
     }
 
     /**
@@ -257,8 +271,15 @@ public class ContentController {
      * @date: 2018/7/20 15:29
      */
     @RequestMapping(value = "/updatePhoto", method = RequestMethod.PUT)
-    public boolean updatePhoto(@RequestBody PhotoModel photoModel) {
-        return SystemServiceLocator.getPhotoService().updateById(photoModel);
+    public Map<String, Object> updatePhoto(PhotoModel photoModel) {
+
+        boolean flag = SystemServiceLocator.getPhotoService().updateById( photoModel );
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
+
+        return map;
     }
 
     /**
@@ -270,8 +291,48 @@ public class ContentController {
      * @date: 2018/7/20 15:37
      */
     @RequestMapping(value = "/deletePhoto/{id}", method = RequestMethod.DELETE)
-    public boolean deletePhoto(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getPhotoService().deleteById(id);
+    public Map<String, Object> deletePhoto(@PathVariable(value = "id") Integer id) {
+
+        boolean flag = SystemServiceLocator.getPhotoService().deleteById( id );
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
+
+        return map;
+    }
+
+    /**
+     * 功能描述: 照片分页查询,最大页数
+     *
+     * @param: []
+     * @return: java.util.Map<>
+     * @auther: darker
+     * @date: 2018/8/2 22:56
+     */
+    @RequestMapping(value = "/photoMaxPage", method = RequestMethod.GET)
+    public Map<String, Object> getPhotoMaxPage() {
+
+        Map<String, Object> map = new HashMap<>();
+
+        int count = SystemServiceLocator.getPhotoService().selectCount( new EntityWrapper<>() );
+
+        map.put( "photoMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+
+        return map;
+    }
+
+    /**
+     * 功能描述: 图片实体查询
+     *
+     * @param: [id]
+     * @return: com.vip.darker.model.PhotoModel
+     * @auther: darker
+     * @date: 2018/8/2 22:57
+     */
+    @RequestMapping(value = "/allPhoto/{id}", method = RequestMethod.GET)
+    public PhotoModel queryPhotoById(@PathVariable(value = "id") Integer id) {
+        return SystemServiceLocator.getPhotoService().selectById( id );
     }
 
     /**
@@ -284,8 +345,10 @@ public class ContentController {
      */
     @RequestMapping(value = "/allPhoto", method = RequestMethod.GET)
     public List<PhotoModel> queryAllPhoto(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getPhotoService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
     }
+
+    //****************************************留言板模块****************************************//
 
     /**
      * 功能描述: 留言新增
@@ -296,8 +359,15 @@ public class ContentController {
      * @date: 2018/7/20 15:25
      */
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
-    public boolean addMessage(MessageModel messageModel) {
-        return SystemServiceLocator.getMessageService().insert(messageModel);
+    public Map<String, Object> addMessage(MessageModel messageModel) {
+
+        boolean flag = SystemServiceLocator.getMessageService().insert( messageModel );
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
+
+        return map;
     }
 
     /**
@@ -309,8 +379,15 @@ public class ContentController {
      * @date: 2018/7/20 15:31
      */
     @RequestMapping(value = "/updateMessage", method = RequestMethod.PUT)
-    public boolean updateMessage(@RequestBody MessageModel messageModel) {
-        return SystemServiceLocator.getMessageService().updateById(messageModel);
+    public Map<String, Object> updateMessage(MessageModel messageModel) {
+
+        boolean flag = SystemServiceLocator.getMessageService().updateById( messageModel );
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
+
+        return map;
     }
 
     /**
@@ -322,8 +399,48 @@ public class ContentController {
      * @date: 2018/7/20 15:39
      */
     @RequestMapping(value = "/deleteMessage/{id}", method = RequestMethod.DELETE)
-    public boolean deleteMessage(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getMessageService().deleteById(id);
+    public Map<String, Object> deleteMessage(@PathVariable(value = "id") Integer id) {
+
+        boolean flag = SystemServiceLocator.getMessageService().deleteById( id );
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
+
+        return map;
+    }
+
+    /**
+     * 功能描述: 照片分页查询,最大页数
+     *
+     * @param: []
+     * @return: java.util.Map<>
+     * @auther: darker
+     * @date: 2018/8/2 22:56
+     */
+    @RequestMapping(value = "/messageMaxPage", method = RequestMethod.GET)
+    public Map<String, Object> getMessageMaxPage() {
+
+        Map<String, Object> map = new HashMap<>();
+
+        int count = SystemServiceLocator.getMessageService().selectCount( new EntityWrapper<>() );
+
+        map.put( "messageMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+
+        return map;
+    }
+
+    /**
+     * 功能描述: 图片实体查询
+     *
+     * @param: [id]
+     * @return: com.vip.darker.model.MessageModel
+     * @auther: darker
+     * @date: 2018/8/2 22:57
+     */
+    @RequestMapping(value = "/allMessage/{id}", method = RequestMethod.GET)
+    public MessageModel queryMessageById(@PathVariable(value = "id") Integer id) {
+        return SystemServiceLocator.getMessageService().selectById( id );
     }
 
     /**
@@ -336,6 +453,6 @@ public class ContentController {
      */
     @RequestMapping(value = "/allMessage", method = RequestMethod.GET)
     public List<MessageModel> queryAllMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SystemServiceLocator.getMessageService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
     }
 }

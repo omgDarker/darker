@@ -23,6 +23,8 @@ import java.util.Map;
 @RequestMapping(value = "resource")
 public class ResourceController extends BaseController {
 
+    //****************************************资源模块****************************************//
+
     /**
      * 功能描述: 资源新增
      *
@@ -38,7 +40,7 @@ public class ResourceController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "新增成功!" : "新增失败!" );
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
 
         return map;
     }
@@ -58,7 +60,7 @@ public class ResourceController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "更新成功!" : "更新失败!" );
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
 
         return map;
     }
@@ -78,7 +80,7 @@ public class ResourceController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "删除成功!" : "删除失败!" );
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
 
         return map;
     }
@@ -109,6 +111,8 @@ public class ResourceController extends BaseController {
         return SystemServiceLocator.getResourceService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
     }
 
+    //****************************************回收站模块****************************************//
+
     /**
      * 功能描述: 回收站资源删除
      *
@@ -124,7 +128,7 @@ public class ResourceController extends BaseController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "删除成功!" : "删除失败!" );
+        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
 
         return map;
     }
