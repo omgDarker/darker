@@ -9,9 +9,9 @@
         <!-- 列名 -->
         <div class="row tableHeader">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">序号</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">标题</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">阅读量</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">点赞量</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">标题</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">阅读量</div>
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">点赞量</div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">分类</div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">日记操作</div>
         </div>
@@ -25,9 +25,10 @@
     <footer class="footer" style="padding:10px;">
         <ul class="pagination" id="diaryPagination"></ul>
     </footer>
+
     <!--弹出窗口 添加资源-->
-    <div class="modal fade" id="addDiary" role="dialog" aria-labelledby="gridSystemModalLabel">
-        <div class="" style="height: 250px;" role="document">
+    <div class="modal fade" id="addDiary" role="dialog" aria-labelledby="" style="margin-top:30px;">
+        <div class="" style="width: 80%; margin-left: auto; margin-right: auto;" role="document">
             <div class="modal-content">
                 <!-- 弹窗头 -->
                 <div class="modal-header">
@@ -61,11 +62,9 @@
                                 <label for="" class="col-xs-3 control-label">内容：</label>
                             </div>
                             <div class="form-group">
-                                <div class="col-xs-8 ">
-                                    <!--编辑器位置-->
-                                    <div style="max-height:1200px;margin-left:350px">
-                                        <div th:replace="editor/editor.html :: editor"></div>
-                                    </div>
+                                <!--编辑器位置-->
+                                <div style="max-height:1200px;margin-left:226px;width: 800px;">
+                                    <div th:replace="editor/createEditor.html :: editor"></div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -83,8 +82,8 @@
         </div>
     </div>
     <!--弹出窗口 修改资源-->
-    <div class="modal fade" id="updateDiary" role="dialog" aria-labelledby="gridSystemModalLabel">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="updateDiary" role="dialog" aria-labelledby="" style="margin-top:30px;">
+        <div class="" style="width: 80%; margin-left: auto; margin-right: auto;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -116,9 +115,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3 control-label">内容：</label>
-                                <div class="col-xs-8 ">
-                                    <input type="text" class="form-control input-sm duiqi"
-                                           name="content" id="diaryContent" value="">
+                            </div>
+                            <div class="form-group">
+                                <!--编辑器位置-->
+                                <div style="max-height:1200px;margin-left:226px;width: 800px;">
+                                    <div th:replace="editor/updateEditor.html :: editor"></div>
                                 </div>
                             </div>
                             <!-- 按钮 -->
@@ -235,17 +236,17 @@
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
                 htmlContent += ' <span>' + data[i].id + '</span>';
                 htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
                 htmlContent += ' <span>' + data[i].title + '</span>';
                 htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
                 htmlContent += ' <span>' + data[i].readAmount + '</span>';
                 htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
                 htmlContent += ' <span>' + data[i].likeAmount + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
-                htmlContent += ' <span>' + data[i].classify + '</span>';
+                htmlContent += ' <span>' + (data[i].classify === "1" ? '每周一记' : '随笔记录') + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
                 htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updateDiary" onclick="javascript:queryDiary(\'' + data[i].id + '\');">修改</button>';
@@ -323,7 +324,10 @@
                     // 返回实体类
                     $("#diaryId").val(data.id);
                     $("#diaryTitle").val(data.title);
-                    $("#diaryContent").val(data.content);
+                    // 防止只修改标题而导致内容丢失
+                    $("#updateContent").val(data.content);
+                    // 编辑器数据回填
+                    editor.txt.html(data.content);
                     // 日记分类
                     $("#diaryClassify" + data.classify).attr("checked", "checked");
                 },
