@@ -2,7 +2,10 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.*;
+import com.vip.darker.model.ArticleModel;
+import com.vip.darker.model.DiaryModel;
+import com.vip.darker.model.MessageModel;
+import com.vip.darker.model.PhotoModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
@@ -89,7 +92,7 @@ public class ContentController {
      * @date: 2018/8/1 16:49
      */
     @RequestMapping(value = "/allDiary/{id}", method = RequestMethod.GET)
-    public DiaryModel queryResouceById(@PathVariable(value = "id") Integer id) {
+    public DiaryModel queryDiaryById(@PathVariable(value = "id") Integer id) {
         return SystemServiceLocator.getDiaryService().selectById(id);
     }
 
@@ -135,8 +138,15 @@ public class ContentController {
      * @date: 2018/7/20 15:22
      */
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
-    public boolean addArticle(ArticleModel articleModel) {
-        return SystemServiceLocator.getArticleService().insert(articleModel);
+    public Map<String, Object> addArticle(ArticleModel articleModel) {
+
+        boolean flag = SystemServiceLocator.getArticleService().insert(articleModel);
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("msg", flag ? "新增成功!" : "新增失败!");
+
+        return map;
     }
 
     /**
@@ -148,8 +158,15 @@ public class ContentController {
      * @date: 2018/7/20 15:28
      */
     @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
-    public boolean updateArticle(@RequestBody ArticleModel articleModel) {
-        return SystemServiceLocator.getArticleService().updateById(articleModel);
+    public Map<String, Object> updateArticle(ArticleModel articleModel) {
+
+        boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("msg", flag ? "更新成功!" : "更新失败!");
+
+        return map;
     }
 
     /**
@@ -161,8 +178,48 @@ public class ContentController {
      * @date: 2018/7/20 15:35
      */
     @RequestMapping(value = "/deleteArticle/{id}", method = RequestMethod.DELETE)
-    public boolean deleteArticle(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getArticleService().deleteById(id);
+    public Map<String, Object> deleteArticle(@PathVariable(value = "id") Integer id) {
+
+        boolean flag = SystemServiceLocator.getArticleService().deleteById(id);
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("msg", flag ? "删除成功!" : "删除失败!");
+
+        return map;
+    }
+
+    /**
+     * 功能描述: 文章分页查询,最大页数
+     *
+     * @param: []
+     * @return: java.util.Map<>
+     * @auther: darker
+     * @date: 2018/7/30 10:48
+     */
+    @RequestMapping(value = "/articleMaxPage", method = RequestMethod.GET)
+    public Map<String, Object> getArticleMaxPage() {
+
+        Map<String, Object> map = new HashMap<>();
+
+        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
+
+        map.put("articleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+
+        return map;
+    }
+
+    /**
+     * 功能描述: 文章实体查询
+     *
+     * @param: [id]
+     * @return: com.vip.darker.model.ArticleModel
+     * @auther: darker
+     * @date: 2018/8/1 16:49
+     */
+    @RequestMapping(value = "/allArticle/{id}", method = RequestMethod.GET)
+    public ArticleModel queryArticleById(@PathVariable(value = "id") Integer id) {
+        return SystemServiceLocator.getArticleService().selectById(id);
     }
 
     /**

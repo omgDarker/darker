@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="diary" role="tabpanel" class="tab-pane" id="diary">
+<div th:fragment="article" role="tabpanel" class="tab-pane" id="article">
     <!-- 资源管理模块 -->
     <div class="check-div form-inline">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addDiary">添加日志</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addArticle">添加文章</button>
     </div>
     <table class="data-div">
         <!-- 列名 -->
@@ -13,21 +13,21 @@
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">阅读量</div>
             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">点赞量</div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">分类</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">日记操作</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">文章操作</div>
         </div>
         <!-- 数据 -->
-        <div class="tablebody" id="diaryTablebody">
+        <div class="tablebody" id="articleTablebody">
             <!-- 总页数 -->
-            <input type="hidden" id="diaryMaxPage" th:value="${diaryMaxPage}">
+            <input type="hidden" id="articleMaxPage" th:value="${articleMaxPage}">
         </div>
     </table>
     <!-- 分页 -->
     <footer class="footer" style="padding:10px;">
-        <ul class="pagination" id="diaryPagination"></ul>
+        <ul class="pagination" id="articlePagination"></ul>
     </footer>
 
     <!--弹出窗口 添加资源-->
-    <div class="modal fade" id="addDiary" role="dialog" aria-labelledby="" style="margin-top:30px;">
+    <div class="modal fade" id="addArticle" role="dialog" aria-labelledby="" style="margin-top:30px;">
         <div class="" style="width: 80%; margin-left: auto; margin-right: auto;" role="document">
             <div class="modal-content">
                 <!-- 弹窗头 -->
@@ -36,25 +36,26 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">添加日记</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel">添加文章</h4>
                 </div>
                 <!-- 弹窗体 -->
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form class="form-horizontal" id="diaryAddForm">
+                        <form class="form-horizontal" id="articleAddForm">
                             <div class="form-group ">
                                 <label for="" class="col-xs-3 control-label">标题：</label>
                                 <div class="col-xs-8 ">
                                     <input type="text" class="form-control input-sm duiqi"
-                                           name="title" placeholder="请输入日记标题">
+                                           name="title" placeholder="请输入文章标题">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3 control-label">分类：</label>
                                 <div class="col-xs-8 ">
                                     <select class="form-control select-duiqi" name="classify">
-                                        <option value="1" name="classify">每周一记</option>
-                                        <option value="2" name="classify">随笔记录</option>
+                                        <option value="1" name="classify">spring</option>
+                                        <option value="2" name="classify">springboot</option>
+                                        <option value="3" name="classify">mybatis</option>
                                     </select>
                                 </div>
                             </div>
@@ -64,12 +65,12 @@
                             <div class="form-group">
                                 <!--编辑器位置-->
                                 <div style="max-height:1200px;margin-left:226px;width: 700px;">
-                                    <div th:replace="editor/diaryCreateEditor.html :: editor"></div>
+                                    <div th:replace="editor/articleCreateEditor.html :: editor"></div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-green"
-                                        th:onclick="'javascript:addDiary()'">保 存
+                                        th:onclick="'javascript:addArticle()'">保 存
                                 </button>
                                 <button type="button" class="btn btn-white"
                                         data-dismiss="modal">取 消
@@ -82,25 +83,25 @@
         </div>
     </div>
     <!--弹出窗口 修改资源-->
-    <div class="modal fade" id="updateDiary" role="dialog" aria-labelledby="" style="margin-top:30px;">
+    <div class="modal fade" id="updateArticle" role="dialog" aria-labelledby="" style="margin-top:30px;">
         <div class="" style="width: 80%; margin-left: auto; margin-right: auto;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">修改日记</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel">修改文章</h4>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form class="form-horizontal" id="diaryUpdateForm">
+                        <form class="form-horizontal" id="articleUpdateForm">
                             <!-- form表单不支持put请求方式的解决方案 -->
                             <!-- <input type="hidden" name="_method" value="PUT"/> -->
-                            <input type="hidden" id="diaryId" name="id" value="">
+                            <input type="hidden" id="articleId" name="id" value="">
                             <div class="form-group ">
                                 <label for="" class="col-xs-3 control-label">标题：</label>
                                 <div class="col-xs-8 ">
-                                    <input type="text" class="form-control input-sm duiqi" id="diaryTitle"
+                                    <input type="text" class="form-control input-sm duiqi" id="articleTitle"
                                            name="title" value="">
                                 </div>
                             </div>
@@ -108,8 +109,9 @@
                                 <label for="" class="col-xs-3 control-label">分类：</label>
                                 <div class="col-xs-8 ">
                                     <select class="form-control select-duiqi" name="classify" id="classify">
-                                        <option value="1" name="classify" id="diaryClassify1">每周一记</option>
-                                        <option value="2" name="classify" id="diaryClassify2">随笔记录</option>
+                                        <option value="1" name="classify" id="articleClassify1">spring</option>
+                                        <option value="2" name="classify" id="articleClassify2">springboot</option>
+                                        <option value="3" name="classify" id="articleClassify3">mybatis</option>
                                     </select>
                                 </div>
                             </div>
@@ -119,13 +121,13 @@
                             <div class="form-group">
                                 <!--编辑器位置-->
                                 <div style="max-height:1200px;margin-left:226px;width: 700px;">
-                                    <div th:replace="editor/diaryUpdateEditor.html :: editor"></div>
+                                    <div th:replace="editor/articleUpdateEditor.html :: editor"></div>
                                 </div>
                             </div>
                             <!-- 按钮 -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-green"
-                                        th:onclick="'javascript:updateDiary()'">保 存
+                                        th:onclick="'javascript:updateArticle()'">保 存
                                 </button>
                                 <button type="button" class="btn btn-white" data-dismiss="modal">取 消
                                 </button>
@@ -142,11 +144,11 @@
             // 判断是哪个选项卡
             var controls = $(this).attr('aria-controls');
 
-            if ('diary' === controls) {
+            if ('article' === controls) {
                 // ajax请求获取用户最大页数
                 $.ajax({
                     //请求URL地址,controller的名称
-                    url: "/content/diaryMaxPage",
+                    url: "/content/articleMaxPage",
                     //请求返回数据格式为json,还可以是text等
                     dataType: "JSON",
                     //请求是否为异步,默认是true
@@ -166,7 +168,7 @@
                     //请求成功时的处理函数,参数(返回数据,返回状态)
                     success: function (data) {
                         // 调用分页
-                        diaryPagination(data.diaryMaxPage);
+                        articlePagination(data.articleMaxPage);
                     },
                     //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                     complete: function () {
@@ -179,9 +181,9 @@
         });
 
         // 分页操作
-        function diaryPagination(diaryMaxPage) {
-            $.jqPaginator('#diaryPagination', {
-                totalPages: diaryMaxPage, // 总页数
+        function articlePagination(articleMaxPage) {
+            $.jqPaginator('#articlePagination', {
+                totalPages: articleMaxPage, // 总页数
                 visiblePages: 10, // 显示的页码数量
                 currentPage: 1, // 当前页
                 prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
@@ -193,7 +195,7 @@
                     // num->当前页
                     $.ajax({
                         //请求URL地址,controller的名称
-                        url: "/content/allDiary",
+                        url: "/content/allArticle",
                         //请求返回数据格式为json,还可以是text等
                         dataType: "json",
                         //请求是否为异步,默认是true
@@ -213,7 +215,7 @@
                         //请求成功时的处理函数,参数(返回数据,返回状态)
                         success: function (data) {
                             // 组装HTML页面
-                            parseDiaryHtmlContent(data);
+                            parseArticleHtmlContent(data);
                         },
                         //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                         complete: function () {
@@ -227,7 +229,7 @@
         }
 
         // 查询数据填充至HTML
-        function parseDiaryHtmlContent(data) {
+        function parseArticleHtmlContent(data) {
 
             var htmlContent = "";
 
@@ -246,22 +248,22 @@
                 htmlContent += ' <span>' + data[i].likeAmount + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
-                htmlContent += ' <span>' + (data[i].classify === "1" ? '每周一记' : '随笔记录') + '</span>';
+                htmlContent += ' <span>' + data[i].classify + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
-                htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updateDiary" onclick="javascript:queryDiary(\'' + data[i].id + '\');">修改</button>';
-                htmlContent += ' <button class="btn btn-danger" data-toggle="modal" onclick="javascript:deleteDiary(\'' + data[i].id + '\');">删除</button>';
+                htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updateArticle" onclick="javascript:queryArticle(\'' + data[i].id + '\');">修改</button>';
+                htmlContent += ' <button class="btn btn-danger" data-toggle="modal" onclick="javascript:deleteArticle(\'' + data[i].id + '\');">删除</button>';
                 htmlContent += ' </div>';
                 htmlContent += ' </div>';
             }
-            $("#diaryTablebody").html(htmlContent);
+            $("#articleTablebody").html(htmlContent);
         };
 
         // 新增操作
-        function addDiary() {
+        function addArticle() {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/addDiary",
+                url: "/content/addArticle",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -271,13 +273,13 @@
                 //设置请求超时时间
                 timeout: 1000,
                 //参数值,如果URL带参数,这里就可以不用写了
-                data: $('#diaryAddForm').serialize(),
+                data: $('#articleAddForm').serialize(),
                 //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
                 type: "POST",
                 //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
                 beforeSend: function () {
                     // 隐藏模态窗
-                    $("#addDiary").modal('hide');
+                    $("#addArticle").modal('hide');
                 },
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
@@ -287,7 +289,7 @@
                         // 自动关闭弹窗
                         swal.close();
                         // 点击响应tab刷新页面
-                        $("div[aria-controls='diary']").click();
+                        $("div[aria-controls='article']").click();
                     }, 2000);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -300,10 +302,10 @@
         };
 
         // 查询资源实体
-        function queryDiary(id) {
+        function queryArticle(id) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/allDiary/" + id,
+                url: "/content/allArticle/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -322,14 +324,14 @@
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
                     // 返回实体类
-                    $("#diaryId").val(data.id);
-                    $("#diaryTitle").val(data.title);
+                    $("#articleId").val(data.id);
+                    $("#articleTitle").val(data.title);
                     // 防止只修改标题而导致内容丢失
-                    $("#diaryUpdateContent").val(data.content);
+                    $("#articleUpdateContent").val(data.content);
                     // 编辑器数据回填
-                    diaryUpdateEditor.txt.html(data.content);
+                    articleUpdateEditor.txt.html(data.content);
                     // 日记分类
-                    $("#diaryClassify" + data.classify).attr("checked", "checked");
+                    $("#articleClassify" + data.classify).attr("checked", "checked");
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                 complete: function () {
@@ -341,10 +343,10 @@
         };
 
         // 更新操作
-        function updateDiary() {
+        function updateArticle() {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/updateDiary",
+                url: "/content/updateArticle",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -354,13 +356,13 @@
                 //设置请求超时时间
                 timeout: 1000,
                 //参数值,如果URL带参数,这里就可以不用写了
-                data: $('#diaryUpdateForm').serialize(),
+                data: $('#articleUpdateForm').serialize(),
                 //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
                 type: "PUT",
                 //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
                 beforeSend: function () {
                     // 隐藏模态窗
-                    $("#updateDiary").modal('hide');
+                    $("#updateArticle").modal('hide');
                 },
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
@@ -370,7 +372,7 @@
                         // 自动关闭弹窗
                         swal.close();
                         // 点击响应tab刷新页面
-                        $("div[aria-controls='diary']").click();
+                        $("div[aria-controls='article']").click();
                     }, 2000);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -383,7 +385,7 @@
         };
 
         // 删除操作
-        function deleteDiary(id) {
+        function deleteArticle(id) {
             swal({
                 title: '确定删除吗?',  //弹出框的title
                 text: '你将无法恢复它!', //弹出框里面的提示文本
@@ -401,7 +403,7 @@
                 if (isConfirm.value === true) {
                     $.ajax({
                         //请求URL地址,controller的名称
-                        url: "/content/deleteDiary/" + id,
+                        url: "/content/deleteArticle/" + id,
                         //请求返回数据格式为json,还可以是text等
                         dataType: "json",
                         //请求是否为异步,默认是true
@@ -425,7 +427,7 @@
                                 // 自动关闭弹窗
                                 swal.close();
                                 // 点击响应tab刷新页面
-                                $("div[aria-controls='diary']").click();
+                                $("div[aria-controls='article']").click();
                             }, 2000);
                         },
                         //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用

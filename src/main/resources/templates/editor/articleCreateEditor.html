@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body th:fragment="editor">
+<!-- 富文本编辑器 -->
+<div id="articleCreateEditor"></div>
+<!-- 填写内容 -->
+<textarea id="articleCreateContent" name="content" style="width:100%; height:200px;display:none;"></textarea>
+<script type="text/javascript">
+    var E = window.wangEditor;
+    var articleCreateEditor = new E('#articleCreateEditor');
+    var $articleCreateEditor = $('#articleCreateContent');
+    articleCreateEditor.customConfig.onchange = function (html) {
+        // 监控变化,同步更新到textarea
+        $articleCreateEditor.val(html)
+    };
+    articleCreateEditor.create();
+    // 将富文本编辑器中的内容设置到textarea中
+    $articleCreateEditor.val(articleCreateEditor.txt.html());
+</script>
+</body>
+</html>
