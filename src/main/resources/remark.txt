@@ -29,4 +29,5 @@ http://localhost:8080/druid/index.html
 #架构
 #前端 Themeleaf(模板引擎) SweetAlert(弹窗)
 #后端 SpringBoot MybatisPlus
+#组件 wangEditor(富文本框)
 #数据库 MySQL
