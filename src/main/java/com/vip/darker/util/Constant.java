@@ -16,11 +16,16 @@ public class Constant {
 
     public static final String SUCCESS_DELETE = "删除成功!";
 
+    public static final String SUCCESS_UPLOAD = "上传成功!";
+
     public static final String FAIL_INSERT = "新增失败!";
 
     public static final String FAIL_UPDATE = "更新失败!";
 
     public static final String FAIL_DELETE = "删除失败!";
+
+    public static final String FAIL_UPLOAD = "上传失败!";
+
     // 相应标识
     public static final String MSG = "msg";
 }
