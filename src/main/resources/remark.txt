@@ -27,7 +27,7 @@ http://localhost:8080/visitorModel/all?pageNum=1&pageSize=2
 http://localhost:8080/druid/index.html
 
 #架构
-#前端 Themeleaf(模板引擎) SweetAlert(弹窗)
+#前端 Bootstrap(样式) Themeleaf(模板引擎) SweetAlert(弹窗)
 #后端 SpringBoot MybatisPlus
-#组件 wangEditor(富文本框)
+#组件 wangEditor(富文本框) fileInput(图片上传)
 #数据库 MySQL

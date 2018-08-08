@@ -3722,7 +3722,7 @@ tbody.collapse.in {
 }
 .input-group {
   position: relative;
-  /*display: table;*/
+  display: table;
   border-collapse: separate;
 }
 .input-group[class*="col-"] {
@@ -3733,7 +3733,7 @@ tbody.collapse.in {
 .input-group .form-control {
   position: relative;
   z-index: 2;
-  float: left;
+  /*float: left;*/
   width: 100%;
   margin-bottom: 0;
 }

@@ -18,7 +18,7 @@ public class PhotoModel extends Model<PhotoModel> {
 
     private String description;
 
-    private String path;
+    private String name;
 
     private Integer readAmount;
 
@@ -47,7 +47,7 @@ public class PhotoModel extends Model<PhotoModel> {
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public String getDescription() {
@@ -55,15 +55,15 @@ public class PhotoModel extends Model<PhotoModel> {
     }
 
     public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+        this.description = description;
     }
 
-    public String getPath() {
-        return path;
+    public String getName() {
+        return name;
     }
 
-    public void setPath(String path) {
-        this.path = path == null ? null : path.trim();
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getReadAmount() {
@@ -87,7 +87,7 @@ public class PhotoModel extends Model<PhotoModel> {
     }
 
     public void setClassify(String classify) {
-        this.classify = classify == null ? null : classify.trim();
+        this.classify = classify;
     }
 
     public Integer getIsDelete() {
@@ -103,7 +103,7 @@ public class PhotoModel extends Model<PhotoModel> {
     }
 
     public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+        this.creator = creator;
     }
 
     public Date getCreateTime() {

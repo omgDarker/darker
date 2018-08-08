@@ -69,9 +69,12 @@
                             </div>
                             <div class="form-group ">
                                 <label for="" class="col-xs-4 control-label">上传图片：</label>
-                            </div>
-                            <div class="form-group ">
-                                <input id="f_upload" type="file" class="file" name="path"/>
+                                <div class="col-xs-8 ">
+                                    <input type="file" class="file form-control" id="uploadImage"
+                                           data-ref="name"/>
+                                    <!-- 图片上传完成后,传值到这里,在提交form表单 -->
+                                    <input type="hidden" name="name" id="imageName" value="">
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-green"
@@ -89,7 +92,7 @@
     </div>
     <!--弹出窗口 修改资源-->
     <div class="modal fade" id="updatePhoto" role="dialog" aria-labelledby="" style="margin-top:30px;">
-        <div class="" style="width: 80%; margin-left: auto; margin-right: auto;" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -107,14 +110,14 @@
                                 <label for="" class="col-xs-4 control-label">标题：</label>
                                 <div class="col-xs-8 ">
                                     <input type="text" class="form-control input-sm duiqi"
-                                           name="title" id="title" placeholder="请输入图片标题">
+                                           name="title" id="photoTitle">
                                 </div>
                             </div>
                             <div class="form-group ">
                                 <label for="" class="col-xs-4 control-label">描述：</label>
                                 <div class="col-xs-8 ">
                                     <textarea type="text" class="form-control input-sm duiqi"
-                                              name="photoDescription" id="description" placeholder="请输入图片描述"></textarea>
+                                              name="description" id="photoDescription"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -123,15 +126,9 @@
                                     <select class="form-control select-duiqi" name="classify" id="classify">
                                         <option value="1" name="classify" id="photoClassify1">简约系列</option>
                                         <option value="2" name="classify" id="photoClassify2">欧美系列</option>
-                                        <option value="3" name="classify" id="photoClassify2">视觉系列</option>
+                                        <option value="3" name="classify" id="photoClassify3">视觉系列</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group ">
-                                <label for="" class="col-xs-4 control-label">上传图片：</label>
-                            </div>
-                            <div class="form-group ">
-                                <input type="file" id="f_upload" class="file" name="path"/>
                             </div>
                             <!-- 按钮 -->
                             <div class="modal-footer">
@@ -247,8 +244,11 @@
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
                 htmlContent += ' <span>' + data[i].id + '</span>';
                 htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
+                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
                 htmlContent += ' <span>' + data[i].title + '</span>';
+                htmlContent += ' </div>';
+                htmlContent += ' <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">';
+                htmlContent += ' <span>' + data[i].description + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
                 htmlContent += ' <span>' + data[i].readAmount + '</span>';
@@ -256,7 +256,7 @@
                 htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
                 htmlContent += ' <span>' + data[i].likeAmount + '</span>';
                 htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
                 htmlContent += ' <span>' + data[i].classify + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
@@ -267,6 +267,43 @@
             }
             $("#photoTablebody").html(htmlContent);
         };
+
+        // 图片上传操作
+        $("#uploadImage").fileinput({
+            //上传的地址
+            uploadUrl: "/image/uploadImage?rad=" + Math.random(),
+            uploadAsync: true, //默认异步上传
+            showCaption: true,//是否显示标题
+            showPreview: true, //是否显示预览
+            showUpload: false, //是否显示上传按钮
+            showRemove: false, //是否显示移除按钮
+            showCancel: true,//是否显示取消按钮
+            showClose: true,//是否显示关闭按钮
+            autoReplace: false,//是否自动替换当前图片
+            allowedFileTypes: ['image'],//配置允许文件上传的类型
+            allowedPreviewTypes: ['image'],//配置所有的被预览文件类型
+            allowedPreviewMimeTypes: ['jpg', 'png', 'gif'],//控制被预览的所有mime类型
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",//预览图片图标
+            maxFileCount: 1, //表示允许同时上传的最大文件个数
+            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+            dropZoneEnabled: false,//是否显示拖拽区域，默认不写为true，但是会占用很大区域
+            enctype: 'multipart/form-data',
+            validateInitialCount: true,
+            language: 'zh'
+        });
+        //异步上传错误处理
+        $('#uploadImage').on('fileerror', function (event, data, msg) {
+            // 弹窗提示信息
+            swal('图片上传失败!', '', "success");
+        });
+        //异步上传返回结果处理
+        $("#uploadImage").on("fileuploaded", function (event, data, previewId, index) {
+            // 弹窗提示信息
+            swal(data.response.msg, '', "success");
+            // 参数回写到隐藏域中
+            var ref = $(this).attr("data-ref");
+            $("input[name='" + ref + "']").val(data.response.myImage);
+        });
 
         // 新增操作
         function addPhoto() {
@@ -336,9 +373,7 @@
                     $("#photoId").val(data.id);
                     $("#photoTitle").val(data.title);
                     // 防止只修改标题而导致内容丢失
-                    $("#photoUpdateContent").val(data.content);
-                    // 编辑器数据回填
-                    photoUpdateEditor.txt.html(data.content);
+                    $("#photoDescription").val(data.description);
                     // 日记分类
                     $("#photoClassify" + data.classify).attr("checked", "checked");
                 },
