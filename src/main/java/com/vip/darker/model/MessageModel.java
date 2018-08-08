@@ -18,6 +18,8 @@ public class MessageModel extends Model<MessageModel> {
 
     private String userName;
 
+    private String email;
+
     private String content;
 
     private Integer isDelete;
@@ -49,7 +51,15 @@ public class MessageModel extends Model<MessageModel> {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+        this.userName = userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getContent() {
@@ -57,7 +67,7 @@ public class MessageModel extends Model<MessageModel> {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
     public Integer getIsDelete() {
@@ -73,7 +83,7 @@ public class MessageModel extends Model<MessageModel> {
     }
 
     public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+        this.creator = creator;
     }
 
     public Date getCreateTime() {

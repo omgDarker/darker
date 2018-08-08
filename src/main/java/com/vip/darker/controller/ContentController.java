@@ -351,7 +351,7 @@ public class ContentController {
     //****************************************留言板模块****************************************//
 
     /**
-     * 功能描述: 留言新增
+     * 功能描述: 留言板新增
      *
      * @param: [messageModel]
      * @return: boolean
@@ -371,7 +371,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 留言更新
+     * 功能描述: 留言板更新
      *
      * @param: [messageModel]
      * @return:
@@ -391,7 +391,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 留言删除
+     * 功能描述: 留言板删除
      *
      * @param: [id]
      * @return: boolean
@@ -411,7 +411,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 照片分页查询,最大页数
+     * 功能描述: 留言板分页查询,最大页数
      *
      * @param: []
      * @return: java.util.Map<>
@@ -431,7 +431,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 图片实体查询
+     * 功能描述: 留言板实体查询
      *
      * @param: [id]
      * @return: com.vip.darker.model.MessageModel
@@ -444,7 +444,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 留言分页查询
+     * 功能描述: 留言板分页查询
      *
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.MessageModel>
