@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>darker博客</title>
+    <meta name="keywords" content="darker"/>
+    <meta name="description" content="darker博客"/>
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/m.css" rel="stylesheet">
+    <link href="/images/favicon-.ico" rel="shortcut icon" type="image/x-icon"/>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <style>
+        .btn {
+            padding: 15px 55px;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.4;
+            border: none;
+            border-radius: 4px;
+            font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif;
+            -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+            transition: border .25s linear, color .25s linear, background-color .25s linear;
+            -webkit-font-smoothing: subpixel-antialiased;
+            /* 鼠标掠过,显示小手 */
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2579d1;
+        }
+
+        /*active 要在后面 否则会被hover覆盖*/
+
+        .btn:focus {
+            background-color: #204d74;
+        }
+
+        .btn:active {
+            background-color: #000000;
+        }
+
+        .btn-praise {
+            color: #fff;
+            background-color: #ed200c;
+            border-color: #ed223d;
+        }
+
+        .btn-bad {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+
+        .btn-money {
+            color: #fff;
+            background-color: #E2523A;
+            border-color: #E25211;
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <!-- 页头 -->
+    <div th:include="common/header.html :: header"></div>
+    <!-- 内容头CSS -->
+    <div class="jztop"></div>
+    <!-- container -->
+    <div class="container">
+        <div class="bloglist f_l">
+            <ul>
+                <li>
+                    <!-- 标题 -->
+                    <h3 class="blogtitle">
+                        <span th:text="${object.classify=='1'?'每周一记':'随笔记录'}"></span>
+                        <a href="#" th:text="${object.title}"></a>
+                    </h3>
+                    <!-- 提示信息 -->
+                    <div class="autor">
+                        <!-- 时钟 -->
+                        <span class="lm f_l"></span>
+                        <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                        <!-- 浏览量 -->
+                        共<a href="#" th:utext="${object.readAmount}"></a>人围观</span>
+                    </div>
+                    <br/><br/>
+                    <!-- 内容 -->
+                    <div class="bloginfo">
+                        <!-- 文章首图 -->
+                        <span class="blogpic">
+                            <img src="/images/01.jpg" alt="帝国cms 首页或者列表无图，不使用默认图片的方法">
+                        </span>
+                        <span th:utext="${#strings.trim(object.content)}"></span>
+                    </div>
+                    <br/><br/>
+                    <div style="margin-bottom: 30px;" align="center">
+                        <button type="button" class="btn btn-praise">点赞(999)</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-bad">甩鞋(666)</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-money">打赏</button>
+                    </div>
+                </li>
+                <li>
+                    <!-- 标题 -->
+                    <h3 class="blogtitle">
+                        <span>文章评论</span>
+                    </h3>
+                    <!-- 留言表单 -->
+                    <form>
+                        您的昵称<br/>
+                        <input type="text" name="name" value=""><br/><br/>
+                        您的邮件<br/>
+                        <input type="text" name="email" value=""><br/><br/>
+                        您的评论<br/>
+                        <textarea name="message"></textarea><br/><br/>
+                        <input type="submit" value="提交">
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <!-- 右侧栏 -->
+        <div th:include="index/index_right.html :: index_right"></div>
+    </div>
+    <!-- 内容脚CSS -->
+    <div class="jzend"></div>
+    <!-- 页脚 -->
+    <div th:include="common/footer :: footer"></div>
+</div>
+</body>
+</html>
