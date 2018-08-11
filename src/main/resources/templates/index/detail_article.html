@@ -10,55 +10,6 @@
     <link href="/css/m.css" rel="stylesheet">
     <link href="/images/favicon-.ico" rel="shortcut icon" type="image/x-icon"/>
     <script type="text/javascript" src="/js/jquery.js"></script>
-    <style>
-        .btn {
-            padding: 15px 55px;
-            font-size: 15px;
-            font-weight: 400;
-            line-height: 1.4;
-            border: none;
-            border-radius: 4px;
-            font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif;
-            -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
-            transition: border .25s linear, color .25s linear, background-color .25s linear;
-            -webkit-font-smoothing: subpixel-antialiased;
-            /* 鼠标掠过,显示小手 */
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #2579d1;
-        }
-
-        /*active 要在后面 否则会被hover覆盖*/
-
-        .btn:focus {
-            background-color: #204d74;
-        }
-
-        .btn:active {
-            background-color: #000000;
-        }
-
-        .btn-praise {
-            color: #fff;
-            background-color: #ed200c;
-            border-color: #ed223d;
-        }
-
-        .btn-bad {
-            color: #fff;
-            background-color: #5cb85c;
-            border-color: #4cae4c;
-        }
-
-        .btn-money {
-            color: #fff;
-            background-color: #E2523A;
-            border-color: #E25211;
-        }
-
-    </style>
 </head>
 <body>
 <div id="wrapper">
@@ -69,54 +20,65 @@
     <!-- container -->
     <div class="container">
         <div class="bloglist f_l">
-            <ul>
-                <li>
-                    <!-- 标题 -->
-                    <h3 class="blogtitle">
-                        <span th:text="${object.classify=='1'?'每周一记':'随笔记录'}"></span>
-                        <a href="#" th:text="${object.title}"></a>
-                    </h3>
-                    <!-- 提示信息 -->
-                    <div class="autor">
-                        <!-- 时钟 -->
-                        <span class="lm f_l"></span>
-                        <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
-                        <!-- 浏览量 -->
-                        共<a href="#" th:utext="${object.readAmount}"></a>人围观</span>
-                    </div>
-                    <br/><br/>
-                    <!-- 内容 -->
-                    <div class="bloginfo">
-                        <!-- 文章首图 -->
-                        <span class="blogpic">
+            <!-- 标题 -->
+            <h3 class="blogtitle">
+                <span th:text="${object.classify=='1'?'每周一记':'随笔记录'}"></span>
+                <a href="#" th:text="${object.title}" style="cursor:default"></a>
+            </h3>
+            <!-- 提示信息 -->
+            <div class="autor">
+                <!-- 时钟 -->
+                <span class="lm f_l"></span>
+                <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                <!-- 浏览量 -->
+                共<a href="#" th:utext="${object.readAmount}"></a>人围观</span>
+            </div>
+            <br/><br/>
+            <!-- 内容 -->
+            <div class="bloginfo">
+                <!-- 文章首图 -->
+                <span class="blogpic">
                             <img src="/images/01.jpg" alt="帝国cms 首页或者列表无图，不使用默认图片的方法">
                         </span>
-                        <span th:utext="${#strings.trim(object.content)}"></span>
-                    </div>
-                    <br/><br/>
-                    <div style="margin-bottom: 30px;" align="center">
-                        <button type="button" class="btn btn-praise">点赞(999)</button>&nbsp;&nbsp;
-                        <button type="button" class="btn btn-bad">甩鞋(666)</button>&nbsp;&nbsp;
-                        <button type="button" class="btn btn-money">打赏</button>
-                    </div>
-                </li>
-                <li>
-                    <!-- 标题 -->
-                    <h3 class="blogtitle">
-                        <span>文章评论</span>
-                    </h3>
-                    <!-- 留言表单 -->
-                    <form>
-                        您的昵称<br/>
-                        <input type="text" name="name" value=""><br/><br/>
-                        您的邮件<br/>
-                        <input type="text" name="email" value=""><br/><br/>
-                        您的评论<br/>
-                        <textarea name="message"></textarea><br/><br/>
-                        <input type="submit" value="提交">
-                    </form>
-                </li>
-            </ul>
+                <span th:utext="${#strings.trim(object.content)}"></span>
+            </div>
+            <br/><br/>
+            <div style="margin-bottom: 30px;" align="center">
+                <button type="button" class="btn btn-praise">点赞(999)</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-bad">甩鞋(666)</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-money">打赏</button>
+            </div>
+            <br/>
+            <!-- 标题 -->
+            <h3 class="blogtitle">
+                <span>文章评论</span>
+            </h3>
+            <!-- 留言表单 -->
+            <form action="" id="messageAddForm">
+                <div class="form-group">
+                    <label for="name">您的昵称</label>
+                    <input type="text" class="form-control" name="name" id="name" value=""
+                           placeholder="请输入您的昵称">
+                </div>
+                <div class="form-group">
+                    <label for="email">您的邮件</label>
+                    <input type="text" class="form-control" name="email" id="email" value=""
+                           placeholder="请输入您的邮件">
+                </div>
+                <div class="form-group">
+                    <label for="message">您的评论</label>
+                    <textarea class="form-control" name="message" id="message" value=""></textarea>
+                </div>
+                <br/>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+                <br/>
+                <button type="button" class="btn btn-primary" onclick="addMessage();">Submit</button>
+            </form>
+            <br/></br>
         </div>
         <!-- 右侧栏 -->
         <div th:include="index/index_right.html :: index_right"></div>
@@ -126,5 +88,44 @@
     <!-- 页脚 -->
     <div th:include="common/footer :: footer"></div>
 </div>
+<script>
+    function addMessage() {
+        $.ajax({
+            //请求URL地址,controller的名称
+            url: "/content/addMessage",
+            //请求返回数据格式为json,还可以是text等
+            dataType: "JSON",
+            //请求是否为异步,默认是true
+            async: true,
+            //是否从浏览器缓存中加载数据信息
+            cache: false,
+            //设置请求超时时间
+            timeout: 1000,
+            //参数值,如果URL带参数,这里就可以不用写了
+            data: $('#messageAddForm').serialize(),
+            //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+            type: "POST",
+            //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+            beforeSend: function () {
+            },
+            //请求成功时的处理函数,参数(返回数据,返回状态)
+            success: function (data) {
+                setTimeout(function () {
+                    swal(data.msg, '', "success");
+                }, 100);
+                //2秒后刷新页面，足够显示swal()的信息
+                setTimeout(function () {
+                    window.location.reload();
+                }, 2000);
+            },
+            //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+            complete: function () {
+            },
+            //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+            error: function () {
+            }
+        });
+    }
+</script>
 </body>
 </html>

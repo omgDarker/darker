@@ -7,7 +7,7 @@
                 <!-- 标题 -->
                 <h3 class="blogtitle">
                     <span th:text="${object.classify=='1'?'每周一记':'随笔记录'}"></span>
-                    <a href="#" th:text="${object.title}"></a>
+                    <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
                 </h3>
                 <!-- 内容 -->
                 <div class="bloginfo">
