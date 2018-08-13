@@ -1,27 +1,18 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>darker留言板</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="keywords" content="留言板"/>
     <meta name="description" content="darker留言板"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>darker留言板</title>
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/m.css" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
     <script src="/js/jquery.js" type="text/javascript"></script>
-    <script>
-        /* 页头下拉框JS */
-        window.onload = function () {
-            var oH2 = document.getElementsByTagName("h2")[0];
-            var oUl = document.getElementsByTagName("ul")[0];
-            oH2.onclick = function () {
-                var style = oUl.style;
-                style.display = style.display === "block" ? "none" : "block";
-                oH2.className = style.display === "block" ? "open" : ""
-            }
-        }
-    </script>
 </head>
 <body>
 <div id="wrapper">
@@ -33,22 +24,25 @@
     <div class="container">
         <div class="con_content">
             <div class="about_box">
-                <h2 class="nh1">
-                    <span>
-                        您现在的位置是：<a href="/index/home" target="_blank">网站首页</a>>><a href="#" target="_blank">留言板</a>
-                    </span>
-                    <b>留言板</b>
-                </h2>
-                <div class="dtxw box">
-                    <ul>
-                        <li>留言1</li>
-                        <li>留言2</li>
-                        <li>留言3</li>
-                        <li>留言4</li>
-                        <li>留言5</li>
-                    </ul>
+                <div class="banner">
+                    您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>留言板
                 </div>
-                <div class="pagelist"><a href="/">首页</a><a href="/">上一页</a><a href="/">下一页</a><a href="/">尾页</a></div>
+                <div id="addToMessage">
+                    <div style="line-height: 70px;" th:each="message:${messageList}">
+                        <span th:text="${message.userName}"></span>
+                        <b class="content" style="text-indent: 2em;line-height: 22px;" th:text="${message.content}"></b>
+                        <hr style=" height:2px;border:none;border-top:2px dotted #DDDDDD;"/>
+                    </div>
+                </div>
+                <div class="module-cmt-footer">
+                    <span id="pageNum" th:text="${pageNum}" th:hidden="true"></span>
+                    <!-- 翻页 -->
+                    <div class="section-page-w">
+                        <div node-type="cmt-more" class="cmt-more-wrap-gw" id="moreWatch" onclick="turnPage()">查看更多
+                            <span class="more-arrow-ico" id="moreIcon"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="blank"></div>
@@ -58,5 +52,73 @@
     <!-- 页脚 -->
     <div th:include="common/footer :: footer"></div>
 </div>
+<script>
+    // 翻页操作
+    function turnPage() {
+
+        var pageNum = parseInt(document.getElementById("pageNum").innerText) + 1;
+
+        $.ajax({
+            //请求URL地址,controller的名称
+            url: "/content/allMessage",
+            //请求返回数据格式为json,还可以是text等
+            dataType: "JSON",
+            //请求是否为异步,默认是true
+            async: true,
+            //是否从浏览器缓存中加载数据信息
+            cache: false,
+            //设置请求超时时间
+            timeout: 1000,
+            //参数值,如果URL带参数,这里就可以不用写了
+            data: {"pageNum": pageNum},
+            //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+            type: "GET",
+            //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+            beforeSend: function () {
+            },
+            //请求成功时的处理函数,参数(返回数据,返回状态)
+            success: function (data) {
+                // 追加留言数据
+                addMessageToBoard(data);
+                // 回写页数,方便下次翻页
+                $("#pageNum").text(pageNum);
+            },
+            //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+            complete: function () {
+            },
+            //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+            error: function () {
+            }
+        });
+    }
+
+    // 追加留言操作
+    function addMessageToBoard(data) {
+
+        var appendHtml = '';
+
+        var messageArray = eval("(" + data + ")");
+        // 判断留言是否查询完毕
+        if (messageArray.length !== 10) {
+            $("#moreWatch").text('别翻了,没有更多了!');
+            $("#moreIcon").attr('display', 'none');
+        }
+
+        for (var i = 0; i < messageArray.length; i++) {
+
+            var message = messageArray[i];
+
+            appendHtml += '<div style="line-height: 70px;" id="">';
+            appendHtml += '<span>' + message.userName + '</span>';
+            appendHtml += '<b class=\"content\" style=\"text-indent: 2em;line-height: 22px;\" >' + message.content + '</b>';
+            appendHtml += '<hr style=\" height:2px;border:none;border-top:2px dotted #DDDDDD;\"/>';
+            appendHtml += '</div>';
+        }
+        //先保存div中原来的html
+        var html = document.getElementById("addToMessage").innerHTML;
+        //再跟你想追加的代码加到一起插入div中
+        document.getElementById("addToMessage").innerHTML = html + appendHtml;
+    }
+</script>
 </body>
 </html>

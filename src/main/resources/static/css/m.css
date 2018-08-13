@@ -1,6 +1,6 @@
  @charset "gb2312";
 
-/* ´óÓÚ960px£¬Ð¡ÓÚ1199px */ 
+/* ï¿½ï¿½ï¿½ï¿½960pxï¿½ï¿½Ð¡ï¿½ï¿½1199px */ 
  @media screen and (min-width: 960px) and (max-width: 1199px) {
 header, article, .footer, .container, .contenttop { width: 100%; margin: auto;  }
 .contenttop { overflow: hidden }
@@ -14,7 +14,7 @@ header, article, .footer, .container, .contenttop { width: 100%; margin: auto;  
 footer { width: 100% }
 }
  
- /* ´óÓÚ768px£¬Ð¡ÓÚ959px */ 
+ /* ï¿½ï¿½ï¿½ï¿½768pxï¿½ï¿½Ð¡ï¿½ï¿½959px */ 
  @media screen and (min-width: 768px) and (max-width: 959px) {
 header, article, .footer, .container, .contenttop { width: 100%; margin: auto; }
 
@@ -32,7 +32,7 @@ footer { width: 100% }
 }
  
  
-/* ´óÓÚ480px£¬Ð¡ÓÚ767px */
+/* ï¿½ï¿½ï¿½ï¿½480pxï¿½ï¿½Ð¡ï¿½ï¿½767px */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 header, article, .footer, .container, .bloglist, .contenttop { width: 100%; margin: auto;}
 .navigation { display: none }
@@ -56,7 +56,7 @@ header, article, .footer, .container, .bloglist, .contenttop { width: 100%; marg
 .lispic li { width: 90% }
 footer { width: 100% }
 }
-/* Ð¡ÓÚ479px */
+/* Ð¡ï¿½ï¿½479px */
 @media only screen and (max-width: 479px) {
 header, article, .footer, .container, .bloglist, .contenttop { width: 100%; margin: auto;  }
 .navigation { display: none }

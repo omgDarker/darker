@@ -37,11 +37,11 @@ public class ContentController {
     @RequestMapping(value = "/addDiary", method = RequestMethod.POST)
     public Map<String, Object> addDiary(DiaryModel diaryModel) {
 
-        boolean flag = SystemServiceLocator.getDiaryService().insert( diaryModel );
+        boolean flag = SystemServiceLocator.getDiaryService().insert(diaryModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -57,11 +57,11 @@ public class ContentController {
     @RequestMapping(value = "/updateDiary", method = RequestMethod.PUT)
     public Map<String, Object> updateDiary(DiaryModel diaryModel) {
 
-        boolean flag = SystemServiceLocator.getDiaryService().updateById( diaryModel );
+        boolean flag = SystemServiceLocator.getDiaryService().updateById(diaryModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -77,11 +77,11 @@ public class ContentController {
     @RequestMapping(value = "/deleteDiary/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteDiary(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getDiaryService().deleteById( id );
+        boolean flag = SystemServiceLocator.getDiaryService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -99,9 +99,9 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getDiaryService().selectCount( new EntityWrapper<>() );
+        int count = SystemServiceLocator.getDiaryService().selectCount(new EntityWrapper<>());
 
-        map.put( "diaryMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+        map.put("diaryMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -116,7 +116,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allDiary/{id}", method = RequestMethod.GET)
     public DiaryModel queryDiaryById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getDiaryService().selectById( id );
+        return SystemServiceLocator.getDiaryService().selectById(id);
     }
 
     /**
@@ -129,7 +129,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allDiary", method = RequestMethod.GET)
     public List<DiaryModel> queryAllDiary(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getDiaryService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
+        return SystemServiceLocator.getDiaryService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     //****************************************文章模块****************************************//
@@ -145,11 +145,11 @@ public class ContentController {
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
     public Map<String, Object> addArticle(ArticleModel articleModel) {
 
-        boolean flag = SystemServiceLocator.getArticleService().insert( articleModel );
+        boolean flag = SystemServiceLocator.getArticleService().insert(articleModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -165,11 +165,11 @@ public class ContentController {
     @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
     public Map<String, Object> updateArticle(ArticleModel articleModel) {
 
-        boolean flag = SystemServiceLocator.getArticleService().updateById( articleModel );
+        boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -185,11 +185,11 @@ public class ContentController {
     @RequestMapping(value = "/deleteArticle/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteArticle(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getArticleService().deleteById( id );
+        boolean flag = SystemServiceLocator.getArticleService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -207,9 +207,9 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getArticleService().selectCount( new EntityWrapper<>() );
+        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
 
-        map.put( "articleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+        map.put("articleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -224,7 +224,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allArticle/{id}", method = RequestMethod.GET)
     public ArticleModel queryArticleById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getArticleService().selectById( id );
+        return SystemServiceLocator.getArticleService().selectById(id);
     }
 
     /**
@@ -237,7 +237,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allArticle", method = RequestMethod.GET)
     public List<ArticleModel> queryAllArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getArticleService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
+        return SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     //****************************************图片模块****************************************//
@@ -253,11 +253,11 @@ public class ContentController {
     @RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
     public Map<String, Object> addPhoto(PhotoModel photoModel) {
 
-        boolean flag = SystemServiceLocator.getPhotoService().insert( photoModel );
+        boolean flag = SystemServiceLocator.getPhotoService().insert(photoModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -273,11 +273,11 @@ public class ContentController {
     @RequestMapping(value = "/updatePhoto", method = RequestMethod.PUT)
     public Map<String, Object> updatePhoto(PhotoModel photoModel) {
 
-        boolean flag = SystemServiceLocator.getPhotoService().updateById( photoModel );
+        boolean flag = SystemServiceLocator.getPhotoService().updateById(photoModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -293,11 +293,11 @@ public class ContentController {
     @RequestMapping(value = "/deletePhoto/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deletePhoto(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getPhotoService().deleteById( id );
+        boolean flag = SystemServiceLocator.getPhotoService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -315,9 +315,9 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getPhotoService().selectCount( new EntityWrapper<>() );
+        int count = SystemServiceLocator.getPhotoService().selectCount(new EntityWrapper<>());
 
-        map.put( "photoMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+        map.put("photoMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -332,7 +332,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allPhoto/{id}", method = RequestMethod.GET)
     public PhotoModel queryPhotoById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getPhotoService().selectById( id );
+        return SystemServiceLocator.getPhotoService().selectById(id);
     }
 
     /**
@@ -345,7 +345,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allPhoto", method = RequestMethod.GET)
     public List<PhotoModel> queryAllPhoto(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getPhotoService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
+        return SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     //****************************************留言板模块****************************************//
@@ -359,13 +359,15 @@ public class ContentController {
      * @date: 2018/7/20 15:25
      */
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
-    public Map<String, Object> addMessage(MessageModel messageModel) {
-
-        boolean flag = SystemServiceLocator.getMessageService().insert( messageModel );
+    public Map<String, Object> addMessage(Integer articleId,MessageModel messageModel) {
+        // 留言新增
+        SystemServiceLocator.getMessageService().insert(messageModel);
+        // 留言信息
+        List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", articleId));
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT );
+        map.put("messageList", messageModelList);
 
         return map;
     }
@@ -381,11 +383,11 @@ public class ContentController {
     @RequestMapping(value = "/updateMessage", method = RequestMethod.PUT)
     public Map<String, Object> updateMessage(MessageModel messageModel) {
 
-        boolean flag = SystemServiceLocator.getMessageService().updateById( messageModel );
+        boolean flag = SystemServiceLocator.getMessageService().updateById(messageModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -401,11 +403,11 @@ public class ContentController {
     @RequestMapping(value = "/deleteMessage/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteMessage(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getMessageService().deleteById( id );
+        boolean flag = SystemServiceLocator.getMessageService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE );
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -423,9 +425,9 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getMessageService().selectCount( new EntityWrapper<>() );
+        int count = SystemServiceLocator.getMessageService().selectCount(new EntityWrapper<>());
 
-        map.put( "messageMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+        map.put("messageMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -440,7 +442,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allMessage/{id}", method = RequestMethod.GET)
     public MessageModel queryMessageById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getMessageService().selectById( id );
+        return SystemServiceLocator.getMessageService().selectById(id);
     }
 
     /**
@@ -453,6 +455,6 @@ public class ContentController {
      */
     @RequestMapping(value = "/allMessage", method = RequestMethod.GET)
     public List<MessageModel> queryAllMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getMessageService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
+        return SystemServiceLocator.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

@@ -1,12 +1,16 @@
 package com.vip.darker.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.vip.darker.model.ArticleModel;
 import com.vip.darker.model.DiaryModel;
+import com.vip.darker.model.MessageModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -56,9 +60,13 @@ public class IndexController {
         // 返回页面
         ModelAndView modelAndView = new ModelAndView(INDEX + "/detail_article");
         // 返回数据
-        DiaryModel diaryModel = SystemServiceLocator.getDiaryService().selectById(id);
+        // 文章信息
+        ArticleModel articleModel = SystemServiceLocator.getArticleService().selectById(id);
+        // 留言信息
+        List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", id));
 
-        modelAndView.addObject("object", diaryModel);
+        modelAndView.addObject("article", articleModel);
+        modelAndView.addObject("messageList", messageModelList);
 
         return modelAndView;
     }
@@ -111,7 +119,15 @@ public class IndexController {
      * @return
      */
     @RequestMapping(value = "/message", method = RequestMethod.GET)
-    public String message() {
-        return INDEX + "/message";
+    public ModelAndView message(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+        // 返回页面
+        ModelAndView modelAndView = new ModelAndView(INDEX + "/message");
+        // 查询所有留言信息
+        List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+
+        modelAndView.addObject("pageNum",pageNum);
+        modelAndView.addObject("messageList", messageModelList);
+
+        return modelAndView;
     }
 }

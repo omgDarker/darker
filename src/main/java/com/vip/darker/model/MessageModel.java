@@ -16,6 +16,8 @@ public class MessageModel extends Model<MessageModel> {
 
     private Integer userId;
 
+    private Integer articleId;
+
     private String userName;
 
     private String email;
@@ -44,6 +46,14 @@ public class MessageModel extends Model<MessageModel> {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public String getUserName() {

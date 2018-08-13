@@ -1,15 +1,20 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="darker">
+    <meta name="description" content="darker博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <title>darker博客</title>
-    <meta name="keywords" content="darker"/>
-    <meta name="description" content="darker博客"/>
-    <link href="/css/base.css" rel="stylesheet">
-    <link href="/css/index.css" rel="stylesheet">
-    <link href="/css/m.css" rel="stylesheet">
+    <link href="/css/base.css" rel="stylesheet" type="text/css">
+    <link href="/css/index.css" rel="stylesheet" type="text/css">
+    <link href="/css/m.css" rel="stylesheet" type="text/css">
     <link href="/images/favicon-.ico" rel="shortcut icon" type="image/x-icon"/>
-    <script type="text/javascript" src="/js/jquery.js"></script>
+    <link href="/sweetalert/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
+    <script src="/js/jquery.js" type="text/javascript"></script>
+    <script src="/sweetalert/js/sweetalert2.min.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -22,25 +27,25 @@
         <div class="bloglist f_l">
             <!-- 标题 -->
             <h3 class="blogtitle">
-                <span th:text="${object.classify=='1'?'每周一记':'随笔记录'}"></span>
-                <a href="#" th:text="${object.title}" style="cursor:default"></a>
+                <span th:text="${article.classify=='1'?'每周一记':'随笔记录'}"></span>
+                <a th:href="@{'/index/detail/article/'+${article.id}}" th:text="${article.title}"></a>
             </h3>
             <!-- 提示信息 -->
             <div class="autor">
                 <!-- 时钟 -->
                 <span class="lm f_l"></span>
-                <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                <span class="dtime f_l" th:text="${#dates.format(article.updateTime,'yyyy/MM/dd HH:mm')}"></span>
                 <!-- 浏览量 -->
-                共<a href="#" th:utext="${object.readAmount}"></a>人围观</span>
+                共<a href="#" th:utext="${article.readAmount}"></a>人围观</span>
             </div>
             <br/><br/>
             <!-- 内容 -->
             <div class="bloginfo">
                 <!-- 文章首图 -->
                 <span class="blogpic">
-                            <img src="/images/01.jpg" alt="帝国cms 首页或者列表无图，不使用默认图片的方法">
-                        </span>
-                <span th:utext="${#strings.trim(object.content)}"></span>
+                    <img src="/images/01.jpg" alt="帝国cms 首页或者列表无图，不使用默认图片的方法">
+                </span>
+                <span th:utext="${#strings.trim(article.content)}"></span>
             </div>
             <br/><br/>
             <div style="margin-bottom: 30px;" align="center">
@@ -48,16 +53,31 @@
                 <button type="button" class="btn btn-bad">甩鞋(666)</button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-money">打赏</button>
             </div>
-            <br/>
-            <!-- 标题 -->
+            <!-- 留言板 -->
+            <!-- 若留言为空,则取消留言板 -->
+            <div th:if="${#lists.size(messageList)!=0}">
+                <h3 class="blogtitle">
+                    <span>留言板</span>
+                </h3>
+                <div id="messageBoard">
+                    <div th:each="message : ${messageList}">
+                        <h3 class="netFriend">
+                            <span th:text="${message.userName}"></span>
+                        </h3>
+                        <p style="text-indent: 2em;line-height: 22px;" th:text="${message.content}"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- 评论 -->
             <h3 class="blogtitle">
                 <span>文章评论</span>
             </h3>
             <!-- 留言表单 -->
             <form action="" id="messageAddForm">
+                <input type="hidden" name="articleId" th:value="${article.id}">
                 <div class="form-group">
-                    <label for="name">您的昵称</label>
-                    <input type="text" class="form-control" name="name" id="name" value=""
+                    <label for="userName">您的昵称</label>
+                    <input type="text" class="form-control" name="userName" id="userName" value=""
                            placeholder="请输入您的昵称">
                 </div>
                 <div class="form-group">
@@ -66,14 +86,13 @@
                            placeholder="请输入您的邮件">
                 </div>
                 <div class="form-group">
-                    <label for="message">您的评论</label>
-                    <textarea class="form-control" name="message" id="message" value=""></textarea>
+                    <label for="content">您的评论</label>
+                    <textarea class="form-control" name="content" id="content" value=""></textarea>
                 </div>
                 <br/>
                 <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Remember me
-                    </label>
+                    <input type="checkbox" name="loginSession" id="loginSession" value=""/>
+                    <label>Remember me</label>
                 </div>
                 <br/>
                 <button type="button" class="btn btn-primary" onclick="addMessage();">Submit</button>
@@ -110,13 +129,16 @@
             },
             //请求成功时的处理函数,参数(返回数据,返回状态)
             success: function (data) {
-                setTimeout(function () {
-                    swal(data.msg, '', "success");
-                }, 100);
-                //2秒后刷新页面，足够显示swal()的信息
-                setTimeout(function () {
-                    window.location.reload();
-                }, 2000);
+                // 清空form表单
+                if (document.getElementById("loginSession").checked) {
+                    // 若选中checkbox,则只有内容清空
+                    $("#content").val('');
+                } else {
+                    // 若没有选择checkbox,则表单全部清空
+                    document.getElementById("messageAddForm").reset();
+                }
+                // 回显留言板,更新数据
+                updateMessageBoard(data);
             },
             //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
             complete: function () {
@@ -125,6 +147,25 @@
             error: function () {
             }
         });
+    }
+
+    // 留言板更新操作
+    function updateMessageBoard(data) {
+
+        var html = '';
+
+        var messageArray = eval("(" + data + ")").messageList;
+
+        for (var i = 0; i < messageArray.length; i++) {
+
+            var message = messageArray[i];
+
+            html += '<h3 class="netFriend">';
+            html += '<span th:text="${message.userName}">' + message.userName + '</span>';
+            html += '</h3>';
+            html += '<p style="text-indent: 2em;line-height: 22px;" th:text="${message.content}">' + message.content + '</p>';
+        }
+        $("#messageBoard").html(html);
     }
 </script>
 </body>
