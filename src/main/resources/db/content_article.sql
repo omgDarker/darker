@@ -8,6 +8,7 @@ CREATE TABLE content_article (
 	readAmount INT (10) DEFAULT 0 COMMENT '阅读量',
 	likeAmount INT (10) DEFAULT 0 COMMENT '点赞量',
 	classify VARCHAR (10) DEFAULT '' COMMENT '分类',
+	columnName VARCHAR (10) DEFAULT '' COMMENT '栏目名称',
 	isDelete INT (1) COMMENT '是否删除(1:是,0:否)',
 	creator VARCHAR (10) COMMENT '创建人',
 	createTime datetime COMMENT '创建时间',

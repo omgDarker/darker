@@ -20,7 +20,9 @@ public class ArticleModel extends Model<ArticleModel> {
 
     private Integer likeAmount;
 
-    private String classify;
+    private String classify; // 大类(慢生活,学无止境)
+
+    private String columnName; // 小类(下拉框选项)
 
     private Integer isDelete;
 
@@ -45,7 +47,7 @@ public class ArticleModel extends Model<ArticleModel> {
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public Integer getReadAmount() {
@@ -69,7 +71,15 @@ public class ArticleModel extends Model<ArticleModel> {
     }
 
     public void setClassify(String classify) {
-        this.classify = classify == null ? null : classify.trim();
+        this.classify = classify;
+    }
+
+    public String getColumn() {
+        return columnName;
+    }
+
+    public void setColumn(String columnName) {
+        this.columnName = columnName;
     }
 
     public Integer getIsDelete() {
@@ -85,7 +95,7 @@ public class ArticleModel extends Model<ArticleModel> {
     }
 
     public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+        this.creator = creator;
     }
 
     public Date getCreateTime() {
@@ -109,7 +119,7 @@ public class ArticleModel extends Model<ArticleModel> {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
     @Override

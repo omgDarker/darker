@@ -34,15 +34,15 @@ public class IndexController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView index() {
         // 返回页面
-        ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
-        // 日记
-        List<DiaryModel> list = SystemServiceLocator.getDiaryService().selectPage(new Page<>(1, 5)).getRecords();
+        ModelAndView modelAndView = new ModelAndView( INDEX + "/home" );
+        // 文章
+        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage( new Page<>( 1, 5 ) ).getRecords();
         // 处理日记长度
-        for (DiaryModel model : list) {
-            model.setContent(model.getContent().substring(0, model.getContent().length() > 100 ? 100 : model.getContent().length()));
+        for (ArticleModel model : list) {
+            model.setContent( model.getContent().substring( 0, model.getContent().length() > 100 ? 100 : model.getContent().length() ) );
         }
 
-        modelAndView.addObject("list", list);
+        modelAndView.addObject( "list", list );
 
         return modelAndView;
     }
@@ -58,15 +58,15 @@ public class IndexController {
     @RequestMapping(value = "/detail/article/{id}", method = RequestMethod.GET)
     public ModelAndView detailArticle(@PathVariable(value = "id") Integer id) {
         // 返回页面
-        ModelAndView modelAndView = new ModelAndView(INDEX + "/detail_article");
+        ModelAndView modelAndView = new ModelAndView( INDEX + "/detail_article" );
         // 返回数据
         // 文章信息
-        ArticleModel articleModel = SystemServiceLocator.getArticleService().selectById(id);
+        ArticleModel articleModel = SystemServiceLocator.getArticleService().selectById( id );
         // 留言信息
-        List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", id));
+        List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectList( new EntityWrapper<MessageModel>().where( "articleId={0}", id ) );
 
-        modelAndView.addObject("article", articleModel);
-        modelAndView.addObject("messageList", messageModelList);
+        modelAndView.addObject( "article", articleModel );
+        modelAndView.addObject( "messageList", messageModelList );
 
         return modelAndView;
     }
@@ -103,13 +103,15 @@ public class IndexController {
     }
 
     /**
-     * 学无止境
+     * 功能描述: 文章
      *
-     * @param classify 文章分类
-     * @return
+     * @param: [classify<大类></>, column<下拉框></>]
+     * @return: java.lang.String
+     * @auther: darker
+     * @date: 2018/8/13 22:39
      */
-    @RequestMapping(value = "/article/{classify}", method = RequestMethod.GET)
-    public String article(@PathVariable(value = "classify") String classify) {
+    @RequestMapping(value = "/article/{classify}/{column}", method = RequestMethod.GET)
+    public String article(@PathVariable(value = "classify") String classify, @PathVariable(value = "column") String column) {
         return INDEX + "/article";
     }
 
@@ -121,12 +123,12 @@ public class IndexController {
     @RequestMapping(value = "/message", method = RequestMethod.GET)
     public ModelAndView message(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         // 返回页面
-        ModelAndView modelAndView = new ModelAndView(INDEX + "/message");
+        ModelAndView modelAndView = new ModelAndView( INDEX + "/message" );
         // 查询所有留言信息
-        List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
 
-        modelAndView.addObject("pageNum",pageNum);
-        modelAndView.addObject("messageList", messageModelList);
+        modelAndView.addObject( "pageNum", pageNum );
+        modelAndView.addObject( "messageList", messageModelList );
 
         return modelAndView;
     }
