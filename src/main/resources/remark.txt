@@ -1,32 +1,28 @@
-#访问路径
-#首页
-http://localhost:8080/index/home
-#简介
-http://localhost:8080/index/about
-#相册
-http://localhost:8080/index/photo
-#日记
-http://localhost:8080/index/diary
-#笔记
-http://localhost:8080/index/note
-#技术文章restful
-http://localhost:8080/index/article/{param="文章类型"}
+#模块
+##############################管理后端##############################
+#资源模块(待使用)
+#用户模块
+#角色模块
+#权限模块
+#回收站模块
+#日记模块(舍弃)
+#文章模块
+#图片模块
+#留言板模块
+#统计模块(未完成)
+#监控模块(未完成)
+
+##############################网站前端##############################
+#网站首页<文章展示、关于我、友情连接、点击排行>
+#关于我<个人介绍、相册>
+#生活点滴
+#技术联盟
 #留言板
-http://localhost:8080/index/message
 
-#内容后台管理
-http://localhost:8080/admin/home
-
-#XML配置
-#新增游客请求路径
-http://localhost:8080/visitorModel/add
-#查询游客列表路径
-http://localhost:8080/visitorModel/all?pageNum=1&pageSize=2
-
-#durid
+##############################druid##############################
 http://localhost:8080/druid/index.html
 
-#架构
+##############################架构设计##############################
 #前端 Bootstrap(样式) Themeleaf(模板引擎) SweetAlert(弹窗)
 #后端 SpringBoot MybatisPlus
 #组件 wangEditor(富文本框) fileInput(图片上传)

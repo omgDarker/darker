@@ -12,5 +12,5 @@ CREATE TABLE blog_classify (
 COMMIT ;
 
 /*================================[DML<数据操作语言>:20180813]================================*/
-INSERT INTO `darker`.`blog_classify` ( `name`, `isDelete`, `creator`, `createTime`) VALUES ('慢生活', NULL, NULL, NULL);
-INSERT INTO `darker`.`blog_classify` ( `name`, `isDelete`, `creator`, `createTime`) VALUES ('学无止境', NULL, NULL, NULL);
+INSERT INTO `darker`.`blog_classify` ( `name`, `isDelete`, `creator`, `createTime`) VALUES ('生活点滴', NULL, NULL, NULL);
+INSERT INTO `darker`.`blog_classify` ( `name`, `isDelete`, `creator`, `createTime`) VALUES ('技术联盟', NULL, NULL, NULL);

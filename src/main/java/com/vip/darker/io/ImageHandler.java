@@ -1,13 +1,18 @@
 package com.vip.darker.io;
 
 import com.vip.darker.util.Constant;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,5 +63,39 @@ public class ImageHandler {
             }
         }
         return map;
+    }
+
+    /**
+     * 功能描述: 图片展示
+     *
+     * @param: [imageName, response]
+     * @return: void
+     * @auther: darker
+     * @date: 2018/8/14 11:37
+     */
+    @RequestMapping(value = "/showImage/{imageName}", method = RequestMethod.GET)
+    public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
+        try {
+            FileInputStream fis = new FileInputStream(Constant.PHOTO_PATH + "/" + imageName);
+            // 获取文件大小
+            int size = fis.available();
+            // 设置读取字节数
+            byte[] data = new byte[size];
+            // 读取文件
+            fis.read(data);
+            // 设置返回文件类型
+            response.setContentType("image/*");
+            // 获取输出流
+            OutputStream os = response.getOutputStream();
+            // 输出数据
+            os.write(data);
+            // 将内存数据写入磁盘
+            os.flush();
+            // 关闭流
+            os.close();
+            fis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
