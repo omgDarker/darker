@@ -166,4 +166,28 @@ public class SystemServiceLocator {
     public static MonitorService getMonitorService() {
         return (MonitorService) SpringBootApplicationContent.getBean(MonitorServiceImpl.BEAN_NAME);
     }
+
+    /**
+     * 功能描述: 分类service
+     *
+     * @param: []
+     * @return: com.vip.darker.service.ClassifyService
+     * @auther: darker
+     * @date: 2018/8/14 16:33
+     */
+    public static ClassifyService getClassifyService() {
+        return (ClassifyService) SpringBootApplicationContent.getBean(ClassifyServiceImpl.BEAN_NAME);
+    }
+
+    /**
+     * 功能描述: 栏目service
+     *
+     * @param: []
+     * @return: com.vip.darker.service.ColumnService
+     * @auther: darker
+     * @date: 2018/8/14 16:34
+     */
+    public static ColumnService getColumnService() {
+        return (ColumnService) SpringBootApplicationContent.getBean(ColumnServiceImpl.BEAN_NAME);
+    }
 }

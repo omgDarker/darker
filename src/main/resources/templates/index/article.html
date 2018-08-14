@@ -28,57 +28,35 @@
                 <div class="banner">
                     您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>慢生活>>每周一记
                 </div>
-                <div class="dtxw box">
+                <div class="dtxw box" th:each="article : ${articleList}">
+                    <!-- 总页数 -->
+                    <input type="hidden" id="pageNum" th:value="${pageNum}">
+                    <input type="hidden" id="classifyId" th:value="${classifyId}">
+                    <input type="hidden" id="columnId" th:value="${columnId}">
                     <li>
                         <div class="dttext">
-                            <div class="xwpic"><a href="/"><img src="/images/02.jpg"></a></div>
+                            <div class="xwpic">
+                                <a th:href="@{'/index/detail/article/'+${article.id}}"><img src="/images/02.jpg"></a>
+                            </div>
                             <ul>
-                                <h2><a href="/">个人博客模板古典系列之――江南墨卷</a></h2>
-                                <p>个人博客模板古典系列之――江南墨卷个人博客模板古典系列之――江南墨卷个人博客模板古典系列之――江南墨卷原汁原味重现经典....</p>
-                                <div class="binfo"><span class="lm"><a
-                                        href="/">个人日记</a></span><span>已有100人阅读</span><span
-                                        class="atime">2017-3-10</span></div>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="dttext">
-                            <div class="xwpic"><a href="/"><img src="/images/01.jpg"></a></div>
-                            <ul>
-                                <h2><a href="/">个人博客模板古典系列之――江南墨卷</a></h2>
-                                <p>个人博客模板古典系列之――江南墨卷个人博客模板古典系列之――江南墨卷个人博客模板古典系列之――江南墨卷原汁原味重现经典....</p>
-                                <div class="binfo"><span class="lm"><a
-                                        href="/">个人日记</a></span><span>已有100人阅读</span><span
-                                        class="atime">2017-3-10</span></div>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="dttext">
-
-                            <ul>
-                                <h2><a href="/">个人博客模板古典系列之――江南墨卷</a></h2>
-                                <p>个人博客模板古典系列之――江南墨卷个人博客模板古典系列之――江南墨卷个人博客模板古典系列之――江南墨卷原汁原味重现经典....</p>
-                                <div class="binfo"><span class="lm"><a
-                                        href="/">个人日记</a></span><span>已有100人阅读</span><span
-                                        class="atime">2017-3-10</span></div>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="dttext">
-                            <div class="xwpic"><a href="/"><img src="/images/04.jpg"></a></div>
-                            <ul>
-                                <h2><a href="/">个人博客模板古典系列之――江南墨卷</a></h2>
-                                <p>个人博客模板古典系列之――江南墨卷个人博客模板古典系列之――江南墨卷个人博客模板古典系列之――江南墨卷原汁原味重现经典....</p>
-                                <div class="binfo"><span class="lm"><a
-                                        href="/">个人日记</a></span><span>已有100人阅读</span><span
-                                        class="atime">2017-3-10</span></div>
+                                <!-- 标题 -->
+                                <h2><a th:href="@{'/index/detail/article/'+${article.id}}"
+                                       th:text="${article.title}"></a>
+                                </h2>
+                                <!-- 简述 -->
+                                <p th:utext="${#strings.substring(article.content,0,100)}"></p>
+                                <!-- 辅助信息 -->
+                                <div class="binfo">
+                                    <span class="lm"><a href="/">个人日记</a></span>
+                                    <span th:utext="'已有'+${article.readAmount}+'人阅读'"></span>
+                                    <span class="atime"
+                                          th:text="${#dates.format(article.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                                </div>
                             </ul>
                         </div>
                     </li>
                 </div>
-                <div class="pagelist"><a href="/">首页</a><a href="/">上一页</a><a href="/">下一页</a><a href="/">尾页</a></div>
+                <div class="pagelist" id="selectPage" value=""></div>
             </div>
         </div>
         <!-- 内容脚CSS-->
@@ -87,5 +65,32 @@
     <!-- 页脚 -->
     <div th:include="common/footer.html :: footer"></div>
 </div>
+<script>
+    window.onload=function() {
+        // 当前页数
+        var pageNum = $("#pageNum").val();
+        // 分类ID
+        var classifyId = $("#classifyId").val();
+        // 栏目ID
+        var columnId = $("#columnId").val();
+        console.info(pageNum + classifyId + columnId);
+        var pageHtml = '<a href="">首页</a>';
+        pageHtml +='<a href="">上一页</a>';
+
+        if (parseInt(pageNum) === 1) {
+            // 若是第一页
+            pageHtml += '<a href="">1</a>';
+            pageHtml += '<a href="">2</a>';
+            pageHtml += '<a href="">3</a>';
+            pageHtml += '<a href="">4</a>';
+            pageHtml += '<a href="">5</a>';
+        }
+        pageHtml += '<a href="">下一页</a>';
+        pageHtml +='<a href="">尾页</a>';
+        console.info(pageHtml);
+        $("#selectPage").html(pageHtml);
+    }
+</script>
 </body>
+
 </html>

@@ -118,9 +118,27 @@ public class IndexController {
      * @auther: darker
      * @date: 2018/8/13 22:39
      */
-    @RequestMapping(value = "/article/{classify}/{column}", method = RequestMethod.GET)
-    public String article(@PathVariable(value = "classify") String classify, @PathVariable(value = "column") String column) {
-        return INDEX + "/article";
+    @RequestMapping(value = "/article/{classifyId}/{columnId}", method = RequestMethod.GET)
+    public ModelAndView article(
+            @PathVariable(value = "classifyId") String classifyId,
+            @PathVariable(value = "columnId") String columnId,
+            @RequestParam(value = "pageNum",required = false,defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize",required = false,defaultValue = "5") Integer pageSize) {
+
+        ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
+        // 根据条件查询文章
+        List<ArticleModel> articleModelList = SystemServiceLocator.getArticleService()
+                .selectPage(new Page<>(pageNum,pageSize),
+                        new EntityWrapper<ArticleModel>()
+                                .where("classifyId={0} ",classifyId)
+                                .and("columnId={0}",columnId)).getRecords();
+
+        modelAndView.addObject("articleList",articleModelList);
+        modelAndView.addObject("pageNum",pageNum);
+        modelAndView.addObject("classifyId",classifyId);
+        modelAndView.addObject("columnId",columnId);
+
+        return modelAndView;
     }
 
     /**

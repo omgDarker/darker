@@ -27,7 +27,7 @@
         <div class="bloglist f_l">
             <!-- 标题 -->
             <h3 class="blogtitle">
-                <span th:text="${article.classify=='1'?'每周一记':'随笔记录'}"></span>
+                <span th:text="${article.classifyId=='1'?'每周一记':'随笔记录'}"></span>
                 <a th:href="@{'/index/detail/article/'+${article.id}}" th:text="${article.title}"></a>
             </h3>
             <!-- 提示信息 -->

@@ -8,21 +8,15 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 import java.util.Date;
 
-@TableName(value = "content_article")
-public class ArticleModel extends Model<ArticleModel> {
+@TableName(value = "blog_column")
+public class ColumnModel extends Model<ColumnModel> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String title;
+    private String name;
 
-    private Integer readAmount;
-
-    private Integer likeAmount;
-
-    private String classifyId; // 分类ID(生活点滴,技术联盟)
-
-    private String columnId; // 栏目ID(下拉框选项)
+    private Integer classifyId;
 
     private Integer isDelete;
 
@@ -42,44 +36,20 @@ public class ArticleModel extends Model<ArticleModel> {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getReadAmount() {
-        return readAmount;
-    }
-
-    public void setReadAmount(Integer readAmount) {
-        this.readAmount = readAmount;
-    }
-
-    public Integer getLikeAmount() {
-        return likeAmount;
-    }
-
-    public void setLikeAmount(Integer likeAmount) {
-        this.likeAmount = likeAmount;
-    }
-
-    public String getClassifyId() {
+    public Integer getClassifyId() {
         return classifyId;
     }
 
-    public void setClassifyId(String classifyId) {
+    public void setClassifyId(Integer classifyId) {
         this.classifyId = classifyId;
-    }
-
-    public String getColumnId() {
-        return columnId;
-    }
-
-    public void setColumnId(String columnId) {
-        this.columnId = columnId;
     }
 
     public Integer getIsDelete() {
