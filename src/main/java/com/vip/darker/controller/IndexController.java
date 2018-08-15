@@ -32,16 +32,25 @@ public class IndexController {
      * @return
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView index(@RequestParam(value = "pageNum",required = false,defaultValue = "1") Integer pageNum,
+                              @RequestParam(value = "pageSize",required = false,defaultValue = "10") Integer pageSize) {
         // 返回页面
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // 文章
-        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(1, 5)).getRecords();
-        // 处理日记长度
+        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        // 处理文章长度
         for (ArticleModel model : list) {
             model.setContent(model.getContent().substring(0, model.getContent().length() > 100 ? 100 : model.getContent().length()));
         }
-
+        // 文章总数
+        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
+        // 当前页
+        modelAndView.addObject("pageNum", pageNum);
+        // 总页数
+        modelAndView.addObject("pageNumSum", (count - 1) / pageSize + 1);
+        // 总条数
+        modelAndView.addObject("numSum", count);
+        // 数据
         modelAndView.addObject("list", list);
 
         return modelAndView;
@@ -126,17 +135,35 @@ public class IndexController {
             @RequestParam(value = "pageSize",required = false,defaultValue = "5") Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
+        // 文章总条数
+        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>()
+                .where("classifyId={0} ",classifyId)
+                .and("columnId={0}",columnId));
         // 根据条件查询文章
-        List<ArticleModel> articleModelList = SystemServiceLocator.getArticleService()
-                .selectPage(new Page<>(pageNum,pageSize),
-                        new EntityWrapper<ArticleModel>()
+        List<ArticleModel> list = SystemServiceLocator.getArticleService()
+                .selectPage(new Page<>(pageNum,pageSize), new EntityWrapper<ArticleModel>()
                                 .where("classifyId={0} ",classifyId)
                                 .and("columnId={0}",columnId)).getRecords();
-
-        modelAndView.addObject("articleList",articleModelList);
-        modelAndView.addObject("pageNum",pageNum);
-        modelAndView.addObject("classifyId",classifyId);
-        modelAndView.addObject("columnId",columnId);
+        // 根据分类ID获取分类名称
+        String classifyName = SystemServiceLocator.getClassifyService().selectById(classifyId).getName();
+        // 根据栏目ID获取栏目名称
+        String columnName = SystemServiceLocator.getColumnService().selectById(columnId).getName();
+        // 数据
+        modelAndView.addObject("list", list);
+        // 分类ID
+        modelAndView.addObject("classifyId", classifyId);
+        // 分类名称
+        modelAndView.addObject("classifyName",classifyName);
+        // 栏目ID
+        modelAndView.addObject("columnId", columnId);
+        // 栏目名称
+        modelAndView.addObject("columnName",columnName);
+        // 当前页
+        modelAndView.addObject("pageNum", pageNum);
+        // 总页数
+        modelAndView.addObject("pageNumSum", (count - 1) / pageSize + 1);
+        // 总条数
+        modelAndView.addObject("numSum", count);
 
         return modelAndView;
     }

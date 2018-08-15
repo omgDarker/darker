@@ -24,8 +24,6 @@ public class ClassifyModel extends Model<ClassifyModel> {
 
     private Date updateTime;
 
-    private String content;
-
     public Integer getId() {
         return id;
     }
@@ -72,14 +70,6 @@ public class ClassifyModel extends Model<ClassifyModel> {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     @Override

@@ -3,10 +3,14 @@
 <div th:fragment="index_left">
     <div class="bloglist f_l">
         <ul>
+            <!-- 总页数 -->
+            <input type="hidden" id="pageNum" th:value="${pageNum}">
+            <input type="hidden" id="pageNumSum" th:value="${pageNumSum}">
+            <input type="hidden" id="numSum" th:value="${numSum}">
             <li th:each="object : ${list}">
                 <!-- 标题 -->
                 <h3 class="blogtitle">
-                    <span th:text="${object.classifyId=='1'?'每周一记':'随笔记录'}"></span>
+                    <span th:text="${object.classifyId=='1'?'生活点滴':'技术联盟'}"></span>
                     <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
                 </h3>
                 <!-- 内容 -->
@@ -26,5 +30,6 @@
                 </div>
             </li>
         </ul>
+        <div class="pagelist" id="selectPage" value=""></div>
     </div>
 </div>

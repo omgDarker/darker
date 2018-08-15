@@ -48,9 +48,9 @@
 a.readmore { background: #fd8a61; color: #fff; padding: 5px 10px; float: right; margin: 20px 0 0 0; }
 .pingl.f_r { padding: 0; }
 /* ÎÄ×ÖÍ¼Æ¬ÁÐ±í*/
-.dtxw { overflow: hidden; margin: 30px auto }
+.dtxw { overflow: hidden;}
 .dttext { border-bottom: #838484 1px solid; margin-left: 40px; }
-.dttext ul { padding: 20px 20px 20px 80px; overflow: hidden; }
+.dttext ul { padding: 20px 20px 20px 0px; overflow: hidden; }
 .xwpic { width: 28%; overflow: hidden; background: #ccc; height: 140px; float: right; margin: 20px 0 0 0; }
 .xwpic img { -webkit-transition: all 0.5s; -moz-transition: all 0.5s; -o-transition: all 0.5s; width: 100%; margin: auto }
 .xwpic img:hover { -webkit-transform: scale(1.1); -moz-transform: scale(1.1); -o-transform: scale(1.1); -ms-transform: scale(1.1); }

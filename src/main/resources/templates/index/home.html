@@ -8,13 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>darker博客</title>
-
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/index.css" rel="stylesheet">
     <link href="/css/m.css" rel="stylesheet">
     <link href="/images/favicon-.ico" rel="shortcut icon" type="image/x-icon"/>
     <script type="text/javascript" src="/js/jquery.js"></script>
-
 </head>
 <body>
 <div id="wrapper">
@@ -34,5 +32,39 @@
     <!-- 页脚 -->
     <div th:include="common/footer :: footer"></div>
 </div>
+<script>
+    window.onload = function () {
+        // 当前页数
+        var pageNum = parseInt($("#pageNum").val());
+        // 总页数
+        var pageNumSum = parseInt($("#pageNumSum").val());
+        // 总条数
+        var numSum = parseInt($("#numSum").val());
+        // 调用方法
+        var method = '/index/home?pageNum=';
+        var pageHtml = '';
+        pageHtml += '<a href="javascript:;">当前页[' + pageNum + ']</a>';
+        // 当前页不是首页的时候才会显示
+        if (pageNum !== 1) {
+            pageHtml += '<a href="' + method + 1 + '">' + '首页' + '</a>';
+            pageHtml += '<a href="' + method + (pageNum - 1) + '">上一页</a>';
+        }
+        // 显示5页
+        for (var i = 0; i < (pageNumSum < 5 ? pageNumSum : 5); i++) {
+            // 最大数页>=显示页数
+            if (pageNumSum >= pageNum + i) {
+                pageHtml += '<a href="' + method + (pageNum + i) + '">' + (pageNum + i) + '</a>';
+            }
+        }
+        // 当前页不是尾页的时候才会显示
+        if (pageNum !== pageNumSum) {
+            pageHtml += '<a href="' + method + (pageNum + 1) + '">下一页</a>';
+            pageHtml += '<a href="' + method + pageNumSum + '">尾页</a>';
+        }
+        pageHtml += '<a href="javascript:;">总条数[' + numSum + ']</a>';
+        console.info(pageHtml);
+        $("#selectPage").html(pageHtml);
+    }
+</script>
 </body>
 </html>

@@ -12,10 +12,10 @@ CREATE TABLE blog_column (
 ) COMMENT = '栏目表';
 COMMIT ;
 
-/*================================[DML<数据操作语言>:20180813]================================*/
-INSERT INTO `darker`.`blog_column` ( `name`, `classifyId`,`isDelete`, `creator`, `createTime`) VALUES ('每周一记', 1,0, NULL, NULL);
-INSERT INTO `darker`.`blog_column` ( `name`, `classifyId`,`isDelete`, `creator`, `createTime`) VALUES ('随笔记录', 1,0, NULL, NULL);
-INSERT INTO `darker`.`blog_column` ( `name`, `classifyId`,`isDelete`, `creator`, `createTime`) VALUES ('前端技术', 2,0, NULL, NULL);
-INSERT INTO `darker`.`blog_column` ( `name`, `classifyId`,`isDelete`, `creator`, `createTime`) VALUES ('后端技术', 2,0, NULL, NULL);
-INSERT INTO `darker`.`blog_column` ( `name`, `classifyId`,`isDelete`, `creator`, `createTime`) VALUES ('网络编程', 2,0, NULL, NULL);
-INSERT INTO `darker`.`blog_column` ( `name`, `classifyId`,`isDelete`, `creator`, `createTime`) VALUES ('设计模式', 2,0, NULL, NULL);
+/*================================[DML<数据操作语言>:20180815]================================*/
+INSERT INTO `blog_column` (`id`, `name`, `classifyId`, `isDelete`, `creator`, `createTime`, `updateTime`) VALUES (1, '漫心周记', 1, 0, 'darker', NULL, '2018-8-15 14:15:37');
+INSERT INTO `blog_column` (`id`, `name`, `classifyId`, `isDelete`, `creator`, `createTime`, `updateTime`) VALUES (2, '随笔记录', 1, 0, 'darker', NULL, '2018-8-15 14:15:37');
+INSERT INTO `blog_column` (`id`, `name`, `classifyId`, `isDelete`, `creator`, `createTime`, `updateTime`) VALUES (3, '前端技术', 2, 0, 'darker', NULL, '2018-8-15 14:15:38');
+INSERT INTO `blog_column` (`id`, `name`, `classifyId`, `isDelete`, `creator`, `createTime`, `updateTime`) VALUES (4, '后端技术', 2, 0, 'darker', NULL, '2018-8-15 14:15:39');
+INSERT INTO `blog_column` (`id`, `name`, `classifyId`, `isDelete`, `creator`, `createTime`, `updateTime`) VALUES (5, '网络编程', 2, 0, 'darker', NULL, '2018-8-15 14:15:40');
+INSERT INTO `blog_column` (`id`, `name`, `classifyId`, `isDelete`, `creator`, `createTime`, `updateTime`) VALUES (6, '设计模式', 2, 0, 'darker', NULL, '2018-8-15 14:15:41');

@@ -26,8 +26,6 @@ public class ColumnModel extends Model<ColumnModel> {
 
     private Date updateTime;
 
-    private String content;
-
     public Integer getId() {
         return id;
     }
@@ -84,13 +82,6 @@ public class ColumnModel extends Model<ColumnModel> {
         this.updateTime = updateTime;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 
     @Override
     protected Serializable pkVal() {

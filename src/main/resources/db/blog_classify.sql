@@ -11,6 +11,6 @@ CREATE TABLE blog_classify (
 ) COMMENT = '分类表';
 COMMIT ;
 
-/*================================[DML<数据操作语言>:20180813]================================*/
-INSERT INTO `darker`.`blog_classify` ( `name`, `isDelete`, `creator`, `createTime`) VALUES ('生活点滴', NULL, NULL, NULL);
-INSERT INTO `darker`.`blog_classify` ( `name`, `isDelete`, `creator`, `createTime`) VALUES ('技术联盟', NULL, NULL, NULL);
+/*================================[DML<数据操作语言>:20180815]================================*/
+INSERT INTO `blog_classify` (`id`, `name`, `isDelete`, `creator`, `createTime`, `updateTime`) VALUES (1, '生活点滴', 0, 'darker', NULL, '2018-8-15 14:15:13');
+INSERT INTO `blog_classify` (`id`, `name`, `isDelete`, `creator`, `createTime`, `updateTime`) VALUES (2, '技术联盟', 0, 'darker', NULL, '2018-8-15 14:15:15');
