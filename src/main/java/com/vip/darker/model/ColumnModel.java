@@ -18,6 +18,8 @@ public class ColumnModel extends Model<ColumnModel> {
 
     private Integer classifyId;
 
+    private String description;
+
     private Integer isDelete;
 
     private String creator;
@@ -48,6 +50,14 @@ public class ColumnModel extends Model<ColumnModel> {
 
     public void setClassifyId(Integer classifyId) {
         this.classifyId = classifyId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getIsDelete() {

@@ -4,6 +4,7 @@ IF EXISTS blog_classify;
 CREATE TABLE blog_classify (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '分类ID',
 	name VARCHAR (10) DEFAULT '' COMMENT '分类名称',
+	description VARCHAR (20) COMMENT '分类描述',
 	isDelete INT (1) COMMENT '是否删除(1:是,0:否)',
 	creator VARCHAR (10) COMMENT '创建人',
 	createTime datetime COMMENT '创建时间',
