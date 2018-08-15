@@ -3,9 +3,11 @@
 <div th:fragment="index_left">
     <div class="bloglist f_l">
         <ul>
-            <!-- 总页数 -->
+            <!-- 当前页 -->
             <input type="hidden" id="pageNum" th:value="${pageNum}">
+            <!-- 总页数 -->
             <input type="hidden" id="pageNumSum" th:value="${pageNumSum}">
+            <!-- 总条数 -->
             <input type="hidden" id="numSum" th:value="${numSum}">
             <li th:each="object : ${list}">
                 <!-- 标题 -->

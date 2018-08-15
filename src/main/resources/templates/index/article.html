@@ -29,11 +29,15 @@
                     您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>
                     <span th:text="${classifyName}"></span>>><span th:text="${columnName}"></span>
                 </div>
-                <!-- 总页数 -->
+                <!-- 当前页 -->
                 <input type="hidden" id="pageNum" th:value="${pageNum}">
+                <!-- 总页数 -->
                 <input type="hidden" id="pageNumSum" th:value="${pageNumSum}">
+                <!-- 总条数 -->
                 <input type="hidden" id="numSum" th:value="${numSum}">
+                <!-- 分类ID -->
                 <input type="hidden" id="classifyId" th:value="${classifyId}">
+                <!-- 栏目ID -->
                 <input type="hidden" id="columnId" th:value="${columnId}">
                 <div class="dtxw box" th:each="object : ${list}">
                     <div class="dttext">

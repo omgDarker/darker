@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css"/>
     <link rel="stylesheet" type="text/css" href="/css/slide.css"/>
     <link rel="stylesheet" type="text/css" href="/css/flat-ui.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/jquery.nouislider.css">
     <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/bootstrap/fileinput/css/fileinput.min.css" />
     <link rel="stylesheet" type="text/css" href="/sweetalert/css/sweetalert2.min.css" />
@@ -58,37 +57,5 @@
     <!-- 右侧内容详情栏目 -->
     <div th:include="admin/meun_right.html :: meun_right"></div>
 </div>
-<script src="/js/jquery.nouislider.js"></script>
-<script>
-    // min/max slider 滑块js
-    function huadong(my, unit, def, max) {
-        $(my).noUiSlider({
-            range: [0, max],
-            start: [def],
-            handles: 1,
-            connect: 'upper',
-            slide: function () {
-                var val = Math.floor($(this).val());
-                $(this).find(".noUi-handle").text(
-                    val + unit
-                );
-            },
-            set: function () {
-                var val = Math.floor($(this).val());
-                $(this).find(".noUi-handle").text(
-                    val + unit
-                );
-            }
-        });
-        $(my).val(def, true);
-    }
-
-    huadong('.slider-minmax1', "分钟", "5", 30);
-    huadong('.slider-minmax2', "分钟", "6", 15);
-    huadong('.slider-minmax3', "分钟", "10", 60);
-    huadong('.slider-minmax4', "次", "2", 10);
-    huadong('.slider-minmax5', "天", "3", 7);
-    huadong('.slider-minmax6', "天", "8", 10);
-</script>
 </body>
 </html>
