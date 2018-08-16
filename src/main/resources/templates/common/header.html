@@ -21,7 +21,7 @@
             </div>
             <div class="blank"></div>
             <nav>
-                <div class="navigation">
+                <ul class="navigation">
                     <ul class="menu">
                         <li><a href="/index/home">网站首页</a></li>
                         <li><a href="#">关于我</a>
@@ -30,18 +30,18 @@
                                 <li><a href="/index/photo">相册</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">生活点滴</a>
+                        <li><a href="/index/article/1">生活点滴</a>
                             <ul>
-                                <li><a href="/index/article/1/1">漫心周记</a></li>
-                                <li><a href="/index/article/1/2">随笔记录</a></li>
+                                <li th:each="column:${columnList}" th:if="${column.classifyId}==1">
+                                    <a th:href="@{'/index/article/'+${column.classifyId}+'/'+${column.id}}" th:text="${column.name}" ></a>
+                                </li>
                             </ul>
                         </li>
-                        <li><a href="#">技术联盟</a>
+                        <li><a href="/index/article/2">技术联盟</a>
                             <ul>
-                                <li><a href="/index/article/2/3">前端技术</a></li>
-                                <li><a href="/index/article/2/4">后端技术</a></li>
-                                <li><a href="/index/article/2/5">网络编程</a></li>
-                                <li><a href="/index/article/2/6">设计模式</a></li>
+                                <li th:each="column:${columnList}" th:if="${column.classifyId}==2">
+                                    <a th:href="@{'/index/article/'+${column.classifyId}+'/'+${column.id}}" th:text="${column.name}" ></a>
+                                </li>
                             </ul>
                         </li>
                         <li><a href="/index/message">留言板</a></li>

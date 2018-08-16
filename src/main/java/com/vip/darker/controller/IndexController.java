@@ -3,6 +3,7 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.ArticleModel;
+import com.vip.darker.model.ColumnModel;
 import com.vip.darker.model.MessageModel;
 import com.vip.darker.model.PhotoModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
@@ -44,6 +45,8 @@ public class IndexController {
         }
         // 文章总数
         int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
+        // 所有栏目
+        List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -52,6 +55,8 @@ public class IndexController {
         modelAndView.addObject("numSum", count);
         // 数据
         modelAndView.addObject("list", list);
+        // 栏目
+        modelAndView.addObject("columnList",columnList);
 
         return modelAndView;
     }
@@ -65,7 +70,7 @@ public class IndexController {
      * @date: 2018/8/10 16:49
      */
     @RequestMapping(value = "/detail/article/{id}", method = RequestMethod.GET)
-    public ModelAndView detailArticle(@PathVariable(value = "id") Integer id) {
+    public ModelAndView getArticleDetail(@PathVariable(value = "id") Integer id) {
         // 返回页面
         ModelAndView modelAndView = new ModelAndView(INDEX + "/detail_article");
         // 返回数据
@@ -96,7 +101,7 @@ public class IndexController {
      * @return
      */
     @RequestMapping(value = "/photo", method = RequestMethod.GET)
-    public ModelAndView photo(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
+    public ModelAndView getPhoto(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/photo");
         // 获取所有图片名称
@@ -120,7 +125,7 @@ public class IndexController {
     }
 
     /**
-     * 功能描述: 文章
+     * 功能描述: 查询栏目文章
      *
      * @param: [classify<大类></>, column<下拉框></>]
      * @return: java.lang.String
@@ -128,7 +133,7 @@ public class IndexController {
      * @date: 2018/8/13 22:39
      */
     @RequestMapping(value = "/article/{classifyId}/{columnId}", method = RequestMethod.GET)
-    public ModelAndView article(
+    public ModelAndView getArticleByClassifyIdAndColumnId(
             @PathVariable(value = "classifyId") String classifyId,
             @PathVariable(value = "columnId") String columnId,
             @RequestParam(value = "pageNum",required = false,defaultValue = "1") Integer pageNum,
@@ -138,12 +143,14 @@ public class IndexController {
         // 文章总条数
         int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>()
                 .where("classifyId={0} ",classifyId)
-                .and("columnId={0}",columnId));
+                .and("columnId={0}", columnId));
         // 根据条件查询文章
         List<ArticleModel> list = SystemServiceLocator.getArticleService()
                 .selectPage(new Page<>(pageNum,pageSize), new EntityWrapper<ArticleModel>()
                                 .where("classifyId={0} ",classifyId)
                                 .and("columnId={0}",columnId)).getRecords();
+        // 所有栏目
+        List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
         // 根据分类ID获取分类名称
         String classifyName = SystemServiceLocator.getClassifyService().selectById(classifyId).getName();
         // 根据栏目ID获取栏目名称
@@ -158,6 +165,52 @@ public class IndexController {
         modelAndView.addObject("columnId", columnId);
         // 栏目名称
         modelAndView.addObject("columnName",columnName);
+        // 栏目
+        modelAndView.addObject("columnList",columnList);
+        // 当前页
+        modelAndView.addObject("pageNum", pageNum);
+        // 总页数
+        modelAndView.addObject("pageNumSum", (count - 1) / pageSize + 1);
+        // 总条数
+        modelAndView.addObject("numSum", count);
+
+        return modelAndView;
+    }
+
+    /**
+     * 功能描述: 查询分类文章
+     *
+     * @param: [classify<大类>]
+     * @return: java.lang.String
+     * @auther: darker
+     * @date: 2018/8/13 22:39
+     */
+    @RequestMapping(value = "/article/{classifyId}", method = RequestMethod.GET)
+    public ModelAndView getArticleByClassifyId(
+            @PathVariable(value = "classifyId") String classifyId,
+            @RequestParam(value = "pageNum",required = false,defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize",required = false,defaultValue = "5") Integer pageSize) {
+
+        ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
+        // 文章总条数
+        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>()
+                .where("classifyId={0} ",classifyId));
+        // 根据条件查询文章
+        List<ArticleModel> list = SystemServiceLocator.getArticleService()
+                .selectPage(new Page<>(pageNum,pageSize), new EntityWrapper<ArticleModel>()
+                        .where("classifyId={0} ",classifyId)).getRecords();
+        // 根据分类ID获取分类名称
+        String classifyName = SystemServiceLocator.getClassifyService().selectById(classifyId).getName();
+        // 所有栏目
+        List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
+        // 数据
+        modelAndView.addObject("list", list);
+        // 分类ID
+        modelAndView.addObject("classifyId", classifyId);
+        // 分类名称
+        modelAndView.addObject("classifyName",classifyName);
+        // 栏目
+        modelAndView.addObject("columnList",columnList);
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
