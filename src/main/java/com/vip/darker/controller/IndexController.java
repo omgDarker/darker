@@ -2,10 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ArticleModel;
-import com.vip.darker.model.ColumnModel;
-import com.vip.darker.model.MessageModel;
-import com.vip.darker.model.PhotoModel;
+import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +44,8 @@ public class IndexController {
         int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
         // 所有栏目
         List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
+        // 友情链接
+        List<LinkModel> linkList = SystemServiceLocator.getLinkService().selectList(new EntityWrapper<>());
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -57,6 +56,8 @@ public class IndexController {
         modelAndView.addObject("list", list);
         // 栏目
         modelAndView.addObject("columnList",columnList);
+        // 链接
+        modelAndView.addObject("linkList",linkList);
 
         return modelAndView;
     }
@@ -237,5 +238,18 @@ public class IndexController {
         modelAndView.addObject("messageList", messageModelList);
 
         return modelAndView;
+    }
+
+    /**
+     * 功能描述: 错误页面404
+     *
+     * @param: []
+     * @return: org.springframework.web.servlet.ModelAndView
+     * @auther: darker
+     * @date: 2018/8/17 17:59
+     */
+    @RequestMapping(value = "/error/404")
+    public ModelAndView errorPage(){
+        return new ModelAndView("error/index_404");
     }
 }

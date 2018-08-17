@@ -12,7 +12,13 @@
     <link href="/css/index.css" rel="stylesheet">
     <link href="/css/m.css" rel="stylesheet">
     <link href="/images/favicon-.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href="/sweetalert/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/globle.css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript" src="/js/tagcloud.js"></script>
+    <!-- 弹窗控件 -->
+    <script type="text/javascript" src="/sweetalert/js/sweetalert2.min.js"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -64,6 +70,17 @@
         pageHtml += '<a href="javascript:;">总条数[' + numSum + ']</a>';
 
         $("#selectPage").html(pageHtml);
+
+        /*3D标签云*/
+        tagcloud({
+            selector: ".tagcloud",  //元素选择器
+            fontsize: 16,       //基本字体大小, 单位px
+            radius: 100,         //滚动半径, 单位px
+            mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
+            ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
+            direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+            keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+        });
     }
 </script>
 </body>

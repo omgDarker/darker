@@ -1,145 +1,129 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="photo" role="tabpanel" class="tab-pane" id="photo">
-    <!-- 资源管理模块 -->
-    <div class="check-div form-inline">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addPhoto">添加图片</button>
+<div th:fragment="link" role="tabpanel" class="tab-pane" id="link">
+    <div class="check-div">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addLink">添加链接</button>
     </div>
-    <table class="data-div">
+    <div class="data-div">
         <!-- 列名 -->
         <div class="row tableHeader">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">序号</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">标题</div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">描述</div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">阅读量</div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">点赞量</div>
-            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">相册</div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">图片操作</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">名称</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">URL</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">描述</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">链接操作</div>
         </div>
         <!-- 数据 -->
-        <div class="tablebody" id="photoTablebody">
-            <!-- 总页数 -->
-            <input type="hidden" id="photoMaxPage" th:value="${photoMaxPage}">
-        </div>
-    </table>
+        <div class="tablebody" id="linkTablebody"></div>
+    </div>
     <!-- 分页 -->
     <footer class="footer" style="padding:10px;">
-        <ul class="pagination" id="photoPagination"></ul>
+        <ul class="pagination" id="linkPagination"></ul>
     </footer>
-
-    <!--弹出窗口 添加资源-->
-    <div class="modal fade" id="addPhoto" role="dialog" aria-labelledby="" style="margin-top:30px;">
+    <!--弹出窗口 增加链接-->
+    <div class="modal fade" id="addLink" role="dialog" aria-labelledby="gridSystemModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <!-- 弹窗头 -->
                 <div class="modal-header">
-                    <!-- 右上角"X" -->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">添加图片</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="">添加链接</h4>
                 </div>
-                <!-- 弹窗体 -->
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form class="form-horizontal" id="photoAddForm">
+                        <form class="form-horizontal" id="linkAddForm">
                             <div class="form-group ">
-                                <label for="" class="col-xs-4 control-label">标题：</label>
-                                <div class="col-xs-8 ">
-                                    <input type="text" class="form-control input-sm duiqi"
-                                           name="title" placeholder="请输入图片标题">
+                                <label for="" class="col-xs-3 control-label">链接名：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="text" class="form-control input-sm duiqi" name="name"
+                                           placeholder="请输入链接名">
                                 </div>
                             </div>
                             <div class="form-group ">
-                                <label for="" class="col-xs-4 control-label">描述：</label>
-                                <div class="col-xs-8 ">
-                                    <textarea type="text" class="form-control input-sm duiqi"
-                                              name="description" placeholder="请输入图片描述"></textarea>
+                                <label for="" class="col-xs-3 control-label">URL：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="text" class="form-control input-sm duiqi" name="url"
+                                           placeholder="请输入URL">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="" class="col-xs-4 control-label">相册：</label>
-                                <div class="col-xs-8 ">
-                                    <select class="form-control select-duiqi" name="classify">
-                                        <option value="1" name="classify">简约系列</option>
-                                        <option value="2" name="classify">欧美系列</option>
-                                        <option value="3" name="classify">视觉系列</option>
-                                    </select>
+                                <label for="" class="col-xs-3 control-label">描述：</label>
+                                <div class="col-xs-6 ">
+                                    <textarea class="form-control input-sm duiqi" name="description"></textarea>
                                 </div>
                             </div>
-                            <div class="form-group ">
-                                <label for="" class="col-xs-4 control-label">上传图片：</label>
-                                <div class="col-xs-8 ">
-                                    <input type="file" class="file form-control" id="uploadImage"
-                                           data-ref="name"/>
-                                    <!-- 图片上传完成后,传值到这里,在提交form表单 -->
-                                    <input type="hidden" name="name" id="imageName" value="">
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">状态：</label>
+                                <div class="col-xs-8">
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" value="0">正常</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" value="1"> 禁用</label>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-green"
-                                        th:onclick="'javascript:addPhoto()'">保 存
-                                </button>
-                                <button type="button" class="btn btn-white"
-                                        data-dismiss="modal">取 消
-                                </button>
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-green" th:onclick="'javascript:addLink()'">保 存</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取 消</button>
                 </div>
             </div>
         </div>
     </div>
-    <!--弹出窗口 修改资源-->
-    <div class="modal fade" id="updatePhoto" role="dialog" aria-labelledby="" style="margin-top:30px;">
+    <!--弹出窗口 修改链接 -->
+    <div class="modal fade" id="updateLink" role="dialog" aria-labelledby="gridSystemModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">修改图片</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">修改链接</h4>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form class="form-horizontal" id="photoUpdateForm">
-                            <!-- form表单不支持put请求方式的解决方案 -->
-                            <!-- <input type="hidden" name="_method" value="PUT"/> -->
-                            <input type="hidden" id="photoId" name="id" value="">
+                        <form class="form-horizontal" id="linkUpdateForm">
+                            <input type="hidden" name="id" id="linkId" value="">
                             <div class="form-group ">
-                                <label for="" class="col-xs-4 control-label">标题：</label>
-                                <div class="col-xs-8 ">
-                                    <input type="text" class="form-control input-sm duiqi"
-                                           name="title" id="photoTitle">
+                                <label for="" class="col-xs-3 control-label">链接名：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="email" class="form-control input-sm duiqi" id="linkName"
+                                           name="name">
                                 </div>
                             </div>
                             <div class="form-group ">
-                                <label for="" class="col-xs-4 control-label">描述：</label>
-                                <div class="col-xs-8 ">
-                                    <textarea type="text" class="form-control input-sm duiqi"
-                                              name="description" id="photoDescription"></textarea>
+                                <label for="" class="col-xs-3 control-label">URL：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="email" class="form-control input-sm duiqi" id="pathName"
+                                           name="url">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="" class="col-xs-4 control-label">相册：</label>
-                                <div class="col-xs-8 ">
-                                    <select class="form-control select-duiqi" name="classify" id="classify">
-                                        <option value="1" name="classify" id="photoClassify1">简约系列</option>
-                                        <option value="2" name="classify" id="photoClassify2">欧美系列</option>
-                                        <option value="3" name="link" id="photoClassify3">视觉系列</option>
-                                    </select>
+                                <label for="" class="col-xs-3 control-label">描述：</label>
+                                <div class="col-xs-6 ">
+                                    <textarea class="form-control input-sm duiqi" id="linkDescription"
+                                              name="description"></textarea>
                                 </div>
                             </div>
-                            <!-- 按钮 -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-green"
-                                        th:onclick="'javascript:updatePhoto()'">保 存
-                                </button>
-                                <button type="button" class="btn btn-white" data-dismiss="modal">取 消
-                                </button>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">状态：</label>
+                                <div class="col-xs-8">
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" id="linkNormal" value="0">正常</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" id="linkForbidden" value="1">
+                                        禁用</label>
+                                </div>
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-green" th:onclick="'javascript:updateLink()'">保 存
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取 消</button>
                 </div>
             </div>
         </div>
@@ -150,11 +134,11 @@
             // 判断是哪个选项卡
             var controls = $(this).attr('aria-controls');
 
-            if ('photo' === controls) {
+            if ('link' === controls) {
                 // ajax请求获取用户最大页数
                 $.ajax({
                     //请求URL地址,controller的名称
-                    url: "/content/photoMaxPage",
+                    url: "/resource/linkMaxPage",
                     //请求返回数据格式为json,还可以是text等
                     dataType: "JSON",
                     //请求是否为异步,默认是true
@@ -174,7 +158,7 @@
                     //请求成功时的处理函数,参数(返回数据,返回状态)
                     success: function (data) {
                         // 调用分页
-                        photoPagination(data.photoMaxPage);
+                        linkPagination(data.linkMaxPage);
                     },
                     //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                     complete: function () {
@@ -187,9 +171,9 @@
         });
 
         // 分页操作
-        function photoPagination(photoMaxPage) {
-            $.jqPaginator('#photoPagination', {
-                totalPages: photoMaxPage, // 总页数
+        function linkPagination(linkMaxPage) {
+            $.jqPaginator('#linkPagination', {
+                totalPages: linkMaxPage, // 总页数
                 visiblePages: 10, // 显示的页码数量
                 currentPage: 1, // 当前页
                 prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
@@ -201,7 +185,7 @@
                     // num->当前页
                     $.ajax({
                         //请求URL地址,controller的名称
-                        url: "/content/allPhoto",
+                        url: "/resource/allLink",
                         //请求返回数据格式为json,还可以是text等
                         dataType: "json",
                         //请求是否为异步,默认是true
@@ -221,7 +205,7 @@
                         //请求成功时的处理函数,参数(返回数据,返回状态)
                         success: function (data) {
                             // 组装HTML页面
-                            parsePhotoHtmlContent(data);
+                            parseLinkHtmlContent(data);
                         },
                         //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                         complete: function () {
@@ -235,7 +219,7 @@
         }
 
         // 查询数据填充至HTML
-        function parsePhotoHtmlContent(data) {
+        function parseLinkHtmlContent(data) {
 
             var htmlContent = "";
 
@@ -245,71 +229,28 @@
                 htmlContent += ' <span>' + data[i].id + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
-                htmlContent += ' <span>' + data[i].title + '</span>';
+                htmlContent += ' <span>' + data[i].name + '</span>';
                 htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">';
-                htmlContent += ' <span>' + data[i].description + '</span>';
-                htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
-                htmlContent += ' <span>' + data[i].readAmount + '</span>';
-                htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
-                htmlContent += ' <span>' + data[i].likeAmount + '</span>';
-                htmlContent += ' </div>';
-                htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
-                htmlContent += ' <span>' + data[i].classify + '</span>';
+                htmlContent += ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
+                htmlContent += ' <span>' + data[i].url + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
-                htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updatePhoto" onclick="javascript:queryPhoto(\'' + data[i].id + '\');">修改</button>';
-                htmlContent += ' <button class="btn btn-danger" data-toggle="modal" onclick="javascript:deletePhoto(\'' + data[i].id + '\');">删除</button>';
+                htmlContent += ' <span>' + data[i].description + '</span>';
+                htmlContent += ' </div>';
+                htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
+                htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updateLink" onclick="javascript:queryLink(\'' + data[i].id + '\');">修改</button>';
+                htmlContent += ' <button class="btn btn-danger" data-toggle="modal" onclick="javascript:deleteLink(\'' + data[i].id + '\');">删除</button>';
                 htmlContent += ' </div>';
                 htmlContent += ' </div>';
             }
-            $("#photoTablebody").html(htmlContent);
+            $("#linkTablebody").html(htmlContent);
         };
 
-        // 图片上传操作
-        $("#uploadImage").fileinput({
-            //上传的地址
-            uploadUrl: "/image/uploadImage?rad=" + Math.random(),
-            uploadAsync: true, //默认异步上传
-            showCaption: true,//是否显示标题
-            showPreview: true, //是否显示预览
-            showUpload: false, //是否显示上传按钮
-            showRemove: false, //是否显示移除按钮
-            showCancel: true,//是否显示取消按钮
-            showClose: true,//是否显示关闭按钮
-            autoReplace: false,//是否自动替换当前图片
-            allowedFileTypes: ['image'],//配置允许文件上传的类型
-            allowedPreviewTypes: ['image'],//配置所有的被预览文件类型
-            allowedPreviewMimeTypes: ['jpg', 'png', 'gif'],//控制被预览的所有mime类型
-            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",//预览图片图标
-            maxFileCount: 1, //表示允许同时上传的最大文件个数
-            msgFilesTooMany: "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
-            dropZoneEnabled: false,//是否显示拖拽区域，默认不写为true，但是会占用很大区域
-            enctype: 'multipart/form-data',
-            validateInitialCount: true,
-            language: 'zh'
-        });
-        //异步上传错误处理
-        $('#uploadImage').on('fileerror', function (event, data, msg) {
-            // 弹窗提示信息
-            swal('图片上传失败!', '', "success");
-        });
-        //异步上传返回结果处理
-        $("#uploadImage").on("fileuploaded", function (event, data, previewId, index) {
-            // 弹窗提示信息
-            swal(data.response.msg, '', "success");
-            // 参数回写到隐藏域中
-            var ref = $(this).attr("data-ref");
-            $("input[name='" + ref + "']").val(data.response.myImage);
-        });
-
         // 新增操作
-        function addPhoto() {
+        function addLink() {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/addPhoto",
+                url: "/resource/addLink",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -319,13 +260,13 @@
                 //设置请求超时时间
                 timeout: 1000,
                 //参数值,如果URL带参数,这里就可以不用写了
-                data: $('#photoAddForm').serialize(),
+                data: $('#linkAddForm').serialize(),
                 //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
                 type: "POST",
                 //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
                 beforeSend: function () {
                     // 隐藏模态窗
-                    $("#addPhoto").modal('hide');
+                    $("#addLink").modal('hide');
                 },
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
@@ -335,7 +276,7 @@
                         // 自动关闭弹窗
                         swal.close();
                         // 点击响应tab刷新页面
-                        $("div[aria-controls='photo']").click();
+                        $("div[aria-controls='link']").click();
                     }, 2000);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -348,10 +289,10 @@
         };
 
         // 查询资源实体
-        function queryPhoto(id) {
+        function queryLink(id) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/allPhoto/" + id,
+                url: "/resource/allLink/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -370,12 +311,16 @@
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
                     // 返回实体类
-                    $("#photoId").val(data.id);
-                    $("#photoTitle").val(data.title);
-                    // 防止只修改标题而导致内容丢失
-                    $("#photoDescription").val(data.description);
-                    // 日记分类
-                    $("#photoClassify" + data.classify).attr("checked", "checked");
+                    $("#linkId").val(data.id);
+                    $("#linkName").val(data.name);
+                    $("#pathName").val(data.url);
+                    $("#linkDescription").val(data.description);
+                    // 资源选项
+                    if (data.isDelete === 0) {
+                        $("#linkNormal").attr("checked", "checked");
+                    } else if (data.isDelete === 1) {
+                        $("#linkForbidden").attr("checked", "checked");
+                    }
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                 complete: function () {
@@ -387,10 +332,10 @@
         };
 
         // 更新操作
-        function updatePhoto() {
+        function updateLink() {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/updatePhoto",
+                url: "/resource/updateLink",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -400,13 +345,13 @@
                 //设置请求超时时间
                 timeout: 1000,
                 //参数值,如果URL带参数,这里就可以不用写了
-                data: $('#photoUpdateForm').serialize(),
+                data: $('#linkUpdateForm').serialize(),
                 //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
                 type: "PUT",
                 //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
                 beforeSend: function () {
                     // 隐藏模态窗
-                    $("#updatePhoto").modal('hide');
+                    $("#updateLink").modal('hide');
                 },
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
@@ -416,7 +361,7 @@
                         // 自动关闭弹窗
                         swal.close();
                         // 点击响应tab刷新页面
-                        $("div[aria-controls='photo']").click();
+                        $("div[aria-controls='link']").click();
                     }, 2000);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -429,7 +374,7 @@
         };
 
         // 删除操作
-        function deletePhoto(id) {
+        function deletelink(id) {
             swal({
                 title: '确定删除吗?',  //弹出框的title
                 text: '你将无法恢复它!', //弹出框里面的提示文本
@@ -447,7 +392,7 @@
                 if (isConfirm.value === true) {
                     $.ajax({
                         //请求URL地址,controller的名称
-                        url: "/content/deletePhoto/" + id,
+                        url: "/resource/deleteLink/" + id,
                         //请求返回数据格式为json,还可以是text等
                         dataType: "json",
                         //请求是否为异步,默认是true
@@ -471,7 +416,7 @@
                                 // 自动关闭弹窗
                                 swal.close();
                                 // 点击响应tab刷新页面
-                                $("div[aria-controls='photo']").click();
+                                $("div[aria-controls='link']").click();
                             }, 2000);
                         },
                         //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -499,4 +444,3 @@
         };
     </script>
 </div>
-

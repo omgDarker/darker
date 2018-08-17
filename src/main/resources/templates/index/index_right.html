@@ -14,16 +14,28 @@
                 <p>oschina：<a href="https://my.oschina.net/Tsher2015">AK灬</a></p>
             </div>
         </div>
+        <div class="tuwen">
+            <h3 class="tit">累计访问人数</h3>
+            <div id="dataNums"></div>
+        </div>
+        <!-- 摩天轮 -->
+        <h3 class="tit">幸福摩天轮</h3>
+        <div class="divImage">
+            <img src="../images/fsw.png" class="rotation" alt="幸福摩天轮"
+                 onclick="swal('希望你早日找到幸福!', '', 'success');">
+            <img src="../images/boy.png" style="height: 50px;width: 50px;" alt="男朋友"
+                 onclick="swal('希望你早日找到男朋友!', '', 'success');">
+            <img src="../images/shamegirl.png" style="height: 50px;width: 50px;" alt="女朋友"
+                 onclick="swal('希望你早日找到女朋友!', '', 'success');">
+        </div>
         <!-- 友情连接 -->
         <div class="tuwen">
             <h3 class="tit">友情连接</h3>
-            <ul>
-                <li><a href="#"><b>百度</b></a></li>
-                <li><a href="#"><b>百度</b></a></li>
-                <li><a href="#"><b>百度</b></a></li>
-                <li><a href="#"><b>百度</b></a></li>
-                <li><a href="#"><b>百度</b></a></li>
-            </ul>
+            <div class="wrapper" style="margin-top: 80px;">
+                <div class="tagcloud" th:each="link:${linkList}">
+                    <a th:href="@{${link.url}}" th:text="${link.name}" ></a>
+                </div>
+            </div><!--wrapper-->
         </div>
         <!-- 点击排行<阅读量> -->
         <div class="tuwen">
@@ -71,6 +83,5 @@
                 </li>
             </ul>
         </div>
-        <div class="ad"><img src="/images/03.jpg"></div>
     </div>
 </div>

@@ -4,9 +4,12 @@ IF EXISTS blog_link;
 CREATE TABLE blog_link (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '链接ID',
 	name VARCHAR (10) DEFAULT '' COMMENT '链接名称',
+	url VARCHAR (255) DEFAULT '' COMMENT '链接地址',
+	description VARCHAR (20) COMMENT '链接描述',
 	isDelete INT (1) COMMENT '是否删除(1:是,0:否)',
 	creator VARCHAR (10) COMMENT '创建人',
 	createTime datetime COMMENT '创建时间',
 	updateTime TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT = '友情链接表';
-COMMIT ;
+
+COMMIT;

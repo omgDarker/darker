@@ -190,4 +190,16 @@ public class SystemServiceLocator {
     public static ColumnService getColumnService() {
         return (ColumnService) SpringBootApplicationContent.getBean(ColumnServiceImpl.BEAN_NAME);
     }
+
+    /**
+     * 功能描述: 友情链接service
+     *
+     * @param: []
+     * @return: com.vip.darker.service.LinkService
+     * @auther: darker
+     * @date: 2018/8/17 14:13
+     */
+    public static LinkService getLinkService() {
+        return (LinkService) SpringBootApplicationContent.getBean(LinkServiceImpl.BEAN_NAME);
+    }
 }

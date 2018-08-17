@@ -1,6 +1,6 @@
 @charset "gb2312";
 .container {
-    background: rgb(229, 229, 229, 0.6);
+    background: rgb(229, 229, 229);
     overflow: hidden;
     width: 1000px;
     margin: auto;
@@ -553,7 +553,125 @@ input[type="checkbox"] {
 }
 
 /*分页*/
-.pagelist { text-align: center; color: #666; width: 100%; clear: both; margin: 20px 0; padding-top: 20px }
-.pagelist a { color: #666; margin: 0 2px; border: 1px solid #000; padding: 5px 10px; }
-.pagelist a:hover { color: #f00; text-decoration: underline }
-.pagelist > b { border: 1px solid #000; padding: 5px 10px; }
+.pagelist {
+    text-align: center;
+    color: #666;
+    width: 100%;
+    clear: both;
+    margin: 20px 0;
+    padding-top: 20px
+}
+
+.pagelist a {
+    color: #666;
+    margin: 0 2px;
+    border: 1px solid #000;
+    padding: 5px 10px;
+}
+
+.pagelist a:hover {
+    color: #f00;
+    text-decoration: underline
+}
+
+.pagelist > b {
+    border: 1px solid #000;
+    padding: 5px 10px;
+}
+
+/*摩天轮*/
+.divImage {
+    width: 300px;
+    animation: a 1000s;
+    text-align: center;
+}
+
+img:nth-child(2) {
+    position: absolute;
+    top: 200px;
+    left: 230px;
+    animation: b 1000s;
+}
+
+img:nth-child(3) {
+    position: absolute;
+    top: 0px;
+    left: 180px;
+    animation: b 1000s;
+
+}
+
+@keyframes a {
+    form {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(36000deg)
+    }
+}
+
+@keyframes b {
+    form {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(-36000deg)
+    }
+}
+
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.rotation {
+    -webkit-transform: rotate(360deg);
+    animation: rotation 1000s linear infinite;
+    -moz-animation: rotation 1000s linear infinite;
+    -webkit-animation: rotation 1000s linear infinite;
+    -o-animation: rotation 1000s linear infinite;
+    height: 300px;
+    width: 300px;
+}
+
+/*友情链接云*/
+.wrapper {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.tagcloud {
+    position: relative;
+}
+
+.tagcloud a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    padding: 11px 30px;
+    color: #333;
+    font-size: 16px;
+    border: 1px solid #e6e7e8;
+    border-radius: 18px;
+    background-color: #f2f4f8;
+    text-decoration: none;
+    white-space: nowrap;
+    -o-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    -ms-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    -moz-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    -webkit-box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    box-shadow: 6px 4px 8px 0 rgba(151, 142, 136, .34);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, Color='#000000')"; /*兼容ie7/8*/
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=125, Strength=9);
+    /*strength是阴影大小，direction是阴影方位，单位为度，可以为负数，color是阴影颜色 （尽量使用数字）使用IE滤镜实现盒子阴影的盒子必须是行元素或以行元素显示（block或inline-block;）*/
+}
+
+.tagcloud a:hover {
+    color: #3385cf;
+}
