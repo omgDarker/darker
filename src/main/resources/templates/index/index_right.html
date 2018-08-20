@@ -18,45 +18,38 @@
             <h3 class="tit">累计访问人数</h3>
             <div id="dataNums"></div>
         </div>
-        <!-- 摩天轮 -->
+        <!-- 摩天轮[兼容文章详情,因此多了许多../] -->
         <h3 class="tit">幸福摩天轮</h3>
         <div class="divImage">
-            <img src="../images/fsw.png" class="rotation" alt="幸福摩天轮"
+            <img src="../../../images/fsw.png" class="rotation" alt="幸福摩天轮"
                  onclick="swal('希望你早日找到幸福!', '', 'success');">
-            <img src="../images/boy.png" style="height: 50px;width: 50px;" alt="男朋友"
+            <img src="../../../images/boy.png" style="height: 50px;width: 50px;" alt="男朋友"
                  onclick="swal('希望你早日找到男朋友!', '', 'success');">
-            <img src="../images/shamegirl.png" style="height: 50px;width: 50px;" alt="女朋友"
+            <img src="../../../images/shamegirl.png" style="height: 50px;width: 50px;" alt="女朋友"
                  onclick="swal('希望你早日找到女朋友!', '', 'success');">
         </div>
         <!-- 友情连接 -->
         <div class="tuwen">
             <h3 class="tit">友情连接</h3>
-            <div class="wrapper" style="margin-top: 80px;">
-                <div class="tagcloud" th:each="link:${linkList}">
-                    <a th:href="@{${link.url}}" th:text="${link.name}" ></a>
+            <div class="wrapper" style="margin-top: 20px;">
+                <div class="tagcloud" >
+                    <a th:each="link:${linkList}" th:href="@{${link.url}}" th:text="${link.name}" target="_blank"></a>
                 </div>
             </div><!--wrapper-->
         </div>
         <!-- 点击排行<阅读量> -->
         <div class="tuwen">
-            <h3 class="tit">点击排行</h3>
+            <h3 class="tit">阅读排行</h3>
             <ul>
-                <li>
-                    <a href="/"><i><img src="/images/01.jpg"></i><b>住在手机里的朋友</b></a>
-                    <p><span class="tulanmu"><a href="/">所属相册</a></span><span class="tutime">2015-02-15</span></p>
-                </li>
-                <li><a href="/"><i><img src="/images/02.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
-                    <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
-                </li>
-
-                <li><a href="/"><i><img src="/images/06.jpg"></i><b>住在手机里的朋友</b></a>
-                    <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
-                </li>
-                <li><a href="/"><i><img src="/images/04.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
-                    <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
-                </li>
-                <li><a href="/"><i><img src="/images/02.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
-                    <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
+                <li th:each="readAmount:${readAmountList}">
+                    <a th:href="@{'/index/detail/article/'+${readAmount.id}}" >
+                        <i><img src="/images/01.jpg"></i>
+                        <b th:utext="${readAmount.title}"></b>
+                    </a>
+                    <p>
+                        <span class="tulanmu">    <span th:text="${readAmount.classifyId=='1'?'生活点滴':'技术联盟'}"></span></span>
+                        <span class="tutime" th:text="${#dates.format(readAmount.updateTime,'yyyy/MM/dd')}"></span>
+                    </p>
                 </li>
             </ul>
         </div>
@@ -64,22 +57,15 @@
         <div class="tuwen">
             <h3 class="tit">博主推荐</h3>
             <ul>
-                <li>
-                    <a href="/"><i><img src="/images/01.jpg"></i><b>住在手机里的朋友</b></a>
-                    <p><span class="tulanmu"><a href="/">所属相册</a></span><span class="tutime">2015-02-15</span></p>
-                </li>
-                <li><a href="/"><i><img src="/images/02.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
-                    <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
-                </li>
-
-                <li><a href="/"><i><img src="/images/06.jpg"></i><b>住在手机里的朋友</b></a>
-                    <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
-                </li>
-                <li><a href="/"><i><img src="/images/04.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
-                    <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
-                </li>
-                <li><a href="/"><i><img src="/images/02.jpg"></i><b>教你怎样用欠费手机拨打电话</b></a>
-                    <p><span class="tulanmu"><a href="/">手机配件</a></span><span class="tutime">2015-02-15</span></p>
+                <li th:each="likeAmount:${likeAmountList}">
+                    <a th:href="@{'/index/detail/article/'+${likeAmount.id}}">
+                        <i><img src="/images/02.jpg"></i>
+                        <b th:text="${likeAmount.title}"></b>
+                    </a>
+                    <p>
+                        <span class="tulanmu"><span th:text="${likeAmount.classifyId=='1'?'生活点滴':'技术联盟'}"></span></span>
+                        <span class="tutime" th:text="${#dates.format(likeAmount.updateTime,'yyyy/MM/dd')}"></span>
+                    </p>
                 </li>
             </ul>
         </div>

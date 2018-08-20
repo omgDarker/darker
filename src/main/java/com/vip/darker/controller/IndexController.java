@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,12 +35,19 @@ public class IndexController {
                               @RequestParam(value = "pageSize",required = false,defaultValue = "10") Integer pageSize) {
         // 返回页面
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
-        // 文章
-        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        // 文章<最新,降序排列>
+        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize),
+                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
         // 处理文章长度
         for (ArticleModel model : list) {
             model.setContent(model.getContent().substring(0, model.getContent().length() > 100 ? 100 : model.getContent().length()));
         }
+        // 文章<阅读排行,降序排列>
+        List<ArticleModel> readAmountList = SystemServiceLocator.getArticleService().selectList(
+                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"));
+        // 文章<点赞排行,降序排列>
+        List<ArticleModel> likeAmountList = SystemServiceLocator.getArticleService().selectList(
+                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("likeAmount")).last("LIMIT 5"));
         // 文章总数
         int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
         // 所有栏目
@@ -52,8 +60,12 @@ public class IndexController {
         modelAndView.addObject("pageNumSum", (count - 1) / pageSize + 1);
         // 总条数
         modelAndView.addObject("numSum", count);
-        // 数据
+        // 文章<最新版>
         modelAndView.addObject("list", list);
+        // 文章<阅读排行>
+        modelAndView.addObject("readAmountList", readAmountList);
+        // 文章<点赞排行>
+        modelAndView.addObject("likeAmountList", likeAmountList);
         // 栏目
         modelAndView.addObject("columnList",columnList);
         // 链接
@@ -74,14 +86,34 @@ public class IndexController {
     public ModelAndView getArticleDetail(@PathVariable(value = "id") Integer id) {
         // 返回页面
         ModelAndView modelAndView = new ModelAndView(INDEX + "/detail_article");
-        // 返回数据
         // 文章信息
         ArticleModel articleModel = SystemServiceLocator.getArticleService().selectById(id);
         // 留言信息
         List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", id));
+        // 文章<阅读排行,降序排列>
+        List<ArticleModel> readAmountList = SystemServiceLocator.getArticleService().selectList(
+                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"));
+        // 文章<点赞排行,降序排列>
+        List<ArticleModel> likeAmountList = SystemServiceLocator.getArticleService().selectList(
+                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("likeAmount")).last("LIMIT 5"));
+        // 文章总数
+        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
+        // 栏目
+        List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
+        // 友情链接
+        List<LinkModel> linkList = SystemServiceLocator.getLinkService().selectList(new EntityWrapper<>());
 
         modelAndView.addObject("article", articleModel);
+        // 留言内容
         modelAndView.addObject("messageList", messageModelList);
+        // 文章<阅读排行>
+        modelAndView.addObject("readAmountList", readAmountList);
+        // 文章<点赞排行>
+        modelAndView.addObject("likeAmountList", likeAmountList);
+        // 栏目
+        modelAndView.addObject("columnList",columnList);
+        // 链接
+        modelAndView.addObject("linkList",linkList);
 
         return modelAndView;
     }
@@ -92,8 +124,15 @@ public class IndexController {
      * @return
      */
     @RequestMapping(value = "/about", method = RequestMethod.GET)
-    public String about() {
-        return INDEX + "/about";
+    public ModelAndView about() {
+
+        ModelAndView modelAndView = new ModelAndView(INDEX + "/about");
+        // 栏目
+        List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
+        // 栏目
+        modelAndView.addObject("columnList",columnList);
+
+        return modelAndView;
     }
 
     /**

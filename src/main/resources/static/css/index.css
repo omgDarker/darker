@@ -190,11 +190,11 @@ h3.blogtitle {
     text-shadow: rgba(255, 255, 255, 0.3) 0px 1px 0px;
 }
 
-/*图文列表*/
+/*右侧列表*/
 .tuwen {
     width: 100%;
-    clear: both;
-    overflow: hidden;
+    /*clear: both;*/
+    /*overflow: hidden;*/
     margin: 20px 0
 }
 
@@ -224,7 +224,7 @@ h3.blogtitle {
     font-weight: normal;
     color: #333;
     font-size: 14px;
-    line-height: 30px
+    line-height: 30px;
 }
 
 .tuwen li span {
@@ -233,7 +233,8 @@ h3.blogtitle {
 }
 
 .tuwen p {
-    margin-top: 5px
+    margin-top: 5px;
+    margin-left: 85px;
 }
 
 .tulanmu {
@@ -654,7 +655,7 @@ img:nth-child(3) {
     top: 0;
     left: 0;
     display: block;
-    padding: 11px 30px;
+    padding: 5px 20px;
     color: #333;
     font-size: 16px;
     border: 1px solid #e6e7e8;

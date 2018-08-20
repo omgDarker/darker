@@ -58,7 +58,6 @@
                             </div>
                             <!-- 辅助信息 -->
                             <div class="binfo">
-                                <span class="lm"><a href="/">个人日记</a></span>
                                 <span th:utext="'已有'+${object.readAmount}+'人阅读'"></span>
                                 <span class="atime"
                                       th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
