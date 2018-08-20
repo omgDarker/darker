@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="darker">
-    <meta name="description" content="darker博客">
+    <meta name="keywords" content="BK">
+    <meta name="description" content="BK博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>darker博客</title>
+    <title>BK个人博客</title>
     <link href="/css/base.css" rel="stylesheet" type="text/css">
     <link href="/css/index.css" rel="stylesheet" type="text/css">
     <link href="/css/m.css" rel="stylesheet" type="text/css">
@@ -39,7 +39,7 @@
                 <span class="lm f_l"></span>
                 <span class="dtime f_l" th:text="${#dates.format(article.updateTime,'yyyy/MM/dd HH:mm')}"></span>
                 <!-- 浏览量 -->
-                共<a href="#" th:utext="${article.readAmount}"></a>人围观</span>
+                共<a href="#" th:utext="${article.readAmount}"></a>人围观
             </div>
             <br/><br/>
             <!-- 内容 -->
@@ -52,9 +52,17 @@
             </div>
             <br/><br/>
             <div style="margin-bottom: 30px;" align="center">
-                <button type="button" class="btn btn-praise">点赞(999)</button>&nbsp;&nbsp;
-                <button type="button" class="btn btn-bad">甩鞋(666)</button>&nbsp;&nbsp;
-                <button type="button" class="btn btn-money">打赏</button>
+                <button type="button" class="btn btn-praise" id="like"
+                        th:text="'点赞('+${article.likeAmount}+')'"
+                        th:value="${article.likeAmount}"
+                        th:onclick="'javascript:addLike('+${article.id}+')'">点赞(999)
+                </button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-bad" id="likeNo"
+                        th:text="'甩鞋('+${article.likeNoAmount}+')'"
+                        th:value="${article.likeNoAmount}"
+                        th:onclick="'javascript:addNoLike('+${article.id}+')'">甩鞋(666)
+                </button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-money" onclick="addMoney()">打赏</button>
             </div>
             <!-- 留言板 -->
             <!-- 若留言为空,则取消留言板 -->
@@ -100,7 +108,7 @@
                 <br/>
                 <button type="button" class="btn btn-primary" onclick="addMessage();">Submit</button>
             </form>
-            <br/></br>
+            <br/>
         </div>
         <!-- 右侧栏 -->
         <div th:include="index/index_right.html :: index_right"></div>
@@ -129,6 +137,18 @@
             type: "POST",
             //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
             beforeSend: function () {
+                // 表单校验
+                if ($("#userName").val() === "" || $("#email").val() === "" || $("#content").val() === "") {
+                    swal("表单不能为空!", "请详细填写所有内容!", "warning");
+                    return false;
+                }
+                // 判断邮件格式是否正确
+                var pattern = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if (!pattern.test($("#email").val())) {
+                    //邮箱格式不正确
+                    swal("邮件格式不正确!", "请重新填写邮件!", "warning");
+                    return false;
+                }
             },
             //请求成功时的处理函数,参数(返回数据,返回状态)
             success: function (data) {
@@ -142,6 +162,21 @@
                 }
                 // 回显留言板,更新数据
                 updateMessageBoard(data);
+                // 提示信息
+                swal({
+                    title: '感谢您的评论!',
+                    text: '听说秋名山上司机稀少,不知道少侠,曾经去过吗?',
+                    timer: 2000
+                }).then(
+                    function () {
+                    },
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer')
+                        }
+                    }
+                )
             },
             //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
             complete: function () {
@@ -169,6 +204,158 @@
             html += '<p style="text-indent: 2em;line-height: 22px;" th:text="${message.content}">' + message.content + '</p>';
         }
         $("#messageBoard").html(html);
+    }
+
+    // 点赞操作
+    function addLike(id) {
+        // 获取当前点赞数
+        var likeAmount = $("#like").val();
+        $.ajax({
+            //请求URL地址,controller的名称
+            url: "/index/addLike/" + id,
+            //请求返回数据格式为json,还可以是text等
+            dataType: "JSON",
+            //请求是否为异步,默认是true
+            async: true,
+            //是否从浏览器缓存中加载数据信息
+            cache: false,
+            //设置请求超时时间
+            timeout: 1000,
+            //参数值,如果URL带参数,这里就可以不用写了
+            data: {'likeAmount': likeAmount},
+            //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+            type: "POST",
+            //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+            beforeSend: function () {
+            },
+            //请求成功时的处理函数,参数(返回数据,返回状态)
+            success: function (data) {
+                var result = eval("(" + data + ")");
+                if (result.msg === 'success') {
+                    swal({
+                        title: '谢谢支持!',
+                        text: '人生唯一的捷径就是坚持!',
+                        timer: 2000
+                    }).then(
+                        function () {
+                        },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
+                        }
+                    );
+                    $("#like").val(result.likeAmount);
+                    $("#like").text('点赞(' + result.likeAmount + ')');
+                } else {
+                    swal('点赞迷路了,博主会尽快修复!', '', 'error');
+                }
+            },
+            //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+            complete: function () {
+            },
+            //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+            error: function () {
+            }
+        });
+    }
+
+    // 甩鞋操作
+    function addNoLike(id) {
+        // 获取当前点赞数
+        var likeNoAmount = $("#likeNo").val();
+        $.ajax({
+            //请求URL地址,controller的名称
+            url: "/index/addNoLike/" + id,
+            //请求返回数据格式为json,还可以是text等
+            dataType: "JSON",
+            //请求是否为异步,默认是true
+            async: true,
+            //是否从浏览器缓存中加载数据信息
+            cache: false,
+            //设置请求超时时间
+            timeout: 1000,
+            //参数值,如果URL带参数,这里就可以不用写了
+            data: {'likeNoAmount': likeNoAmount},
+            //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+            type: "POST",
+            //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+            beforeSend: function () {
+            },
+            //请求成功时的处理函数,参数(返回数据,返回状态)
+            success: function (data) {
+                var result = eval("(" + data + ")");
+                if (result.msg === 'success') {
+                    swal({
+                        title: 'TMD',
+                        text: '既然选择远方,又怎能没有梦想!',
+                        timer: 2000
+                    }).then(
+                        function () {
+                        },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
+                        }
+                    )
+                    $("#likeNo").val(result.likeNoAmount);
+                    $("#likeNo").text('甩鞋(' + result.likeNoAmount + ')');
+                } else {
+                    swal('点赞迷路了,博主会尽快修复!', '', 'error');
+                }
+            },
+            //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+            complete: function () {
+            },
+            //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+            error: function () {
+            }
+        });
+    }
+
+    // 打赏操作
+    function addMoney() {
+        swal.setDefaults({
+            confirmButtonText: 'NEXT',
+            showCancelButton: true,
+            animation: false
+        });
+        var steps = [
+            {
+                title: '感谢大佬的赞助!',
+                text: '万水千山总是情,来点票子行不行!',
+                imageUrl: '../../../images/wxpay.jpg',
+                imageWidth: 250,
+                imageHeight: 300
+            },
+            {
+                title: '感谢大佬的赞助!',
+                text: '有了花钱的快感,才能有赚钱的动力!',
+                imageUrl: '../../../images/alipay.jpg',
+                imageWidth: 250,
+                imageHeight: 300
+            },
+            {
+                title: '感谢大佬的赞助!',
+                text: '花钱虽易,挣钱不易,且花且珍惜!',
+                imageUrl: '../../../images/qqpay.png',
+                imageWidth: 250,
+                imageHeight: 300
+            }
+        ];
+
+        swal.queue(steps).then(function () {
+            swal({
+                title: '再次感谢大佬的赞助!',
+                confirmButtonText: 'CLOSE',
+                showCancelButton: false
+            });
+        }).finally(function () {
+            swal.resetDefaults();
+        })
     }
 
     /*3D标签云*/

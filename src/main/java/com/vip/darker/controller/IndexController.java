@@ -4,22 +4,21 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.vip.darker.util.Constant;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: Darker
  * @description ：博客页面CONTROLLER
  * @date : 2018/7/17 11:05
  */
-@Controller
+@RestController
 @RequestMapping(value = "index")
 public class IndexController {
 
@@ -31,23 +30,19 @@ public class IndexController {
      * @return
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(value = "pageNum",required = false,defaultValue = "1") Integer pageNum,
-                              @RequestParam(value = "pageSize",required = false,defaultValue = "10") Integer pageSize) {
+    public ModelAndView index(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         // 返回页面
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // 文章<最新,降序排列>
-        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize),
-                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
+        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
         // 处理文章长度
         for (ArticleModel model : list) {
             model.setContent(model.getContent().substring(0, model.getContent().length() > 100 ? 100 : model.getContent().length()));
         }
         // 文章<阅读排行,降序排列>
-        List<ArticleModel> readAmountList = SystemServiceLocator.getArticleService().selectList(
-                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"));
+        List<ArticleModel> readAmountList = SystemServiceLocator.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"));
         // 文章<点赞排行,降序排列>
-        List<ArticleModel> likeAmountList = SystemServiceLocator.getArticleService().selectList(
-                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("likeAmount")).last("LIMIT 5"));
+        List<ArticleModel> likeAmountList = SystemServiceLocator.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("likeAmount")).last("LIMIT 5"));
         // 文章总数
         int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
         // 所有栏目
@@ -67,9 +62,9 @@ public class IndexController {
         // 文章<点赞排行>
         modelAndView.addObject("likeAmountList", likeAmountList);
         // 栏目
-        modelAndView.addObject("columnList",columnList);
+        modelAndView.addObject("columnList", columnList);
         // 链接
-        modelAndView.addObject("linkList",linkList);
+        modelAndView.addObject("linkList", linkList);
 
         return modelAndView;
     }
@@ -91,11 +86,9 @@ public class IndexController {
         // 留言信息
         List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", id));
         // 文章<阅读排行,降序排列>
-        List<ArticleModel> readAmountList = SystemServiceLocator.getArticleService().selectList(
-                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"));
+        List<ArticleModel> readAmountList = SystemServiceLocator.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"));
         // 文章<点赞排行,降序排列>
-        List<ArticleModel> likeAmountList = SystemServiceLocator.getArticleService().selectList(
-                new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("likeAmount")).last("LIMIT 5"));
+        List<ArticleModel> likeAmountList = SystemServiceLocator.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("likeAmount")).last("LIMIT 5"));
         // 文章总数
         int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
         // 栏目
@@ -111,9 +104,9 @@ public class IndexController {
         // 文章<点赞排行>
         modelAndView.addObject("likeAmountList", likeAmountList);
         // 栏目
-        modelAndView.addObject("columnList",columnList);
+        modelAndView.addObject("columnList", columnList);
         // 链接
-        modelAndView.addObject("linkList",linkList);
+        modelAndView.addObject("linkList", linkList);
 
         return modelAndView;
     }
@@ -130,7 +123,7 @@ public class IndexController {
         // 栏目
         List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
         // 栏目
-        modelAndView.addObject("columnList",columnList);
+        modelAndView.addObject("columnList", columnList);
 
         return modelAndView;
     }
@@ -146,9 +139,11 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView(INDEX + "/photo");
         // 获取所有图片名称
         List<PhotoModel> photoModelList = SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
-
-        modelAndView.addObject("photoList",photoModelList);
-        modelAndView.addObject("pageNum",pageNum);
+        // 所有栏目
+        List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
+        modelAndView.addObject("photoList", photoModelList);
+        modelAndView.addObject("columnList",columnList);
+        modelAndView.addObject("pageNum", pageNum);
 
         return modelAndView;
     }
@@ -173,22 +168,13 @@ public class IndexController {
      * @date: 2018/8/13 22:39
      */
     @RequestMapping(value = "/article/{classifyId}/{columnId}", method = RequestMethod.GET)
-    public ModelAndView getArticleByClassifyIdAndColumnId(
-            @PathVariable(value = "classifyId") String classifyId,
-            @PathVariable(value = "columnId") String columnId,
-            @RequestParam(value = "pageNum",required = false,defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pageSize",required = false,defaultValue = "5") Integer pageSize) {
+    public ModelAndView getArticleByClassifyIdAndColumnId(@PathVariable(value = "classifyId") String classifyId, @PathVariable(value = "columnId") String columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
         // 文章总条数
-        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>()
-                .where("classifyId={0} ",classifyId)
-                .and("columnId={0}", columnId));
+        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId));
         // 根据条件查询文章
-        List<ArticleModel> list = SystemServiceLocator.getArticleService()
-                .selectPage(new Page<>(pageNum,pageSize), new EntityWrapper<ArticleModel>()
-                                .where("classifyId={0} ",classifyId)
-                                .and("columnId={0}",columnId)).getRecords();
+        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords();
         // 所有栏目
         List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
         // 根据分类ID获取分类名称
@@ -200,13 +186,13 @@ public class IndexController {
         // 分类ID
         modelAndView.addObject("classifyId", classifyId);
         // 分类名称
-        modelAndView.addObject("classifyName",classifyName);
+        modelAndView.addObject("classifyName", classifyName);
         // 栏目ID
         modelAndView.addObject("columnId", columnId);
         // 栏目名称
-        modelAndView.addObject("columnName",columnName);
+        modelAndView.addObject("columnName", columnName);
         // 栏目
-        modelAndView.addObject("columnList",columnList);
+        modelAndView.addObject("columnList", columnList);
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -226,19 +212,13 @@ public class IndexController {
      * @date: 2018/8/13 22:39
      */
     @RequestMapping(value = "/article/{classifyId}", method = RequestMethod.GET)
-    public ModelAndView getArticleByClassifyId(
-            @PathVariable(value = "classifyId") String classifyId,
-            @RequestParam(value = "pageNum",required = false,defaultValue = "1") Integer pageNum,
-            @RequestParam(value = "pageSize",required = false,defaultValue = "5") Integer pageSize) {
+    public ModelAndView getArticleByClassifyId(@PathVariable(value = "classifyId") String classifyId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
         // 文章总条数
-        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>()
-                .where("classifyId={0} ",classifyId));
+        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId));
         // 根据条件查询文章
-        List<ArticleModel> list = SystemServiceLocator.getArticleService()
-                .selectPage(new Page<>(pageNum,pageSize), new EntityWrapper<ArticleModel>()
-                        .where("classifyId={0} ",classifyId)).getRecords();
+        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId)).getRecords();
         // 根据分类ID获取分类名称
         String classifyName = SystemServiceLocator.getClassifyService().selectById(classifyId).getName();
         // 所有栏目
@@ -248,9 +228,9 @@ public class IndexController {
         // 分类ID
         modelAndView.addObject("classifyId", classifyId);
         // 分类名称
-        modelAndView.addObject("classifyName",classifyName);
+        modelAndView.addObject("classifyName", classifyName);
         // 栏目
-        modelAndView.addObject("columnList",columnList);
+        modelAndView.addObject("columnList", columnList);
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -280,6 +260,58 @@ public class IndexController {
     }
 
     /**
+     * 功能描述: 点赞功能
+     *
+     * @param: [id, likeAmount]
+     * @return: java.util.Map<>
+     * @auther: darker
+     * @date: 2018/8/20 16:32
+     */
+    @RequestMapping(value = "/addLike/{id}", method = RequestMethod.POST)
+    public Map<String, Object> addLike(@PathVariable(value = "id") Integer id, @RequestParam(value = "likeAmount") Integer likeAmount) {
+
+        ArticleModel articleModel = new ArticleModel();
+
+        articleModel.setId(id);
+        articleModel.setLikeAmount(likeAmount + 1);
+
+        Map<String, Object> map = new HashMap<>();
+
+        boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
+
+        map.put(Constant.MSG, flag ? Constant.SUCCESS : Constant.FAIL);
+        map.put("likeAmount",likeAmount + 1);
+
+        return map;
+    }
+
+    /**
+     * 功能描述: 甩鞋功能
+     *
+     * @param: [id, likeNoAmount]
+     * @return: java.util.Map<>
+     * @auther: darker
+     * @date: 2018/8/20 16:32
+     */
+    @RequestMapping(value = "/addNoLike/{id}", method = RequestMethod.POST)
+    public Map<String, Object> addNoLike(@PathVariable(value = "id") Integer id, @RequestParam(value = "likeNoAmount") Integer likeNoAmount) {
+
+        ArticleModel articleModel = new ArticleModel();
+
+        articleModel.setId(id);
+        articleModel.setLikeNoAmount(likeNoAmount + 1);
+
+        Map<String, Object> map = new HashMap<>();
+
+        boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
+
+        map.put(Constant.MSG, flag ? Constant.SUCCESS : Constant.FAIL);
+        map.put("likeNoAmount",likeNoAmount + 1);
+
+        return map;
+    }
+
+    /**
      * 功能描述: 错误页面404
      *
      * @param: []
@@ -288,7 +320,7 @@ public class IndexController {
      * @date: 2018/8/17 17:59
      */
     @RequestMapping(value = "/error/404")
-    public ModelAndView errorPage(){
+    public ModelAndView errorPage() {
         return new ModelAndView("error/index_404");
     }
 }

@@ -10,6 +10,10 @@ public class Constant {
     // 每页条数
     public static final int PAGE_SIZE = 10;
     // 操作状态
+    public static final String SUCCESS = "success";
+
+    public static final String FAIL = "fail";
+
     public static final String SUCCESS_INSERT = "新增成功!";
 
     public static final String SUCCESS_UPDATE = "更新成功!";

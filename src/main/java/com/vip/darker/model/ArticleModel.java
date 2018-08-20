@@ -20,6 +20,8 @@ public class ArticleModel extends Model<ArticleModel> {
 
     private Integer likeAmount;
 
+    private Integer likeNoAmount;
+
     private String classifyId; // 分类ID(生活点滴,技术联盟)
 
     private String columnId; // 栏目ID(下拉框选项)
@@ -64,6 +66,14 @@ public class ArticleModel extends Model<ArticleModel> {
 
     public void setLikeAmount(Integer likeAmount) {
         this.likeAmount = likeAmount;
+    }
+
+    public Integer getLikeNoAmount() {
+        return likeNoAmount;
+    }
+
+    public void setLikeNoAmount(Integer likeNoAmount) {
+        this.likeNoAmount = likeNoAmount;
     }
 
     public String getClassifyId() {

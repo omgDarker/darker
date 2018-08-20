@@ -7,6 +7,7 @@ CREATE TABLE content_article (
 	content text COMMENT '内容',
 	readAmount INT (10) DEFAULT 0 COMMENT '阅读量',
 	likeAmount INT (10) DEFAULT 0 COMMENT '点赞量',
+	likeNoAmount INT (10) DEFAULT 0 COMMENT '甩鞋量',
 	classifyId VARCHAR (10) DEFAULT '' COMMENT '分类',
 	columnId VARCHAR (10) DEFAULT '' COMMENT '栏目名称',
 	isDelete INT (1) COMMENT '是否删除(1:是,0:否)',
