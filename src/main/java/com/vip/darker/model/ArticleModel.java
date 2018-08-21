@@ -16,6 +16,12 @@ public class ArticleModel extends Model<ArticleModel> {
 
     private String title;
 
+    private String summary;
+
+    private String content;
+
+    private String imageName; // 首图名称
+
     private Integer readAmount;
 
     private Integer likeAmount;
@@ -34,8 +40,6 @@ public class ArticleModel extends Model<ArticleModel> {
 
     private Date updateTime;
 
-    private String content;
-
     public Integer getId() {
         return id;
     }
@@ -50,6 +54,30 @@ public class ArticleModel extends Model<ArticleModel> {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public Integer getReadAmount() {
@@ -122,14 +150,6 @@ public class ArticleModel extends Model<ArticleModel> {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     @Override

@@ -2,11 +2,9 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ArticleModel;
-import com.vip.darker.model.DiaryModel;
-import com.vip.darker.model.MessageModel;
-import com.vip.darker.model.PhotoModel;
+import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.util.BeanToMapUtil;
 import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
 
@@ -236,8 +234,25 @@ public class ContentController {
      * @date: 2018/7/20 15:49
      */
     @RequestMapping(value = "/allArticle", method = RequestMethod.GET)
-    public List<ArticleModel> queryAllArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+    public List<Map<String, Object>> queryAllArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+
+        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+
+        try {
+            // BEAN转MAP
+            List<Map<String, Object>> resultList = BeanToMapUtil.convertListBeanToListMap(list, ArticleModel.class);
+
+            for (Map<String, Object> map : resultList) {
+                Map<String, Object> columnMap = SystemServiceLocator.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", map.get("columnId")));
+                Map<String, Object> classifyMap = SystemServiceLocator.getClassifyService().selectMap(new EntityWrapper<ClassifyModel>().where("id={0}", map.get("classifyId")));
+                map.put("columnName", columnMap.get("name"));
+                map.put("classifyName", classifyMap.get("name"));
+            }
+            return resultList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //****************************************图片模块****************************************//
@@ -359,7 +374,7 @@ public class ContentController {
      * @date: 2018/7/20 15:25
      */
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
-    public Map<String, Object> addMessage(Integer articleId,MessageModel messageModel) {
+    public Map<String, Object> addMessage(Integer articleId, MessageModel messageModel) {
         // 留言新增
         SystemServiceLocator.getMessageService().insert(messageModel);
         // 留言信息

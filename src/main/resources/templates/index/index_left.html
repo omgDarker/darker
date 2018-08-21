@@ -17,18 +17,21 @@
                 </h3>
                 <!-- 内容 -->
                 <div class="bloginfo">
-                    <!-- 文章首图 -->
-                    <span class="blogpic">
-                            <img src="/images/03.jpg" alt="帝国cms 首页或者列表无图，不使用默认图片的方法">
-                        </span>
-                    <span th:utext="${#strings.trim(object.content)}"></span>
+                    <!--文章首图-->
+                    <span class="blogpic" th:if="${object.imageName} != null">
+                        <a th:href="@{'/image/showImage/'+${object.imageName}}">
+                            <i><img th:src="@{'/image/showImage/'+${object.imageName}}"></i>
+                        </a>
+                    </span>
+                    <span th:text="${object.summary}"></span>
                 </div>
                 <!-- 提示信息 -->
                 <div class="autor">
                     <span class="lm f_l"></span>
                     <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
                     <span class="viewnum f_l">浏览(<a th:text="${object.readAmount}"></a>)</span>
-                    <span class="f_r"><a class="more" th:href="@{'/index/detail/article/'+${object.id}}">阅读原文&gt;&gt;</a></span>
+                    <span class="f_r"><a class="more"
+                                         th:href="@{'/index/detail/article/'+${object.id}}">阅读原文&gt;&gt;</a></span>
                 </div>
             </li>
         </ul>

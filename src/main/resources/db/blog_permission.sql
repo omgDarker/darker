@@ -4,7 +4,7 @@ IF EXISTS blog_permission;
 CREATE TABLE blog_permission (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
 	name VARCHAR (255) COMMENT '权限名称',
-	description VARCHAR (10) COMMENT '权限描述',
+	description VARCHAR (255) COMMENT '权限描述',
 	isDelete INT (1) COMMENT '是否删除(1:是,0:否)',
 	creator VARCHAR (10) COMMENT '创建人',
 	createTime datetime COMMENT '创建时间',

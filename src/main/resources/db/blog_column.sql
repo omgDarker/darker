@@ -5,7 +5,7 @@ CREATE TABLE blog_column (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '栏目ID',
 	name VARCHAR (10) DEFAULT '' COMMENT '栏目名称',
 	classifyId INT (32) COMMENT '分类ID',
-	description VARCHAR (20) COMMENT '栏目描述',
+	description VARCHAR (50) COMMENT '栏目描述',
 	isDelete INT (1) COMMENT '是否删除(1:是,0:否)',
 	creator VARCHAR (10) COMMENT '创建人',
 	createTime datetime COMMENT '创建时间',

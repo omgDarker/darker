@@ -3,7 +3,7 @@ CREATE TABLE `blog_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '链接ID',
   `name` varchar(100) DEFAULT '' COMMENT '链接名称',
   `url` varchar(255) DEFAULT '' COMMENT '链接地址',
-  `description` varchar(20) DEFAULT NULL COMMENT '链接描述',
+  `description` varchar(100) DEFAULT NULL COMMENT '链接描述',
   `isDelete` int(1) DEFAULT NULL COMMENT '是否删除(1:是,0:否)',
   `creator` varchar(10) DEFAULT NULL COMMENT '创建人',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',

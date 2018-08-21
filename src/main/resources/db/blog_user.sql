@@ -3,7 +3,7 @@ IF EXISTS blog_user;
 
 CREATE TABLE blog_user (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
-	name VARCHAR (10) COMMENT '姓名',
+	name VARCHAR (50) COMMENT '用户名',
 	email VARCHAR(50) COMMENT '邮箱',
 	ip VARCHAR(15) COMMENT 'ip地址',
 	area VARCHAR(255) COMMENT '地区',
