@@ -2,7 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.controller.base.BaseController;
+import com.vip.darker.controller.base.RedirectController;
 import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import com.vip.darker.util.Constant;
@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping(value = "resource")
-public class ResourceController extends BaseController {
+public class ResourceController extends RedirectController {
 
     //****************************************资源模块****************************************//
 

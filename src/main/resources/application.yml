@@ -1,6 +1,7 @@
 #端口
 server:
-  port: 8080
+  #访问网站默认端口
+  port: 80
 
 #数据库相关配置
 spring:
