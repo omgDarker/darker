@@ -4,7 +4,7 @@ IF EXISTS content_article;
 CREATE TABLE content_article (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '文章ID',
 	title VARCHAR (255) COMMENT '标题',
-	summary VARCHAR (255) COMMENT '摘要',
+	summary text DEFAULT '' (255) COMMENT '摘要',
 	content text COMMENT '内容',
 	imageName VARCHAR (255) COMMENT '首图名称',
 	readAmount INT (10) DEFAULT '456' COMMENT '阅读量',

@@ -42,7 +42,7 @@
                 共<a href="#" th:utext="${article.readAmount}"></a>人围观
             </div>
             <br/>
-            <div class="article_about">
+            <div class="article_about" th:if="${article.summary!=null&&article.summary!=''}">
                 <span th:utext="${'<b>简介</b>&nbsp;'+article.summary}"></span>
             </div>
             <br/>
