@@ -137,6 +137,9 @@ h3.blogtitle {
     text-decoration: underline
 }
 
+.columntag{
+    background: url(../images/posttime.gif) no-repeat left center
+}
 .dtime {
     background: url(../images/posttime.gif) no-repeat left center
 }
@@ -675,4 +678,28 @@ img:nth-child(3) {
 
 .tagcloud a:hover {
     color: #3385cf;
+}
+
+/*¼ò½éÑùÊ½*/
+.article_about {
+    color: #888888;
+    border: 1px solid #F3F3F3;
+    padding: 10px;
+    margin: 10px auto 0;
+    line-height: 23px;
+    background: none repeat 0 0 #F6F6F6;
+}
+code {
+    display: block;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color:#eee;
+    border: 3px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 10px auto 0;
 }

@@ -32,5 +32,5 @@ public class Constant {
     // 相应标识
     public static final String MSG = "msg";
     // 图片存储路径
-    public static final String PHOTO_PATH = "C://picture";
+    public static final String PHOTO_PATH = "G://picture";
 }

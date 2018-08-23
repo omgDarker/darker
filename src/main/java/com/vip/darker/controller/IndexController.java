@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import com.vip.darker.util.Constant;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,9 +36,17 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // 文章<最新,降序排列>
         List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
-        // 处理文章长度
+        // 处理文章摘要长度
         for (ArticleModel model : list) {
-            model.setContent(model.getContent().substring(0, model.getContent().length() > 100 ? 100 : model.getContent().length()));
+            if (StringUtils.isNotBlank(model.getSummary())) {
+                if (StringUtils.isNotBlank(model.getImageName())) {
+                    // 若存在图片
+                    model.setSummary(model.getSummary().substring(0, model.getSummary().length() > 130 ? 130 : model.getSummary().length()));
+                } else {
+                    // 若不存在图片
+                    model.setSummary(model.getSummary().substring(0, model.getSummary().length() > 230 ? 230 : model.getSummary().length()));
+                }
+            }
         }
         // 文章<阅读排行,降序排列>
         List<ArticleModel> readAmountList = SystemServiceLocator.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"));
@@ -142,7 +151,7 @@ public class IndexController {
         // 所有栏目
         List<ColumnModel> columnList = SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>());
         modelAndView.addObject("photoList", photoModelList);
-        modelAndView.addObject("columnList",columnList);
+        modelAndView.addObject("columnList", columnList);
         modelAndView.addObject("pageNum", pageNum);
 
         return modelAndView;
@@ -280,7 +289,7 @@ public class IndexController {
         boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
 
         map.put(Constant.MSG, flag ? Constant.SUCCESS : Constant.FAIL);
-        map.put("likeAmount",likeAmount + 1);
+        map.put("likeAmount", likeAmount + 1);
 
         return map;
     }
@@ -306,7 +315,7 @@ public class IndexController {
         boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
 
         map.put(Constant.MSG, flag ? Constant.SUCCESS : Constant.FAIL);
-        map.put("likeNoAmount",likeNoAmount + 1);
+        map.put("likeNoAmount", likeNoAmount + 1);
 
         return map;
     }

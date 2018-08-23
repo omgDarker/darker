@@ -51,9 +51,9 @@
                             </div>
                             <div class="form-group ">
                                 <label for="" class="col-xs-3 control-label">摘要：</label>
-                                <div class="col-xs-8 ">
-                                    <textarea type="text" class="form-control input-sm duiqi"
-                                              name="summary" value=""></textarea>
+                                <!--编辑器位置-->
+                                <div style="max-height:1200px;margin-top:50px;margin-left:24%;width: 700px;">
+                                    <div th:replace="editor/summaryCreateEditor.html :: editor"></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -81,10 +81,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3 control-label">内容：</label>
-                            </div>
-                            <div class="form-group">
                                 <!--编辑器位置-->
-                                <div style="max-height:1200px;margin-left:20%;width: 700px;">
+                                <div style="max-height:1200px;margin-top:50px;margin-left:24%;width: 700px;">
                                     <div th:replace="editor/articleCreateEditor.html :: editor"></div>
                                 </div>
                             </div>
@@ -127,9 +125,9 @@
                             </div>
                             <div class="form-group ">
                                 <label for="" class="col-xs-3 control-label">摘要：</label>
-                                <div class="col-xs-8 ">
-                                    <textarea type="text" class="form-control input-sm duiqi" id="articleSummary"
-                                              name="summary" value=""></textarea>
+                                <!--编辑器位置-->
+                                <div style="max-height:1200px;margin-top:50px;margin-left:24%;width: 700px;">
+                                    <div th:replace="editor/summaryUpdateEditor.html :: editor"></div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -148,10 +146,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-xs-3 control-label">内容：</label>
-                            </div>
-                            <div class="form-group">
                                 <!--编辑器位置-->
-                                <div style="max-height:1200px;margin-left:20%;width: 700px;">
+                                <div style="max-height:1200px;margin-top:50px;margin-left:24%;width: 700px;">
                                     <div th:replace="editor/articleUpdateEditor.html :: editor"></div>
                                 </div>
                             </div>
@@ -397,10 +393,11 @@
                     // 返回实体类
                     $("#articleId").val(data.id);
                     $("#articleTitle").val(data.title);
-                    $("#articleSummary").val(data.summary);
+                    $("#summaryUpdateContent").val(data.summary);
                     // 防止只修改标题而导致内容丢失
                     $("#articleUpdateContent").val(data.content);
                     // 编辑器数据回填
+                    summaryUpdateEditor.txt.html(data.summary);
                     articleUpdateEditor.txt.html(data.content);
                     // 日记分类
                     $("#articleClassify" + data.classify).attr("checked", "checked");

@@ -11,23 +11,27 @@
             <input type="hidden" id="numSum" th:value="${numSum}">
             <li th:each="object : ${list}">
                 <!-- 标题 -->
-                <h3 class="blogtitle">
-                    <span th:text="${object.classifyId=='1'?'生活点滴':'技术联盟'}"></span>
-                    <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
-                </h3>
+
                 <!-- 内容 -->
                 <div class="bloginfo">
                     <!--文章首图-->
                     <span class="blogpic" th:if="${object.imageName} != null">
                         <a th:href="@{'/image/showImage/'+${object.imageName}}">
-                            <i><img th:src="@{'/image/showImage/'+${object.imageName}}"></i>
+                            <i><img th:src="@{'/image/showImage/'+${object.imageName}}"  height="100" width="200"></i>
                         </a>
                     </span>
-                    <span th:text="${object.summary}"></span>
+                    <h3 class="blogtitle">
+                        <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
+
+                    </h3>
+
+                    <span th:utext="${object.summary}"></span>
+
+
                 </div>
                 <!-- 提示信息 -->
                 <div class="autor">
-                    <span class="lm f_l"></span>
+                    <span class="columntag f_l" th:text="${object.classifyId=='1'?'生活点滴':'技术联盟'}"></span>
                     <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
                     <span class="viewnum f_l">浏览(<a th:text="${object.readAmount}"></a>)</span>
                     <span class="f_r"><a class="more"

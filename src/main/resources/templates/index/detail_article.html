@@ -41,13 +41,13 @@
                 <!-- 浏览量 -->
                 共<a href="#" th:utext="${article.readAmount}"></a>人围观
             </div>
-            <br/><br/>
+            <br/>
+            <div class="article_about">
+                <span th:utext="${'<b>简介</b>&nbsp;'+article.summary}"></span>
+            </div>
+            <br/>
             <!-- 内容 -->
             <div class="bloginfo">
-                <!-- 文章首图 -->
-                <!--<span class="blogpic">-->
-                    <!--<img src="/images/01.jpg" alt="帝国cms 首页或者列表无图，不使用默认图片的方法">-->
-                <!--</span>-->
                 <span th:utext="${#strings.trim(article.content)}"></span>
             </div>
             <br/><br/>
