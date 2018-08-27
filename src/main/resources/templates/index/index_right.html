@@ -32,7 +32,7 @@
         <div class="tuwen">
             <h3 class="tit">友情连接</h3>
             <div class="wrapper" style="margin-top: 20px;">
-                <div class="tagcloud" >
+                <div class="tagcloud">
                     <a th:each="link:${linkList}" th:href="@{${link.url}}" th:text="${link.name}" target="_blank"></a>
                 </div>
             </div><!--wrapper-->
@@ -42,12 +42,17 @@
             <h3 class="tit">阅读排行</h3>
             <ul>
                 <li th:each="readAmount:${readAmountList}">
-                    <a th:href="@{'/index/detail/article/'+${readAmount.id}}" >
-                        <i><img src="/images/01.jpg"></i>
+                    <a th:href="@{'/index/detail/article/'+${readAmount.id}}">
+                         <span th:if="${readAmount.imageName!=null&&readAmount.imageName!=''}">
+                                <i><img th:src="@{'/image/showImage/'+${readAmount.imageName}}" height="55" width="200"></i>
+                         </span>
+                        <span th:if="${readAmount.imageName==null||readAmount.imageName==''}">
+                            <i><img src="/images/02.jpg" height="55" width="200"></i>
+                         </span>
                         <b th:utext="${readAmount.title}"></b>
                     </a>
                     <p>
-                        <span class="tulanmu">    <span th:text="${readAmount.classifyId=='1'?'生活点滴':'技术联盟'}"></span></span>
+                        <span class="tulanmu" th:text="${readAmount.classifyId=='1'?'生活点滴':'技术联盟'}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="tutime" th:text="${#dates.format(readAmount.updateTime,'yyyy/MM/dd')}"></span>
                     </p>
                 </li>
@@ -59,11 +64,16 @@
             <ul>
                 <li th:each="likeAmount:${likeAmountList}">
                     <a th:href="@{'/index/detail/article/'+${likeAmount.id}}">
-                        <i><img src="/images/02.jpg"></i>
-                        <b th:text="${likeAmount.title}"></b>
+                        <span th:if="${likeAmount.imageName!=null&&likeAmount.imageName!=''}">
+                            <i><img th:src="@{'/image/showImage/'+${likeAmount.imageName}}" height="55" width="200"></i>
+                        </span>
+                        <span th:if="${likeAmount.imageName==null||likeAmount.imageName==''}">
+                            <i><img src="/images/02.jpg" height="55" width="200"></i>
+                         </span>
+                        <p th:utext="${likeAmount.title}"></p>
                     </a>
                     <p>
-                        <span class="tulanmu"><span th:text="${likeAmount.classifyId=='1'?'生活点滴':'技术联盟'}"></span></span>
+                        <span class="tulanmu" th:text="${likeAmount.classifyId=='1'?'生活点滴':'技术联盟'}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="tutime" th:text="${#dates.format(likeAmount.updateTime,'yyyy/MM/dd')}"></span>
                     </p>
                 </li>

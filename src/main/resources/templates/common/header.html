@@ -33,20 +33,22 @@
                         <li><a href="/index/article/1">生活点滴</a>
                             <ul>
                                 <li th:each="column:${columnList}" th:if="${column.classifyId}==1">
-                                    <a th:href="@{'/index/article/'+${column.classifyId}+'/'+${column.id}}" th:text="${column.name}" ></a>
+                                    <a th:href="@{'/index/article/'+${column.classifyId}+'/'+${column.id}}"
+                                       th:text="${column.name}"></a>
                                 </li>
                             </ul>
                         </li>
                         <li><a href="/index/article/2">技术联盟</a>
                             <ul>
                                 <li th:each="column:${columnList}" th:if="${column.classifyId}==2">
-                                    <a th:href="@{'/index/article/'+${column.classifyId}+'/'+${column.id}}" th:text="${column.name}" ></a>
+                                    <a th:href="@{'/index/article/'+${column.classifyId}+'/'+${column.id}}"
+                                       th:text="${column.name}"></a>
                                 </li>
                             </ul>
                         </li>
                         <li><a href="/index/message">留言板</a></li>
                     </ul>
-                </div>
+                </ul>
             </nav>
             <script type=text/javascript>
                 // Navigation Menu
@@ -58,7 +60,7 @@
                         $(this).find('ul:first').css({visibility: "hidden"});
                     });
                     $("#dataNums").rollNum({
-                        deVal:888888
+                        deVal: 888888
                     });
                 });
             </script>
