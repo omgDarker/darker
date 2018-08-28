@@ -19,7 +19,7 @@ public class RedirectController {
      * @auther: darker
      * @date: 2018/8/22 15:06
      */
-    @RequestMapping(value = {"/", "/index", "/index/"})
+    @RequestMapping(value = {"/", "/index", "/index/","/index/home"})
     public String defaultIndex() {
 
         return "redirect:index/home";

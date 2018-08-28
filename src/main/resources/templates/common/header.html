@@ -20,6 +20,8 @@
                 </form>
             </div>
             <div class="blank"></div>
+            <!-- 累计访问量 -->
+            <input type="hidden" id="countPV" th:value="${countPV}">
             <nav>
                 <ul class="navigation">
                     <ul class="menu">
@@ -53,6 +55,7 @@
             <script type=text/javascript>
                 // Navigation Menu
                 $(function () {
+                    console.info($("#countPV").val());
                     $(".menu ul").css({display: "none"}); // Opera Fix
                     $(".menu li").hover(function () {
                         $(this).find('ul:first').css({visibility: "visible", display: "none"}).slideDown("normal");
@@ -60,7 +63,7 @@
                         $(this).find('ul:first').css({visibility: "hidden"});
                     });
                     $("#dataNums").rollNum({
-                        deVal: 888888
+                        deVal: ('00000'+$("#countPV").val()).slice(-6)
                     });
                 });
             </script>

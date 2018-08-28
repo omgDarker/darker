@@ -59,9 +59,19 @@ mybatis-plus:
     sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
 
 #分页
-  pagehelper:
-    helperDoalect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
-    returnPageInfo: check
+pagehelper:
+  helperDoalect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+
+#统计信息
+statistics:
+  #记录浏览量
+  countPV: 0
+  #记录访问量
+  countVV: 0
+  #记录访问人数
+  countUV: 0
+

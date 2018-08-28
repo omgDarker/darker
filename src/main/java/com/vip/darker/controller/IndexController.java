@@ -74,6 +74,8 @@ public class IndexController {
         modelAndView.addObject( "columnList", columnList );
         // 链接
         modelAndView.addObject( "linkList", linkList );
+        // 浏览量
+        modelAndView.addObject("countPV",SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
 
         return modelAndView;
     }
@@ -116,6 +118,8 @@ public class IndexController {
         modelAndView.addObject( "columnList", columnList );
         // 链接
         modelAndView.addObject( "linkList", linkList );
+        // 浏览量
+        modelAndView.addObject("countPV",SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
 
         return modelAndView;
     }

@@ -31,7 +31,8 @@
                     <span class="viewnum f_l" th:text="'浏览('+${object.readAmount}+')'"></span>
                     <span class="likemuch f_l" th:text="'点赞('+${object.likeAmount}+')'"></span>
                     <span class="likenomuch f_l" th:text="'甩鞋('+${object.likeNoAmount}+')'"></span>
-                    <span class="f_r"><a class="more" th:href="@{'/index/detail/article/'+${object.id}}">阅读原文&gt;&gt;</a></span>
+                    <span class="f_r"><a class="more"
+                                         th:href="@{'/index/detail/article/'+${object.id}}">阅读原文&gt;&gt;</a></span>
                 </div>
             </li>
         </ul>
