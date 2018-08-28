@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScheduledTask {
 
-    @Scheduled(cron = "0 0 0 * * ? *") // 每天24点执行一次
+    @Scheduled(cron = "0 0 0 * * ? ") // 每天24点执行一次
     public void setPV() {
         // 获取当前浏览量值
         int countPv = SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV();
