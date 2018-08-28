@@ -16,23 +16,28 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Auther: Darker
- * @description ：浏览量统计
+ * @description ：系统切面
  * @date : 2018/8/28 11:32
  */
 @Order(1)
 @Aspect // 申明切面
 @Component
-public class VisitViewAspect {
+public class SystemAspect {
     // 申明切点
     @Pointcut(value = "execution(public * com.vip.darker.controller.*.*(..))")
     public void log() {
 
     }
-
     // 日志
-    private static final Logger logger = LoggerFactory.getLogger(VisitViewAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(SystemAspect.class);
     // 统计请求处理时间
-    ThreadLocal<Long> startTime = new ThreadLocal<>();
+    private ThreadLocal<Long> startTime = new ThreadLocal<>();
+    // 记录浏览量
+    public static int countPV = 0;
+    // 记录访问量
+    public static int countVV = 0;
+    // 记录访问人数
+    public static int countUV = 0;
 
     @Before("log()")
     public void doBefore() {

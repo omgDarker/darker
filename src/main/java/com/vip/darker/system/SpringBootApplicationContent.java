@@ -3,6 +3,8 @@ package com.vip.darker.system;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
+import java.lang.annotation.Annotation;
+
 /**
  * @Auther: Darker
  * @Date: 2018/7/26 17:13
@@ -37,5 +39,10 @@ public class SpringBootApplicationContent {
     // 通过name,以及Clazz返回指定的Bean
     public static <T> T getBean(String name, Class<T> clazz) {
         return getApplicationContext().getBean(name, clazz);
+    }
+
+    // 初始化获取所有controller
+    public static String[] controllers(Class<? extends Annotation>  clazz){
+        return getApplicationContext().getBeanNamesForAnnotation(clazz);
     }
 }
