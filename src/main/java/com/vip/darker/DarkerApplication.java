@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  *                             _ooOoo_
@@ -39,6 +40,7 @@ import org.springframework.context.ApplicationContext;
  *                   不见满街漂亮妹，哪个归得程序员？
  */
 @SpringBootApplication // 启动类注释
+@EnableScheduling // 定时任务
 @MapperScan("com.vip.darker.dao")
 public class DarkerApplication {
     public static void main(String[] args) {

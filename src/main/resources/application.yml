@@ -69,7 +69,7 @@ pagehelper:
 #统计信息
 statistics:
   #记录浏览量
-  countPV: 0
+  countPV: 1000
   #记录访问量
   countVV: 0
   #记录访问人数
