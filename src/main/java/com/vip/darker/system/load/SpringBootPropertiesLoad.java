@@ -43,4 +43,16 @@ public class SpringBootPropertiesLoad {
     public void setCountUV(int countUV) {
         this.countUV = countUV;
     }
+
+    public int addCountPV() {
+        return countPV + 1;
+    }
+
+    public int addCountVV() {
+        return countVV + 1;
+    }
+
+    public int addCountUV() {
+        return countUV + 1;
+    }
 }

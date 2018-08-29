@@ -1,7 +1,7 @@
 package com.vip.darker.system.destroy;
 
-import com.vip.darker.model.StatisticsModel;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
@@ -14,12 +14,10 @@ import javax.annotation.PreDestroy;
 @Component
 public class SpringBootApplicationDestroy {
 
+    private Logger logger = LoggerFactory.getLogger(SpringBootApplicationDestroy.class);
+
     @PreDestroy
     public void destroy() {
-        // <浏览量>持久化到数据库
-        StatisticsModel statisticsModel = new StatisticsModel();
-        statisticsModel.setId(1);
-        statisticsModel.setAmount(SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
-        SystemServiceLocator.getStatisticsService().insertOrUpdate(statisticsModel);
+        logger.info("server is closed!");
     }
 }

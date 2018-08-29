@@ -71,7 +71,7 @@ statistics:
   #记录浏览量
   countPV: 1000
   #记录访问量
-  countVV: 0
+  countVV: 500
   #记录访问人数
-  countUV: 0
+  countUV: 235
 
