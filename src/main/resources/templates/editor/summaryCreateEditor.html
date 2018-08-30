@@ -7,7 +7,7 @@
 <!-- 富文本编辑器 -->
 <div id="summaryCreateEditor"></div>
 <!-- 填写内容 -->
-<textarea id="summaryCreateContent" name="summary" style="width:100%; height:200px;display:none;"></textarea>
+<textarea id="summaryCreateContent" name="summary" style="width:100%; height:200px;display:inline;"></textarea>
 <script type="text/javascript">
     var E = window.wangEditor;
     var summaryCreateEditor = new E('#summaryCreateEditor');
@@ -17,6 +17,8 @@
         $summaryCreateContent.val(html)
     };
     summaryCreateEditor.create();
+    // 清空摘要文本框附带标签<span><br/><span>
+    $summaryCreateContent.clear();
     // 将富文本编辑器中的内容设置到textarea中
     $summaryCreateContent.val(summaryCreateEditor.txt.html());
 </script>

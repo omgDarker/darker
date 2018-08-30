@@ -13,7 +13,7 @@
                 <!-- 内容 -->
                 <div class="bloginfo">
                     <!--文章首图-->
-                    <span class="blogpic" th:if="${object.imageName!=null&&object.imageName!=''}">
+                    <span class="blogpic" th:if="${object.imageName!=null&&object.imageName!=''}" style="margin-top:8px;">
                         <a th:href="@{'/image/showImage/'+${object.imageName}}">
                             <i><img th:src="@{'/image/showImage/'+${object.imageName}}" height="100" width="200"></i>
                         </a>
@@ -22,7 +22,7 @@
                     <h3 class="blogtitle">
                         <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
                     </h3>
-                    <span th:utext="${object.summary}"></span>
+                    <p th:utext="${object.summary}"></p>
                 </div>
                 <!-- 提示信息 -->
                 <div class="autor">

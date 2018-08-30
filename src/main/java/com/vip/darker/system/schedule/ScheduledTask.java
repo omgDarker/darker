@@ -32,12 +32,16 @@ public class ScheduledTask {
             switch (model.getClassify()) {
                 case "pv":
                     statisticsModel.setAmount(SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
+                    break;
                 case "vv":
                     statisticsModel.setAmount(SystemServiceLocator.getSpringBootPropertiesLoad().getCountVV());
+                    break;
                 case "uv":
                     statisticsModel.setAmount(SystemServiceLocator.getSpringBootPropertiesLoad().getCountUV());
+                    break;
                 default:
                     logger.info("表operation_statistics存在脏数据,请仔细检查DB!");
+                    break;
             }
             resultlist.add(statisticsModel);
         }

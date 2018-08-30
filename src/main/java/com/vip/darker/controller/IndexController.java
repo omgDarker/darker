@@ -42,9 +42,6 @@ public class IndexController {
                 if (StringUtils.isNotBlank( model.getImageName() )) {
                     // 若存在图片
                     model.setSummary( model.getSummary().substring( 0, model.getSummary().length() > 90 ? 90 : model.getSummary().length() ) );
-                } else {
-                    // 若不存在图片
-                    model.setSummary( model.getSummary().substring( 0, model.getSummary().length() > 230 ? 230 : model.getSummary().length() ) );
                 }
             }
         }

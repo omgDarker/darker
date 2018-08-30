@@ -321,6 +321,8 @@
                         // 点击响应tab刷新页面
                         $("div[aria-controls='article']").click();
                     }, 2000);
+                    // 清空文本框内容,防止缓存
+                    $("#articleAddForm").reset();
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                 complete: function () {
