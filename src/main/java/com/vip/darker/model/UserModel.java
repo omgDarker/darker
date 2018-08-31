@@ -18,9 +18,13 @@ public class UserModel extends Model<UserModel> {
 
     private String email;
 
+    private String area;
+
     private String ip;
 
-    private String area;
+    private String sessionId; // 记录session
+
+    private String loginTime; // 记录用户登录时间
 
     private Integer isDelete;
 
@@ -54,6 +58,14 @@ public class UserModel extends Model<UserModel> {
         this.email = email;
     }
 
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
     public String getIp() {
         return ip;
     }
@@ -62,12 +74,20 @@ public class UserModel extends Model<UserModel> {
         this.ip = ip;
     }
 
-    public String getArea() {
-        return area;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(String loginTime) {
+        this.loginTime = loginTime;
     }
 
     public Integer getIsDelete() {

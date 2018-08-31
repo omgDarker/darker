@@ -1,4 +1,4 @@
-package com.vip.darker.system.aop;
+package com.vip.darker.system.aop.base;
 
 import com.vip.darker.system.locator.SystemServiceLocator;
 import org.aspectj.lang.annotation.After;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Auther: Darker
- * @description ：所有controller切面调用方法
+ * @description ：所有controller切面方法
  * @date : 2018/8/28 11:32
  */
 @Aspect // 申明切面
@@ -20,7 +20,7 @@ public class SpringBootAspect {
 
     private Logger logger = LoggerFactory.getLogger(SpringBootAspect.class);
 
-    // 申明切点,项目下的所有controller
+    // 申明切点,监控项目下的所有controller
     @Pointcut(value = "execution(public * com.vip.darker.controller.*.*(..))")
     public void controller() {
 
@@ -50,4 +50,5 @@ public class SpringBootAspect {
         logger.info("当前网站访问量的值:{}", countVV);
         logger.info("当前网站访问人数的值:{}", countUV);
     }
+
 }

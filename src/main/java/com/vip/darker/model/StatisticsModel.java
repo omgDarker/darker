@@ -16,6 +16,8 @@ public class StatisticsModel extends Model<StatisticsModel> {
 
     private String content;
 
+    private int contentId;
+
     private Integer amount;
 
     private String classify;
@@ -34,6 +36,14 @@ public class StatisticsModel extends Model<StatisticsModel> {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(int contentId) {
+        this.contentId = contentId;
     }
 
     public String getContent() {
