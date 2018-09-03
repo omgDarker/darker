@@ -15,9 +15,11 @@ public class SessionUtil {
      * 根据sessionID查找用户
      */
     public static UserModel getUserBySessionId(List<UserModel> list, String sessionId) {
-        for (UserModel user : list) {
-            if (user.getSessionId().equals(sessionId)) {
-                return user;
+        if (list != null && list.size() > 0) {
+            for (UserModel user : list) {
+                if (user.getSessionId().equals(sessionId)) {
+                    return user;
+                }
             }
         }
         return null;

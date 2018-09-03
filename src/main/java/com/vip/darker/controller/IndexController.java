@@ -337,6 +337,6 @@ public class IndexController {
      */
     @RequestMapping(value = "/error/404")
     public ModelAndView errorPage() {
-        return new ModelAndView( "error/index_404" );
+        return new ModelAndView("404");
     }
 }
