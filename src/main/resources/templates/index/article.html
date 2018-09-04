@@ -26,8 +26,8 @@
         <div class="con_content">
             <div class="about_box">
                 <div class="banner">
-                    您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>
-                    <span th:text="${classifyName}"></span>>><span th:text="${columnName}"></span>
+                    您现在的位置是：<a href="/index/home" target="_self">网站首页</a>
+                    <span th:text="'>>'+${classifyName}"></span>>><span th:text="${columnName}"></span>
                 </div>
                 <!-- 当前页 -->
                 <input type="hidden" id="pageNum" th:value="${pageNum}">

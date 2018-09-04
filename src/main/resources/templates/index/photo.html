@@ -26,7 +26,7 @@
         <div class="con_content">
             <div class="about_box">
                 <div class="banner">
-                    您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>关于我>>相册
+                    您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>视觉冲击
                 </div>
                 <div class="lispic">
                     <ul id="addToPhoto">
@@ -40,6 +40,8 @@
                 </div>
                 <div class="module-cmt-footer">
                     <span id="pageNum" th:text="${pageNum}" th:hidden="true"></span>
+                    <span id="classifyId" th:text="${classifyId}" th:hidden="true"></span>
+                    <span id="columnId" th:text="${columnId}" th:hidden="true"></span>
                     <!-- 翻页 -->
                     <div class="section-page-w">
                         <div node-type="cmt-more" class="cmt-more-wrap-gw" id="moreWatch" onclick="turnPage()">查看更多
@@ -61,10 +63,16 @@
     function turnPage() {
 
         var pageNum = parseInt(document.getElementById("pageNum").innerText) + 1;
-
+        var classifyId = parseInt(document.getElementById("classifyId").innerText);
+        var columnId = parseInt(document.getElementById("columnId").innerText);
+        var url = "/index/photo/turn/" + classifyId;
+        // 判断是否存在栏目
+        if (!isNaN(parseInt(columnId))) {
+            url += "/" + columnId
+        }
         $.ajax({
             //请求URL地址,controller的名称
-            url: "/content/allPhoto",
+            url: url,
             //请求返回数据格式为json,还可以是text等
             dataType: "JSON",
             //请求是否为异步,默认是true
@@ -82,6 +90,7 @@
             },
             //请求成功时的处理函数,参数(返回数据,返回状态)
             success: function (data) {
+                console.info(data);
                 // 追加留言数据
                 addPhotoToBoard(data);
                 // 回写页数,方便下次翻页
@@ -100,7 +109,6 @@
     function addPhotoToBoard(data) {
 
         var appendHtml = '';
-
         var photoArray = eval("(" + data + ")");
         // 判断留言是否查询完毕
         if (photoArray.length !== 10) {

@@ -60,11 +60,8 @@
                             <div class="form-group">
                                 <label for="" class="col-xs-4 control-label">相册：</label>
                                 <div class="col-xs-8 ">
-                                    <select class="form-control select-duiqi" name="classify">
-                                        <option value="1" name="classify">简约系列</option>
-                                        <option value="2" name="classify">欧美系列</option>
-                                        <option value="3" name="classify">视觉系列</option>
-                                    </select>
+                                    <select class="form-control select-duiqi" name="columnId"
+                                            id="addPhotoColumnId"></select>
                                 </div>
                             </div>
                             <div class="form-group ">
@@ -123,11 +120,8 @@
                             <div class="form-group">
                                 <label for="" class="col-xs-4 control-label">相册：</label>
                                 <div class="col-xs-8 ">
-                                    <select class="form-control select-duiqi" name="classify" id="classify">
-                                        <option value="1" name="classify" id="photoClassify1">简约系列</option>
-                                        <option value="2" name="classify" id="photoClassify2">欧美系列</option>
-                                        <option value="3" name="link" id="photoClassify3">视觉系列</option>
-                                    </select>
+                                    <select class="form-control select-duiqi" name="columnId"
+                                            id="updatePhotoColumnId"></select>
                                 </div>
                             </div>
                             <!-- 按钮 -->
@@ -257,7 +251,7 @@
                 htmlContent += ' <span>' + data[i].likeAmount + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">';
-                htmlContent += ' <span>' + data[i].classify + '</span>';
+                htmlContent += ' <span>' + data[i].columnId + '</span>';
                 htmlContent += ' </div>';
                 htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
                 htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updatePhoto" onclick="javascript:queryPhoto(\'' + data[i].id + '\');">修改</button>';
@@ -266,6 +260,8 @@
                 htmlContent += ' </div>';
             }
             $("#photoTablebody").html(htmlContent);
+            // 下拉框回显
+            queryColumnList("addPhotoColumnId", "3");
         };
 
         // 图片上传操作
@@ -376,6 +372,8 @@
                     $("#photoDescription").val(data.description);
                     // 日记分类
                     $("#photoClassify" + data.classify).attr("checked", "checked");
+                    // 下拉框回显
+                    queryColumnList("updatePhotoColumnId","3");
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                 complete: function () {

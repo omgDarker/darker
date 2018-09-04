@@ -349,6 +349,19 @@ public class ResourceController extends RedirectController {
     }
 
     /**
+     * 功能描述: 根据分类ID查询对应栏目
+     *
+     * @param: [classifyId]
+     * @return: java.util.List<com.vip.darker.model.ColumnModel>
+     * @auther: darker
+     * @date: 2018/9/4 10:36
+     */
+    @RequestMapping(value = "/allColumnList/{classifyId}", method = RequestMethod.GET)
+    public List<ColumnModel> queryColumnByClassifyId(@PathVariable(value = "classifyId") Integer[] classifyId) {
+        return SystemServiceLocator.getColumnService().selectList(new EntityWrapper<ColumnModel>().in("classifyId", classifyId));
+    }
+
+    /**
      * 功能描述: 栏目分页查询
      *
      * @param: [pageNum, pageSize]

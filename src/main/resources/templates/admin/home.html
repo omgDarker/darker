@@ -14,8 +14,8 @@
     <link rel="stylesheet" type="text/css" href="/css/slide.css"/>
     <link rel="stylesheet" type="text/css" href="/css/flat-ui.min.css"/>
     <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/bootstrap/fileinput/css/fileinput.min.css" />
-    <link rel="stylesheet" type="text/css" href="/sweetalert/css/sweetalert2.min.css" />
+    <link rel="stylesheet" type="text/css" href="/bootstrap/fileinput/css/fileinput.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/sweetalert/css/sweetalert2.min.css"/>
     <script src="/js/jquery.min.js"></script>
     <!-- 分页组件 -->
     <script src="/js/jqPaginator.js"></script>
@@ -34,7 +34,7 @@
     <!-- 弹窗控件 -->
     <script src="/sweetalert/js/sweetalert2.min.js"></script>
     <!-- 富文本组件 -->
-    <script src="/editor/js/wangEditor.min.js" ></script>
+    <script src="/editor/js/wangEditor.min.js"></script>
     <script>
         $(function () {
             // 菜单列表点击事件
@@ -45,6 +45,91 @@
                 $(this).addClass("meun-item-active");
             });
         })
+
+        /**
+         * 查询分类
+         * @param id 回显ID
+         */
+        function queryClassifyList(id) {
+            $.ajax({
+                //请求URL地址,controller的名称
+                url: "/resource/allClassify",
+                //请求返回数据格式为json,还可以是text等
+                dataType: "json",
+                //请求是否为异步,默认是true
+                async: true,
+                //是否从浏览器缓存中加载数据信息
+                cache: false,
+                //设置请求超时时间
+                timeout: 1000,
+                //参数值,如果URL带参数,这里就可以不用写了
+                data: {},
+                //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                type: "GET",
+                //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                beforeSend: function () {
+
+                },
+                //请求成功时的处理函数,参数(返回数据,返回状态)
+                success: function (data) {
+                    var html = '';
+
+                    for (var i in data) {
+                        html += '<option value="' + data[i].id + '" name="classifyId">' + data[i].name + '</option>';
+                    }
+                    $("#" + id).html(html);
+                },
+                //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                complete: function () {
+                },
+                //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                error: function () {
+                }
+            });
+        }
+
+        /**
+         * 查询分类对应栏目列表
+         * @param id 回显ID
+         * @param classifyId 分类ID
+         */
+        function queryColumnList(id, classifyId) {
+            $.ajax({
+                //请求URL地址,controller的名称
+                url: "/resource/allColumnList/" + classifyId,
+                //请求返回数据格式为json,还可以是text等
+                dataType: "json",
+                //请求是否为异步,默认是true
+                async: true,
+                //是否从浏览器缓存中加载数据信息
+                cache: false,
+                //设置请求超时时间
+                timeout: 1000,
+                //参数值,如果URL带参数,这里就可以不用写了
+                data: {},
+                //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                type: "GET",
+                //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                beforeSend: function () {
+
+                },
+                //请求成功时的处理函数,参数(返回数据,返回状态)
+                success: function (data) {
+                    var html = '';
+
+                    for (var i in data) {
+                        html += '<option value="' + data[i].id + '" name="columnId">' + data[i].name + '</option>';
+                    }
+                    $("#" + id).html(html);
+                },
+                //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                complete: function () {
+                },
+                //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                error: function () {
+                }
+            });
+        }
     </script>
 </head>
 <body>

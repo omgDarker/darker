@@ -251,7 +251,7 @@ public class ContentController {
      * @date: 2018/7/20 15:46
      */
     @RequestMapping(value = "/allPhoto", method = RequestMethod.GET)
-    public List<PhotoModel> queryAllPhoto(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<PhotoModel> queryAllPhoto(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
         return SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

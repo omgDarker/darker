@@ -26,10 +26,13 @@
                 <ul class="navigation">
                     <ul class="menu">
                         <li><a href="/index/home">网站首页</a></li>
-                        <li><a href="#">关于我</a>
+                        <li><a href="/index/about">关于我</a></li>
+                        <li><a href="/index/photo/3">视觉冲击</a>
                             <ul>
-                                <li><a href="/index/about">简介</a></li>
-                                <li><a href="/index/photo">相册</a></li>
+                                <li th:each="column:${columnList}" th:if="${column.classifyId}==3">
+                                    <a th:href="@{'/index/photo/'+${column.classifyId}+'/'+${column.id}}"
+                                       th:text="${column.name}"></a>
+                                </li>
                             </ul>
                         </li>
                         <li><a href="/index/article/1">生活点滴</a>
@@ -55,13 +58,13 @@
             <script type=text/javascript>
                 // Navigation Menu
                 $(function () {
-                    console.info($("#countPV").val());
                     $(".menu ul").css({display: "none"}); // Opera Fix
                     $(".menu li").hover(function () {
                         $(this).find('ul:first').css({visibility: "visible", display: "none"}).slideDown("normal");
                     }, function () {
                         $(this).find('ul:first').css({visibility: "hidden"});
                     });
+                    // 网站累计浏览量统计
                     $("#dataNums").rollNum({
                         deVal: ('00000'+$("#countPV").val()).slice(-6)
                     });

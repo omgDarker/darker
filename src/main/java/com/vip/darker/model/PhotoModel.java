@@ -24,7 +24,9 @@ public class PhotoModel extends Model<PhotoModel> {
 
     private Integer likeAmount;
 
-    private String classify;
+    private Integer classifyId;
+
+    private Integer columnId;
 
     private Integer isDelete;
 
@@ -82,12 +84,20 @@ public class PhotoModel extends Model<PhotoModel> {
         this.likeAmount = likeAmount;
     }
 
-    public String getClassify() {
-        return classify;
+    public Integer getClassifyId() {
+        return classifyId;
     }
 
-    public void setClassify(String classify) {
-        this.classify = classify;
+    public void setClassifyId(Integer classifyId) {
+        this.classifyId = classifyId;
+    }
+
+    public Integer getColumnId() {
+        return columnId;
+    }
+
+    public void setColumnId(Integer columnId) {
+        this.columnId = columnId;
     }
 
     public Integer getIsDelete() {
