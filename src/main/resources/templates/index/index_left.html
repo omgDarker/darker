@@ -13,7 +13,7 @@
                 <!-- 内容 -->
                 <div class="bloginfo">
                     <!--文章首图-->
-                    <span class="blogpic" th:if="${object.imageName!=null&&object.imageName!=''}" style="margin-top:8px;">
+                    <span class="blogpic" th:if="${object.imageName!=null&&object.imageName!=''}" style="margin-top:5px;">
                         <a th:href="@{'/image/showImage/'+${object.imageName}}">
                             <i><img th:src="@{'/image/showImage/'+${object.imageName}}" height="100" width="200"></i>
                         </a>

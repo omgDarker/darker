@@ -16,7 +16,7 @@ li {
 
 .scene {
     width: auto;
-    height: 200px;
+    height: 300px;
     margin: 0 auto;
     perspective: 900px;
     -webkit-perspective: 900px;
@@ -41,6 +41,7 @@ li {
     transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
     position: absolute;
+    margin-top: 50px;
 }
 
 .ring li {

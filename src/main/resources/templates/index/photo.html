@@ -27,6 +27,7 @@
             <div class="about_box">
                 <div class="banner">
                     您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>视觉冲击
+                    <span th:text="'>>'+${columnName}" th:if="${columnName!=null&& columnName!=''}"></span>
                 </div>
                 <div class="lispic">
                     <ul id="addToPhoto">
