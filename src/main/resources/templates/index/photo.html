@@ -34,7 +34,7 @@
                         <li th:each="photo : ${photoList}">
                             <a th:href="@{'/image/showImage/'+${photo.name}}">
                                 <i><img th:src="@{'/image/showImage/'+${photo.name}}"></i>
-                                <span th:text="${photo.title}">图片展示</span>
+                                <span th:text="${photo.title}"></span>
                             </a>
                         </li>
                     </ul>
@@ -106,13 +106,13 @@
         });
     }
 
-    // 追加留言操作
+    // 追加图片到相册操作
     function addPhotoToBoard(data) {
 
         var appendHtml = '';
         var photoArray = eval("(" + data + ")");
-        // 判断留言是否查询完毕
-        if (photoArray.length !== 10) {
+        // 判断相册是否查询完毕
+        if (photoArray.length !== 12) {
             $("#moreWatch").text('别翻了,没有更多了!');
             $("#moreIcon").attr('display', 'none');
         }

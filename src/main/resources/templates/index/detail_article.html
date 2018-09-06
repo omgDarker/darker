@@ -30,37 +30,40 @@
         <div class="bloglist f_l">
             <!-- 标题 -->
             <h3 class="blogtitle">
-                <span th:text="${article.classifyId=='1'?'生活点滴':'技术联盟'}"></span>
-                <a th:href="@{'/index/detail/article/'+${article.id}}" th:text="${article.title}"></a>
+                <span th:text="${object.columnName}"></span>
+                <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
             </h3>
             <!-- 提示信息 -->
             <div class="autor">
                 <!-- 时钟 -->
-                <span class="lm f_l"></span>
-                <span class="dtime f_l" th:text="${#dates.format(article.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
                 <!-- 浏览量 -->
-                共<a href="#" th:utext="${article.readAmount}"></a>人围观
+                共<a href="#" th:utext="${object.readAmount}"></a>人围观&nbsp;
+                <!-- 点赞量 -->
+                <a href="#" th:utext="${object.likeAmount}"></a>人点赞&nbsp;
+                <!-- 甩鞋量 -->
+                <a href="#" th:utext="${object.likeNoAmount}"></a>人甩鞋
             </div>
             <br/>
-            <div class="article_about" th:if="${article.summary!=null&&article.summary!=''}">
-                <span th:utext="${'<b>简介</b>&nbsp;'+article.summary}"></span>
+            <div class="article_about" th:if="${object.summary!=null&&object.summary!=''}">
+                <span th:utext="${'<b>简介</b>&nbsp;'+object.summary}"></span>
             </div>
             <br/>
             <!-- 内容 -->
             <div class="bloginfo">
-                <span th:utext="${#strings.trim(article.content)}"></span>
+                <span th:utext="${#strings.trim(object.content)}"></span>
             </div>
             <br/><br/>
             <div style="margin-bottom: 30px;" align="center">
                 <button type="button" class="btn btn-praise" id="like"
-                        th:text="'点赞('+${article.likeAmount}+')'"
-                        th:value="${article.likeAmount}"
-                        th:onclick="'javascript:addLike('+${article.id}+')'">点赞(999)
+                        th:text="'点赞('+${object.likeAmount}+')'"
+                        th:value="${object.likeAmount}"
+                        th:onclick="'javascript:addLike('+${object.id}+')'">点赞(999)
                 </button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-bad" id="likeNo"
-                        th:text="'甩鞋('+${article.likeNoAmount}+')'"
-                        th:value="${article.likeNoAmount}"
-                        th:onclick="'javascript:addNoLike('+${article.id}+')'">甩鞋(666)
+                        th:text="'甩鞋('+${object.likeNoAmount}+')'"
+                        th:value="${object.likeNoAmount}"
+                        th:onclick="'javascript:addNoLike('+${object.id}+')'">甩鞋(666)
                 </button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-money" onclick="addMoney()">打赏</button>
             </div>
@@ -85,7 +88,7 @@
             </h3>
             <!-- 留言表单 -->
             <form action="" id="messageAddForm">
-                <input type="hidden" name="articleId" th:value="${article.id}">
+                <input type="hidden" name="articleId" th:value="${object.id}">
                 <div class="form-group">
                     <label for="userName">您的昵称</label>
                     <input type="text" class="form-control" name="userName" id="userName" value=""
@@ -288,7 +291,7 @@
                 var result = eval("(" + data + ")");
                 if (result.msg === 'success') {
                     swal({
-                        title: 'TMD',
+                        title: '感谢老铁赠送的金拖!',
                         text: '既然选择远方,又怎能没有梦想!',
                         timer: 2000
                     }).then(

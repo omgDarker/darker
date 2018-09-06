@@ -26,7 +26,7 @@
                 </div>
                 <!-- 提示信息 -->
                 <div class="autor">
-                    <span class="columntag f_l" th:text="${object.classifyId=='1'?'生活点滴':'技术联盟'}"></span>
+                    <span class="columntag f_l" th:text="${object.columnName}"></span>
                     <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
                     <span class="viewnum f_l" th:text="'浏览('+${object.readAmount}+')'"></span>
                     <span class="likemuch f_l" th:text="'点赞('+${object.likeAmount}+')'"></span>

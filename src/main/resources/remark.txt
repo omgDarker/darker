@@ -33,7 +33,7 @@ http://127.0.0.1/druid/index.html
 #组件 wangEditor(富文本框) fileInput(图片上传) jqPaginator(分页)
 #数据库 MySQL
 
-##############################技术栈##############################
-前端技术:bootstrap,Themeleaf,SweetAlert,Echarts,wangEditor,fileInput,jqPaginator等组件以及前端框架
-后端技术:Servlet,Struts2,SpringMVC,Spring,SpringBoot,Jdbc,Ibatis,Mybatis,MybatisPlus,Hibernate
-DB:Oracle,MySQL,Neo4J
+##############################时间轴##############################
+[20180823] [版本发布] V1.0.0
+[20180828] [Function] 网站浏览量统计功能(AOP)
+[20180903] [Function] 网站设置全局错误页面

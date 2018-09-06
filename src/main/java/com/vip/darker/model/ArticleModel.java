@@ -1,6 +1,7 @@
 package com.vip.darker.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -28,9 +29,12 @@ public class ArticleModel extends Model<ArticleModel> {
 
     private Integer likeNoAmount;
 
-    private String classifyId; // 分类ID(生活点滴,技术联盟)
+    private String classifyId; // 分类ID(生活点滴,技术联盟,个人相册)
 
     private String columnId; // 栏目ID(下拉框选项)
+
+    @TableField(exist = false)
+    private String columnName;  // 表示该属性不为数据库表字段,但又是必须使用的
 
     private Integer isDelete;
 
@@ -118,6 +122,14 @@ public class ArticleModel extends Model<ArticleModel> {
 
     public void setColumnId(String columnId) {
         this.columnId = columnId;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 
     public Integer getIsDelete() {

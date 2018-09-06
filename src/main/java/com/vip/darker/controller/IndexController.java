@@ -3,6 +3,7 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.ArticleModel;
+import com.vip.darker.model.ColumnModel;
 import com.vip.darker.model.MessageModel;
 import com.vip.darker.model.PhotoModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
@@ -41,15 +42,21 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // 文章<最新,降序排列>
         List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
-        // 处理文章摘要长度
+
         for (ArticleModel model : list) {
+            // 处理文章摘要长度
             if (StringUtils.isNotBlank(model.getSummary())) {
                 if (StringUtils.isNotBlank(model.getImageName())) {
                     // 若存在图片
                     model.setSummary(model.getSummary().substring(0, model.getSummary().length() > 90 ? 90 : model.getSummary().length()));
                 }
             }
+            // 获取文章栏目
+            if (StringUtils.isNotBlank(model.getColumnId())) {
+                model.setColumnName(SystemServiceLocator.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", model.getColumnId())).get("name") + "");
+            }
         }
+
         // 文章总数
         int numSum = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
         // 当前页
@@ -67,7 +74,7 @@ public class IndexController {
     }
 
     /**
-     * 功能描述: 文章详情页<阅读原文>
+     * 功能描述: 文章详情页
      *
      * @param: [id]
      * @return: org.springframework.web.servlet.ModelAndView
@@ -79,7 +86,9 @@ public class IndexController {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/detail_article");
         // 文章信息
-        modelAndView.addObject("article", SystemServiceLocator.getArticleService().selectById(id));
+        ArticleModel articleModel = SystemServiceLocator.getArticleService().selectById(id);
+        articleModel.setColumnName(SystemServiceLocator.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", articleModel.getColumnId())).get("name") + "");
+        modelAndView.addObject("object", articleModel);
         // 文章总数
         modelAndView.addObject("numSum", SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>()));
         // 留言内容

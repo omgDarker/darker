@@ -224,7 +224,7 @@ public class ContentController {
 
         int count = SystemServiceLocator.getPhotoService().selectCount(new EntityWrapper<>());
 
-        map.put("photoMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put("photoMaxPage", (count - 1) / (Constant.PAGE_SIZE + 2) + 1);
 
         return map;
     }
