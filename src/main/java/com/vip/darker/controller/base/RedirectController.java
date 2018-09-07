@@ -76,7 +76,7 @@ public class RedirectController {
             // 重置用户集合
             request.getServletContext().setAttribute("userList", list);
         }
-        return "redirect:index/home";
+        return "index/welcome";
     }
 
     /**
