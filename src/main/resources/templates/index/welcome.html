@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>BK个人博客-搬砖King的成长之路</title>
+    <link href="/sweetalert/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
     <style>
+        /*
+        若margin给的是四个值
+        比如：margin:0px 0px 0px 0px;
+        代表：margin: top right bottom left
+        代表从上右下左，顺时针方向。
+        若margin给的是三个值
+        比如：margin:0px 0px 0px;
+        代表：margin: top  left-right bottom;
+        代表上 左右 下.中间一个值被左右两个占用。
+        */
         * {
             margin: 0;
             padding: 0;
@@ -12,6 +23,9 @@
         body, html {
             width: 100%;
             height: 100%;
+            overflow: scroll;
+            overflow-y: hidden; /*禁止Y轴滚动条*/
+            overflow-x: hidden; /*禁止X轴滚动条*/
         }
 
         .bg {
@@ -53,13 +67,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            margin: auto;
-            width: 1200px;
-            height: 500px;
+            margin: 100px 0px 0px 100px;
+            width: 100%;
+            height: 100%;
         }
 
         #wrap > ul {
-            width: 120%;
+            width: 100%;
             list-style: none;
         }
 
@@ -121,38 +135,110 @@
 <div class="bg bg-box-6"></div>
 <div id="wrap">
     <ul>
-        <li class="curr">
+        <li class="curr" onclick="javascript:window.location.href='index/home'">
             <div class="text">
-                <a href="index/home"><p>第一章 破晓</p></a>
+                <p>第一章 破晓</p>
             </div>
         </li>
-        <li>
+        <li onclick="swal({
+                        title: '第二章 历练',
+                        text: '未开启,尽情期待!',
+                        type:'info',
+                        timer: 2000
+                    }).then(
+                        function () {
+                        },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
+                        }
+                    );">
             <div class="text">
-                <a href="#" onclick="alert('未开发,尽情期待!')"><p>第二章 历练</p></a>
+                <p>第二章 历练</p>
             </div>
         </li>
-        <li>
+        <li onclick="swal({
+                        title: '第三章 征途',
+                        text: '未开启,尽情期待!',
+                        type:'info',
+                        timer: 2000
+                    }).then(
+                        function () {
+                        },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
+                        }
+                    );">
             <div class="text">
-                <a href="#" onclick="alert('未开发,尽情期待!')"><p>第三章 征途</p></a>
+                <p>第三章 征途</p>
             </div>
         </li>
-        <li>
+        <li onclick="swal({
+                        title: '第四章 团队',
+                        text: '未开启,尽情期待!',
+                        type:'info',
+                        timer: 2000
+                    }).then(
+                        function () {
+                        },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
+                        }
+                    );">
             <div class="text">
-                <a href="#" onclick="alert('未开发,尽情期待!')"><p>第四章 团队</p></a>
+                <p>第四章 团队</p>
             </div>
         </li>
-        <li>
+        <li onclick="swal({
+                        title: '第五章 觉醒',
+                        text: '未开启,尽情期待!',
+                        type:'info',
+                        timer: 2000
+                    }).then(
+                        function () {
+                        },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
+                        }
+                    );">
             <div class="text">
-                <a href="#" onclick="alert('未开发,尽情期待!')"><p>第五章 觉醒</p></a>
+                <p>第五章 觉醒</p>
             </div>
         </li>
-        <li>
+        <li onclick="swal({
+                        title: '第六章 黎明',
+                        text: '未开启,尽情期待!',
+                        type:'info',
+                        timer: 2000
+                    }).then(
+                        function () {
+                        },
+                        // handling the promise rejection
+                        function (dismiss) {
+                            if (dismiss === 'timer') {
+                                console.log('I was closed by the timer')
+                            }
+                        }
+                    );">
             <div class="text">
-                <a href="#" onclick="alert('未开发,尽情期待!')"><p>第六章 黎明</p></a>
+                <p>第六章 黎明</p>
             </div>
         </li>
     </ul>
 </div>
+<!-- 弹窗控件 -->
+<script type="text/javascript" src="/sweetalert/js/sweetalert2.min.js"></script>
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script>
     (function () {
@@ -170,7 +256,7 @@
                 });
 
                 $('.curr').stop().animate({
-                    width: 700
+                    width: 750
                 }, 500, 'linear');
                 $('#wrap li').not('.curr').stop().animate({
                     width: 100
