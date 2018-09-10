@@ -1,42 +1,25 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="BK"/>
-    <meta name="description" content="BK博客"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="format-detection" content="telephone=no">
-    <title>BK个人博客-搬砖King的成长之路</title>
-    <link href="/css/base.css" rel="stylesheet">
-    <link href="/css/index.css" rel="stylesheet">
-    <link href="/css/m.css" rel="stylesheet">
-    <link href="/css/globle.css" rel="stylesheet">
-    <link href="/sweetalert/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/images/favicon-.ico" rel="shortcut icon" type="image/x-icon"/>
-    <script type="text/javascript" src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/index.js"></script>
-    <script type="text/javascript" src="/js/tagcloud.js"></script>
-    <!-- 弹窗控件 -->
-    <script type="text/javascript" src="/sweetalert/js/sweetalert2.min.js"></script>
-</head>
+<head th:include="common/head.html :: head"></head>
+<link rel="stylesheet" href="/css/globle.css">
+<link rel="stylesheet" href="/sweetalert/css/sweetalert2.min.css"/>
 <body>
 <div id="wrapper">
-    <!-- 页头 -->
-    <div th:include="common/header.html :: header"></div>
-    <!-- 内容头CSS -->
+    <!-- 内容头 -->
+    <div th:replace="common/header.html :: header"></div>
+    <!-- 分界线start -->
     <div class="jztop"></div>
     <!-- container -->
     <div class="container">
         <!-- 左侧栏 -->
-        <div th:include="index/index_left.html :: index_left"></div>
+        <div th:replace="index/index_left.html :: index_left"></div>
         <!-- 右侧栏 -->
-        <div th:include="index/index_right.html :: index_right"></div>
+        <div th:replace="index/index_right.html :: index_right"></div>
     </div>
-    <!-- 内容脚CSS -->
+    <!-- 分界线end -->
     <div class="jzend"></div>
     <!-- 页脚 -->
-    <div th:include="common/footer :: footer"></div>
+    <div th:replace="common/footer :: footer"></div>
 </div>
 <script>
     window.onload = function () {

@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="index_left">
-    <div class="bloglist f_l">
-        <ul>
-            <!-- 当前页 -->
-            <input type="hidden" id="pageNum" th:value="${pageNum}">
-            <!-- 总页数 -->
-            <input type="hidden" id="pageNumSum" th:value="${pageNumSum}">
-            <!-- 总条数 -->
-            <input type="hidden" id="numSum" th:value="${numSum}">
-            <li th:each="object : ${list}">
-                <!-- 内容 -->
-                <div class="bloginfo">
-                    <!--文章首图-->
-                    <span class="blogpic" th:if="${object.imageName!=null&&object.imageName!=''}" style="margin-top:5px;">
+<div class="bloglist f_l" th:fragment="index_left">
+    <ul>
+        <!-- 当前页 -->
+        <input type="hidden" id="pageNum" th:value="${pageNum}">
+        <!-- 总页数 -->
+        <input type="hidden" id="pageNumSum" th:value="${pageNumSum}">
+        <!-- 总条数 -->
+        <input type="hidden" id="numSum" th:value="${numSum}">
+        <li th:each="object : ${list}">
+            <!-- 内容 -->
+            <div class="bloginfo">
+                <!--文章首图-->
+                <span class="blogpic" th:if="${object.imageName!=null&&object.imageName!=''}" style="margin-top:5px;">
                         <a th:href="@{'/image/showImage/'+${object.imageName}}">
                             <i><img th:src="@{'/image/showImage/'+${object.imageName}}" height="100" width="200"></i>
                         </a>
                     </span>
-                    <!-- 标题 -->
-                    <h3 class="blogtitle">
-                        <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
-                    </h3>
-                    <p th:utext="${object.summary}"></p>
-                </div>
-                <!-- 提示信息 -->
-                <div class="autor">
-                    <span class="columntag f_l" th:text="${object.columnName}"></span>
-                    <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
-                    <span class="viewnum f_l" th:text="'浏览('+${object.readAmount}+')'"></span>
-                    <span class="likemuch f_l" th:text="'点赞('+${object.likeAmount}+')'"></span>
-                    <span class="likenomuch f_l" th:text="'甩鞋('+${object.likeNoAmount}+')'"></span>
-                    <span class="f_r"><a class="more"
-                                         th:href="@{'/index/detail/article/'+${object.id}}">阅读原文&gt;&gt;</a></span>
-                </div>
-            </li>
-        </ul>
-        <div class="pagelist" id="selectPage" value=""></div>
-    </div>
+                <!-- 标题 -->
+                <h3 class="blogtitle">
+                    <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
+                </h3>
+                <p th:utext="${object.summary}"></p>
+            </div>
+            <!-- 提示信息 -->
+            <div class="autor">
+                <span class="columntag f_l" th:text="${object.columnName}"></span>
+                <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                <span class="viewnum f_l" th:text="'浏览('+${object.readAmount}+')'"></span>
+                <span class="likemuch f_l" th:text="'点赞('+${object.likeAmount}+')'"></span>
+                <span class="likenomuch f_l" th:text="'甩鞋('+${object.likeNoAmount}+')'"></span>
+                <span class="f_r"><a class="more"
+                                     th:href="@{'/index/detail/article/'+${object.id}}">阅读原文&gt;&gt;</a></span>
+            </div>
+        </li>
+    </ul>
+    <div class="pagelist" id="selectPage" value=""></div>
 </div>
