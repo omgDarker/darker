@@ -13,10 +13,12 @@
     <link href="/css/m.css" rel="stylesheet" type="text/css">
     <link href="/sweetalert/css/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
     <link href="/css/globle.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/images/favicon-.ico" rel="shortcut icon" type="image/x-icon"/>
     <script src="/js/jquery.js" type="text/javascript"></script>
     <script src="/js/tagcloud.js" type="text/javascript"></script>
     <script src="/js/index.js" type="text/javascript"></script>
+    <script src="/js/clipboard.min.js" type="text/javascript"></script>
     <script src="/sweetalert/js/sweetalert2.min.js" type="text/javascript"></script>
 </head>
 <body>
@@ -33,6 +35,7 @@
                 <span th:text="${object.columnName}"></span>
                 <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
             </h3>
+
             <!-- 提示信息 -->
             <div class="autor">
                 <!-- 时钟 -->
@@ -42,7 +45,12 @@
                 <!-- 点赞量 -->
                 <a href="#" th:utext="${object.likeAmount}"></a>人点赞&nbsp;
                 <!-- 甩鞋量 -->
-                <a href="#" th:utext="${object.likeNoAmount}"></a>人甩鞋
+                <a href="#" th:utext="${object.likeNoAmount}"></a>人甩鞋&nbsp;
+                <!-- 复制 -->
+                <a href="#" class="copy" data-clipboard-action="copy" data-clipboard-target="#contentDetail"
+                   title="复制代码">
+                    <i class="fa fa-floppy-o fa-lg"></i>
+                </a>
             </div>
             <br/>
             <div class="article_about" th:if="${object.summary!=null&&object.summary!=''}">
@@ -50,7 +58,7 @@
             </div>
             <br/>
             <!-- 内容 -->
-            <div class="bloginfo">
+            <div class="bloginfo" id="contentDetail">
                 <span th:utext="${#strings.trim(object.content)}"></span>
             </div>
             <br/><br/>
@@ -370,6 +378,47 @@
         ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
         direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
         keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+    });
+    /* 复制操作 */
+    var clipboard = new Clipboard('.copy');
+    clipboard.on('success', function (e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        swal({
+            title: '复制成功!',
+            type: 'info',
+            timer: 2000
+        }).then(
+            function () {
+            },
+            // handling the promise rejection
+            function (dismiss) {
+                if (dismiss === 'timer') {
+                    console.log('I was closed by the timer')
+                }
+            }
+        );
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function (e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        swal({
+            title: '出错了!',
+            type: 'error',
+            timer: 2000
+        }).then(
+            function () {
+            },
+            // handling the promise rejection
+            function (dismiss) {
+                if (dismiss === 'timer') {
+                    console.log('I was closed by the timer')
+                }
+            }
+        );
     });
 </script>
 </body>

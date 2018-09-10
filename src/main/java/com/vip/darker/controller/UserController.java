@@ -6,6 +6,7 @@ import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import com.vip.darker.util.BeanToMapUtil;
 import com.vip.darker.util.Constant;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.beans.IntrospectionException;
@@ -37,17 +38,17 @@ public class UserController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map<String, Object> addUser(@RequestParam(value = "roleId", required = false, defaultValue = "1") Integer roleId, UserModel userModel) {
         // 用户新增
-        boolean flag = SystemServiceLocator.getUserService().insert( userModel );
+        boolean flag = SystemServiceLocator.getUserService().insert(userModel);
         if (flag) {
             // 用户角色关系数据新增
             URRelation relation = new URRelation();
-            relation.setUserId( userModel.getId() );
-            relation.setRoleId( roleId );
-            flag = SystemServiceLocator.getURRelationService().insert( relation );
+            relation.setUserId(userModel.getId());
+            relation.setRoleId(roleId);
+            flag = SystemServiceLocator.getURRelationService().insert(relation);
         }
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "新增成功!" : "新增失败!" );
+        map.put("msg", flag ? "新增成功!" : "新增失败!");
 
         return map;
 
@@ -64,17 +65,17 @@ public class UserController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Map<String, Object> updateUser(Integer roleId, UserModel userModel) {
         // 用户更新
-        boolean flag = SystemServiceLocator.getUserService().updateById( userModel );
+        boolean flag = SystemServiceLocator.getUserService().updateById(userModel);
         if (flag) {
             // 用户角色关系数据更新
             URRelation relation = new URRelation();
-            relation.setUserId( userModel.getId() );
-            relation.setRoleId( roleId );
-            flag = SystemServiceLocator.getURRelationService().update( relation, new EntityWrapper<URRelation>().where( "userId={0}", userModel.getId() ) );
+            relation.setUserId(userModel.getId());
+            relation.setRoleId(roleId);
+            flag = SystemServiceLocator.getURRelationService().update(relation, new EntityWrapper<URRelation>().where("userId={0}", userModel.getId()));
         }
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "更新成功!" : "更新失败!" );
+        map.put("msg", flag ? "更新成功!" : "更新失败!");
 
         return map;
     }
@@ -90,14 +91,14 @@ public class UserController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteUser(@PathVariable(value = "id") Integer id) {
         // 用户删除
-        boolean flag = SystemServiceLocator.getUserService().deleteById( id );
+        boolean flag = SystemServiceLocator.getUserService().deleteById(id);
         if (flag) {
             // 用户角色关系数据删除
-            flag = SystemServiceLocator.getURRelationService().delete( new EntityWrapper<URRelation>().where( "userId={0}", id ) );
+            flag = SystemServiceLocator.getURRelationService().delete(new EntityWrapper<URRelation>().where("userId={0}", id));
         }
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "删除成功!" : "删除失败!" );
+        map.put("msg", flag ? "删除成功!" : "删除失败!");
 
         return map;
     }
@@ -113,10 +114,10 @@ public class UserController {
     @RequestMapping(value = "/all/{id}")
     public Map<String, Object> queryUserById(@PathVariable(value = "id") Integer id) {
 
-        UserModel userModel = SystemServiceLocator.getUserService().selectById( id );
+        UserModel userModel = SystemServiceLocator.getUserService().selectById(id);
 
         try {
-            return BeanToMapUtil.convertBeanToMap( userModel );
+            return BeanToMapUtil.convertBeanToMap(userModel);
         } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -135,16 +136,20 @@ public class UserController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Map<String, Object>> queryAllUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         try {
-            List<UserModel> list = SystemServiceLocator.getUserService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
-            List<Map<String, Object>> resultList = BeanToMapUtil.convertListBeanToListMap( list, UserModel.class );
+            List<UserModel> list = SystemServiceLocator.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+            List<Map<String, Object>> resultList = BeanToMapUtil.convertListBeanToListMap(list, UserModel.class);
             for (Map<String, Object> map : resultList) {
-                int userId = Integer.valueOf( map.get( "id" ) + "" );
+                int userId = Integer.valueOf(map.get("id") + "");
                 // 根据用户ID查找角色ID
-                Map<String, Object> relationMap = SystemServiceLocator.getURRelationService().selectMap( new EntityWrapper<URRelation>().where( "userId={0}", userId ) );
-                int roleId = Integer.valueOf( relationMap.get( "roleId" ) + "" );
-                // 根据角色ID查找角色
-                RoleModel role = SystemServiceLocator.getRoleService().selectById( roleId );
-                map.put( "roleName", role.getName() );
+                Map<String, Object> relationMap = SystemServiceLocator.getURRelationService().selectMap(new EntityWrapper<URRelation>().where("userId={0}", userId));
+                if (relationMap != null && relationMap.size() > 0) {
+                    int roleId = Integer.valueOf(relationMap.get("roleId") + "");
+                    // 根据角色ID查找角色
+                    RoleModel role = SystemServiceLocator.getRoleService().selectById(roleId);
+                    map.put("roleName", StringUtils.isNotBlank(role.getName()) ? role.getName() : "游客");
+                } else {
+                    map.put("roleName", "游客");
+                }
             }
             return resultList;
         } catch (Exception e) {
@@ -167,9 +172,9 @@ public class UserController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getUserService().selectCount( new EntityWrapper<>() );
+        int count = SystemServiceLocator.getUserService().selectCount(new EntityWrapper<>());
 
-        map.put( "userMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+        map.put("userMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -187,17 +192,17 @@ public class UserController {
     @RequestMapping(value = "/addRole", method = RequestMethod.POST)
     public Map<String, Object> addRole(@RequestParam(value = "permissionId") Integer permissionId, RoleModel roleModel) {
         // 角色新增
-        boolean flag = SystemServiceLocator.getRoleService().insert( roleModel );
+        boolean flag = SystemServiceLocator.getRoleService().insert(roleModel);
         if (flag) {
             // 角色权限关系数据新增
             RPRelation relation = new RPRelation();
-            relation.setRoleId( roleModel.getId() );
-            relation.setPermissionId( permissionId );
-            SystemServiceLocator.getRPRelationService().insert( relation );
+            relation.setRoleId(roleModel.getId());
+            relation.setPermissionId(permissionId);
+            SystemServiceLocator.getRPRelationService().insert(relation);
         }
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "新增成功!" : "新增失败!" );
+        map.put("msg", flag ? "新增成功!" : "新增失败!");
 
         return map;
     }
@@ -213,17 +218,17 @@ public class UserController {
     @RequestMapping(value = "/updateRole", method = RequestMethod.PUT)
     public Map<String, Object> updateRole(Integer permissionId, RoleModel roleModel) {
         // 角色更新
-        boolean flag = SystemServiceLocator.getRoleService().updateById( roleModel );
+        boolean flag = SystemServiceLocator.getRoleService().updateById(roleModel);
         if (flag) {
             // 角色权限关系数据更新
             RPRelation relation = new RPRelation();
-            relation.setRoleId( roleModel.getId() );
-            relation.setPermissionId( permissionId );
-            flag = SystemServiceLocator.getRPRelationService().update( relation, new EntityWrapper<RPRelation>().where( "roleId={0}", roleModel.getId() ) );
+            relation.setRoleId(roleModel.getId());
+            relation.setPermissionId(permissionId);
+            flag = SystemServiceLocator.getRPRelationService().update(relation, new EntityWrapper<RPRelation>().where("roleId={0}", roleModel.getId()));
         }
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "更新成功!" : "更新失败!" );
+        map.put("msg", flag ? "更新成功!" : "更新失败!");
 
         return map;
     }
@@ -239,14 +244,14 @@ public class UserController {
     @RequestMapping(value = "/deleteRole/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteRole(@PathVariable(value = "id") Integer id) {
         // 角色删除
-        boolean flag = SystemServiceLocator.getRoleService().deleteById( id );
+        boolean flag = SystemServiceLocator.getRoleService().deleteById(id);
         if (flag) {
             // 角色权限关系数据删除
-            flag = SystemServiceLocator.getRPRelationService().delete( new EntityWrapper<RPRelation>().where( "roleId={0}", id ) );
+            flag = SystemServiceLocator.getRPRelationService().delete(new EntityWrapper<RPRelation>().where("roleId={0}", id));
         }
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "删除成功!" : "删除失败!" );
+        map.put("msg", flag ? "删除成功!" : "删除失败!");
 
         return map;
     }
@@ -262,10 +267,10 @@ public class UserController {
     @RequestMapping(value = "/allRole/{id}")
     public Map<String, Object> queryRoleById(@PathVariable(value = "id") Integer id) {
 
-        RoleModel roleModel = SystemServiceLocator.getRoleService().selectById( id );
+        RoleModel roleModel = SystemServiceLocator.getRoleService().selectById(id);
 
         try {
-            return BeanToMapUtil.convertBeanToMap( roleModel );
+            return BeanToMapUtil.convertBeanToMap(roleModel);
         } catch (IntrospectionException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -282,7 +287,7 @@ public class UserController {
      */
     @RequestMapping(value = "/allRole", method = RequestMethod.GET)
     public List<RoleModel> queryAllRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getRoleService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
+        return SystemServiceLocator.getRoleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -298,9 +303,9 @@ public class UserController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getRoleService().selectCount( new EntityWrapper<>() );
+        int count = SystemServiceLocator.getRoleService().selectCount(new EntityWrapper<>());
 
-        map.put( "roleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+        map.put("roleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -318,11 +323,11 @@ public class UserController {
     @RequestMapping(value = "/addPermission", method = RequestMethod.POST)
     public Map<String, Object> addPermission(PermissionModel permissionModel) {
 
-        boolean flag = SystemServiceLocator.getPermissionService().insert( permissionModel );
+        boolean flag = SystemServiceLocator.getPermissionService().insert(permissionModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "新增成功!" : "新增失败!" );
+        map.put("msg", flag ? "新增成功!" : "新增失败!");
 
         return map;
     }
@@ -338,11 +343,11 @@ public class UserController {
     @RequestMapping(value = "/updatePermission", method = RequestMethod.PUT)
     public Map<String, Object> updatePermission(PermissionModel permissionModel) {
 
-        boolean flag = SystemServiceLocator.getPermissionService().updateById( permissionModel );
+        boolean flag = SystemServiceLocator.getPermissionService().updateById(permissionModel);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "更新成功!" : "更新失败!" );
+        map.put("msg", flag ? "更新成功!" : "更新失败!");
 
         return map;
     }
@@ -358,11 +363,11 @@ public class UserController {
     @RequestMapping(value = "/deletePermission/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deletePermission(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getPermissionService().deleteById( id );
+        boolean flag = SystemServiceLocator.getPermissionService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put( "msg", flag ? "删除成功!" : "删除失败!" );
+        map.put("msg", flag ? "删除成功!" : "删除失败!");
 
         return map;
     }
@@ -377,7 +382,7 @@ public class UserController {
      */
     @RequestMapping(value = "/allPremission/{id}")
     public PermissionModel queryPermissionById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getPermissionService().selectById( id );
+        return SystemServiceLocator.getPermissionService().selectById(id);
     }
 
     /**
@@ -390,7 +395,7 @@ public class UserController {
      */
     @RequestMapping(value = "/allPermission", method = RequestMethod.GET)
     public List<PermissionModel> queryAllPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getPermissionService().selectPage( new Page<>( pageNum, pageSize ) ).getRecords();
+        return SystemServiceLocator.getPermissionService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -406,9 +411,9 @@ public class UserController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getUserService().selectCount( new EntityWrapper<>() );
+        int count = SystemServiceLocator.getPermissionService().selectCount(new EntityWrapper<>());
 
-        map.put( "permissionMaxPage", (count - 1) / Constant.PAGE_SIZE + 1 );
+        map.put("permissionMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
