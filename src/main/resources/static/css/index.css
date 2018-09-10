@@ -213,21 +213,38 @@ h3.blogtitle {
 .tuwen li {
     overflow: hidden;
     clear: both;
-    margin-bottom: 10px
+    margin-bottom: 5px
 }
 
 .tuwen li i {
     width: 70px;
     float: left;
-    margin-right: 15px;
-    overflow: hidden
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .tuwen li img {
-    width: 100%;
+    width: 70%;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     -o-transition: all 0.5s;
+    margin-left: 15px;
+}
+
+/*¹ö¶¯Í¼*/
+.myscroll {
+    width: 400px;
+    height: 520px;
+    margin: 0 auto;
+    /*border: 1px solid #ccc;*/
+    line-height: 26px;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.myscroll img {
+    border: 0 none;
 }
 
 .tuwen li b {

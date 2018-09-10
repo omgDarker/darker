@@ -363,8 +363,10 @@ public class IndexController {
         modelAndView.addObject("columnList", SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>()));
         // 网站累计浏览量
         modelAndView.addObject("countPV", SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
-        // 友情链接
+        // 友情列表
         modelAndView.addObject("linkList", SystemServiceLocator.getLinkService().selectList(new EntityWrapper<>()));
+        // 图片列表
+        modelAndView.addObject("photoList", SystemServiceLocator.getPhotoService().selectList(new EntityWrapper<PhotoModel>().ne("columnId", "9")));
         // 文章列表<阅读排行>
         modelAndView.addObject("readAmountList", SystemServiceLocator.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5")));
         // 文章列表<博主推荐>
