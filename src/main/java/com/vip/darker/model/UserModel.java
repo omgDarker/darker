@@ -16,6 +16,8 @@ public class UserModel extends Model<UserModel> {
 
     private String name;
 
+    private String password; // 密码,用于后台登录
+
     private String email;
 
     private String area;
@@ -48,6 +50,14 @@ public class UserModel extends Model<UserModel> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
