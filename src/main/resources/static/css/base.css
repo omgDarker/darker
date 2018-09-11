@@ -64,6 +64,6 @@ nav { margin: 0 0 15px 0 }
 /*footer*/
 footer { background: url(../images/footerbg.png) repeat-x; padding: 20px 0; color: #ccc; margin: 20px 0 0 0 }
 .footer { width: 1000px; margin: auto; overflow: hidden }
-.footer p { line-height: 24px; }
+.footer p { line-height: 24px; font-size: 18px;}
 .footer a{ color:#ccc}
 .textr { text-align: right }

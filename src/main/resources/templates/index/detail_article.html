@@ -60,12 +60,13 @@
             <!-- 若留言为空,则取消留言板 -->
             <div th:if="${#lists.size(messageList)!=0}">
                 <h3 class="blogtitle">
+                    <hr style=" height:2px;border:none;border-top:2px dotted #DDDDDD;"/>
                     <span>留言板</span>
                 </h3>
                 <div id="messageBoard">
                     <div th:each="message : ${messageList}">
                         <h3 class="netFriend">
-                            <span th:text="${message.userName}"></span>
+                            <span th:text="${message.userName}+':'"></span>
                         </h3>
                         <p style="text-indent: 2em;line-height: 22px;" th:text="${message.content}"></p>
                     </div>
@@ -73,6 +74,7 @@
             </div>
             <!-- 评论 -->
             <h3 class="blogtitle">
+                <hr style=" height:2px;border:none;border-top:2px dotted #DDDDDD;"/>
                 <span>文章评论</span>
             </h3>
             <!-- 留言表单 -->

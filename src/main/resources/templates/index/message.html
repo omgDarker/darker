@@ -5,18 +5,51 @@
 <body>
 <div id="wrapper">
     <div th:replace="common/header.html :: header"></div>
+    <style>
+        html {
+            background: #d9d9d9;
+        }
+
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+
+        small {
+            color: green;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .page {
+            width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 0 15px;
+        }
+
+        @media screen and (max-width: 800px) {
+            .page {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
     <div class="jztop"></div>
     <!-- container -->
     <div class="container">
         <div class="con_content">
-            <div class="about_box">
+            <div class="about_box ">
                 <div class="banner">
                     您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>留言板
                 </div>
-                <div id="addToMessage">
-                    <div style="line-height: 70px;" th:each="message:${messageList}">
-                        <span th:text="${message.userName}"></span>
-                        <b class="content" style="text-indent: 2em;line-height: 22px;" th:text="${message.content}"></b>
+                <div id="addToMessage" class="showcase">
+                    <div style="line-height: 40px;" th:each="message:${messageList}">
+                        <span th:text="${message.userName} + ':'"></span>
+                        <p class="danceWord-s3" style="text-indent: 2em;line-height: 22px;"
+                           th:text="${message.content}"></p>
                         <hr style=" height:2px;border:none;border-top:2px dotted #DDDDDD;"/>
                     </div>
                 </div>

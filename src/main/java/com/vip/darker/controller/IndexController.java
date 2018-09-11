@@ -37,7 +37,7 @@ public class IndexController {
      * @date: 2018/8/10 16:49
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public ModelAndView index(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // 文章<最新,降序排列>

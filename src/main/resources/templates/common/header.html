@@ -2,22 +2,40 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="header">
     <div class="headtop"></div>
+
     <div class="contenttop">
         <div class="logo f_l">[BK]个人博客</div>
-        <div class="search f_r">
-            <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
-                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字"
-                       style="color: rgb(153, 153, 153);"
-                       onfocus="if(value==='请输入关键字'){this.style.color='#000';value=''}"
-                       onblur="if(value===''){this.style.color='#999';value='请输入关键字'}" type="text">
-                <!-- 高频率搜索词start -->
-                <input name="show" value="title" type="hidden">
-                <input name="tempid" value="1" type="hidden">
-                <input name="tbname" value="news" type="hidden">
-                <!-- 高频率搜索词end -->
-                <input name="Submit" class="input_submit" value="搜索" type="submit">
-            </form>
+        <!--<div class="search f_r">-->
+        <!--<form action="/e/search/index.php" method="post" name="searchform" id="searchform">-->
+        <!--<input name="keyboard" id="keyboard" class="input_text" value="请输入关键字"-->
+        <!--style="color: rgb(153, 153, 153);"-->
+        <!--onfocus="if(value==='请输入关键字'){this.style.color='#000';value=''}"-->
+        <!--onblur="if(value===''){this.style.color='#999';value='请输入关键字'}" type="text">-->
+        <!--&lt;!&ndash; 高频率搜索词start &ndash;&gt;-->
+        <!--<input name="show" value="title" type="hidden">-->
+        <!--<input name="tempid" value="1" type="hidden">-->
+        <!--<input name="tbname" value="news" type="hidden">-->
+        <!--&lt;!&ndash; 高频率搜索词end &ndash;&gt;-->
+        <!--<input name="Submit" class="input_submit" value="搜索" type="submit">-->
+        <!--</form>-->
+        <!--</div>-->
+        <!-- 公告栏 -->
+        <div class="f_r">
+            <ul class="line">
+                <li><p class="press">[20180911]网站V1.00正式上线</p></li>
+                <li><p class="press">[20180822]域名:www.wangbingan.com</li>
+                <li>
+                    <p class="press">
+                        <a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=5fcjs3ef">
+                            <span style="color: red; ">服务器：阿里云ECS[点击购买]</span>
+                        </a>
+                    </p>
+                </li>
+                <li><p class="press">备案号：京ICP备18046854号</li>
+                <li><p class="press"><span style="color: red; ">互加友接：请留言或者邮箱</span></p></li>
+            </ul>
         </div>
+        <!-- 分界线 -->
         <div class="blank"></div>
         <!-- 累计访问量 -->
         <input type="hidden" id="countPV" th:value="${countPV}">
@@ -67,6 +85,23 @@
                 $("#dataNums").rollNum({
                     deVal: ('00000' + $("#countPV").val()).slice(-6)
                 });
+                // 3D标签云
+                tagcloud({
+                    selector: ".tagcloud",  //元素选择器
+                    fontsize: 16,       //基本字体大小, 单位px
+                    radius: 100,         //滚动半径, 单位px
+                    mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
+                    ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
+                    direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+                    keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+                });
+                // 滚动图
+                $('.myscroll').myScroll({
+                    speed: 50, //数值越大，速度越慢
+                    rowHeight: 100 //li的高度
+                });
+                // 滚动文字
+                $(".line").slideUp();
             });
         </script>
     </div>
