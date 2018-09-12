@@ -17,3 +17,5 @@ CREATE TABLE blog_user (
 ) COMMENT = '用户管理表';
 
 COMMIT;
+/*================================[DML<数据操作语言>:20180912]================================*/
+INSERT INTO blog_user (name, password,email,area,ip) VALUES ("darker", "darker","13264389469@163.com","北京市","127.0.0.1")

@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * @Auther: Darker
- * @description ：博客页面CONTROLLER
+ * @description ：博客首页控制器
  * @date : 2018/7/17 11:05
  */
 @RestController

@@ -19,7 +19,7 @@ import java.util.Map;
  * @Auther: Darker
  * @Date: 2018/7/19 22:27
  * @DateUpdate: 2018/7/30
- * @Description: 用户管理controller
+ * @Description: 用户管理控制器
  */
 @RestController
 @RequestMapping(value = "user")

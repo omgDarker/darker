@@ -29,8 +29,10 @@ public class Constant {
     public static final String FAIL_DELETE = "删除失败!";
 
     public static final String FAIL_UPLOAD = "上传失败!";
-    // 相应标识
+    // 响应标识
     public static final String MSG = "msg";
+    // 此用户已存在
+    public static final String EXIST_USER = "此用户已存在!";
     // 图片存储路径
     public static final String PHOTO_PATH = "G://picture";
 }

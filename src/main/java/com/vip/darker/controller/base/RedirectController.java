@@ -80,19 +80,6 @@ public class RedirectController {
     }
 
     /**
-     * 功能描述: 博客后台
-     *
-     * @param: []
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/9/11 15:47
-     */
-    @RequestMapping(value = {"/admin", "/admin/", "/admin/home","/admin/home/"})
-    public String defaultAdmin() {
-        return "admin/login";
-    }
-
-    /**
      * 功能描述: 关于我
      *
      * @param: []

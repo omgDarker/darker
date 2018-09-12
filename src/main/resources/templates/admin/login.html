@@ -10,7 +10,8 @@
     <meta name="toTop" content="true">
     <title>BK个人博客-搬砖King的成长之路</title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon-.ico"/>
-    <link rel="stylesheet" type="text/css" href="css/login-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/login-style.css">
+    <link rel="stylesheet" type="text/css" href="/zeromodal/css/zeroModal.css">
 </head>
 <body>
 <div class="header" id="demo">
@@ -18,50 +19,63 @@
         <div class="jq22-container">
             <div class="login-wrap">
                 <div class="login-html">
-                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+                    <!-- 选择栏 -->
+                    <input type="radio" class="sign-in" name="tab" id="tab-1" checked>
                     <label for="tab-1" class="tab">Sign In</label>
-                    <input id="tab-2" type="radio" name="tab" class="sign-up">
+                    <input type="radio" class="sign-up" name="tab" id="tab-2">
                     <label for="tab-2" class="tab">Sign Up</label>
                     <div class="login-form">
                         <!-- 登录 -->
                         <div class="sign-in-htm">
-                            <div class="group">
-                                <label for="name" class="label">Username</label>
-                                <input id="name" type="text" class="input">
-                            </div>
-                            <div class="group">
-                                <label for="password" class="label">Password</label>
-                                <input id="password" type="password" class="input" data-type="password">
-                            </div>
-                            <div class="group">
-                                <input id="check" type="checkbox" class="check" checked>
-                                <label for="check"><span class="icon"></span> Keep me Signed in</label>
-                            </div>
-                            <div class="group">
-                                <input type="submit" class="button" value="Sign In">
-                            </div>
+                            <form action="/admin/home" method="get">
+                                <div class="group">
+                                    <label for="name" class="label">Username</label><br>
+                                    <input type="text" class="input" name="name" id="name">
+                                </div>
+                                <div class="group">
+                                    <label for="password" class="label">Password</label><br>
+                                    <input type="password" class="input" name="password" id="password"
+                                           data-type="password">
+                                </div>
+                                <br>
+                                <div class="group">
+                                    <input id="check" type="checkbox" class="check" checked>
+                                    <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                                </div>
+                                <br>
+                                <div class="group">
+                                    <input type="submit" class="button" value="Sign In">
+                                </div>
+                            </form>
                         </div>
                         <!-- 注册 -->
                         <div class="sign-up-htm">
-                            <div class="group">
-                                <label for="user" class="label">Username</label>
-                                <input id="user" type="text" class="input">
-                            </div>
-                            <div class="group">
-                                <label for="pass" class="label">Password</label>
-                                <input id="pass" type="password" class="input" data-type="password">
-                            </div>
-                            <div class="group">
-                                <label for="pass" class="label">Repeat Password</label>
-                                <input id="pass" type="password" class="input" data-type="password">
-                            </div>
-                            <div class="group">
-                                <label for="pass" class="label">Email Address</label>
-                                <input id="pass" type="text" class="input">
-                            </div>
-                            <div class="group">
-                                <input type="submit" class="button" value="Sign Up">
-                            </div>
+                            <form id="addUser">
+                                <div class="group">
+                                    <label for="name" class="label">Username</label><br>
+                                    <input type="text" class="input" name="name" id="name">
+                                </div>
+                                <div class="group">
+                                    <label for="password" class="label">Password</label><br>
+                                    <input type="password" class="input" name="password" id="password1"
+                                           data-type="password">
+                                </div>
+                                <br>
+                                <div class="group">
+                                    <label for="password" class="label">Repeat Password</label><br>
+                                    <input type="password" class="input" name="password" id="password2"
+                                           data-type="password">
+                                </div>
+                                <br>
+                                <div class="group">
+                                    <label for="email" class="label">Email Address</label><br>
+                                    <input type="text" class="input" name="email" id="email">
+                                </div>
+                                <br>
+                                <div class="group">
+                                    <input type="button" class="button" onclick="register();" value="Sign Up">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -80,8 +94,59 @@
 </audio>
 <!--音乐 END-->
 <script type="text/javascript" src="/js/jquery.js"></script>
+<!-- 弹窗 -->
+<script type="text/javascript" src="/zeromodal/js/mustache.js"></script>
+<script type="text/javascript" src="/zeromodal/js/zeroModal.js"></script>
 <script>
-    //宇宙特效
+    // 用户注册
+    function register() {
+        $.ajax({
+            //请求URL地址,controller的名称
+            url: "/admin/register",
+            //请求返回数据格式为json,还可以是text等
+            dataType: "JSON",
+            //请求是否为异步,默认是true
+            async: true,
+            //是否从浏览器缓存中加载数据信息
+            cache: false,
+            //设置请求超时时间
+            timeout: 1000,
+            //参数值,如果URL带参数,这里就可以不用写了
+            data: $('#addUser').serialize(),
+            //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+            type: "POST",
+            //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+            beforeSend: function () {
+                if ($("#password1").val() !== $("#password2").val()) {
+                    zeroModal.error({
+                        content: '操作提示!',
+                        contentDetail:'两次密码不一致,请重新输入!'
+                    });
+                    return false;
+                }
+            },
+            //请求成功时的处理函数,参数(返回数据,返回状态)
+            success: function (data) {
+                // 弹窗提示信息
+                zeroModal.alert({
+                    content: '操作提示!',
+                    contentDetail: '用户' + eval("(" + data + ")").msg,
+                    okFn: function () {
+                        // 跳转到网站首页
+                        window.location.reload("/index/home");
+                    }
+                });
+            },
+            //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+            complete: function () {
+            },
+            //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+            error: function () {
+            }
+        });
+    }
+
+    // 宇宙特效
     "use strict";
     var canvas = document.getElementById('canvas'),
         ctx = canvas.getContext('2d'),
@@ -147,7 +212,7 @@
 
         count++;
         stars[count] = this;
-    }
+    };
 
     Star.prototype.draw = function () {
         var x = Math.sin(this.timePassed) * this.orbitRadius + this.orbitX,
@@ -163,7 +228,7 @@
         ctx.globalAlpha = this.alpha;
         ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius);
         this.timePassed += this.speed;
-    }
+    };
 
     for (var i = 0; i < maxStars; i++) {
         new Star();
@@ -173,14 +238,12 @@
         ctx.globalCompositeOperation = 'source-over';
         ctx.globalAlpha = 0.5; //尾巴
         ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 2)';
-        ctx.fillRect(0, 0, w, h)
+        ctx.fillRect(0, 0, w, h);
 
         ctx.globalCompositeOperation = 'lighter';
         for (var i = 1, l = stars.length; i < l; i++) {
             stars[i].draw();
         }
-        ;
-
         window.requestAnimationFrame(animation);
     }
 

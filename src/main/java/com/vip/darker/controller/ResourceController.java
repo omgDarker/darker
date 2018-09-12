@@ -16,7 +16,7 @@ import java.util.Map;
  * @Auther: Darker
  * @Date: 2018/7/19 21:55
  * @DateUpdate: 2018/7/30
- * @Description: 资源管理controller
+ * @Description: 资源管理控制器
  */
 @RestController
 @RequestMapping(value = "resource")
