@@ -43,10 +43,10 @@ public class AdminController {
     /**
      * 功能描述: 用户注册
      *
-     * @param: [model]
+     * @param: [userModel]
      * @return: java.lang.String
      * @auther: darker
-     * @date: 2018/7/24 23:08
+     * @date: 2018/9/12 18:11
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Map<String, Object> register(UserModel userModel) {
