@@ -1,7 +1,6 @@
 package com.vip.darker;
 
 import com.vip.darker.system.SpringBootApplicationContent;
-import com.vip.darker.system.thread.RunnableThreadWebVV;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

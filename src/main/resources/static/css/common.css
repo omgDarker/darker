@@ -46,9 +46,7 @@ body {
 	/*position: absolute;*/
 	box-sizing: border-box;
 	float: left;
-	box-sizing: border-box;
 	padding-left: 200px;
-	overflow-y: overlay;
 	overflow-x: hidden;
 	/*background-color: #eff3f6;*/
 	clear: both;
@@ -139,12 +137,37 @@ body {
 }
 /*右侧具体内容栏目*/
 
+/* 检索框样式 */
+.search-div {
+	height: 70px;
+	line-height: 70px;
+	*line-height: 60px;
+	background-color: #fff;
+	min-width: 824px !important;
+	box-sizing: border-box;
+}
+
+.search-div button {
+	font-size: 12px;
+	font-weight: bold;
+}
+.search-div select {
+	/*height: 26px;*/
+	width: 120px!important;
+	display: inline;
+	color: #ccc;
+}
+.search-div input {
+	width: 200px !important;
+	display: inline;
+}
+
 .check-div {
 	height: 70px;
 	line-height: 70px;
 	*line-height: 60px;
 	background-color: #fff;
-	padding-left: 30px;
+	padding-left: 15px;
 	min-width: 824px !important;
 	box-sizing: border-box;
 }
