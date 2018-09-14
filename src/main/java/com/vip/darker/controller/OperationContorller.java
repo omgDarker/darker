@@ -87,10 +87,12 @@ public class OperationContorller {
     public Map<String, Object> queryStatisticsList() {
         // 设置参数
         Map<String, Object> map = new HashMap<>();
-        // 统计访问量*
-        map.put("countWebVV", SystemServiceLocator.getUserService().selectList(new EntityWrapper<UserModel>().setSqlSelect("distinct ip")).size());
+        // 统计访问量
+        map.put("countWebVV", SystemServiceLocator.getUserService().selectList(new EntityWrapper<>()).size());
         // 统计浏览量
         map.put("countWebPV", SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
+        // 统计用户数*
+        map.put("countWebUV", SystemServiceLocator.getUserService().selectList(new EntityWrapper<UserModel>().setSqlSelect("distinct ip")).size());
         // 统计留言数
         map.put("countMessage", SystemServiceLocator.getMessageService().selectCount(new EntityWrapper<>()));
         // 统计友链数
