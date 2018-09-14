@@ -22,9 +22,22 @@ import java.util.Map;
 public class AdminController {
 
     /**
+     * 功能描述: 后台管理登录
+     *
+     * @return: modelAndView
+     * @auther: darker
+     * @date: 2018/9/14 18:31
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login() {
+
+        return new ModelAndView("admin/login");
+    }
+
+    /**
      * 功能描述: 后台管理首页
      *
-     * @return: java.lang.String
+     * @return: modelAndView
      * @auther: darker
      * @date: 2018/7/24 23:08
      */
