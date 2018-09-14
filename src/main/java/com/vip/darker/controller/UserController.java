@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import com.vip.darker.util.BeanToMapUtil;
-import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConstantUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -174,7 +174,7 @@ public class UserController {
 
         int count = SystemServiceLocator.getUserService().selectCount(new EntityWrapper<>());
 
-        map.put("userMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put("userMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return map;
     }
@@ -305,7 +305,7 @@ public class UserController {
 
         int count = SystemServiceLocator.getRoleService().selectCount(new EntityWrapper<>());
 
-        map.put("roleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put("roleMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return map;
     }
@@ -413,7 +413,7 @@ public class UserController {
 
         int count = SystemServiceLocator.getPermissionService().selectCount(new EntityWrapper<>());
 
-        map.put("permissionMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put("permissionMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return map;
     }

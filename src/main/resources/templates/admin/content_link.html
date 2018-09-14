@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="link" role="tabpanel" class="tab-pane" id="link">
+    <div class="check-div">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addLink">添加链接</button>
+    </div>
+    <div class="data-div">
+        <!-- 列名 -->
+        <div class="row tableHeader">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">序号</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">名称</div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">URL</div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">描述</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">链接操作</div>
+        </div>
+        <!-- 数据 -->
+        <div class="tablebody" id="linkTablebody"></div>
+    </div>
+    <!-- 分页 -->
+    <footer class="footer" style="padding:10px;">
+        <ul class="pagination" id="linkPagination"></ul>
+    </footer>
+    <!--弹出窗口 增加链接-->
+    <div class="modal fade" id="addLink" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="">添加链接</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form class="form-horizontal" id="linkAddForm">
+                            <div class="form-group ">
+                                <label for="" class="col-xs-3 control-label">链接名：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="text" class="form-control input-sm duiqi" name="name"
+                                           placeholder="请输入链接名">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="" class="col-xs-3 control-label">URL：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="text" class="form-control input-sm duiqi" name="url"
+                                           placeholder="请输入URL">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">描述：</label>
+                                <div class="col-xs-6 ">
+                                    <textarea class="form-control input-sm duiqi" name="description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">状态：</label>
+                                <div class="col-xs-8">
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" value="0">正常</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" value="1"> 禁用</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-green" th:onclick="'javascript:addLink()'">保 存</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取 消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--弹出窗口 修改链接 -->
+    <div class="modal fade" id="updateLink" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">修改链接</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form class="form-horizontal" id="linkUpdateForm">
+                            <input type="hidden" name="id" id="linkId" value="">
+                            <div class="form-group ">
+                                <label for="" class="col-xs-3 control-label">链接名：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="email" class="form-control input-sm duiqi" id="linkName"
+                                           name="name">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="" class="col-xs-3 control-label">URL：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="email" class="form-control input-sm duiqi" id="pathName"
+                                           name="url">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">描述：</label>
+                                <div class="col-xs-6 ">
+                                    <textarea class="form-control input-sm duiqi" id="linkDescription"
+                                              name="description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">状态：</label>
+                                <div class="col-xs-8">
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" id="linkNormal" value="0">正常</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" id="linkForbidden" value="1">
+                                        禁用</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-green" th:onclick="'javascript:updateLink()'">保 存
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取 消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

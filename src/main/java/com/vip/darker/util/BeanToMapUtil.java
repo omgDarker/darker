@@ -18,14 +18,8 @@ import java.util.*;
  */
 public class BeanToMapUtil {
 
-    private static String characterConstant = "_";
-
-    public BeanToMapUtil()
-
-    {
-        //私有的构造方法
+    public BeanToMapUtil() {
     }
-
 
     /**
      * 将Map对象转化为JavaBean
@@ -35,16 +29,16 @@ public class BeanToMapUtil {
      * @return
      * @throws Exception
      */
-    public static <T> T convertMapToBean(Map<String, Object> map, Class<T> T) throws Exception {
+    private static <T> T convertMapToBean(Map<String, Object> map, Class<T> T) throws Exception {
         if (map == null || map.size() == 0) {
             return null;
         }
         //获取map中所有的key值，全部更新成大写，添加到keys集合中,与mybatis中驼峰命名匹配
-        Object mvalue = null;
         Map<String, Object> newMap = new HashMap<>();
         for (Map.Entry<String, Object> stringObjectEntry : map.entrySet()) {
             String key = stringObjectEntry.getKey();
-            mvalue = map.get(key);
+            Object mvalue = map.get(key);
+            String characterConstant = "_";
             if (key.contains(characterConstant)) {
                 key = key.replaceAll(characterConstant, "");
             }
@@ -53,8 +47,7 @@ public class BeanToMapUtil {
         BeanInfo beanInfo = Introspector.getBeanInfo(T);
         T bean = T.newInstance();
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-        for (int i = 0, n = propertyDescriptors.length; i < n; i++) {
-            PropertyDescriptor descriptor = propertyDescriptors[i];
+        for (PropertyDescriptor descriptor : propertyDescriptors) {
             String propertyName = descriptor.getName();
             String upperPropertyName = propertyName.toUpperCase();
 
@@ -82,12 +75,11 @@ public class BeanToMapUtil {
         BeanInfo beanInfo = Introspector.getBeanInfo(type);
 
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-        for (int i = 0; i < propertyDescriptors.length; i++) {
-            PropertyDescriptor descriptor = propertyDescriptors[i];
-            String propertyName = descriptor.getName();
+        for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+            String propertyName = propertyDescriptor.getName();
             if (!"class".equals(propertyName)) {
-                Method readMethod = descriptor.getReadMethod();
-                Object result = readMethod.invoke(bean, new Object[0]);
+                Method readMethod = propertyDescriptor.getReadMethod();
+                Object result = readMethod.invoke(bean);
                 if (result != null) {
                     returnMap.put(propertyName, result);
                 } else {
@@ -103,14 +95,13 @@ public class BeanToMapUtil {
      *
      * @param listMap
      * @param T
-     * @return
+     * @return List
      * @throws Exception
      */
     public static <T> List<T> convertListMapToListBean(List<Map<String, Object>> listMap, Class<T> T) throws Exception {
         List<T> beanList = new ArrayList<>();
         if (listMap != null && !listMap.isEmpty()) {
-            for (int i = 0, n = listMap.size(); i < n; i++) {
-                Map<String, Object> map = listMap.get(i);
+            for (Map<String, Object> map : listMap) {
                 T bean = convertMapToBean(map, T);
                 beanList.add(bean);
             }
@@ -128,8 +119,7 @@ public class BeanToMapUtil {
      */
     public static <T> List<Map<String, Object>> convertListBeanToListMap(List<T> beanList, Class<T> T) throws Exception {
         List<Map<String, Object>> mapList = new ArrayList<>();
-        for (int i = 0, n = beanList.size(); i < n; i++) {
-            Object bean = beanList.get(i);
+        for (T bean : beanList) {
             Map<String, Object> map = convertBeanToMap(bean);
             mapList.add(map);
         }

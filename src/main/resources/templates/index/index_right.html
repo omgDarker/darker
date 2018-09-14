@@ -37,58 +37,58 @@
              onclick="swal('希望你早日找到女朋友!', '', 'success');">
     </div>
     <!-- 美图鉴赏 -->
-    <div class="tuwen">
-        <h3 class="tit">美图鉴赏</h3>
-        <div class="myscroll">
-            <ul>
-                <li th:each="photo:${photoList}">
-                    <a th:href="@{'/image/showImage/'+${photo.name}}">
-                        <img th:src="@{'/image/showImage/'+${photo.name}}" height="100" width="200">
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <!--<div class="tuwen">-->
+    <!--<h3 class="tit">美图鉴赏</h3>-->
+    <!--<div class="myscroll">-->
+    <!--<ul>-->
+    <!--<li th:each="photo:${photoList}">-->
+    <!--<a th:href="@{'/image/showImage/'+${photo.name}}">-->
+    <!--<img th:src="@{'/image/showImage/'+${photo.name}}" height="100" width="200">-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
     <!-- 点击排行<阅读量> -->
     <div class="tuwen">
         <h3 class="tit">阅读排行</h3>
         <ul>
             <li th:each="readAmount:${readAmountList}">
                 <a th:href="@{'/index/detail/article/'+${readAmount.id}}">
-                         <span th:if="${readAmount.imageName!=null&&readAmount.imageName!=''}">
-                                <i><img th:src="@{'/image/showImage/'+${readAmount.imageName}}" height="55" width="200"></i>
-                         </span>
+                     <span th:if="${readAmount.imageName!=null&&readAmount.imageName!=''}">
+                            <i><img th:src="@{'/image/showImage/'+${readAmount.imageName}}" height="55" width="200"></i>
+                     </span>
                     <span th:if="${readAmount.imageName==null||readAmount.imageName==''}">
                             <i><img src="/images/back/back4.jpg" height="55" width="200"></i>
                          </span>
-                    <b th:utext="${readAmount.title}"></b>
+                    <p th:utext="${readAmount.title}"></p>
                 </a>
                 <p>
-                    <span class="tulanmu" th:text="${readAmount.classifyId=='1'?'生活点滴':'技术联盟'}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="tulanmu" th:text="${readAmount.columnName}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span class="tutime" th:text="${#dates.format(readAmount.updateTime,'yyyy/MM/dd')}"></span>
                 </p>
             </li>
         </ul>
     </div>
     <!-- 博主推荐<点赞量> -->
-    <!--<div class="tuwen">-->
-    <!--<h3 class="tit">博主推荐</h3>-->
-    <!--<ul>-->
-    <!--<li th:each="likeAmount:${likeAmountList}">-->
-    <!--<a th:href="@{'/index/detail/article/'+${likeAmount.id}}">-->
-    <!--<span th:if="${likeAmount.imageName!=null&&likeAmount.imageName!=''}">-->
-    <!--<i><img th:src="@{'/image/showImage/'+${likeAmount.imageName}}" height="55" width="200"></i>-->
-    <!--</span>-->
-    <!--<span th:if="${likeAmount.imageName==null||likeAmount.imageName==''}">-->
-    <!--<i><img src="/images/back/back4.jpg" height="55" width="200"></i>-->
-    <!--</span>-->
-    <!--<p th:utext="${likeAmount.title}"></p>-->
-    <!--</a>-->
-    <!--<p>-->
-    <!--<span class="tulanmu" th:text="${likeAmount.classifyId=='1'?'生活点滴':'技术联盟'}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-    <!--<span class="tutime" th:text="${#dates.format(likeAmount.updateTime,'yyyy/MM/dd')}"></span>-->
-    <!--</p>-->
-    <!--</li>-->
-    <!--</ul>-->
-    <!--</div>-->
+    <div class="tuwen">
+        <h3 class="tit">博主推荐</h3>
+        <ul>
+            <li th:each="likeAmount:${likeAmountList}">
+                <a th:href="@{'/index/detail/article/'+${likeAmount.id}}">
+                    <span th:if="${likeAmount.imageName!=null&&likeAmount.imageName!=''}">
+                        <i><img th:src="@{'/image/showImage/'+${likeAmount.imageName}}" height="55" width="200"></i>
+                    </span>
+                    <span th:if="${likeAmount.imageName==null||likeAmount.imageName==''}">
+                        <i><img src="/images/back/back4.jpg" height="55" width="200"></i>
+                    </span>
+                    <p th:utext="${likeAmount.title}"></p>
+                </a>
+                <p>
+                    <span class="tulanmu" th:text="${likeAmount.columnName}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="tutime" th:text="${#dates.format(likeAmount.updateTime,'yyyy/MM/dd')}"></span>
+                </p>
+            </li>
+        </ul>
+    </div>
 </div>

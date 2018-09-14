@@ -6,7 +6,7 @@ package com.vip.darker.util;
  * @DateUpdate: 2018/8/2
  * @Description: 常量类
  */
-public class Constant {
+public class ConstantUtil {
     // 每页条数
     public static final int PAGE_SIZE = 10;
     // 操作状态

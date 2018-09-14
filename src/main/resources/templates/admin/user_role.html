@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="role" role="tabpanel" class="tab-pane" id="role">
+    <div class="check-div">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addRole">添加角色</button>
+    </div>
+    <div class="data-div">
+        <!-- 列名 -->
+        <div class="row tableHeader">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">序号</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">角色</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">描述</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">角色操作</div>
+        </div>
+        <!-- 数据 -->
+        <div class="tablebody" id="roleTablebody"></div>
+    </div>
+    <!-- 分页 -->
+    <footer class="footer" style="padding:10px;">
+        <ul class="pagination" id="rolePagination"></ul>
+    </footer>
+    <!--弹出窗口 增加角色-->
+    <div class="modal fade" id="addRole" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">添加角色</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form class="form-horizontal" id="roleAddForm">
+                            <div class="form-group ">
+                                <label for="" class="col-xs-3 control-label">角色名：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="text" class="form-control input-sm duiqi" name="name"
+                                           placeholder="请输入角色名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">权限：</label>
+                                <div class="col-xs-8 ">
+                                    <select class="form-control select-duiqi" name="permissionId" id="addPermissionId"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">描述：</label>
+                                <div class="col-xs-6 ">
+                                    <textarea class="form-control input-sm duiqi" name="description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">状态：</label>
+                                <div class="col-xs-8">
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" value="0">正常</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" value="1"> 禁用</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-green" th:onclick="'javascript:addRole()'">保 存</button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取 消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--弹出窗口 修改角色-->
+    <div class="modal fade" id="updateRole" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">修改角色</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form class="form-horizontal" id="roleUpdateForm">
+                            <!-- form表单不支持put请求方式的解决方案 -->
+                            <!-- <input type="hidden" name="_method" value="PUT"/> -->
+                            <input type="hidden" name="id" id="roleId" value="">
+                            <div class="form-group ">
+                                <label for="" class="col-xs-3 control-label">角色名：</label>
+                                <div class="col-xs-6 ">
+                                    <input type="email" class="form-control input-sm duiqi" id="roleName"
+                                           name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">权限：</label>
+                                <div class="col-xs-8 ">
+                                    <select class="form-control select-duiqi" name="permissionId" id="updatePermissionId"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">描述：</label>
+                                <div class="col-xs-6 ">
+                                    <textarea class="form-control input-sm duiqi" id="roleDescription"
+                                              name="description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-xs-3 control-label">状态：</label>
+                                <div class="col-xs-8">
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" id="roleNormal" value="0">正常</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="control-label">
+                                        <input type="radio" name="isDelete" id="roleForbidden" value="1"> 禁用</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-green" th:onclick="'javascript:updateRole()'">保 存
+                    </button>
+                    <button type="button" class="btn btn-white" data-dismiss="modal">取 消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

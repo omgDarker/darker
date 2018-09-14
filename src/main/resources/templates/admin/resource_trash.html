@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="trash" role="tabpanel" class="tab-pane" id="trash">
+    <div class="search-div">
+        <div class="col-lg-4 col-xs-5">
+            <input type="text" class=" form-control input-sm " id="trashContent" placeholder="输入文字搜索">
+            <button class="btn btn-white" onclick="searchTrashContent()">查 询</button>
+        </div>
+    </div>
+    <div class="data-div">
+        <!-- 列名 -->
+        <div class="row tableHeader">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">序号</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">描述</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">所属模块</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">回收操作</div>
+        </div>
+        <!-- 数据 -->
+        <div class="tablebody" id="trashTablebody"></div>
+    </div>
+    <!-- 分页 -->
+    <footer class="footer" style="padding:10px;">
+        <ul class="pagination" id="trashPagination"></ul>
+    </footer>
+</div>

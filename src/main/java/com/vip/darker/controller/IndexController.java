@@ -7,7 +7,8 @@ import com.vip.darker.model.ColumnModel;
 import com.vip.darker.model.MessageModel;
 import com.vip.darker.model.PhotoModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
-import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConstantUtil;
+import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,7 +38,7 @@ public class IndexController {
      * @date: 2018/8/10 16:49
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
+    public ModelAndView index(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // 文章<最新,降序排列>
@@ -51,12 +52,11 @@ public class IndexController {
                     model.setSummary(model.getSummary().substring(0, model.getSummary().length() > 90 ? 90 : model.getSummary().length()));
                 }
             }
-            // 获取文章栏目
+            // 文章栏目
             if (StringUtils.isNotBlank(model.getColumnId())) {
                 model.setColumnName(SystemServiceLocator.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", model.getColumnId())).get("name") + "");
             }
         }
-
         // 文章总数
         int numSum = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
         // 当前页
@@ -68,7 +68,7 @@ public class IndexController {
         // 文章列表<最新版>
         modelAndView.addObject("list", list);
         // 获取网站右侧信息
-        getWebOffsideInformation(modelAndView);
+        WebSiteUtil.getWebOffsideInformation(modelAndView);
 
         return modelAndView;
     }
@@ -94,7 +94,7 @@ public class IndexController {
         // 留言内容
         modelAndView.addObject("messageList", SystemServiceLocator.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", id)));
         // 获取网站右侧信息
-        getWebOffsideInformation(modelAndView);
+        WebSiteUtil.getWebOffsideInformation(modelAndView);
 
         return modelAndView;
     }
@@ -306,7 +306,7 @@ public class IndexController {
 
         boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS : Constant.FAIL);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS : ConstantUtil.FAIL);
         map.put("likeAmount", likeAmount + 1);
 
         return map;
@@ -332,7 +332,7 @@ public class IndexController {
 
         boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS : Constant.FAIL);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS : ConstantUtil.FAIL);
         map.put("likeNoAmount", likeNoAmount + 1);
 
         return map;
@@ -351,25 +351,5 @@ public class IndexController {
         return new ModelAndView("404");
     }
 
-    /**
-     * 功能描述: 获取网站右侧信息
-     *
-     * @param: org.springframework.web.servlet.ModelAndView
-     * @auther: darker
-     * @date: 2018/9/4 18:00
-     */
-    private void getWebOffsideInformation(ModelAndView modelAndView) {
-        // 栏目列表
-        modelAndView.addObject("columnList", SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>()));
-        // 网站累计浏览量
-        modelAndView.addObject("countPV", SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
-        // 友情列表
-        modelAndView.addObject("linkList", SystemServiceLocator.getLinkService().selectList(new EntityWrapper<>()));
-        // 图片列表
-        modelAndView.addObject("photoList", SystemServiceLocator.getPhotoService().selectList(new EntityWrapper<PhotoModel>().ne("columnId", "9")));
-        // 文章列表<阅读排行>
-        modelAndView.addObject("readAmountList", SystemServiceLocator.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5")));
-        // 文章列表<博主推荐>
-        modelAndView.addObject("likeAmountList", SystemServiceLocator.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("likeAmount")).last("LIMIT 5")));
-    }
+
 }

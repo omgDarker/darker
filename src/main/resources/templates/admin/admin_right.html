@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="meun_right">
+    <!-- 右侧内容详情栏目 -->
+    <div id="rightContent">
+        <div class="tab-content">
+            <!-- 资源列表模块 -->
+            <div th:replace="admin/resource_content.html :: resouce"></div>
+            <!-- 分类列表模块 -->
+            <div th:replace="admin/resource_classify.html :: classify"></div>
+            <!-- 栏目列表模块 -->
+            <div th:replace="admin/resource_column.html :: column"></div>
+            <!-- 回收站列表模块 -->
+            <div th:replace="admin/resource_trash.html :: trash"></div>
+
+            <!-- 用户列表模块 -->
+            <div th:replace="admin/user_content.html :: user"></div>
+            <!-- 角色列表模块 -->
+            <div th:replace="admin/user_role.html :: role"></div>
+            <!-- 权限列表模块 -->
+            <div th:replace="admin/user_premission.html :: permission"></div>
+
+            <!-- 文章列表模块 -->
+            <div th:replace="admin/content_article.html :: article"></div>
+            <!-- 图片列表模块 -->
+            <div th:replace="admin/content_photo.html :: photo"></div>
+            <!-- 友链列表模块 -->
+            <div th:replace="admin/content_link.html :: link"></div>
+            <!-- 留言板列表模块 -->
+            <div th:replace="admin/content_message.html :: message"></div>
+
+            <!-- DBMS表信息模块 -->
+            <div th:replace="admin/dbms_table.html :: table"></div>
+            <!-- DBMS操作模块 -->
+            <div th:replace="admin/dbms_operation.html :: operation"></div>
+
+            <!-- 统计信息模块 -->
+            <div th:replace="admin/operation_statistics.html :: statistics"></div>
+        </div>
+    </div>
+</div>

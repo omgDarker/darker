@@ -3,7 +3,7 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.model.UserModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
-import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConstantUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +35,7 @@ public class AdminController {
 
         int count = SystemServiceLocator.getResourceService().selectCount(new EntityWrapper<>());
 
-        modelAndView.addObject("maxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        modelAndView.addObject("maxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return modelAndView;
     }
@@ -54,9 +54,9 @@ public class AdminController {
         // 判断是否存在此用户
         Object user = SystemServiceLocator.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword()));
         if (user != null) {
-            map.put(Constant.MSG, Constant.EXIST_USER);
+            map.put(ConstantUtil.MSG, ConstantUtil.EXIST_USER);
         } else {
-            map.put(Constant.MSG, SystemServiceLocator.getUserService().insert(userModel) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
+            map.put(ConstantUtil.MSG, SystemServiceLocator.getUserService().insert(userModel) ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
         }
         return map;
     }

@@ -1,6 +1,6 @@
 package com.vip.darker.io;
 
-import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConstantUtil;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,7 +46,7 @@ public class ImageHandler {
             // 获取上传文件原始名称
             String oldImageName = myImage.getOriginalFilename();
             // 存储图片的虚拟本地路径
-            String saveImagePath = Constant.PHOTO_PATH;
+            String saveImagePath = ConstantUtil.PHOTO_PATH;
             // 上传图片
             if (oldImageName.length() > 0) {
                 // 新图片名称
@@ -56,10 +56,10 @@ public class ImageHandler {
                 // 将内存中的数据写入磁盘
                 myImage.transferTo(newImage);
                 // 将新图片名称返回前端
-                map.put(Constant.MSG, Constant.SUCCESS_UPLOAD);
+                map.put(ConstantUtil.MSG, ConstantUtil.SUCCESS_UPLOAD);
                 map.put("myImage", newImageName);
             } else {
-                map.put(Constant.MSG, Constant.FAIL_UPLOAD);
+                map.put(ConstantUtil.MSG, ConstantUtil.FAIL_UPLOAD);
             }
         }
         return map;
@@ -76,7 +76,7 @@ public class ImageHandler {
     @RequestMapping(value = "/showImage/{imageName}", method = RequestMethod.GET)
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
         try {
-            FileInputStream fis = new FileInputStream(Constant.PHOTO_PATH + "/" + imageName);
+            FileInputStream fis = new FileInputStream(ConstantUtil.PHOTO_PATH + "/" + imageName);
             // 获取文件大小
             int size = fis.available();
             // 设置读取字节数

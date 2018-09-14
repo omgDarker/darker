@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.*;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import com.vip.darker.util.BeanToMapUtil;
-import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConstantUtil;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
 
         return map;
     }
@@ -59,7 +59,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
 
         return map;
     }
@@ -79,7 +79,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
 
         return map;
     }
@@ -99,7 +99,7 @@ public class ContentController {
 
         int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
 
-        map.put("articleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put("articleMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return map;
     }
@@ -164,7 +164,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
 
         return map;
     }
@@ -184,7 +184,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
 
         return map;
     }
@@ -204,7 +204,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
 
         return map;
     }
@@ -224,7 +224,7 @@ public class ContentController {
 
         int count = SystemServiceLocator.getPhotoService().selectCount(new EntityWrapper<>());
 
-        map.put("photoMaxPage", (count - 1) / (Constant.PAGE_SIZE + 2) + 1);
+        map.put("photoMaxPage", (count - 1) / (ConstantUtil.PAGE_SIZE + 2) + 1);
 
         return map;
     }
@@ -294,7 +294,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
 
         return map;
     }
@@ -314,7 +314,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
+        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
 
         return map;
     }
@@ -334,7 +334,7 @@ public class ContentController {
 
         int count = SystemServiceLocator.getMessageService().selectCount(new EntityWrapper<>());
 
-        map.put("messageMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put("messageMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return map;
     }

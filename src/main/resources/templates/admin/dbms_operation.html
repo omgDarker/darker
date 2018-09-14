@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="operation" role="tabpanel" class="tab-pane" id="operation">
+    <!-- 搜索框 -->
+    <div class="search-div">
+        <div class="col-lg-4 col-xs-5">
+            <input type="text" class=" form-control input-sm " id="searchTableContent" placeholder="输入文字搜索">
+            <button class="btn btn-white" onclick="searchTableContent()">查 询</button>
+        </div>
+    </div>
+    <!-- 数据库表操作 -->
+    <div class="data-div" style="margin-left: 12px;margin-right: 12px;">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box facebook-bg">
+                        <i class="fa fa-users"></i>
+                        <div class="count" id="dbmsOperation"></div>
+                        <div class="title">表操作</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
