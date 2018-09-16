@@ -81,7 +81,7 @@ public class IndexController {
      * @auther: darker
      * @date: 2018/8/10 16:49
      */
-    @RequestMapping(value = "/detail/article/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/article/detail/{id}", method = RequestMethod.GET)
     public ModelAndView getArticleDetail(@PathVariable(value = "id") Integer id) {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article_detail");

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<div class="bloglist f_l" th:fragment="index_left">
+<div class="bloglist f_l" th:fragment="home_left">
     <ul>
         <!-- 当前页 -->
         <input type="hidden" id="pageNum" th:value="${pageNum}">
@@ -19,7 +19,7 @@
                     </span>
                 <!-- 标题 -->
                 <h3 class="blogtitle">
-                    <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
+                    <a th:href="@{'/index/article/detail/'+${object.id}}" th:text="${object.title}"></a>
                 </h3>
                 <p th:utext="${object.summary}"></p>
             </div>
@@ -31,7 +31,7 @@
                 <span class="likemuch f_l" th:text="'点赞('+${object.likeAmount}+')'"></span>
                 <span class="likenomuch f_l" th:text="'甩鞋('+${object.likeNoAmount}+')'"></span>
                 <span class="f_r"><a class="more"
-                                     th:href="@{'/index/detail/article/'+${object.id}}">阅读原文&gt;&gt;</a></span>
+                                     th:href="@{'/index/article/detail/'+${object.id}}">阅读原文&gt;&gt;</a></span>
             </div>
         </li>
     </ul>
