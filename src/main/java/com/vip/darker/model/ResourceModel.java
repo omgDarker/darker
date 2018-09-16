@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 import java.util.Date;
 
-@TableName(value = "blog_resource")
+@TableName(value = "resource_content")
 public class ResourceModel extends Model<ResourceModel> {
 
     @TableId(value = "id", type = IdType.AUTO)

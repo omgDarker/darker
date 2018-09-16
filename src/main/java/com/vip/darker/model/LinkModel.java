@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 import java.util.Date;
 
-@TableName(value = "blog_link")
+@TableName(value = "content_link")
 public class LinkModel extends Model<LinkModel> {
 
     @TableId(value = "id", type = IdType.AUTO)

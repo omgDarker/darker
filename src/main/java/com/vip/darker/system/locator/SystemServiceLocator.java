@@ -97,18 +97,6 @@ public class SystemServiceLocator {
     }
 
     /**
-     * 功能描述: 日记service
-     *
-     * @param: []
-     * @return: com.vip.darker.service.DiaryService
-     * @auther: darker
-     * @date: 2018/7/26 18:05
-     */
-    public static DiaryService getDiaryService() {
-        return (DiaryService) SpringBootApplicationContent.getBean(DiaryServiceImpl.BEAN_NAME);
-    }
-
-    /**
      * 功能描述: 文章service
      *
      * @param: []

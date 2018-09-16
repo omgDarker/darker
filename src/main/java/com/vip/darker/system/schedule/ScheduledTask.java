@@ -2,6 +2,7 @@ package com.vip.darker.system.schedule;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.model.StatisticsModel;
+import com.vip.darker.model.UserModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +35,10 @@ public class ScheduledTask {
                     statisticsModel.setAmount(SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
                     break;
                 case "vv":
-                    statisticsModel.setAmount(SystemServiceLocator.getSpringBootPropertiesLoad().getCountVV());
+                    statisticsModel.setAmount(SystemServiceLocator.getUserService().selectList(new EntityWrapper<>()).size());
                     break;
                 case "uv":
-                    statisticsModel.setAmount(SystemServiceLocator.getSpringBootPropertiesLoad().getCountUV());
+                    statisticsModel.setAmount(SystemServiceLocator.getUserService().selectList(new EntityWrapper<UserModel>().setSqlSelect("distinct ip")).size());
                     break;
                 default:
                     logger.info("表operation_statistics存在脏数据,请仔细检查DB!");

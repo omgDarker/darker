@@ -84,7 +84,7 @@ public class IndexController {
     @RequestMapping(value = "/detail/article/{id}", method = RequestMethod.GET)
     public ModelAndView getArticleDetail(@PathVariable(value = "id") Integer id) {
         // 跳转页
-        ModelAndView modelAndView = new ModelAndView(INDEX + "/detail_article");
+        ModelAndView modelAndView = new ModelAndView(INDEX + "/article_detail");
         // 文章信息
         ArticleModel articleModel = SystemServiceLocator.getArticleService().selectById(id);
         articleModel.setColumnName(SystemServiceLocator.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", articleModel.getColumnId())).get("name") + "");

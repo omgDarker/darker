@@ -1,4 +1,4 @@
-package com.vip.darker.system.schedule;
+package com.vip.darker.system.schedule.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
@@ -12,10 +12,10 @@ import java.util.concurrent.Executors;
  * @Description: 定时任务线程池
  */
 @Configuration //Config配置类。相当于spring3.0时期的XML配置文件
-public class ScheduleConfig implements SchedulingConfigurer {
+public class SpringBootScheduleConfig implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         // 设置一个长度为10的定时任务线程池
-        scheduledTaskRegistrar.setScheduler( Executors.newScheduledThreadPool( 10 ));
+        scheduledTaskRegistrar.setScheduler( Executors.newScheduledThreadPool( 20 ));
     }
 }

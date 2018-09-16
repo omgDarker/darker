@@ -5,7 +5,6 @@ import com.vip.darker.exception.LoginException;
 import com.vip.darker.model.UserModel;
 import com.vip.darker.system.locator.SystemServiceLocator;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,27 +32,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (user != null && password.equals("darker")) {
             return true;
         }
-
         throw new LoginException("异常登录,请注意!");
-    }
-
-    /**
-     * 功能描述: 登录执行之后,页面渲染前
-     *
-     * @auther: darker
-     * @date: 2018/9/12 16:47
-     */
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) {
-    }
-
-    /**
-     * 功能描述: 整个请求结束后,页面也渲染完毕,一般是资源清理操作
-     *
-     * @auther: darker
-     * @date: 2018/9/12 16:47
-     */
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) {
     }
 }

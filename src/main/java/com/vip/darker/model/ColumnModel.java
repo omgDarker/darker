@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 import java.util.Date;
 
-@TableName(value = "blog_column")
+@TableName(value = "resource_column")
 public class ColumnModel extends Model<ColumnModel> {
 
     @TableId(value = "id", type = IdType.AUTO)

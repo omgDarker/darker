@@ -1,5 +1,6 @@
 package com.vip.darker.system.Interceptor.config;
 
+import com.vip.darker.system.Interceptor.LogInterceptor;
 import com.vip.darker.system.Interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -21,6 +22,8 @@ public class SpringBootInterceptorConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        // 日志拦截配置
+        registry.addInterceptor(new LogInterceptor()).addPathPatterns("/index/**").addPathPatterns("/admin/**");
         // 登录拦截配置
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin/home");
     }

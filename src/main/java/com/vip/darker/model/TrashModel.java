@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 import java.util.Date;
 
-@TableName(value = "blog_trash")
+@TableName(value = "resource_trash")
 public class TrashModel extends Model<TrashModel> {
 
     @TableId(value = "id", type = IdType.AUTO)

@@ -30,7 +30,6 @@ public class AdminController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
-
         return new ModelAndView("admin/login");
     }
 

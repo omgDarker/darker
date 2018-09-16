@@ -7,7 +7,6 @@ $(function () {
         // 新增选中菜单激活样式
         $(this).addClass("meun-item-active");
     });
-
     // 选项卡激活后的点击事件
     $('div[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         // 判断是哪个选项卡
@@ -3471,4 +3470,10 @@ function searchStatisticsContent() {
     var key = $("#statisticsContent").val();
     // out
     console.info("检索词:" + key);
+}
+
+// 滚动到底部
+function scrollToEnd() {
+    var h = $(document).height() - $(window).height();
+    $(document).scrollTop(h);
 }
