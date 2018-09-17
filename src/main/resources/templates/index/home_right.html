@@ -54,7 +54,7 @@
         <h3 class="tit">阅读排行</h3>
         <ul>
             <li th:each="readAmount:${readAmountList}">
-                <a th:href="@{'/index/detail/article/'+${readAmount.id}}">
+                <a th:href="@{'/index/article/detail/'+${readAmount.id}}">
                      <span th:if="${readAmount.imageName!=null&&readAmount.imageName!=''}">
                             <i><img th:src="@{'/image/showImage/'+${readAmount.imageName}}" height="55" width="200"></i>
                      </span>
@@ -75,7 +75,7 @@
         <h3 class="tit">博主推荐</h3>
         <ul>
             <li th:each="likeAmount:${likeAmountList}">
-                <a th:href="@{'/index/detail/article/'+${likeAmount.id}}">
+                <a th:href="@{'/index/article/detail/'+${likeAmount.id}}">
                     <span th:if="${likeAmount.imageName!=null&&likeAmount.imageName!=''}">
                         <i><img th:src="@{'/image/showImage/'+${likeAmount.imageName}}" height="55" width="200"></i>
                     </span>

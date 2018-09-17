@@ -35,12 +35,12 @@
                                     </a>
                             </span>
                             <span th:if="${object.imageName== null||object.imageName==''}">
-                                   <a th:href="@{'/index/detail/article/'+${object.id}}"><img src="/images/back/back4.jpg"></a>
+                                   <a th:href="@{'/index/article/detail/'+${object.id}}"><img src="/images/back/back4.jpg"></a>
                             </span>
                         </div>
                         <ul>
                             <!-- 标题 -->
-                            <h2><a th:href="@{'/index/detail/article/'+${object.id}}"
+                            <h2><a th:href="@{'/index/article/detail/'+${object.id}}"
                                    th:text="${object.title}"></a>
                             </h2>
                             <!-- 简述<字数不够100,会出错> -->

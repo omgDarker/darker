@@ -29,7 +29,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         String password = request.getParameter("password");
         Object user = SystemServiceLocator.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", name).and("password={0}", password));
         // 防止游客,恶意登录
-        if (user != null && password.equals("darker")) {
+        if (user != null && password.equals("wangbingan")) {
             return true;
         }
         throw new LoginException("异常登录,请注意!");
