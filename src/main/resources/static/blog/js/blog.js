@@ -385,6 +385,53 @@ $(function () {
                 error: function () {
                 }
             });
+        } else if ('table' === controls) {
+            // ajax请求获取用户最大页数
+            $.ajax({
+                //请求URL地址,controller的名称
+                url: "/dbms/getDBInformation",
+                //请求返回数据格式为json,还可以是text等
+                dataType: "JSON",
+                //请求是否为异步,默认是true
+                async: true,
+                //是否从浏览器缓存中加载数据信息
+                cache: false,
+                //设置请求超时时间
+                timeout: 1000,
+                //参数值,如果URL带参数,这里就可以不用写了
+                data: {},
+                //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
+                type: "GET",
+                //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
+                beforeSend: function () {
+
+                },
+                //请求成功时的处理函数,参数(返回数据,返回状态)
+                success: function (data) {
+                    console.info(JSON.stringify(data));
+                    var html = '';
+                    for (var tableName in data) {
+                        html += '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">';
+                        html += '<div class="info-box facebook-bg" style="width:350px;height:400px;border:0 solid;border-radius:15px;">';
+                        html += '<i class="fa fa-table" ></i>';
+                        html += '<i class="title">' + tableName + '</i>';
+                        // 表信息
+                        var column = data[tableName];
+                        html += '<div style="margin-left:10px;display:inline-block;">';
+                        for (var columnName in column) {
+                            html += '<div class="title">' + columnName + '(' + column[columnName] + ')' + '<br></div>';
+                        }
+                        html += '</div></div></div>';
+                    }
+                    $("#dbmsTable").html(html);
+                },
+                //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
+                complete: function () {
+                },
+                //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
+                error: function () {
+                }
+            });
         }
     });
     // 资源管理选项卡
