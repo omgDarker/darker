@@ -25,7 +25,7 @@ header { width: 100%; background: url(../images/yuanshan.jpg) right bottom no-re
 /*nav*/
 nav { margin: 0 0 15px 0 }
 .navigation { height: 64px; background: url(../images/navbg.png) no-repeat; font-family: "Î¢ÈíÑÅºÚ"; }
-.menu { position: relative; margin-left: 70px; padding-top: 10px }
+.menu { position: relative; margin-left: 70px; padding-top: 10px; z-index:19999}
 .menu li { float: left; width: 110px; text-align: center; position: relative; line-height: 46px; }
 .menu li a { display: block; text-decoration: none; color: #fff; font-size: 15px; font-weight: bold }
 .menu ul { position: relative; background: url(../images/footerbg.png); z-index: 300; }
