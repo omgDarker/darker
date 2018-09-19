@@ -14,9 +14,13 @@
             <!-- 标题 -->
             <h3 class="blogtitle">
                 <span th:text="${object.columnName}"></span>
-                <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>
+                <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>&nbsp;
+                <!-- 复制 -->
+                <a href="#" class="copy" data-clipboard-action="copy" data-clipboard-target="#contentDetail"
+                   title="复制代码">
+                    <i class="fa fa-floppy-o"></i>
+                </a>
             </h3>
-
             <!-- 提示信息 -->
             <div class="autor">
                 <!-- 时钟 -->
@@ -26,12 +30,7 @@
                 <!-- 点赞量 -->
                 <a href="#" th:utext="${object.likeAmount}"></a>人点赞&nbsp;
                 <!-- 甩鞋量 -->
-                <a href="#" th:utext="${object.likeNoAmount}"></a>人甩鞋&nbsp;
-                <!-- 复制 -->
-                <a href="#" class="copy" data-clipboard-action="copy" data-clipboard-target="#contentDetail"
-                   title="复制代码">
-                    <i class="fa fa-floppy-o fa-lg"></i>
-                </a>
+                <a href="#" th:utext="${object.likeNoAmount}"></a>人甩鞋
             </div>
             <br/>
             <div class="article_about" th:if="${object.summary!=null&&object.summary!=''}">

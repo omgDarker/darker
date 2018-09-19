@@ -66,133 +66,137 @@
             var $this = $(this);
             $('<img/>').load(function () {
                 ++cnt;
-                if (cnt === total_images) {
-                    $hs_areas.each(function () {
-                        var $area = $(this);
-                        $area.data('over', true).bind('mouseenter', function () {
-                            if ($area.data('over')) {
-                                $area.data('over', false);
-                                var total = $area.children().length;
-                                var $current = $area.find('img:visible');
-                                var idx_current = $current.index();
-                                // 记录第几张,方便查看完回显第一张
-                                num++;
-                                var $next = (num % total === 0) ? $area.children(':first') : $current.next();
-                                $next.show();
-                                var anim = animations[Math.floor(Math.random() * total_anim)];
-                                switch (anim) {
-                                    case 'right':
-                                        $current.animate({
-                                                'left': $current.width() + 'px'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'left': '0px'
+                // 若图片只有一张,则不允许点击、滑动查看
+                if (cnt !== 1) {
+                    if (cnt === total_images) {
+                        $hs_areas.each(function () {
+                            var $area = $(this);
+                            $area.data('over', true).bind('mouseenter', function () {
+                                if ($area.data('over')) {
+                                    $area.data('over', false);
+                                    var total = $area.children().length;
+                                    var $current = $area.find('img:visible');
+                                    var idx_current = $current.index();
+                                    // 记录第几张,方便查看完回显第一张
+                                    num++;
+                                    var $next = (num % total === 0) ? $area.children(':first') : $current.next();
+                                    $next.show();
+                                    var anim = animations[Math.floor(Math.random() * total_anim)];
+                                    switch (anim) {
+                                        case 'right':
+                                            $current.animate({
+                                                    'left': $current.width() + 'px'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'left': '0px'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
-                                    case 'left':
-                                        $current.animate({
-                                                'left': -$current.width() + 'px'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'left': '0px'
+                                            break;
+                                        case 'left':
+                                            $current.animate({
+                                                    'left': -$current.width() + 'px'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'left': '0px'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
-                                    case 'top':
-                                        $current.animate({
-                                                'top': -$current.height() + 'px'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'top': '0px'
+                                            break;
+                                        case 'top':
+                                            $current.animate({
+                                                    'top': -$current.height() + 'px'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'top': '0px'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
-                                    case 'bottom':
-                                        $current.animate({
-                                                'top': $current.height() + 'px'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'top': '0px'
+                                            break;
+                                        case 'bottom':
+                                            $current.animate({
+                                                    'top': $current.height() + 'px'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'top': '0px'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
-                                    case 'rightFade':
-                                        $current.animate({
-                                                'left': $current.width() + 'px', 'opacity': '0'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'left': '0px', 'opacity': '1'
+                                            break;
+                                        case 'rightFade':
+                                            $current.animate({
+                                                    'left': $current.width() + 'px', 'opacity': '0'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'left': '0px', 'opacity': '1'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
-                                    case 'leftFade':
-                                        $current.animate({
-                                                'left': -$current.width() + 'px', 'opacity': '0'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'left': '0px', 'opacity': '1'
+                                            break;
+                                        case 'leftFade':
+                                            $current.animate({
+                                                    'left': -$current.width() + 'px', 'opacity': '0'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'left': '0px', 'opacity': '1'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
-                                    case 'topFade':
-                                        $current.animate({
-                                                'top': -$current.height() + 'px', 'opacity': '0'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'top': '0px', 'opacity': '1'
+                                            break;
+                                        case 'topFade':
+                                            $current.animate({
+                                                    'top': -$current.height() + 'px', 'opacity': '0'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'top': '0px', 'opacity': '1'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
-                                    case 'bottomFade':
-                                        $current.animate({
-                                                'top': $current.height() + 'px', 'opacity': '0'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'top': '0px', 'opacity': '1'
+                                            break;
+                                        case 'bottomFade':
+                                            $current.animate({
+                                                    'top': $current.height() + 'px', 'opacity': '0'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'top': '0px', 'opacity': '1'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
-                                    default:
-                                        $current.animate({
-                                                'left': -$current.width() + 'px'
-                                            },
-                                            animSpeed, easeType, function () {
-                                                $current.hide().css({
-                                                    'z-index': '1', 'left': '0px'
+                                            break;
+                                        default:
+                                            $current.animate({
+                                                    'left': -$current.width() + 'px'
+                                                },
+                                                animSpeed, easeType, function () {
+                                                    $current.hide().css({
+                                                        'z-index': '1', 'left': '0px'
+                                                    });
+                                                    $next.css('z-index', '9999');
+                                                    $area.data('over', true);
                                                 });
-                                                $next.css('z-index', '9999');
-                                                $area.data('over', true);
-                                            });
-                                        break;
+                                            break;
+                                    }
                                 }
-                            }
-                        });
-                    });
+
+                            });
+                        })
+                    }
                     $hs_container.bind('click', function () {
                         $hs_areas.trigger('mouseenter');
                     });

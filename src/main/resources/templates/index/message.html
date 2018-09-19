@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:include="common/head.html :: head"></head>
 <link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/timeline.css">
 <body>
 <div id="wrapper">
     <div th:replace="common/header.html :: header"></div>
@@ -13,12 +14,29 @@
                 <div class="banner">
                     您现在的位置是：<a href="/index/home" target="_self">网站首页</a>>>留言板
                 </div>
-                <div id="addToMessage" class="showcase">
-                    <div style="line-height: 40px;" th:each="message:${messageList}">
-                        <span th:text="${message.userName} + ':'"></span>
-                        <p class="danceWord-s3" style="text-indent: 2em;line-height: 22px;font-size: 18px;"
-                           th:text="${message.content}"></p>
-                        <hr style=" height:2px;border:none;border-top:2px dotted #DDDDDD;"/>
+                <div class="showcase">
+                    <div style="line-height: 40px; margin-top:40px;">
+                        <ul class="timeline" id="addToMessage">
+                            <li th:each="message:${messageList}">
+                                <!-- 连线 -->
+                                <div class="check">
+                                    <b class="spring"></b>
+                                    <s></s>
+                                    <b class="linee"></b>
+                                </div>
+                                <!-- 图片 -->
+                                <div class="thumb">
+                                    <img src="/images/photo.jpg" alt="头像">
+                                    <span th:text="${message.userName}"></span>
+                                </div>
+                                <!-- 留言 -->
+                                <div class="content_message">
+                                    <b></b>
+                                    <p class="danceWord-s3" style="text-indent: 2em;font-size: 18px;"
+                                       th:text="${message.content}"></p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="module-cmt-footer">
@@ -84,25 +102,37 @@
 
         var messageArray = eval("(" + data + ")");
         // 判断留言是否查询完毕
-        if (messageArray.length !== 10) {
+        if (messageArray.length === 0) {
             $("#moreWatch").text('别翻了,没有更多了!');
             $("#moreIcon").attr('display', 'none');
+        } else {
+
+            for (var i in messageArray) {
+
+                var message = messageArray[i];
+
+                appendHtml += '<li>';
+                appendHtml += '<div class="check">';
+                appendHtml += '<b class="spring"></b>';
+                appendHtml += '<s></s>';
+                appendHtml += '<b class="linee"></b>';
+                appendHtml += '</div>';
+                appendHtml += '<div class="thumb">';
+                appendHtml += '<img src="/images/photo.jpg" alt="头像">';
+                appendHtml += '<span>' + message.userName + '</span>';
+                appendHtml += '</div>';
+                appendHtml += '<div class="content_message">';
+                appendHtml += '<b></b>';
+                appendHtml += '<p class="danceWord-s3" style="text-indent: 2em;font-size: 18px;">' + message.content + '</p>';
+                appendHtml += '</div>';
+                appendHtml += '</li>';
+            }
+            //先保存div中原来的html
+            var html = document.getElementById("addToMessage").innerHTML;
+            console.info(html);
+            //再跟你想追加的代码加到一起插入div中
+            document.getElementById("addToMessage").innerHTML = html + appendHtml;
         }
-
-        for (var i = 0; i < messageArray.length; i++) {
-
-            var message = messageArray[i];
-
-            appendHtml += '<div style="line-height: 70px;" id="">';
-            appendHtml += '<span>' + message.userName + '</span>';
-            appendHtml += '<b class=\"content\" style=\"text-indent: 2em;line-height: 22px;\" >' + message.content + '</b>';
-            appendHtml += '<hr style=\" height:2px;border:none;border-top:2px dotted #DDDDDD;\"/>';
-            appendHtml += '</div>';
-        }
-        //先保存div中原来的html
-        var html = document.getElementById("addToMessage").innerHTML;
-        //再跟你想追加的代码加到一起插入div中
-        document.getElementById("addToMessage").innerHTML = html + appendHtml;
     }
 </script>
 </body>
