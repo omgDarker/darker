@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -43,6 +44,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication // 启动类注释
 @EnableScheduling // 定时任务Schedule
 @ServletComponentScan // 监听器Listener
+@EnableCaching // 缓存
 @MapperScan("com.vip.darker.dao")
 public class DarkerApplication {
     public static void main(String[] args) {
