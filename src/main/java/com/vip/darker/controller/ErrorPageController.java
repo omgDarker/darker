@@ -1,4 +1,4 @@
-package com.vip.darker.system.error;
+package com.vip.darker.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Description: 全局异常跳转页面调度器
  */
 @Controller
-@RequestMapping(value = ErrorController.BEAN_NAME)
-public class ErrorController {
+@RequestMapping(value = ErrorPageController.BEAN_NAME)
+public class ErrorPageController {
 
     public static final String BEAN_NAME = "error";
 

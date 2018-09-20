@@ -6,7 +6,7 @@ import com.vip.darker.model.ArticleModel;
 import com.vip.darker.model.ColumnModel;
 import com.vip.darker.model.MessageModel;
 import com.vip.darker.model.PhotoModel;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.ConstantUtil;
 import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +42,7 @@ public class IndexController {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // 文章<最新,降序排列>
-        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
+        List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
 
         for (ArticleModel model : list) {
             // 处理文章摘要长度
@@ -54,11 +54,11 @@ public class IndexController {
             }
             // 文章栏目
             if (StringUtils.isNotBlank(model.getColumnId())) {
-                model.setColumnName(SystemServiceLocator.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", model.getColumnId())).get("name") + "");
+                model.setColumnName(SpringBootService.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", model.getColumnId())).get("name") + "");
             }
         }
         // 文章总数
-        int numSum = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
+        int numSum = SpringBootService.getArticleService().selectCount(new EntityWrapper<>());
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -86,13 +86,13 @@ public class IndexController {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article_detail");
         // 文章信息
-        ArticleModel articleModel = SystemServiceLocator.getArticleService().selectById(id);
-        articleModel.setColumnName(SystemServiceLocator.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", articleModel.getColumnId())).get("name") + "");
+        ArticleModel articleModel = SpringBootService.getArticleService().selectById(id);
+        articleModel.setColumnName(SpringBootService.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", articleModel.getColumnId())).get("name") + "");
         modelAndView.addObject("object", articleModel);
         // 文章总数
-        modelAndView.addObject("numSum", SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>()));
+        modelAndView.addObject("numSum", SpringBootService.getArticleService().selectCount(new EntityWrapper<>()));
         // 留言内容
-        modelAndView.addObject("messageList", SystemServiceLocator.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", id)));
+        modelAndView.addObject("messageList", SpringBootService.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", id)));
         // 获取网站右侧信息
         WebSiteUtil.getWebOffsideInformation(modelAndView);
 
@@ -111,7 +111,7 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/about");
         // 查询栏目列表
-        modelAndView.addObject("columnList", SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
 
         return modelAndView;
     }
@@ -129,13 +129,13 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/photo");
         // 图片列表
-        modelAndView.addObject("photoList", SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords());
+        modelAndView.addObject("photoList", SpringBootService.getPhotoService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords());
         // 栏目列表
-        modelAndView.addObject("columnList", SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
         modelAndView.addObject("pageNum", pageNum);
         modelAndView.addObject("columnId", columnId);
         // 栏目名称
-        modelAndView.addObject("columnName", SystemServiceLocator.getColumnService().selectById(columnId).getName());
+        modelAndView.addObject("columnName", SpringBootService.getColumnService().selectById(columnId).getName());
 
         return modelAndView;
     }
@@ -150,7 +150,7 @@ public class IndexController {
      */
     @RequestMapping(value = "/photo/turn/{classifyId}/{columnId}", method = RequestMethod.GET)
     public List<PhotoModel> getMorePhotoByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId", required = false) Integer columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
-        return SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords();
+        return SpringBootService.getPhotoService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords();
     }
 
     /**
@@ -166,9 +166,9 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/photo");
         // 图片列表
-        modelAndView.addObject("photoList", SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId)).getRecords());
+        modelAndView.addObject("photoList", SpringBootService.getPhotoService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId)).getRecords());
         // 栏目列表
-        modelAndView.addObject("columnList", SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
 
@@ -185,7 +185,7 @@ public class IndexController {
      */
     @RequestMapping(value = "/photo/turn/{classifyId}", method = RequestMethod.GET)
     public List<PhotoModel> getMorePhotoByClassifyId(@PathVariable(value = "classifyId") Integer classifyId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
-        return SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId)).getRecords();
+        return SpringBootService.getPhotoService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId)).getRecords();
     }
 
     /**
@@ -201,19 +201,19 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
         // 文章总条数
-        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId));
+        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId));
         // 文章列表
-        modelAndView.addObject("list", SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords());
+        modelAndView.addObject("list", SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords());
         // 分类ID
         modelAndView.addObject("classifyId", classifyId);
         // 分类名称
-        modelAndView.addObject("classifyName", SystemServiceLocator.getClassifyService().selectById(classifyId).getName());
+        modelAndView.addObject("classifyName", SpringBootService.getClassifyService().selectById(classifyId).getName());
         // 栏目ID
         modelAndView.addObject("columnId", columnId);
         // 栏目名称
-        modelAndView.addObject("columnName", SystemServiceLocator.getColumnService().selectById(columnId).getName());
+        modelAndView.addObject("columnName", SpringBootService.getColumnService().selectById(columnId).getName());
         // 栏目列表
-        modelAndView.addObject("columnList", SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -237,9 +237,9 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
         // 文章总条数
-        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId));
+        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId));
         // 根据条件查询文章
-        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId)).getRecords();
+        List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId)).getRecords();
         // 处理文章摘要长度
         for (ArticleModel model : list) {
             if (StringUtils.isNotBlank(model.getSummary())) {
@@ -251,9 +251,9 @@ public class IndexController {
         // 分类ID
         modelAndView.addObject("classifyId", classifyId);
         // 分类名称
-        modelAndView.addObject("classifyName", SystemServiceLocator.getClassifyService().selectById(classifyId).getName());
+        modelAndView.addObject("classifyName", SpringBootService.getClassifyService().selectById(classifyId).getName());
         // 栏目列表
-        modelAndView.addObject("columnList", SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -279,9 +279,9 @@ public class IndexController {
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 留言列表
-        modelAndView.addObject("messageList", SystemServiceLocator.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords());
+        modelAndView.addObject("messageList", SpringBootService.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords());
         // 栏目列表
-        modelAndView.addObject("columnList", SystemServiceLocator.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
 
         return modelAndView;
     }
@@ -304,7 +304,7 @@ public class IndexController {
 
         Map<String, Object> map = new HashMap<>();
 
-        boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
+        boolean flag = SpringBootService.getArticleService().updateById(articleModel);
 
         map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS : ConstantUtil.FAIL);
         map.put("likeAmount", likeAmount + 1);
@@ -330,7 +330,7 @@ public class IndexController {
 
         Map<String, Object> map = new HashMap<>();
 
-        boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
+        boolean flag = SpringBootService.getArticleService().updateById(articleModel);
 
         map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS : ConstantUtil.FAIL);
         map.put("likeNoAmount", likeNoAmount + 1);

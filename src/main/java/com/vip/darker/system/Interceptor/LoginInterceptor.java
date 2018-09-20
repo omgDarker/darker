@@ -1,9 +1,9 @@
 package com.vip.darker.system.Interceptor;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.exception.LoginException;
+import com.vip.darker.system.exception.LoginException;
 import com.vip.darker.model.UserModel;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
-        Object user = SystemServiceLocator.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", name).and("password={0}", password));
+        Object user = SpringBootService.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", name).and("password={0}", password));
         // 防止游客,恶意登录
         if (user != null && password.equals("wangbingan")) {
             return true;

@@ -36,6 +36,26 @@ spring:
           #解决了sql语句可以被预编译,对于oracle可以绕过数据库编译,对于mysql没有那么明显
           pool-prepared-statements: false
           max-pool-prepared-statement-per-connection-size: 20
+     #Redis
+     redis:
+        #服务地址
+        host: 127.0.0.1
+        #端口号
+        port: 6379
+        #密码
+        password: redis
+        #连接池
+        pool:
+          #最大空闲连接
+          max-idle: 100
+          #最小空闲连接
+          min-idle: 1
+          #最大连接数
+          max-active: 1000
+          #最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: -1
+        #连接超时时间（毫秒）
+        timeout: 0
      #静态资源访问路径
      mvc:
          view:

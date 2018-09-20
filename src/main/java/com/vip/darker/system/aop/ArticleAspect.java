@@ -2,7 +2,7 @@ package com.vip.darker.system.aop;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.model.ArticleModel;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -31,11 +31,11 @@ public class ArticleAspect {
         // 获取文章ID
         int articleId = Integer.valueOf(point.getArgs()[0].toString());
         // 查询当前文章浏览量值
-        Map<String, Object> map = SystemServiceLocator.getArticleService().selectMap(new EntityWrapper<ArticleModel>().where("id={0}", articleId));
+        Map<String, Object> map = SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleModel>().where("id={0}", articleId));
         // 浏览量+1,持久化到DB
         ArticleModel articleModel = new ArticleModel();
         articleModel.setId(articleId);
         articleModel.setReadAmount(Integer.valueOf(map.get("readAmount").toString()) + 1);
-        SystemServiceLocator.getArticleService().updateById(articleModel);
+        SpringBootService.getArticleService().updateById(articleModel);
     }
 }

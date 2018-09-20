@@ -1,4 +1,4 @@
-package com.vip.darker.system.locator;
+package com.vip.darker.service.base;
 
 import com.vip.darker.service.*;
 import com.vip.darker.service.impl.*;
@@ -10,7 +10,7 @@ import com.vip.darker.system.load.SpringBootPropertiesLoad;
  * @Date: 2018/7/26 16:34
  * @Description: 基础服务serviceBean
  */
-public class SystemServiceLocator {
+public class SpringBootService {
 
     /**
      * 功能描述: 资源service

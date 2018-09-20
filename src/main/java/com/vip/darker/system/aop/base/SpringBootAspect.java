@@ -1,6 +1,6 @@
 package com.vip.darker.system.aop.base;
 
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +44,9 @@ public class SpringBootAspect {
     @After(value = "controller()")
     public void doAfter() {
         // 获取执行方法之后网站浏览量值
-        int countPV = SystemServiceLocator.getSpringBootPropertiesLoad().addCountPV();
+        int countPV = SpringBootService.getSpringBootPropertiesLoad().addCountPV();
         // 将值写入.yml文件
-        SystemServiceLocator.getSpringBootPropertiesLoad().setCountPV(countPV);
+        SpringBootService.getSpringBootPropertiesLoad().setCountPV(countPV);
         logger.info("当前网站浏览量的值:{}", countPV);
 
     }

@@ -1,4 +1,4 @@
-package com.vip.darker.exception;
+package com.vip.darker.system.exception;
 
 /**
  * @Auther: Darker

@@ -3,7 +3,7 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.*;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.BeanToMapUtil;
 import com.vip.darker.util.ConstantUtil;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ public class ContentController {
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
     public Map<String, Object> addArticle(ArticleModel articleModel) {
 
-        boolean flag = SystemServiceLocator.getArticleService().insert(articleModel);
+        boolean flag = SpringBootService.getArticleService().insert(articleModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -55,7 +55,7 @@ public class ContentController {
     @RequestMapping(value = "/updateArticle", method = RequestMethod.PUT)
     public Map<String, Object> updateArticle(ArticleModel articleModel) {
 
-        boolean flag = SystemServiceLocator.getArticleService().updateById(articleModel);
+        boolean flag = SpringBootService.getArticleService().updateById(articleModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -75,7 +75,7 @@ public class ContentController {
     @RequestMapping(value = "/deleteArticle/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteArticle(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getArticleService().deleteById(id);
+        boolean flag = SpringBootService.getArticleService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -97,7 +97,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<>());
 
         map.put("articleMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
@@ -114,7 +114,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allArticle/{id}", method = RequestMethod.GET)
     public ArticleModel queryArticleById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getArticleService().selectById(id);
+        return SpringBootService.getArticleService().selectById(id);
     }
 
     /**
@@ -128,15 +128,15 @@ public class ContentController {
     @RequestMapping(value = "/allArticle", method = RequestMethod.GET)
     public List<Map<String, Object>> queryAllArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 
-        List<ArticleModel> list = SystemServiceLocator.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
 
         try {
             // BEAN转MAP
             List<Map<String, Object>> resultList = BeanToMapUtil.convertListBeanToListMap(list, ArticleModel.class);
 
             for (Map<String, Object> map : resultList) {
-                Map<String, Object> columnMap = SystemServiceLocator.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", map.get("columnId")));
-                Map<String, Object> classifyMap = SystemServiceLocator.getClassifyService().selectMap(new EntityWrapper<ClassifyModel>().where("id={0}", map.get("classifyId")));
+                Map<String, Object> columnMap = SpringBootService.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", map.get("columnId")));
+                Map<String, Object> classifyMap = SpringBootService.getClassifyService().selectMap(new EntityWrapper<ClassifyModel>().where("id={0}", map.get("classifyId")));
                 map.put("columnName", columnMap.get("name"));
                 map.put("classifyName", classifyMap.get("name"));
             }
@@ -160,7 +160,7 @@ public class ContentController {
     @RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
     public Map<String, Object> addPhoto(PhotoModel photoModel) {
 
-        boolean flag = SystemServiceLocator.getPhotoService().insert(photoModel);
+        boolean flag = SpringBootService.getPhotoService().insert(photoModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -180,7 +180,7 @@ public class ContentController {
     @RequestMapping(value = "/updatePhoto", method = RequestMethod.PUT)
     public Map<String, Object> updatePhoto(PhotoModel photoModel) {
 
-        boolean flag = SystemServiceLocator.getPhotoService().updateById(photoModel);
+        boolean flag = SpringBootService.getPhotoService().updateById(photoModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -200,7 +200,7 @@ public class ContentController {
     @RequestMapping(value = "/deletePhoto/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deletePhoto(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getPhotoService().deleteById(id);
+        boolean flag = SpringBootService.getPhotoService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -222,7 +222,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getPhotoService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getPhotoService().selectCount(new EntityWrapper<>());
 
         map.put("photoMaxPage", (count - 1) / (ConstantUtil.PAGE_SIZE + 2) + 1);
 
@@ -239,7 +239,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allPhoto/{id}", method = RequestMethod.GET)
     public PhotoModel queryPhotoById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getPhotoService().selectById(id);
+        return SpringBootService.getPhotoService().selectById(id);
     }
 
     /**
@@ -252,7 +252,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allPhoto", method = RequestMethod.GET)
     public List<PhotoModel> queryAllPhoto(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
-        return SystemServiceLocator.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     //****************************************留言板模块****************************************//
@@ -268,9 +268,9 @@ public class ContentController {
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
     public Map<String, Object> addMessage(Integer articleId, MessageModel messageModel) {
         // 留言新增
-        SystemServiceLocator.getMessageService().insert(messageModel);
+        SpringBootService.getMessageService().insert(messageModel);
         // 留言信息
-        List<MessageModel> messageModelList = SystemServiceLocator.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", articleId));
+        List<MessageModel> messageModelList = SpringBootService.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", articleId));
 
         Map<String, Object> map = new HashMap<>();
 
@@ -290,7 +290,7 @@ public class ContentController {
     @RequestMapping(value = "/updateMessage", method = RequestMethod.PUT)
     public Map<String, Object> updateMessage(MessageModel messageModel) {
 
-        boolean flag = SystemServiceLocator.getMessageService().updateById(messageModel);
+        boolean flag = SpringBootService.getMessageService().updateById(messageModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -310,7 +310,7 @@ public class ContentController {
     @RequestMapping(value = "/deleteMessage/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteMessage(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getMessageService().deleteById(id);
+        boolean flag = SpringBootService.getMessageService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -332,7 +332,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getMessageService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getMessageService().selectCount(new EntityWrapper<>());
 
         map.put("messageMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
@@ -349,7 +349,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/allMessage/{id}", method = RequestMethod.GET)
     public MessageModel queryMessageById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getMessageService().selectById(id);
+        return SpringBootService.getMessageService().selectById(id);
     }
 
     /**
@@ -362,6 +362,6 @@ public class ContentController {
      */
     @RequestMapping(value = "/allMessage", method = RequestMethod.GET)
     public List<MessageModel> queryAllMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

@@ -6,7 +6,7 @@ import com.vip.darker.model.ArticleModel;
 import com.vip.darker.model.MonitorModel;
 import com.vip.darker.model.StatisticsModel;
 import com.vip.darker.model.UserModel;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/addStatistics", method = RequestMethod.POST)
     public boolean addStatistics(StatisticsModel statisticsModel) {
-        return SystemServiceLocator.getStatisticsService().insert(statisticsModel);
+        return SpringBootService.getStatisticsService().insert(statisticsModel);
     }
 
     /**
@@ -47,7 +47,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/deleteStatistics/{id}", method = RequestMethod.DELETE)
     public boolean deleteStatistics(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getStatisticsService().deleteById(id);
+        return SpringBootService.getStatisticsService().deleteById(id);
     }
 
     /**
@@ -60,7 +60,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/updateStatistics", method = RequestMethod.PUT)
     public boolean updateStatistics(StatisticsModel statisticsModel) {
-        return SystemServiceLocator.getStatisticsService().updateById(statisticsModel);
+        return SpringBootService.getStatisticsService().updateById(statisticsModel);
     }
 
     /**
@@ -73,7 +73,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/queryAllStatistics", method = RequestMethod.GET)
     public List<StatisticsModel> queryAllStatistics(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getStatisticsService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getStatisticsService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -88,23 +88,23 @@ public class OperationContorller {
         // 设置参数
         Map<String, Object> map = new HashMap<>();
         // 统计访问量
-        map.put("countWebVV", SystemServiceLocator.getUserService().selectList(new EntityWrapper<>()).size());
+        map.put("countWebVV", SpringBootService.getUserService().selectList(new EntityWrapper<>()).size());
         // 统计浏览量
-        map.put("countWebPV", SystemServiceLocator.getSpringBootPropertiesLoad().getCountPV());
+        map.put("countWebPV", SpringBootService.getSpringBootPropertiesLoad().getCountPV());
         // 统计用户数*
-        map.put("countWebUV", SystemServiceLocator.getUserService().selectList(new EntityWrapper<UserModel>().setSqlSelect("distinct ip")).size());
+        map.put("countWebUV", SpringBootService.getUserService().selectList(new EntityWrapper<UserModel>().setSqlSelect("distinct ip")).size());
         // 统计留言数
-        map.put("countMessage", SystemServiceLocator.getMessageService().selectCount(new EntityWrapper<>()));
+        map.put("countMessage", SpringBootService.getMessageService().selectCount(new EntityWrapper<>()));
         // 统计友链数
-        map.put("countLink", SystemServiceLocator.getLinkService().selectCount(new EntityWrapper<>()));
+        map.put("countLink", SpringBootService.getLinkService().selectCount(new EntityWrapper<>()));
         // 统计文章数
-        map.put("countArticle", SystemServiceLocator.getArticleService().selectCount(new EntityWrapper<>()));
+        map.put("countArticle", SpringBootService.getArticleService().selectCount(new EntityWrapper<>()));
         // 统计图片数
-        map.put("countPhoto", SystemServiceLocator.getPhotoService().selectCount(new EntityWrapper<>()));
+        map.put("countPhoto", SpringBootService.getPhotoService().selectCount(new EntityWrapper<>()));
         // 统计点赞数*
-        map.put("countLike", SystemServiceLocator.getArticleService().selectMap(new EntityWrapper<ArticleModel>().setSqlSelect("sum(likeAmount) as amount")).get("amount"));
+        map.put("countLike", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleModel>().setSqlSelect("sum(likeAmount) as amount")).get("amount"));
         // 统计甩鞋数
-        map.put("countLikeNo", SystemServiceLocator.getArticleService().selectMap(new EntityWrapper<ArticleModel>().setSqlSelect("sum(likeNoAmount) as amount ")).get("amount"));
+        map.put("countLikeNo", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleModel>().setSqlSelect("sum(likeNoAmount) as amount ")).get("amount"));
 
         return map;
     }
@@ -121,7 +121,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/addMonitor", method = RequestMethod.POST)
     public boolean addMonitor(MonitorModel monitorModel) {
-        return SystemServiceLocator.getMonitorService().insert(monitorModel);
+        return SpringBootService.getMonitorService().insert(monitorModel);
     }
 
     /**
@@ -134,7 +134,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/updateMonitor", method = RequestMethod.PUT)
     public boolean updateMonitor(@RequestBody MonitorModel monitorModel) {
-        return SystemServiceLocator.getMonitorService().updateById(monitorModel);
+        return SpringBootService.getMonitorService().updateById(monitorModel);
     }
 
     /**
@@ -147,7 +147,7 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/deleteMonitor/{id}", method = RequestMethod.DELETE)
     public boolean deleteMonitor(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getMonitorService().deleteById(id);
+        return SpringBootService.getMonitorService().deleteById(id);
     }
 
     /**
@@ -160,6 +160,6 @@ public class OperationContorller {
      */
     @RequestMapping(value = "/allMonitor", method = RequestMethod.GET)
     public List<MonitorModel> queryAllMonitor(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getMonitorService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getMonitorService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

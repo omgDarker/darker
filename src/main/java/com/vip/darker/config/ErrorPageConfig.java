@@ -1,4 +1,4 @@
-package com.vip.darker.system.error;
+package com.vip.darker.config;
 
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;

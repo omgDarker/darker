@@ -1,6 +1,6 @@
-package com.vip.darker.exception.base;
+package com.vip.darker.system.exception.base;
 
-import com.vip.darker.exception.LoginException;
+import com.vip.darker.system.exception.LoginException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

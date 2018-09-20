@@ -2,7 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.model.UserModel;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.ConstantUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +45,7 @@ public class AdminController {
 
         ModelAndView modelAndView = new ModelAndView("admin/home");
 
-        int count = SystemServiceLocator.getResourceService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getResourceService().selectCount(new EntityWrapper<>());
 
         modelAndView.addObject("maxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
@@ -64,11 +64,11 @@ public class AdminController {
     public Map<String, Object> register(UserModel userModel) {
         Map<String, Object> map = new HashMap<>();
         // 判断是否存在此用户
-        Object user = SystemServiceLocator.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword()));
+        Object user = SpringBootService.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword()));
         if (user != null) {
             map.put(ConstantUtil.MSG, ConstantUtil.EXIST_USER);
         } else {
-            map.put(ConstantUtil.MSG, SystemServiceLocator.getUserService().insert(userModel) ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
+            map.put(ConstantUtil.MSG, SpringBootService.getUserService().insert(userModel) ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
         }
         return map;
     }

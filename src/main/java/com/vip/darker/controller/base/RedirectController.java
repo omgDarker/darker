@@ -3,7 +3,7 @@ package com.vip.darker.controller.base;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.model.StatisticsModel;
 import com.vip.darker.model.UserModel;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.SessionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +45,10 @@ public class RedirectController {
             // 网站浏览量数值初始化
             if (init) {
                 // 查询数据库,若值存在,则重置浏览量数值
-                Map<String, Object> map = SystemServiceLocator.getStatisticsService().selectMap(new EntityWrapper<StatisticsModel>().where("classify={0}", "pv"));
+                Map<String, Object> map = SpringBootService.getStatisticsService().selectMap(new EntityWrapper<StatisticsModel>().where("classify={0}", "pv"));
                 if (map != null) {
                     if (map.containsKey("amount")) {
-                        SystemServiceLocator.getSpringBootPropertiesLoad().setCountPV((int) map.get("amount"));
+                        SpringBootService.getSpringBootPropertiesLoad().setCountPV((int) map.get("amount"));
                     }
                 }
                 init = false;
@@ -71,7 +71,7 @@ public class RedirectController {
                 user.setLoginTime(new SimpleDateFormat("yyyy-MM--dd HH:mm:ss").format(new Date()));
                 list.add(user);
                 // 持久化到DB
-                SystemServiceLocator.getUserService().insert(user);
+                SpringBootService.getUserService().insert(user);
             }
             // 重置用户集合
             request.getServletContext().setAttribute("userList", list);

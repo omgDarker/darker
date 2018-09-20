@@ -1,4 +1,4 @@
-package com.vip.darker.io;
+package com.vip.darker.controller;
 
 import com.vip.darker.util.ConstantUtil;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +25,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping(value = "image")
-public class ImageHandler {
+public class ImageController {
 
     /**
      * 功能描述: 图片上传

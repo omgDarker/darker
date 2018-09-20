@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.controller.base.RedirectController;
 import com.vip.darker.model.*;
-import com.vip.darker.system.locator.SystemServiceLocator;
+import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.ConstantUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +35,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map<String, Object> addResource(ResourceModel resourceModel) {
 
-        boolean flag = SystemServiceLocator.getResourceService().insert(resourceModel);
+        boolean flag = SpringBootService.getResourceService().insert(resourceModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -55,7 +55,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Map<String, Object> updateResource(ResourceModel resourceModel) {
 
-        boolean flag = SystemServiceLocator.getResourceService().updateById(resourceModel);
+        boolean flag = SpringBootService.getResourceService().updateById(resourceModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -75,7 +75,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteReouseceById(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getResourceService().deleteById(id);
+        boolean flag = SpringBootService.getResourceService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -94,7 +94,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/all/{id}", method = RequestMethod.GET)
     public ResourceModel queryResouceById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getResourceService().selectById(id);
+        return SpringBootService.getResourceService().selectById(id);
     }
 
     /**
@@ -107,7 +107,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<ResourceModel> queryAllResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum, @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
-        return SystemServiceLocator.getResourceService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getResourceService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     //****************************************回收站模块****************************************//
@@ -123,7 +123,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/deleteTrash/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteTrash(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getTrashService().deleteById(id);
+        boolean flag = SpringBootService.getTrashService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -142,7 +142,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/allTrash", method = RequestMethod.GET)
     public List<TrashModel> queryAllTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getTrashService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getTrashService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -158,7 +158,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getTrashService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getTrashService().selectCount(new EntityWrapper<>());
 
         map.put("trashMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
@@ -178,7 +178,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/addClassify", method = RequestMethod.POST)
     public Map<String, Object> addClassify(ClassifyModel classifyModel) {
 
-        boolean flag = SystemServiceLocator.getClassifyService().insert(classifyModel);
+        boolean flag = SpringBootService.getClassifyService().insert(classifyModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -198,7 +198,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/updateClassify", method = RequestMethod.PUT)
     public Map<String, Object> updateClassify(ClassifyModel classifyModel) {
 
-        boolean flag = SystemServiceLocator.getClassifyService().updateById(classifyModel);
+        boolean flag = SpringBootService.getClassifyService().updateById(classifyModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -218,7 +218,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/deleteClassify/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteClassify(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getClassifyService().deleteById(id);
+        boolean flag = SpringBootService.getClassifyService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -237,7 +237,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/allClassify/{id}")
     public ClassifyModel queryClassifyById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getClassifyService().selectById(id);
+        return SpringBootService.getClassifyService().selectById(id);
     }
 
     /**
@@ -250,7 +250,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/allClassify", method = RequestMethod.GET)
     public List<ClassifyModel> queryAllClassify(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getClassifyService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getClassifyService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -266,7 +266,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getClassifyService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getClassifyService().selectCount(new EntityWrapper<>());
 
         map.put("classifyMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
@@ -286,7 +286,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/addColumn", method = RequestMethod.POST)
     public Map<String, Object> addColumn(ColumnModel columnModel) {
 
-        boolean flag = SystemServiceLocator.getColumnService().insert(columnModel);
+        boolean flag = SpringBootService.getColumnService().insert(columnModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -306,7 +306,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/updateColumn", method = RequestMethod.PUT)
     public Map<String, Object> updateColumn(ColumnModel columnModel) {
 
-        boolean flag = SystemServiceLocator.getColumnService().updateById(columnModel);
+        boolean flag = SpringBootService.getColumnService().updateById(columnModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -326,7 +326,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/deleteColumn/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteColumn(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getColumnService().deleteById(id);
+        boolean flag = SpringBootService.getColumnService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -345,7 +345,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/allColumn/{id}")
     public ColumnModel queryColumnById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getColumnService().selectById(id);
+        return SpringBootService.getColumnService().selectById(id);
     }
 
     /**
@@ -358,7 +358,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/allColumnList/{classifyId}", method = RequestMethod.GET)
     public List<ColumnModel> queryColumnByClassifyId(@PathVariable(value = "classifyId") Integer[] classifyId) {
-        return SystemServiceLocator.getColumnService().selectList(new EntityWrapper<ColumnModel>().in("classifyId", classifyId));
+        return SpringBootService.getColumnService().selectList(new EntityWrapper<ColumnModel>().in("classifyId", classifyId));
     }
 
     /**
@@ -371,7 +371,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/allColumn", method = RequestMethod.GET)
     public List<ColumnModel> queryAllColumn(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getColumnService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getColumnService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -387,7 +387,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getColumnService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getColumnService().selectCount(new EntityWrapper<>());
 
         map.put("columnMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
@@ -407,7 +407,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/addLink", method = RequestMethod.POST)
     public Map<String, Object> addLink(LinkModel linkModel) {
 
-        boolean flag = SystemServiceLocator.getLinkService().insert(linkModel);
+        boolean flag = SpringBootService.getLinkService().insert(linkModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -427,7 +427,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/updateLink", method = RequestMethod.PUT)
     public Map<String, Object> updateLink(LinkModel linkModel) {
 
-        boolean flag = SystemServiceLocator.getLinkService().updateById(linkModel);
+        boolean flag = SpringBootService.getLinkService().updateById(linkModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -447,7 +447,7 @@ public class ResourceController extends RedirectController {
     @RequestMapping(value = "/deleteLink/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteLink(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SystemServiceLocator.getLinkService().deleteById(id);
+        boolean flag = SpringBootService.getLinkService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -466,7 +466,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/allLink/{id}")
     public LinkModel queryLinkById(@PathVariable(value = "id") Integer id) {
-        return SystemServiceLocator.getLinkService().selectById(id);
+        return SpringBootService.getLinkService().selectById(id);
     }
 
     /**
@@ -479,7 +479,7 @@ public class ResourceController extends RedirectController {
      */
     @RequestMapping(value = "/allLink", method = RequestMethod.GET)
     public List<LinkModel> queryAllLink(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-        return SystemServiceLocator.getLinkService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        return SpringBootService.getLinkService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
@@ -495,7 +495,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SystemServiceLocator.getLinkService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getLinkService().selectCount(new EntityWrapper<>());
 
         map.put("linkMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
