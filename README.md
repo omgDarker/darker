@@ -1,10 +1,10 @@
- ![image](https://github.com/ButBueatiful/dotvim/raw/master/screenshots/vim-screenshot.jpg)
+![image](https://github.com/ButBueatiful/dotvim/raw/master/screenshots/vim-screenshot.jpg)
 
 #模块
 
 ##############################管理后台##############################
 
-#资源模块(待使用)
+#资源模块(待使用)1
 
 #用户模块
 
