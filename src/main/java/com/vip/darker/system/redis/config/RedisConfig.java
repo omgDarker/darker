@@ -70,6 +70,11 @@ public class RedisConfig extends CachingConfigurerSupport {
         return builder.build();
     }
 
+    /**
+     * 设置redisTemplate参数
+     *
+     * @return
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         //设置序列化
@@ -90,12 +95,17 @@ public class RedisConfig extends CachingConfigurerSupport {
         return redisTemplate;
     }
 
+    /**
+     * 缓存异常处理
+     *
+     * @return
+     */
     @Override
     @Bean
     public CacheErrorHandler errorHandler() {
 
         log.info("初始化 -> [{}]", "Redis CacheErrorHandler");
-        CacheErrorHandler cacheErrorHandler = new CacheErrorHandler() {
+        @SuppressWarnings(value = "unchecked") CacheErrorHandler cacheErrorHandler = new CacheErrorHandler() {
 
             @Override
             public void handleCacheGetError(RuntimeException e, Cache cache, Object key) {
@@ -119,8 +129,4 @@ public class RedisConfig extends CachingConfigurerSupport {
         };
         return cacheErrorHandler;
     }
-
-
-
-
 }

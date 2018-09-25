@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2018/9/20 11:23
  * @Description: redis操作service
  */
-@Service
+@Service(value = "redisService")
 public class RedisService {
     @Resource
     private  RedisTemplate<String, Object> redisTemplate;

@@ -35,4 +35,6 @@ public class ConstantUtil {
     public static final String EXIST_USER = "此用户已存在!";
     // 图片存储路径
     public static final String PHOTO_PATH = "G://picture";
+    // 缓存KEY
+    public static final String REDIS_KEY_ARTICLE = "article";
 }

@@ -14,6 +14,6 @@ public class SpringBootApplicationInit implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-
+        // 内容不能涉及到bean,报NullPointerException
     }
 }

@@ -3,6 +3,7 @@ package com.vip.darker.system.aop;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.model.ArticleModel;
 import com.vip.darker.service.base.SpringBootService;
+import com.vip.darker.util.ConstantUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,11 +23,24 @@ public class ArticleAspect {
 
     // 申明切点,监控文章详情页方法
     @Pointcut(value = "execution(public * com.vip.darker.controller.IndexController.getArticleDetail(*))")
-    public void article() {
+    public void updatePV() {
 
     }
 
-    @After(value = "article()")
+    // 申明切点,监控文章更新方法
+    @Pointcut(value = "execution(* *Article(..))")
+    public void deleteCache() {
+
+    }
+
+    /**
+     * 功能描述: 更新文章PV
+     *
+     * @param: [point]
+     * @auther: darker
+     * @date: 2018/9/25 16:18
+     */
+    @After(value = "updatePV()")
     public void doAfter(JoinPoint point) {
         // 获取文章ID
         int articleId = Integer.valueOf(point.getArgs()[0].toString());
@@ -37,5 +51,17 @@ public class ArticleAspect {
         articleModel.setId(articleId);
         articleModel.setReadAmount(Integer.valueOf(map.get("readAmount").toString()) + 1);
         SpringBootService.getArticleService().updateById(articleModel);
+    }
+
+    /**
+     * 功能描述: 文章缓存清空
+     *
+     * @param: [point]
+     * @auther: darker
+     * @date: 2018/9/25 16:18
+     */
+    @After(value = "deleteCache()")
+    public void deleteCache(JoinPoint point) {
+        SpringBootService.getRedisService().delKey(new String[]{ConstantUtil.REDIS_KEY_ARTICLE});
     }
 }

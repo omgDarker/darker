@@ -24,6 +24,6 @@ public class RedisRunner {
 
     @Test
     public void setValue() {
-        redisService.set("darker2", "wangbingan");
+        redisService.set("darker", "wangbingan");
     }
 }

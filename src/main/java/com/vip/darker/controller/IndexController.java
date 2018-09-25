@@ -38,11 +38,19 @@ public class IndexController {
      * @date: 2018/8/10 16:49
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @SuppressWarnings(value = "unchecked")
     public ModelAndView index(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
-        // 文章<最新,降序排列>
-        List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
+        // redis中取文章列表
+        List<ArticleModel> list = (List<ArticleModel>) SpringBootService.getRedisService().get(ConstantUtil.REDIS_KEY_ARTICLE);
+
+        if (list != null && list.size() > 0) {
+            list = list.subList((pageNum - 1) * pageSize, pageNum * pageSize > list.size() ? list.size() : pageNum * pageSize);
+        } else {
+            // 防止数据更新成功后,缓存失效
+            list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
+        }
 
         for (ArticleModel model : list) {
             // 处理文章摘要长度

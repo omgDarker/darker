@@ -126,7 +126,7 @@ public class ContentController {
      * @date: 2018/7/20 15:49
      */
     @RequestMapping(value = "/allArticle", method = RequestMethod.GET)
-    public List<Map<String, Object>> queryAllArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<Map<String, Object>> queryArticleList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 
         List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
 
