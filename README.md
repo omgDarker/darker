@@ -1,74 +1,64 @@
-网站首页
+##网站首页
+![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/index.png)
+##博客首页
+![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/index_home.png)
 
+*网站首页
 
+*关于我
 
-博客首页
+*视觉冲击
 
+*生活点滴 技术联盟
 
+*留言板
 
-模块介绍
+##登录页面
+![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/admin_login.png)
+##管理页面
+![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/admin_home.png)
 
-网站首页
+*资源模块(待使用)
 
-关于我
+*用户模块
 
-视觉冲击
+*角色模块
 
-生活点滴 技术联盟
+*权限模块
 
-留言板
+*分类模块
 
-登录页面
+*栏目模块
 
+*回收站模块
 
+*日记模块(舍弃)
 
-管理页面
+*文章模块
 
+*图片模块
 
+*留言板模块
 
-模块介绍
+*表信息模块
 
-资源模块(待使用)
+*表操作模块(未完成)
 
-用户模块
+*统计模块
 
-角色模块
+*监控模块(未完成)
 
-权限模块
+##404 500页面
 
-分类模块
+*404 http://127.0.0.1/index/error/404
 
-栏目模块
+*500 http://127.0.0.1/index/error/500
 
-回收站模块
-
-日记模块(舍弃)
-
-文章模块
-
-图片模块
-
-留言板模块
-
-表信息模块
-
-表操作模块(未完成)
-
-统计模块
-
-监控模块(未完成)
-
-404 500页面
-
-404 http://127.0.0.1/index/error/404
-
-500 http://127.0.0.1/index/error/500
-
-druid
+##druid
 
 http://127.0.0.1/druid/index.html
 
-架构设计
+##架构设计
 
 前端 Bootstrap(样式) Themeleaf(模板引擎) SweetAlert(弹窗) ECharts(图表)
 
@@ -80,7 +70,7 @@ http://127.0.0.1/druid/index.html
 
 缓存策略 1.更新数据库 2.删除缓存(AOP后置事件处理)
 
-时间轴
+##时间轴
 
 [20180712] springboot框架搭建
 
@@ -109,5 +99,3 @@ http://127.0.0.1/druid/index.html
 20180907 网站首页更新轮播图
 
 20180914 网站后台统计信息(数据库表、文章信息等)
-
-
