@@ -1,4 +1,4 @@
-darker博客
+BK个人博客-搬砖King的成长之路
 ====
 网站首页
 -------
@@ -69,15 +69,15 @@ http://127.0.0.1/druid/index.html
 架构设计
 -------
 
-前端 Bootstrap(样式) Themeleaf(模板引擎) SweetAlert(弹窗) ECharts(图表)
+* 前端 Bootstrap(样式) Themeleaf(模板引擎) SweetAlert(弹窗) ECharts(图表)
 
-后端 SpringBoot MybatisPlus
+* 后端 SpringBoot MybatisPlus
 
-组件 wangEditor(富文本框) fileInput(图片上传) jqPaginator(分页)
+* 组件 wangEditor(富文本框) fileInput(图片上传) jqPaginator(分页)
 
-数据库 MySQL Redis(缓存)
+* 数据库 MySQL Redis(缓存)
 
-缓存策略 1.更新数据库 2.删除缓存(AOP后置事件处理)
+* 缓存策略 1.更新数据库 2.删除缓存(AOP后置事件处理)
 
 时间轴
 -------
