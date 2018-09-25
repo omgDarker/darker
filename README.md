@@ -1,4 +1,4 @@
-! [这里随便填写 ] （ https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/index.png）
+ ![image](https://github.com/ButBueatiful/dotvim/raw/master/screenshots/vim-screenshot.jpg)
 
 #模块
 
