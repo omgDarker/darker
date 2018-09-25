@@ -1,5 +1,4 @@
-darker博客
-! [这里随便填写 ] （ darker/src/main/resources/static/images/github/index.png ）
+! [这里随便填写 ] （ https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/index.png）
 
 #模块
 
