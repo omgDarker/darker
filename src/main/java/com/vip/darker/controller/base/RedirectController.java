@@ -77,9 +77,9 @@ public class RedirectController {
             // 重置用户集合
             request.getServletContext().setAttribute("userList", list);
             // 缓存操作
-            List<Object> articleCache = SpringBootService.getRedisService().lGet(ConstantUtil.REDIS_KEY_ARTICLE, 0, -1);
+            Object cacheObj = SpringBootService.getRedisService().get(ConstantUtil.REDIS_KEY_ARTICLE);
             // 判断缓存是否命中
-            if (articleCache.size() == 0) {
+            if (cacheObj == null) {
                 // 设置缓存
                 SpringBootService.getRedisService().set(ConstantUtil.REDIS_KEY_ARTICLE, SpringBootService.getArticleService().selectList(new EntityWrapper<>()));
             }
