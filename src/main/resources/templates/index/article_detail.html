@@ -14,7 +14,7 @@
             <!-- 标题 -->
             <h3 class="blogtitle">
                 <span th:text="${object.columnName}"></span>
-                <a th:href="@{'/index/detail/article/'+${object.id}}" th:text="${object.title}"></a>&nbsp;
+                <a th:href="@{'/index/article/detail/'+${object.id}}" th:text="${object.title}"></a>&nbsp;
                 <!-- 复制 -->
                 <a href="#" class="copy" data-clipboard-action="copy" data-clipboard-target="#contentDetail"
                    title="复制代码">
@@ -24,7 +24,8 @@
             <!-- 提示信息 -->
             <div class="autor">
                 <!-- 时钟 -->
-                <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                <span class="dtime f_l">
+                <span th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
                 <!-- 浏览量 -->
                 共<a href="#" th:utext="${object.readAmount}"></a>人围观&nbsp;
                 <!-- 点赞量 -->

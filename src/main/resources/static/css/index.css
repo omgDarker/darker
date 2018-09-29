@@ -126,7 +126,7 @@ h3.blogtitle {
 
 .autor span {
     margin: 0 10px 0 0;
-    padding-left: 17px
+    padding-left: 7px
 }
 
 .autor span a {
@@ -142,7 +142,7 @@ h3.blogtitle {
 }
 
 .dtime {
-    background: url(../images/posttime.gif) no-repeat left center
+    background: url(../images/posttime.gif) no-repeat 1px
 }
 
 .viewnum {

@@ -22,27 +22,6 @@
                              width="100%">
                     </div>
                 </div>
-                <!--<div class="lispic">-->
-                <!--<ul id="addToPhoto">-->
-                <!--<li th:each="photo : ${photoList}">-->
-                <!--<a th:href="@{'/image/showImage/'+${photo.name}}">-->
-                <!--<i><img th:src="@{'/image/showImage/'+${photo.name}}"></i>-->
-                <!--<span th:text="${photo.title}"></span>-->
-                <!--</a>-->
-                <!--</li>-->
-                <!--</ul>-->
-                <!--</div>-->
-                <!--<div class="module-cmt-footer">-->
-                <!--<span id="pageNum" th:text="${pageNum}" th:hidden="true"></span>-->
-                <!--<span id="classifyId" th:text="${classifyId}" th:hidden="true"></span>-->
-                <!--<span id="columnId" th:text="${columnId}" th:hidden="true"></span>-->
-                <!--&lt;!&ndash; 翻页 &ndash;&gt;-->
-                <!--<div class="section-page-w">-->
-                <!--<div node-type="cmt-more" class="cmt-more-wrap-gw" id="moreWatch" onclick="turnPage()">查看更多-->
-                <!--<span class="more-arrow-ico" id="moreIcon"></span>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
             </div>
         </div>
         <div class="blank"></div>
@@ -204,81 +183,6 @@
             }).attr('src', $this.attr('src'));
         });
     });
-
-    // 翻页操作
-    function turnPage() {
-
-        var pageNum = parseInt(document.getElementById("pageNum").innerText) + 1;
-        var classifyId = parseInt(document.getElementById("classifyId").innerText);
-        var columnId = parseInt(document.getElementById("columnId").innerText);
-        var url = "/index/photo/turn/" + classifyId;
-        // 判断是否存在栏目
-        if (!isNaN(parseInt(columnId))) {
-            url += "/" + columnId
-        }
-        $.ajax({
-            //请求URL地址,controller的名称
-            url: url,
-            //请求返回数据格式为json,还可以是text等
-            dataType: "JSON",
-            //请求是否为异步,默认是true
-            async: true,
-            //是否从浏览器缓存中加载数据信息
-            cache: false,
-            //设置请求超时时间
-            timeout: 1000,
-            //参数值,如果URL带参数,这里就可以不用写了
-            data: {"pageNum": pageNum},
-            //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
-            type: "GET",
-            //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
-            beforeSend: function () {
-            },
-            //请求成功时的处理函数,参数(返回数据,返回状态)
-            success: function (data) {
-                // 追加留言数据
-                addPhotoToBoard(data);
-                // 回写页数,方便下次翻页
-                $("#pageNum").text(pageNum);
-            },
-            //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
-            complete: function () {
-            },
-            //请求出错时的处理函数,参数(XMLHttpRequest对象,返回状态,错误对象)
-            error: function () {
-            }
-        });
-    }
-
-    // 追加图片到相册操作
-    function addPhotoToBoard(data) {
-
-        var appendHtml = '';
-        var photoArray = eval("(" + data + ")");
-        // 判断相册是否查询完毕
-        if (photoArray.length !== 12) {
-            $("#moreWatch").text('别翻了,没有更多了!');
-            $("#moreIcon").attr('display', 'none');
-        }
-
-        for (var i = 0; i < photoArray.length; i++) {
-
-            var photo = photoArray[i];
-
-            appendHtml += '<li>';
-            appendHtml += '<a href="/image/showImage/' + photo.name + '">';
-            appendHtml += '<i>';
-            appendHtml += '<img src="/image/showImage/' + photo.name + '">';
-            appendHtml += '</i>';
-            appendHtml += '<span>' + photo.title + '</span>';
-            appendHtml += '</a>';
-            appendHtml += '</li>';
-        }
-        //先保存div中原来的html
-        var html = document.getElementById("addToPhoto").innerHTML;
-        //再跟你想追加的代码加到一起插入div中
-        document.getElementById("addToPhoto").innerHTML = html + appendHtml;
-    }
 </script>
 </body>
 </html>

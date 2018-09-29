@@ -51,6 +51,8 @@ public class ArticleAspect {
         articleModel.setId(articleId);
         articleModel.setReadAmount(Integer.valueOf(map.get("readAmount").toString()) + 1);
         SpringBootService.getArticleService().updateById(articleModel);
+        // 清空redis缓存
+        SpringBootService.getRedisService().delKey(new String[]{ConstantUtil.REDIS_KEY_ARTICLE});
     }
 
     /**

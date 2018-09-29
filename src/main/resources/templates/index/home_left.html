@@ -25,11 +25,16 @@
             </div>
             <!-- 提示信息 -->
             <div class="autor">
-                <span class="columntag f_l" th:text="${object.columnName}"></span>
-                <span class="dtime f_l" th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
-                <span class="viewnum f_l" th:text="'浏览('+${object.readAmount}+')'"></span>
-                <span class="likemuch f_l" th:text="'点赞('+${object.likeAmount}+')'"></span>
-                <span class="likenomuch f_l" th:text="'甩鞋('+${object.likeNoAmount}+')'"></span>
+                <span class="fa fa-pencil f_l"
+                      th:text="${' '+object.columnName}"></span>
+                <span class="fa fa-clock-o f_l"
+                      th:text="${' '+#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                <span class="fa fa-eye f_l"
+                      th:text="' 浏览('+${object.readAmount}+')'"></span>
+                <span class="fa fa-heart f_l"
+                      th:text="' 点赞('+${object.likeAmount}+')'"></span>
+                <span class="fa fa-heartbeat f_l"
+                      th:text="' 甩鞋('+${object.likeNoAmount}+')'"></span>
                 <span class="f_r"><a class="more"
                                      th:href="@{'/index/article/detail/'+${object.id}}">阅读原文&gt;&gt;</a></span>
             </div>
