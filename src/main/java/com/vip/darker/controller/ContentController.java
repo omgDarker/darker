@@ -6,6 +6,7 @@ import com.vip.darker.model.*;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.BeanToMapUtil;
 import com.vip.darker.util.ConstantUtil;
+import com.vip.darker.util.WebSiteUtil;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -34,7 +35,10 @@ public class ContentController {
      */
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
     public Map<String, Object> addArticle(ArticleModel articleModel) {
-
+        // 重新设置summary
+        if ("<p></p>".equals(WebSiteUtil.replaceBlank(articleModel.getSummary()))) {
+            articleModel.setSummary("");
+        }
         boolean flag = SpringBootService.getArticleService().insert(articleModel);
 
         Map<String, Object> map = new HashMap<>();

@@ -33,7 +33,7 @@
              onclick="swal('恭喜你,获取博主QQ:61489385', '', 'success');">
         <img src="../../../images/boy.png" style="height: 50px;width: 50px;" alt="男朋友"
              onclick="swal('希望你早日找到男朋友!', '', 'success');">
-        <img src="../../../images/shamegirl.png" style="height: 50px;width: 50px;" alt="女朋友"
+        <img src="../../../images/girl.png" style="height: 50px;width: 50px;" alt="女朋友"
              onclick="swal('希望你早日找到女朋友!', '', 'success');">
     </div>
     <!-- 美图鉴赏 -->
@@ -56,17 +56,17 @@
             <li th:each="readAmount:${readAmountList}">
                 <a th:href="@{'/index/article/detail/'+${readAmount.id}}">
                      <span th:if="${readAmount.imageName!=null&&readAmount.imageName!=''}">
-                            <i><img th:src="@{'/image/showImage/'+${readAmount.imageName}}" height="55" width="200"></i>
+                         <i><img th:src="@{'/image/showImage/'+${readAmount.imageName}}" height="55" width="200"></i>
                      </span>
                     <span th:if="${readAmount.imageName==null||readAmount.imageName==''}">
-                            <i><img src="/images/back/back4.jpg" height="55" width="200"></i>
-                         </span>
+                         <i><img src="/images/photo.jpg" height="55" width="200"></i>
+                     </span>
                     <p th:utext="${readAmount.title}"></p>
+                    <p>
+                        <span class="tulanmu" th:text="${readAmount.columnName}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="tutime" th:text="${#dates.format(readAmount.updateTime,'yyyy/MM/dd')}"></span>
+                    </p>
                 </a>
-                <p>
-                    <span class="tulanmu" th:text="${readAmount.columnName}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="tutime" th:text="${#dates.format(readAmount.updateTime,'yyyy/MM/dd')}"></span>
-                </p>
             </li>
         </ul>
     </div>
@@ -80,14 +80,14 @@
                         <i><img th:src="@{'/image/showImage/'+${likeAmount.imageName}}" height="55" width="200"></i>
                     </span>
                     <span th:if="${likeAmount.imageName==null||likeAmount.imageName==''}">
-                        <i><img src="/images/back/back4.jpg" height="55" width="200"></i>
+                        <i><img src="/images/photo.jpg" height="55" width="200"></i>
                     </span>
                     <p th:utext="${likeAmount.title}"></p>
+                    <p>
+                        <span class="tulanmu" th:text="${likeAmount.columnName}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="tutime" th:text="${#dates.format(likeAmount.updateTime,'yyyy/MM/dd')}"></span>
+                    </p>
                 </a>
-                <p>
-                    <span class="tulanmu" th:text="${likeAmount.columnName}"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="tutime" th:text="${#dates.format(likeAmount.updateTime,'yyyy/MM/dd')}"></span>
-                </p>
             </li>
         </ul>
     </div>

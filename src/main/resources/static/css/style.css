@@ -103,7 +103,7 @@ li.one {
     right: 10px;
     width: 19px;
     height: 19px;
-    background: url("../images/icons/close.png") no-repeat center;
+    background: url("../images/about/close.png") no-repeat center;
 }
 
 .btn {
@@ -142,51 +142,51 @@ li.one {
 }
 
 .table a:nth-of-type(1) {
-    background: url("../images/icons/circle.png") no-repeat center 2px;
+    background: url("../images/about/circle.png") no-repeat center 2px;
 }
 
 .table a:nth-of-type(2) {
-    background: url("../images/icons/Cone.png") no-repeat center top;
+    background: url("../images/about/Cone.png") no-repeat center top;
 }
 
 .table a:nth-of-type(3) {
-    background: url("../images/icons/Column.png") no-repeat center top;
+    background: url("../images/about/Column.png") no-repeat center top;
 }
 
 .table a:nth-of-type(4) {
-    background: url("../images/icons/Column2.png") no-repeat center top;
+    background: url("../images/about/Column2.png") no-repeat center top;
 }
 
 .table a:nth-of-type(1):hover {
-    background: url("../images/icons/circle-hover.png") no-repeat center 2px;
+    background: url("../images/about/circle-hover.png") no-repeat center 2px;
 }
 
 .table a:nth-of-type(2):hover {
-    background: url("../images/icons/Cone-hover.png") no-repeat center top;
+    background: url("../images/about/Cone-hover.png") no-repeat center top;
 }
 
 .table a:nth-of-type(3):hover {
-    background: url("../images/icons/Column-hover.png") no-repeat center top;
+    background: url("../images/about/Column-hover.png") no-repeat center top;
 }
 
 .table a:nth-of-type(4):hover {
-    background: url("../images/icons/Column2-hover.png") no-repeat center top;
+    background: url("../images/about/Column2-hover.png") no-repeat center top;
 }
 
 .table a:nth-of-type(1).active {
-    background: url("../images/icons/circle-active.png") no-repeat center 2px;
+    background: url("../images/about/circle-active.png") no-repeat center 2px;
 }
 
 .table a:nth-of-type(2).active {
-    background: url("../images/icons/Cone-active.png") no-repeat center top;
+    background: url("../images/about/Cone-active.png") no-repeat center top;
 }
 
 .table a:nth-of-type(3).active {
-    background: url("../images/icons/Column-active.png") no-repeat center top;
+    background: url("../images/about/Column-active.png") no-repeat center top;
 }
 
 .table a:nth-of-type(4).active {
-    background: url("../images/icons/Column2-active.png") no-repeat center top;
+    background: url("../images/about/Column2-active.png") no-repeat center top;
 }
 
 .line {

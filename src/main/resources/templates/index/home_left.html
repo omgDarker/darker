@@ -11,21 +11,20 @@
         <li th:each="object : ${list}">
             <!-- 内容 -->
             <div class="bloginfo">
-                <!--文章首图-->
+                <!-- 文章首图 -->
                 <span class="blogpic" th:if="${object.imageName!=null&&object.imageName!=''}" style="margin-top:5px;">
-                        <a th:href="@{'/image/showImage/'+${object.imageName}}">
-                            <i><img th:src="@{'/image/showImage/'+${object.imageName}}" height="100" width="200"></i>
-                        </a>
-                    </span>
+                    <i><img th:src="@{'/image/showImage/'+${object.imageName}}" height="100" width="200"></i>
+                </span>
                 <!-- 标题 -->
                 <h3 class="blogtitle">
                     <a th:href="@{'/index/article/detail/'+${object.id}}" th:text="${object.title}"></a>
                 </h3>
+                <!-- 简介 -->
                 <p th:utext="${object.summary}"></p>
             </div>
             <!-- 提示信息 -->
             <div class="autor">
-                <span class="fa fa-pencil f_l"
+                <span class="fa fa-tags f_l"
                       th:text="${' '+object.columnName}"></span>
                 <span class="fa fa-clock-o f_l"
                       th:text="${' '+#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
@@ -35,8 +34,8 @@
                       th:text="' 点赞('+${object.likeAmount}+')'"></span>
                 <span class="fa fa-heartbeat f_l"
                       th:text="' 甩鞋('+${object.likeNoAmount}+')'"></span>
-                <span class="f_r"><a class="more"
-                                     th:href="@{'/index/article/detail/'+${object.id}}">阅读原文&gt;&gt;</a></span>
+                <span class="f_r">
+                    <a th:href="@{'/index/article/detail/'+${object.id}}">阅读原文&gt;&gt;</a></span>
             </div>
         </li>
     </ul>

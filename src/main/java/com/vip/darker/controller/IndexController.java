@@ -107,6 +107,10 @@ public class IndexController {
         } else {
             articleModel.setColumnName("其他类型");
         }
+        // 重新设置summary
+        if ("<p></p>".equals(WebSiteUtil.replaceBlank(articleModel.getSummary()))) {
+            articleModel.setSummary("");
+        }
         modelAndView.addObject("object", articleModel);
         // 文章总数
         modelAndView.addObject("numSum", SpringBootService.getArticleService().selectCount(new EntityWrapper<>()));

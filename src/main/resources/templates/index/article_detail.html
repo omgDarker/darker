@@ -16,8 +16,7 @@
                 <span th:text="${object.columnName}"></span>
                 <a th:href="@{'/index/article/detail/'+${object.id}}" th:text="${object.title}"></a>&nbsp;
                 <!-- 复制 -->
-                <a href="#" class="copy" data-clipboard-action="copy" data-clipboard-target="#contentDetail"
-                   title="复制代码">
+                <a href="#" class="copy" data-clipboard-action="copy" data-clipboard-target="#contentDetail" title="复制代码">
                     <i class="fa fa-floppy-o"></i>
                 </a>
             </h3>
@@ -25,15 +24,15 @@
             <div class="autor">
                 <!-- 时钟 -->
                 <span class="dtime f_l">
-                <span th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                    <span th:text="${#dates.format(object.updateTime,'yyyy/MM/dd HH:mm')}"></span>
+                </span>
                 <!-- 浏览量 -->
                 共<a href="#" th:utext="${object.readAmount}"></a>人围观&nbsp;
                 <!-- 点赞量 -->
                 <a href="#" th:utext="${object.likeAmount}"></a>人点赞&nbsp;
                 <!-- 甩鞋量 -->
                 <a href="#" th:utext="${object.likeNoAmount}"></a>人甩鞋
-            </div>
-            <br/>
+            </div><br/>
             <div class="article_about" th:if="${object.summary!=null&&object.summary!=''}">
                 <span th:utext="${'<b>简介</b>&nbsp;'+object.summary}"></span>
             </div>

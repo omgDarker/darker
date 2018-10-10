@@ -10,11 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Auther: Darker
  * @Date: 2018/9/14 16:55
- * @Description: 文章相关工具类
+ * @Description: 网站相关工具类
  */
 public class WebSiteUtil {
 
@@ -60,5 +62,21 @@ public class WebSiteUtil {
             }
         }
         return list;
+    }
+
+    /**
+     * 功能描述: 移除字符串空格、回车
+     *
+     * @auther: darker
+     * @date: 2018/9/14 16:57
+     */
+    public static String replaceBlank(String str) {
+        String dest = "";
+        if (str != null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");
+            Matcher m = p.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
     }
 }
