@@ -15,7 +15,7 @@
                     您现在的位置是：<a href="/index/home" target="_self">网站首页</a>&nbsp;&gt;&gt;留言板
                 </div>
                 <div class="showcase">
-                    <div style="line-height: 40px; margin-top:40px;">
+                    <div style="line-height: 20px; margin-top:40px;">
                         <ul class="timeline" id="addToMessage">
                             <li th:each="message:${messageList}">
                                 <!-- 连线 -->
@@ -32,7 +32,7 @@
                                 <!-- 留言 -->
                                 <div class="content_message">
                                     <b></b>
-                                    <p class="danceWord-s3" style="text-indent: 2em;font-size: 18px;"
+                                    <p class="danceWord-s4" style="text-indent: 1em"
                                        th:text="${message.content}"></p>
                                 </div>
                             </li>
@@ -102,10 +102,7 @@
 
         var messageArray = eval("(" + data + ")");
         // 判断留言是否查询完毕
-        if (messageArray.length === 0) {
-            $("#moreWatch").text('别翻了,没有更多了!');
-            $("#moreIcon").attr('display', 'none');
-        } else {
+        if (messageArray.length > 0) {
 
             for (var i in messageArray) {
 
@@ -123,15 +120,19 @@
                 appendHtml += '</div>';
                 appendHtml += '<div class="content_message">';
                 appendHtml += '<b></b>';
-                appendHtml += '<p class="danceWord-s3" style="text-indent: 2em;font-size: 18px;">' + message.content + '</p>';
+                appendHtml += '<p class="danceWord-s4" style="text-indent: 1em">' + message.content + '</p>';
                 appendHtml += '</div>';
                 appendHtml += '</li>';
             }
-            //先保存div中原来的html
+            // 获取原有html
             var html = document.getElementById("addToMessage").innerHTML;
-            console.info(html);
-            //再跟你想追加的代码加到一起插入div中
+            // 重新组装现有html
             document.getElementById("addToMessage").innerHTML = html + appendHtml;
+
+            if (messageArray.length !== 10) {
+                $("#moreWatch").text('别翻了,没有更多了!');
+                $("#moreIcon").attr('display', 'none');
+            }
         }
     }
 </script>

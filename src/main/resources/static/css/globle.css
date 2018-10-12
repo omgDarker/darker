@@ -123,3 +123,16 @@ table {
     font: bold 54px/75px "Arial";
     color: #ddf0ff;
 }
+
+.detail-frame {
+    display: block;
+    font-size: inherit;
+    color: inherit;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px auto 0;
+}

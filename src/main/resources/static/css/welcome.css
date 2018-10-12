@@ -1,119 +1,108 @@
-/*
-    若margin给的是四个值,比如：margin:0px 0px 0px 0px;
-	代表：margin:top right bottom left代表从上右下左，顺时针方向。
-    若margin给的是三个值比如：margin:0px 0px 0px;
-	代表：margin:top  left-right bottom;
-	代表上 左右 下.中间一个值被左右两个占用。
-*/
 * {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
-body,html {
-    overflow:scroll;
-    overflow-y:hidden;
+
+body, html {
+    overflow: scroll;
     /*禁止Y轴滚动条*/
-    overflow-x:hidden;
+    overflow-y: hidden;
     /*禁止X轴滚动条*/
+    overflow-x: hidden;
 }
+
 .bg {
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
+
 .bg-box-1 {
-    background:url('../images/round/hp1.jpg') no-repeat center/cover;
+    background: url('../images/round/hp1.jpg') no-repeat center/cover;
 }
+
 .bg-box-2 {
-    background:url('../images/round/hp2.jpg') no-repeat center/cover;
+    background: url('../images/round/hp2.jpg') no-repeat center/cover;
 }
+
 .bg-box-3 {
-    background:url('../images/round/hp3.jpg') no-repeat center/cover;
+    background: url('../images/round/hp3.jpg') no-repeat center/cover;
 }
+
 .bg-box-4 {
-    background:url('../images/round/hp4.jpg') no-repeat center/cover;
+    background: url('../images/round/hp4.jpg') no-repeat center/cover;
 }
+
 .bg-box-5 {
-    background:url('../images/round/hp5.jpg') no-repeat center/cover;
+    background: url('../images/round/hp5.jpg') no-repeat center/cover;
 }
+
 .bg-box-6 {
-    background:url('../images/round/hp6.jpg') no-repeat center/cover;
+    background: url('../images/round/hp6.jpg') no-repeat center/cover;
 }
+
 #wrap {
-    position:absolute;
-    overflow:hidden;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    margin:100px 0 0 100px;
-    width:100%;
-    height:100%;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 100px 0 0 100px;
+    width: 100%;
+    height: 100%;
 }
+
 #wrap > ul {
-    width:100%;
-    list-style:none;
+    list-style: none;
 }
+
 #wrap > ul > li {
-    float:left;
-    width:100px;
-    height:500px;
-    cursor:pointer;
+    float: left;
+    cursor: pointer;
+    height: 350px;
 }
+
 #wrap > ul > li:nth-child(1) {
-    background:url('../images/round/hp1.jpg') no-repeat center/cover;
+    background: url('../images/round/hp1.jpg') no-repeat center/cover;
 }
+
 #wrap > ul > li:nth-child(2) {
-    background:url('../images/round/hp2.jpg') no-repeat center/cover;
+    background: url('../images/round/hp2.jpg') no-repeat center/cover;
 }
+
 #wrap > ul > li:nth-child(3) {
-    background:url('../images/round/hp3.jpg') no-repeat center/cover;
+    background: url('../images/round/hp3.jpg') no-repeat center/cover;
 }
+
 #wrap > ul > li:nth-child(4) {
-    background:url('../images/round/hp4.jpg') no-repeat center/cover;
+    background: url('../images/round/hp4.jpg') no-repeat center/cover;
 }
+
 #wrap > ul > li:nth-child(5) {
-    background:url('../images/round/hp5.jpg') no-repeat center/cover;
+    background: url('../images/round/hp5.jpg') no-repeat center/cover;
 }
+
 #wrap > ul > li:nth-child(6) {
-    background:url('../images/round/hp6.jpg') no-repeat center/cover;
+    background: url('../images/round/hp6.jpg') no-repeat center/cover;
 }
+
 #wrap > ul > li > .text {
-    width:100px;
-    height:100%;
-    background:#000;
-    opacity:.5;
+    width: 100px;
+    height: 100%;
+    background: #000;
+    opacity: .5;
 }
+
 #wrap > ul > li > .text p {
-    padding:50px 40px;
-    font-family:'Microsoft yahei',serif;
-    color:#fff;
+    padding: 50px 40px;
+    font-family: 'Microsoft yahei', serif;
+    color: #fff;
 }
-a:link,a:visited {
-    text-decoration:none;
+
+a:link, a:visited {
     /*超链接无下划线*/
-}
-@media (min-width:1200px) {
-}/*在992 和1199 像素之间的屏幕里，中等屏幕，分辨率低的PC*/
-@media (min-width:992px) and (max-width:1199px) {
-    #bg-box {
-        width:50%;
-        margin:-10px 0 0 -25%;
-    }
-    #bg-box h2 {
-        font-size:40px;
-    }
-}/*在768 和991 像素之间的屏幕里，小屏幕，主要是PAD*/
-@media (min-width:768px) and (max-width:991px) {
-    #bg-box {
-        width:60%;
-        margin:-10px 0 0 -30%;
-    }
-}/*在480 和767 像素之间的屏幕里，超小屏幕，主要是手机*/
-@media (min-width:480px) and (max-width:767px) {
-    #bg-box {
-        height:45px;
-    }
+    text-decoration: none;
 }

@@ -126,4 +126,16 @@ public class RedirectController {
         return "redirect:index/message";
     }
 
+    /**
+     * 功能描述: 后端登录
+     *
+     * @param: []
+     * @return: java.lang.String
+     * @auther: darker
+     * @date: 2018/10/12 12:11
+     */
+    @RequestMapping(value = {"/admin", "/login"})
+    public String defaultAdmin() {
+        return "redirect:admin/login";
+    }
 }

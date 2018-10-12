@@ -492,13 +492,13 @@ input[type="checkbox"] {
 
 /*阅读原文 留言板样式*/
 .netFriend span {
-    background: #c77405;
     padding: 2px 5px;
     font-size: 14px;
-    color: #FFF;
-    border-radius: 2px;
+    color: #e74851;
+    border-radius: 5px;
     position: relative;
     margin-right: 20px;
+    line-height: 30px;
 }
 
 /*留言板内容样式*/

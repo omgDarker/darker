@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <title>BK个人博客-搬砖King的成长之路</title>
     <!-- 图标 -->
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon-.ico"/>
@@ -123,7 +122,9 @@
     (function () {
         $('#wrap li').mouseover(function () {
             if (!$(this).hasClass('curr')) {
+
                 $('#wrap li').removeClass('curr');
+
                 $(this).addClass('curr');
 
                 // 切换背景
@@ -135,9 +136,11 @@
                 });
 
                 $('.curr').stop().animate({
+                    // 停留图片尺寸
                     width: 750
                 }, 500, 'linear');
                 $('#wrap li').not('.curr').stop().animate({
+                    // 标题尺寸
                     width: 100
                 }, 500, 'linear');
             }
