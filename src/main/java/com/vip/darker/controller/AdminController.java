@@ -22,7 +22,7 @@ import java.util.Map;
 public class AdminController {
 
     /**
-     * 功能描述: 后台管理登录
+     * 功能描述: 后台登录跳转
      *
      * @return: modelAndView
      * @auther: darker
@@ -64,9 +64,9 @@ public class AdminController {
     public Map<String, Object> register(UserModel userModel) {
         Map<String, Object> map = new HashMap<>();
         // 判断是否存在此用户
-        Object user = SpringBootService.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword()));
-        if (user != null) {
-            map.put(ConstantUtil.MSG, ConstantUtil.EXIST_USER);
+        Object obj = SpringBootService.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword()));
+        if (obj != null) {
+            map.put(ConstantUtil.MSG, "用户已存在!");
         } else {
             map.put(ConstantUtil.MSG, SpringBootService.getUserService().insert(userModel) ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
         }

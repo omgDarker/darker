@@ -115,7 +115,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/userMaxPage",
+                url: "/users/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -148,7 +148,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/roleMaxPage",
+                url: "/roles/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -181,7 +181,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/permissionMaxPage",
+                url: "/permissions/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -345,7 +345,7 @@ $(function () {
         } else if ('statistics' === controls) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/operation/queryStatisticsList",
+                url: "/operation/statistics",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -376,7 +376,6 @@ $(function () {
                     // 统计图
                     statisticsVChart(data);
                     statisticsCChart(data);
-
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                 complete: function () {
@@ -389,7 +388,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/dbms/getDBInformation",
+                url: "/dbms/tables",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -1542,7 +1541,7 @@ function userPagination(userMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/all",
+                url: "/users",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -1612,7 +1611,7 @@ function parseUserHtmlContent(data) {
 function addUser() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/add",
+        url: "/users",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -1654,7 +1653,7 @@ function addUser() {
 function queryUser(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/all/" + id,
+        url: "/users/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -1698,7 +1697,7 @@ function queryUser(id) {
 function queryAllRole(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/allRole",
+        url: "/roles",
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -1733,11 +1732,11 @@ function queryAllRole(id) {
     });
 }
 
-// 更新操作
+// 用户更新操作
 function updateUser() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/update",
+        url: "/users/" + $("#userId").val(),
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -1794,7 +1793,7 @@ function deleteUser(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/delete/" + id,
+                url: "/users/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -1861,7 +1860,7 @@ function rolePagination(roleMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/allRole",
+                url: "/roles",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -1925,7 +1924,7 @@ function parseRoleHtmlContent(data) {
 function addRole() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/addRole",
+        url: "/roles",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -1963,11 +1962,11 @@ function addRole() {
     });
 }
 
-// 查询资源实体
+// 查询角色实体
 function queryRole(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/allRole/" + id,
+        url: "/roles/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -2011,7 +2010,7 @@ function queryRole(id) {
 function queryAllPermission(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/allPermission",
+        url: "/permissions",
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -2050,7 +2049,7 @@ function queryAllPermission(id) {
 function updateRole() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/updateRole",
+        url: "/roles/" + $("#roleId").val(),
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -2107,7 +2106,7 @@ function deleteRole(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/deleteRole/" + id,
+                url: "/roles/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -2174,7 +2173,7 @@ function permissionPagination(permissionMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/allPermission",
+                url: "/permissions",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -2236,7 +2235,7 @@ function parsePermissionHtmlContent(data) {
 function addPermission() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/addPermission",
+        url: "/permissions",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -2274,11 +2273,11 @@ function addPermission() {
     });
 }
 
-// 查询资源实体
+// 查询权限实体
 function queryPermission(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/allPremission/" + id,
+        url: "/permissions/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -2320,7 +2319,7 @@ function queryPermission(id) {
 function updatePermission() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/user/updatePermission",
+        url: "/permissions/" + $("#permissionId").val(),
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -2377,7 +2376,7 @@ function deletePermission(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/user/deletePermission/" + id,
+                url: "/permissions/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true

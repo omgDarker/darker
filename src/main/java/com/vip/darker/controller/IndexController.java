@@ -326,30 +326,4 @@ public class IndexController {
 
         return map;
     }
-
-    /**
-     * 功能描述: 错误页面404
-     *
-     * @param: []
-     * @return: org.springframework.web.servlet.ModelAndView
-     * @auther: darker
-     * @date: 2018/8/17 17:59
-     */
-    @RequestMapping(value = "/error/404")
-    public ModelAndView errorPage404() {
-        return new ModelAndView("404");
-    }
-
-    /**
-     * 功能描述: 错误页面500
-     *
-     * @param: []
-     * @return: org.springframework.web.servlet.ModelAndView
-     * @auther: darker
-     * @date: 2018/9/29 09:30
-     */
-    @RequestMapping(value = "/error/500")
-    public ModelAndView errorPage500() {
-        return new ModelAndView("500");
-    }
 }

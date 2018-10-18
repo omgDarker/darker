@@ -35,7 +35,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/addArticle", method = RequestMethod.POST)
     public Map<String, Object> addArticle(ArticleModel articleModel) {
-        // 重新设置summary
+        // 重新设置summary,防止出现空简介
         if ("<p></p>".equals(WebSiteUtil.replaceBlank(articleModel.getSummary()))) {
             articleModel.setSummary("");
         }

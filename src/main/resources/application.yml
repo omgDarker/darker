@@ -42,7 +42,7 @@ spring:
         host: 127.0.0.1
         #端口号
         port: 6379
-        #密码
+        #密码(默认)
         password: redis
         #连接池
         pool:
@@ -94,4 +94,3 @@ statistics:
   countVV: 500
   #记录访问人数
   countUV: 235
-

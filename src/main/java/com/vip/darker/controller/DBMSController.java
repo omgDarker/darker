@@ -22,8 +22,8 @@ public class DBMSController {
      * @auther: darker
      * @date: 2018/9/17 10:49
      */
-    @RequestMapping(value = "/getDBInformation")
-    public Map<String, Object> getDBInformation() {
+    @RequestMapping(value = "/tables")
+    public Map<String, Object> getDBTables() {
         // 数据库连接
         Connection conn = null;
         // 结果集
@@ -33,7 +33,7 @@ public class DBMSController {
             // 加载数据库驱动
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             // 获取数据库连接
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/darker", "root", "root");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/darker", "root", "root");
             // 获取数据库信息
             DatabaseMetaData dbMetaData = conn.getMetaData();
             // 获取数据库表信息

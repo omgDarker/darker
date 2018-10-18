@@ -21,11 +21,11 @@ import java.util.Map;
 /**
  * @Auther: Darker
  * @Date: 2018/7/26 15:18
- * @Description: 重置项controller
+ * @Description: 重定向controller
  */
 @Controller
 public class RedirectController {
-
+    // 标识浏览量PV是否已初始化
     private boolean init = true;
 
     private Logger logger = LoggerFactory.getLogger(RedirectController.class);
@@ -38,15 +38,16 @@ public class RedirectController {
      * @auther: darker
      * @date: 2018/8/22 15:06
      */
-    @RequestMapping(value = {"/", "/index", "/index/", "/index/home"})
+    @RequestMapping(value = {"/", "/index", "/index/", "/index/home", "/home"})
     @SuppressWarnings(value = "unchecked")
     public String defaultIndex(HttpServletRequest request) {
         // 加锁防止并发
         synchronized (this) {
-            // 网站浏览量数值初始化
+            // 1.网站浏览量PV初始化
             if (init) {
-                // 查询数据库,若值存在,则重置浏览量数值
+                // 查询数据库,若值存在,则重置浏览量
                 Map<String, Object> map = SpringBootService.getStatisticsService().selectMap(new EntityWrapper<StatisticsModel>().where("classify={0}", "pv"));
+
                 if (map != null) {
                     if (map.containsKey("amount")) {
                         SpringBootService.getSpringBootPropertiesLoad().setCountPV((int) map.get("amount"));
@@ -54,34 +55,36 @@ public class RedirectController {
                 }
                 init = false;
             }
-            // 网站访问人数
-            // 获取用户列表
-            List<UserModel> list = (List<UserModel>) request.getServletContext().getAttribute("userList");
-            if (list == null) {
-                list = new ArrayList<>();
+            // 2.网站访问人数
+            List<UserModel> userList = (List<UserModel>) request.getServletContext().getAttribute("userList");
+            if (userList == null) {
+                userList = new ArrayList<>();
             }
             // 获得用户sessionId
             String sessionId = request.getSession().getId();
-            // 判断是否存在此游客
-            if (SessionUtil.getUserBySessionId(list, sessionId) == null) {
+            // 若游客不存在用户列表中
+            if (SessionUtil.getUserBySessionId(userList, sessionId) == null) {
                 UserModel user = new UserModel();
                 user.setSessionId(sessionId);
-                // 获得ip地址
                 user.setIp(request.getRemoteAddr());
-                // 获得登录地址
                 user.setLoginTime(new SimpleDateFormat("yyyy-MM--dd HH:mm:ss").format(new Date()));
-                list.add(user);
+                user.setName("陌生人");
+                userList.add(user);
                 // 持久化到DB
                 SpringBootService.getUserService().insert(user);
             }
-            // 重置用户集合
-            request.getServletContext().setAttribute("userList", list);
-            // 缓存操作
-            Object cacheObj = SpringBootService.getRedisService().get(ConstantUtil.REDIS_KEY_ARTICLE);
-            // 判断缓存是否命中
-            if (cacheObj == null) {
-                // 设置缓存
-                SpringBootService.getRedisService().set(ConstantUtil.REDIS_KEY_ARTICLE, SpringBootService.getArticleService().selectList(new EntityWrapper<>()));
+            // 重置用户列表
+            request.getServletContext().setAttribute("userList", userList);
+            // 3.缓存操作,获取文章信息
+            try {
+                Object cacheObj = SpringBootService.getRedisService().get(ConstantUtil.REDIS_KEY_ARTICLE);
+                // 判断缓存是否命中
+                if (cacheObj == null) {
+                    // 设置缓存
+                    SpringBootService.getRedisService().set(ConstantUtil.REDIS_KEY_ARTICLE, SpringBootService.getArticleService().selectList(new EntityWrapper<>()));
+                }
+            } catch (Exception e) {
+                logger.info("redis服务启动异常!");
             }
         }
         return "index/welcome";
@@ -127,14 +130,14 @@ public class RedirectController {
     }
 
     /**
-     * 功能描述: 后端登录
+     * 功能描述: 后台登录
      *
      * @param: []
      * @return: java.lang.String
      * @auther: darker
      * @date: 2018/10/12 12:11
      */
-    @RequestMapping(value = {"/admin", "/login"})
+    @RequestMapping(value = {"/admin", "/admin/home", "/login"})
     public String defaultAdmin() {
         return "redirect:admin/login";
     }

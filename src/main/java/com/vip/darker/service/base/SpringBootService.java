@@ -215,8 +215,5 @@ public class SpringBootService {
      */
     public static RedisService getRedisService(){
         return (RedisService) SpringBootApplicationContent.getBean("redisService");
-
     }
-
-
 }

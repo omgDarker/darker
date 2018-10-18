@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @Auther: Darker
  * @Date: 2018/9/03 10:24
- * @Description: 全局异常跳转页面调度器
+ * @Description: 全局异常跳转页面控制器
  */
 @Controller
-@RequestMapping(value = ErrorPageController.BEAN_NAME)
-public class ErrorPageController {
+@RequestMapping(value = PageController.BEAN_NAME)
+public class PageController {
 
     public static final String BEAN_NAME = "error";
 
