@@ -6,6 +6,7 @@ import com.vip.darker.model.UserModel;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.ConstantUtil;
 import com.vip.darker.util.SessionUtil;
+import com.vip.darker.util.WebSiteUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -65,10 +66,12 @@ public class RedirectController {
             // 若游客不存在用户列表中
             if (SessionUtil.getUserBySessionId(userList, sessionId) == null) {
                 UserModel user = new UserModel();
+                user.setName("陌生人");
+                user.setEmail("stranger@qq.vip.com");
                 user.setSessionId(sessionId);
                 user.setIp(request.getRemoteAddr());
+                user.setArea(WebSiteUtil.getCountryNameByIp(request.getRemoteAddr()));
                 user.setLoginTime(new SimpleDateFormat("yyyy-MM--dd HH:mm:ss").format(new Date()));
-                user.setName("陌生人");
                 userList.add(user);
                 // 持久化到DB
                 SpringBootService.getUserService().insert(user);

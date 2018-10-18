@@ -1,12 +1,18 @@
 package com.vip.darker.util;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.model.CityResponse;
+import com.maxmind.geoip2.record.Country;
 import com.vip.darker.model.ArticleModel;
 import com.vip.darker.model.ColumnModel;
 import com.vip.darker.model.PhotoModel;
 import com.vip.darker.service.base.SpringBootService;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
+import java.net.InetAddress;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -78,5 +84,38 @@ public class WebSiteUtil {
             dest = m.replaceAll("");
         }
         return dest;
+    }
+
+    /**
+     * 功能描述: 根据IP获取国家名称
+     *
+     * @auther: darker
+     * @date: 2018/9/14 16:57
+     */
+    public static String getCountryNameByIp(String ip) {
+
+        if ("127.0.0.1".equals(ip) || "".equals(ip)) return "中国";
+
+        try {
+            // 创建 GeoLite2 数据库
+            File database = ResourceUtils.getFile("classpath:db/GeoLite2-City.mmdb");
+            // 读取数据库内容
+            DatabaseReader reader = new DatabaseReader.Builder(database).build();
+
+
+            InetAddress ipAddress = InetAddress.getByName(ip);
+            // 获取查询结果
+            CityResponse response = reader.city(ipAddress);
+            // 获取国家信息
+            Country country = response.getCountry();
+
+            if (country != null) {
+                return country.getNames().get("zh-CN");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

@@ -1594,7 +1594,7 @@ function parseUserHtmlContent(data) {
         htmlContent += ' <span>' + data[i].email + '</span>';
         htmlContent += ' </div>';
         htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
-        htmlContent += ' <span>' + data[i].ip + '</span>';
+        htmlContent += ' <span>' + data[i].area + '</span>';
         htmlContent += ' </div>';
         htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
         htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updateUser" onclick="javascript:queryUser(\'' + data[i].id + '\');">修改</button>';

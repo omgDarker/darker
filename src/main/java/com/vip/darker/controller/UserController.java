@@ -6,6 +6,7 @@ import com.vip.darker.model.*;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.BeanToMapUtil;
 import com.vip.darker.util.ConstantUtil;
+import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,6 +156,18 @@ public class UserController {
                     map.put("roleName", StringUtils.isNotBlank(role.getName()) ? role.getName() : "游客");
                 } else {
                     map.put("roleName", "游客");
+                }
+                // 用户名
+                if (StringUtils.isBlank(map.get("name").toString())) {
+                    map.put("name", "陌生人");
+                }
+                // 邮箱
+                if (StringUtils.isBlank(map.get("email").toString())) {
+                    map.put("email", "stranger@qq.vip.com");
+                }
+                // 地区
+                if (StringUtils.isBlank(map.get("area").toString())) {
+                    map.put("area", WebSiteUtil.getCountryNameByIp(map.get("ip").toString()));
                 }
             }
             return resultList;
