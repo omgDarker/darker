@@ -10,11 +10,15 @@ import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther: Darker
@@ -27,6 +31,13 @@ import java.util.Map;
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    private final ThreadPoolTaskExecutor poolExecutor;
+
+    @Autowired
+    public UserController(ThreadPoolTaskExecutor poolExecutor) {
+        this.poolExecutor = poolExecutor;
+    }
 
     //****************************************用户模块****************************************//
 
@@ -42,13 +53,22 @@ public class UserController {
     public Map<String, Object> addUser(@RequestParam(value = "roleId", required = false, defaultValue = "1") Integer roleId, UserModel userModel) {
         // 用户新增
         boolean flag = SpringBootService.getUserService().insert(userModel);
-
-        if (flag) {
-            // 用户角色关系数据新增
-            URRelation relation = new URRelation();
-            relation.setUserId(userModel.getId());
-            relation.setRoleId(roleId);
-            flag = SpringBootService.getURRelationService().insert(relation);
+        try {
+            if (flag) {
+                // 用户角色关系数据新增
+                Future<Boolean> future = poolExecutor.submit(() -> {
+                    URRelation relation = new URRelation();
+                    relation.setUserId(userModel.getId());
+                    relation.setRoleId(roleId);
+                    return SpringBootService.getURRelationService().insert(relation);
+                });
+                // 线程阻塞等待30s,返回结果集
+                if (future.isDone() && !future.isCancelled()) {
+                    flag = future.get(30, TimeUnit.SECONDS);
+                }
+            }
+        } catch (Exception e) {
+            logger.info("用户角色关系数据新增异常!");
         }
         Map<String, Object> map = new HashMap<>();
 
@@ -69,13 +89,19 @@ public class UserController {
     public Map<String, Object> updateUser(@PathVariable(value = "id") Integer id, Integer roleId, UserModel userModel) {
         // 用户更新
         boolean flag = SpringBootService.getUserService().updateById(userModel);
-
-        if (flag) {
-            // 用户角色关系数据更新
-            URRelation relation = new URRelation();
-            relation.setUserId(userModel.getId());
-            relation.setRoleId(roleId);
-            flag = SpringBootService.getURRelationService().update(relation, new EntityWrapper<URRelation>().where("userId={0}", userModel.getId()));
+        try {
+            if (flag) {
+                // 用户角色关系数据更新
+                Future<Boolean> future = poolExecutor.submit(() -> {
+                    URRelation relation = new URRelation();
+                    relation.setUserId(userModel.getId());
+                    relation.setRoleId(roleId);
+                    return SpringBootService.getURRelationService().update(relation, new EntityWrapper<URRelation>().where("userId={0}", userModel.getId()));
+                });
+                flag = future.get(30, TimeUnit.SECONDS);
+            }
+        } catch (Exception e) {
+            logger.info("用户角色关系数据更新异常!");
         }
         Map<String, Object> map = new HashMap<>();
 
@@ -96,10 +122,14 @@ public class UserController {
     public Map<String, Object> deleteUser(@PathVariable(value = "id") Integer id) {
         // 用户删除
         boolean flag = SpringBootService.getUserService().deleteById(id);
-
-        if (flag) {
-            // 用户角色关系数据删除
-            flag = SpringBootService.getURRelationService().delete(new EntityWrapper<URRelation>().where("userId={0}", id));
+        try {
+            if (flag) {
+                // 用户角色关系数据删除
+                Future<Boolean> future = poolExecutor.submit(() -> SpringBootService.getURRelationService().delete(new EntityWrapper<URRelation>().where("userId={0}", id)));
+                flag = future.get(30, TimeUnit.SECONDS);
+            }
+        } catch (Exception e) {
+            logger.info("用户角色关系数据删除异常!");
         }
         Map<String, Object> map = new HashMap<>();
 
@@ -211,13 +241,19 @@ public class UserController {
     public Map<String, Object> addRole(@RequestParam(value = "permissionId") Integer permissionId, RoleModel roleModel) {
         // 角色新增
         boolean flag = SpringBootService.getRoleService().insert(roleModel);
-
-        if (flag) {
-            // 角色权限关系数据新增
-            RPRelation relation = new RPRelation();
-            relation.setRoleId(roleModel.getId());
-            relation.setPermissionId(permissionId);
-            SpringBootService.getRPRelationService().insert(relation);
+        try {
+            if (flag) {
+                // 角色权限关系数据新增
+                Future<Boolean> future = poolExecutor.submit(() -> {
+                    RPRelation relation = new RPRelation();
+                    relation.setRoleId(roleModel.getId());
+                    relation.setPermissionId(permissionId);
+                    return SpringBootService.getRPRelationService().insert(relation);
+                });
+                flag = future.get(30, TimeUnit.SECONDS);
+            }
+        } catch (Exception e) {
+            logger.info("角色权限关系数据新增异常!");
         }
         Map<String, Object> map = new HashMap<>();
 
@@ -238,13 +274,18 @@ public class UserController {
     public Map<String, Object> updateRole(@PathVariable(value = "id") Integer id, Integer permissionId, RoleModel roleModel) {
         // 角色更新
         boolean flag = SpringBootService.getRoleService().updateById(roleModel);
-
-        if (flag) {
-            // 角色权限关系数据更新
-            RPRelation relation = new RPRelation();
-            relation.setRoleId(roleModel.getId());
-            relation.setPermissionId(permissionId);
-            flag = SpringBootService.getRPRelationService().update(relation, new EntityWrapper<RPRelation>().where("roleId={0}", roleModel.getId()));
+        try {
+            if (flag) {
+                // 角色权限关系数据更新
+                Future<Boolean> future = poolExecutor.submit(() -> {
+                    RPRelation relation = new RPRelation();
+                    relation.setRoleId(roleModel.getId());
+                    relation.setPermissionId(permissionId);
+                    return SpringBootService.getRPRelationService().update(relation, new EntityWrapper<RPRelation>().where("roleId={0}", roleModel.getId()));
+                });
+            }
+        } catch (Exception e) {
+            logger.info("角色权限关系数据更新异常!");
         }
         Map<String, Object> map = new HashMap<>();
 
@@ -265,10 +306,13 @@ public class UserController {
     public Map<String, Object> deleteRole(@PathVariable(value = "id") Integer id) {
         // 角色删除
         boolean flag = SpringBootService.getRoleService().deleteById(id);
-
-        if (flag) {
-            // 角色权限关系数据删除
-            flag = SpringBootService.getRPRelationService().delete(new EntityWrapper<RPRelation>().where("roleId={0}", id));
+        try {
+            if (flag) {
+                // 角色权限关系数据删除
+                Future<Boolean> future = poolExecutor.submit(() -> SpringBootService.getRPRelationService().delete(new EntityWrapper<RPRelation>().where("roleId={0}", id)));
+            }
+        } catch (Exception e) {
+            logger.info("角色权限关系数据删除异常!");
         }
         Map<String, Object> map = new HashMap<>();
 

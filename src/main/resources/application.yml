@@ -65,15 +65,15 @@ spring:
      #禁止thymeleaf缓存（建议：开发环境设置为false，生成环境设置为true）
      thymeleaf:
           cache : false
-# 配置MP
+#配置MP
 mybatis-plus:
-  # 配置扫描xml
+  #配置扫描xml
   mapper-locations: classpath:mapper/*.xml
-  # 实体扫描，多个package用逗号或者分号分隔
+  #实体扫描，多个package用逗号或者分号分隔
   type-aliases-package: com.vip.darker.model
-  # 全部配置
+  #全部配置
   global-config:
-    # 逻辑删除配置
+    #逻辑删除配置
     logic-delete-value: 0
     logic-not-delete-value: 1
     sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
@@ -94,3 +94,14 @@ statistics:
   countVV: 500
   #记录访问人数
   countUV: 235
+
+#线程池
+pool:
+  #最少数量
+  core-pool-size: 5
+  #最大数量
+  max-pool-size: 10
+  #缓存队列量
+  queue-capacity: 20
+  #允许的空闲时间(秒)
+  keep-alive-seconds: 60

@@ -46342,7 +46342,7 @@ function executeShifts(node) {
  * Whenever two nodes of the inside contours conflict, we compute the left
  * one of the greatest uncommon ancestors using the function nextAncestor()
  * and call moveSubtree() to shift the subtree and prepare the shifts of
- * smaller subtrees. Finally, we add a new thread (if necessary).
+ * smaller subtrees. Finally, we add a new pool (if necessary).
  * @param  {module:echarts/data/Tree~TreeNode} subtreeV
  * @param  {module:echarts/data/Tree~TreeNode} subtreeW
  * @param  {module:echarts/data/Tree~TreeNode} ancestor
@@ -46394,7 +46394,7 @@ function apportion(subtreeV, subtreeW, ancestor, separation) {
 
 /**
  * This function is used to traverse the right contour of a subtree.
- * It returns the rightmost child of node or the thread of node. The function
+ * It returns the rightmost child of node or the pool of node. The function
  * returns null if and only if node is on the highest depth of its subtree.
  * @param  {module:echarts/data/Tree~TreeNode} node
  * @return {module:echarts/data/Tree~TreeNode}
@@ -46406,7 +46406,7 @@ function nextRight(node) {
 
 /**
  * This function is used to traverse the left contour of a subtree (or a subforest).
- * It returns the leftmost child of node or the thread of node. The function
+ * It returns the leftmost child of node or the pool of node. The function
  * returns null if and only if node is on the highest depth of its subtree.
  * @param  {module:echarts/data/Tree~TreeNode} node
  * @return {module:echarts/data/Tree~TreeNode}
