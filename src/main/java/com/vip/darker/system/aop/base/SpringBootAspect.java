@@ -47,7 +47,7 @@ public class SpringBootAspect {
         int countPV = SpringBootService.getSpringBootPropertiesLoad().addCountPV();
         // 将值写入.yml文件
         SpringBootService.getSpringBootPropertiesLoad().setCountPV(countPV);
-        logger.info("当前网站浏览量的值:{}", countPV);
+        logger.info("[当前网站浏览量的值]:{}", countPV);
 
     }
 

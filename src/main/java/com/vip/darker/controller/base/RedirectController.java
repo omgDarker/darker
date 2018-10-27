@@ -87,61 +87,9 @@ public class RedirectController {
                     SpringBootService.getRedisService().set(ConstantUtil.REDIS_KEY_ARTICLE, SpringBootService.getArticleService().selectList(new EntityWrapper<>()));
                 }
             } catch (Exception e) {
-                logger.info("redis服务启动异常!");
+                logger.info("{}:redis服务启动异常!", "[" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
             }
         }
         return "index/welcome";
-    }
-
-    /**
-     * 功能描述: 关于我
-     *
-     * @param: []
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/8/22 15:06
-     */
-    @RequestMapping(value = {"/about", "/about/"})
-    public String defaultAbout() {
-        return "redirect:index/about";
-    }
-
-    /**
-     * 功能描述: 相册
-     *
-     * @param: []
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/8/22 15:06
-     */
-    @RequestMapping(value = {"/photo", "/photo/"})
-    public String defaultPhoto() {
-        return "redirect:index/photo";
-    }
-
-    /**
-     * 功能描述: 留言板
-     *
-     * @param: []
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/8/22 15:06
-     */
-    @RequestMapping(value = {"/message", "/message/"})
-    public String defaultMessage() {
-        return "redirect:index/message";
-    }
-
-    /**
-     * 功能描述: 后台登录
-     *
-     * @param: []
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/10/12 12:11
-     */
-    @RequestMapping(value = {"/admin", "/admin/home", "/login"})
-    public String defaultAdmin() {
-        return "redirect:admin/login";
     }
 }

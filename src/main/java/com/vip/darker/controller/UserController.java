@@ -2,7 +2,10 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.*;
+import com.vip.darker.model.PermissionModel;
+import com.vip.darker.model.RoleModel;
+import com.vip.darker.model.URRelation;
+import com.vip.darker.model.UserModel;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.BeanToMapUtil;
 import com.vip.darker.util.ConstantUtil;
@@ -10,20 +13,16 @@ import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther: Darker
  * @Date: 2018/7/19 22:27
- * @DateUpdate: 2018/10/18
+ * @DateUpdate: 2018/10/27
  * @Description: 用户管理控制器
  * @Remark:restful API
  */
@@ -32,44 +31,24 @@ public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private final ThreadPoolTaskExecutor poolExecutor;
-
-    @Autowired
-    public UserController(ThreadPoolTaskExecutor poolExecutor) {
-        this.poolExecutor = poolExecutor;
-    }
-
     //****************************************用户模块****************************************//
 
     /**
      * 功能描述: 用户新增
      *
-     * @param: [roleId, userModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/19 22:38
+     * @param roleId    角色ID
+     * @param userModel 用户对象
+     * @return
      */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public Map<String, Object> addUser(@RequestParam(value = "roleId", required = false, defaultValue = "1") Integer roleId, UserModel userModel) {
-        // 用户新增
+
         boolean flag = SpringBootService.getUserService().insert(userModel);
-        try {
-            if (flag) {
-                // 用户角色关系数据新增
-                Future<Boolean> future = poolExecutor.submit(() -> {
-                    URRelation relation = new URRelation();
-                    relation.setUserId(userModel.getId());
-                    relation.setRoleId(roleId);
-                    return SpringBootService.getURRelationService().insert(relation);
-                });
-                // 线程阻塞等待30s,返回结果集
-                if (future.isDone() && !future.isCancelled()) {
-                    flag = future.get(30, TimeUnit.SECONDS);
-                }
-            }
-        } catch (Exception e) {
-            logger.info("用户角色关系数据新增异常!");
+
+        if (flag) {
+            SpringBootService.getAsyncTaskExecutorService().addURRelation(userModel.getId(), roleId);
         }
+
         Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "新增成功!" : "新增失败!");
@@ -77,32 +56,24 @@ public class UserController {
         return map;
     }
 
+
     /**
      * 功能描述: 用户更新
      *
-     * @param: [id, roleId, userModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/19 22:40
+     * @param userId    用户ID
+     * @param roleId    角色ID
+     * @param userModel 用户对象
+     * @return
      */
     @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
-    public Map<String, Object> updateUser(@PathVariable(value = "id") Integer id, Integer roleId, UserModel userModel) {
-        // 用户更新
+    public Map<String, Object> editUser(@PathVariable(value = "id") Integer userId, Integer roleId, UserModel userModel) {
+
         boolean flag = SpringBootService.getUserService().updateById(userModel);
-        try {
-            if (flag) {
-                // 用户角色关系数据更新
-                Future<Boolean> future = poolExecutor.submit(() -> {
-                    URRelation relation = new URRelation();
-                    relation.setUserId(userModel.getId());
-                    relation.setRoleId(roleId);
-                    return SpringBootService.getURRelationService().update(relation, new EntityWrapper<URRelation>().where("userId={0}", userModel.getId()));
-                });
-                flag = future.get(30, TimeUnit.SECONDS);
-            }
-        } catch (Exception e) {
-            logger.info("用户角色关系数据更新异常!");
+
+        if (flag) {
+            SpringBootService.getAsyncTaskExecutorService().editURRelation(userModel.getId(), roleId);
         }
+
         Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "更新成功!" : "更新失败!");
@@ -113,24 +84,18 @@ public class UserController {
     /**
      * 功能描述: 用户删除
      *
-     * @param: [id]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/19 22:43
+     * @param userId 用户ID
+     * @return
      */
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    public Map<String, Object> deleteUser(@PathVariable(value = "id") Integer id) {
-        // 用户删除
-        boolean flag = SpringBootService.getUserService().deleteById(id);
-        try {
-            if (flag) {
-                // 用户角色关系数据删除
-                Future<Boolean> future = poolExecutor.submit(() -> SpringBootService.getURRelationService().delete(new EntityWrapper<URRelation>().where("userId={0}", id)));
-                flag = future.get(30, TimeUnit.SECONDS);
-            }
-        } catch (Exception e) {
-            logger.info("用户角色关系数据删除异常!");
+    public Map<String, Object> deleteUser(@PathVariable(value = "id") Integer userId) {
+
+        boolean flag = SpringBootService.getUserService().deleteById(userId);
+
+        if (flag) {
+            SpringBootService.getAsyncTaskExecutorService().deleteURRelation(userId);
         }
+
         Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "删除成功!" : "删除失败!");
@@ -139,42 +104,38 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 用户实体查询
+     * 功能描述: 用户对象查询
      *
-     * @param: [id]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/30 14:17
+     * @param userId
+     * @return
      */
     @RequestMapping(value = "/users/{id}")
-    public Map<String, Object> queryUserById(@PathVariable(value = "id") Integer id) {
-        // 查询用户实体
-        UserModel userModel = SpringBootService.getUserService().selectById(id);
+    public Map<String, Object> searchUserById(@PathVariable(value = "id") Integer userId) {
+
+        UserModel userModel = SpringBootService.getUserService().selectById(userId);
 
         if (userModel != null) {
             try {
                 return BeanToMapUtil.convertBeanToMap(userModel);
             } catch (Exception e) {
-                logger.info("bean转map失败!");
+                logger.info("{}:bean转map失败!", "[" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
             }
         }
         return null;
     }
 
     /**
-     * 功能描述: 用户分页查询
+     * 功能描述: 用户列表查询
      *
-     * @param: [pageNum, pageSize]
-     * @return: java.util.List<com.vip.darker.model.UserModel>
-     * @auther: darker
-     * @date: 2018/7/19 22:47
-     * @updateDate: 2018/7/30
+     * @param pageNum  起始页
+     * @param pageSize 每页大小
+     * @return
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<Map<String, Object>> queryAllUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<Map<String, Object>> searchListUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         try {
-            List<UserModel> list = SpringBootService.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
-            List<Map<String, Object>> resultList = BeanToMapUtil.convertListBeanToListMap(list, UserModel.class);
+            List<UserModel> beanList = SpringBootService.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+            List<Map<String, Object>> resultList = BeanToMapUtil.convertListBeanToListMap(beanList, UserModel.class);
             for (Map<String, Object> map : resultList) {
                 int userId = Integer.valueOf(map.get("id") + "");
                 // 根据用户ID查找角色ID
@@ -202,21 +163,18 @@ public class UserController {
             }
             return resultList;
         } catch (Exception e) {
-            logger.info("用户分页查询异常!");
+            logger.info("{}:用户分页查询异常!", Thread.currentThread().getStackTrace()[1].getMethodName());
         }
         return null;
     }
 
     /**
-     * 功能描述: 用户分页查询,最大页数
+     * 功能描述: 用户列表页数
      *
-     * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/30 10:48
+     * @return
      */
     @RequestMapping(value = "/users/page", method = RequestMethod.GET)
-    public Map<String, Object> getUserMaxPage() {
+    public Map<String, Object> countUserMaxPage() {
 
         Map<String, Object> map = new HashMap<>();
 
@@ -230,31 +188,21 @@ public class UserController {
     //****************************************角色模块****************************************//
 
     /**
-     * 功能描述: 角色新增
+     * 角色新增
      *
-     * @param: [permissionId, roleModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/19 22:50
+     * @param permissionId 权限ID
+     * @param roleModel    角色对象
+     * @return
      */
     @RequestMapping(value = "/roles", method = RequestMethod.POST)
     public Map<String, Object> addRole(@RequestParam(value = "permissionId") Integer permissionId, RoleModel roleModel) {
-        // 角色新增
+
         boolean flag = SpringBootService.getRoleService().insert(roleModel);
-        try {
-            if (flag) {
-                // 角色权限关系数据新增
-                Future<Boolean> future = poolExecutor.submit(() -> {
-                    RPRelation relation = new RPRelation();
-                    relation.setRoleId(roleModel.getId());
-                    relation.setPermissionId(permissionId);
-                    return SpringBootService.getRPRelationService().insert(relation);
-                });
-                flag = future.get(30, TimeUnit.SECONDS);
-            }
-        } catch (Exception e) {
-            logger.info("角色权限关系数据新增异常!");
+
+        if (flag) {
+            SpringBootService.getAsyncTaskExecutorService().addRPRelation(roleModel.getId(), permissionId);
         }
+
         Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "新增成功!" : "新增失败!");
@@ -262,31 +210,24 @@ public class UserController {
         return map;
     }
 
+
     /**
      * 功能描述: 角色更新
      *
-     * @param: [id, permissionId, roleModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/20 11:26
+     * @param roleId       角色ID
+     * @param permissionId 权限ID
+     * @param roleModel    角色对象
+     * @return
      */
     @RequestMapping(value = "/roles/{id}", method = RequestMethod.PUT)
-    public Map<String, Object> updateRole(@PathVariable(value = "id") Integer id, Integer permissionId, RoleModel roleModel) {
-        // 角色更新
+    public Map<String, Object> editRole(@PathVariable(value = "id") Integer roleId, Integer permissionId, RoleModel roleModel) {
+
         boolean flag = SpringBootService.getRoleService().updateById(roleModel);
-        try {
-            if (flag) {
-                // 角色权限关系数据更新
-                Future<Boolean> future = poolExecutor.submit(() -> {
-                    RPRelation relation = new RPRelation();
-                    relation.setRoleId(roleModel.getId());
-                    relation.setPermissionId(permissionId);
-                    return SpringBootService.getRPRelationService().update(relation, new EntityWrapper<RPRelation>().where("roleId={0}", roleModel.getId()));
-                });
-            }
-        } catch (Exception e) {
-            logger.info("角色权限关系数据更新异常!");
+
+        if (flag) {
+            SpringBootService.getAsyncTaskExecutorService().editRPRelation(roleModel.getId(), permissionId);
         }
+
         Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "更新成功!" : "更新失败!");
@@ -297,23 +238,18 @@ public class UserController {
     /**
      * 功能描述: 角色删除
      *
-     * @param: [id]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/20 11:30
+     * @param roleId 角色ID
+     * @return
      */
     @RequestMapping(value = "/roles/{id}", method = RequestMethod.DELETE)
-    public Map<String, Object> deleteRole(@PathVariable(value = "id") Integer id) {
-        // 角色删除
-        boolean flag = SpringBootService.getRoleService().deleteById(id);
-        try {
-            if (flag) {
-                // 角色权限关系数据删除
-                Future<Boolean> future = poolExecutor.submit(() -> SpringBootService.getRPRelationService().delete(new EntityWrapper<RPRelation>().where("roleId={0}", id)));
-            }
-        } catch (Exception e) {
-            logger.info("角色权限关系数据删除异常!");
+    public Map<String, Object> deleteRole(@PathVariable(value = "id") Integer roleId) {
+
+        boolean flag = SpringBootService.getRoleService().deleteById(roleId);
+
+        if (flag) {
+            SpringBootService.getAsyncTaskExecutorService().deleteRPRelation(roleId);
         }
+
         Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "删除成功!" : "删除失败!");
@@ -322,51 +258,45 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 角色实体查询
+     * 功能描述: 角色对象查询
      *
-     * @param: [id]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/30 15:31
+     * @param roleId 角色ID
+     * @return
      */
     @RequestMapping(value = "/roles/{id}")
-    public Map<String, Object> queryRoleById(@PathVariable(value = "id") Integer id) {
+    public Map<String, Object> searchRoleById(@PathVariable(value = "id") Integer roleId) {
 
-        RoleModel roleModel = SpringBootService.getRoleService().selectById(id);
+        RoleModel roleModel = SpringBootService.getRoleService().selectById(roleId);
 
         if (roleModel != null) {
             try {
                 return BeanToMapUtil.convertBeanToMap(roleModel);
             } catch (Exception e) {
-                logger.info("bean转map失败!");
+                logger.info("{}:bean转map失败!", Thread.currentThread().getStackTrace()[1].getMethodName());
             }
         }
         return null;
     }
 
     /**
-     * 功能描述: 角色分页查询
+     * 功能描述: 角色列表查询
      *
-     * @param: [pageNum, pageSize]
-     * @return: java.util.List<com.vip.darker.model.RoleModel>
-     * @auther: darker
-     * @date: 2018/7/20 11:34
+     * @param pageNum  起始页
+     * @param pageSize 每页大小
+     * @return
      */
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
-    public List<RoleModel> queryAllRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<RoleModel> searchListRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getRoleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
-     * 功能描述: 角色分页查询,最大页数
+     * 角色列表页数
      *
-     * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/30 10:48
+     * @return
      */
     @RequestMapping(value = "/roles/page", method = RequestMethod.GET)
-    public Map<String, Object> getRoleMaxPage() {
+    public Map<String, Object> countRoleMaxPage() {
 
         Map<String, Object> map = new HashMap<>();
 
@@ -382,10 +312,8 @@ public class UserController {
     /**
      * 功能描述: 权限新增
      *
-     * @param: [permissionModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/19 23:04
+     * @param permissionModel 权限对象
+     * @return
      */
     @RequestMapping(value = "/permissions", method = RequestMethod.POST)
     public Map<String, Object> addPermission(PermissionModel permissionModel) {
@@ -402,13 +330,12 @@ public class UserController {
     /**
      * 功能描述: 权限更新
      *
-     * @param: [id, permissionModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/20 11:37
+     * @param permissionId    权限ID
+     * @param permissionModel 权限实体
+     * @return
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.PUT)
-    public Map<String, Object> updatePermission(@PathVariable(value = "id") Integer id, PermissionModel permissionModel) {
+    public Map<String, Object> editPermission(@PathVariable(value = "id") Integer permissionId, PermissionModel permissionModel) {
 
         boolean flag = SpringBootService.getPermissionService().updateById(permissionModel);
 
@@ -422,15 +349,13 @@ public class UserController {
     /**
      * 功能描述: 权限删除
      *
-     * @param: [id]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/20 11:39
+     * @param permissionId 权限ID
+     * @return
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.DELETE)
-    public Map<String, Object> deletePermission(@PathVariable(value = "id") Integer id) {
+    public Map<String, Object> deletePermission(@PathVariable(value = "id") Integer permissionId) {
 
-        boolean flag = SpringBootService.getPermissionService().deleteById(id);
+        boolean flag = SpringBootService.getPermissionService().deleteById(permissionId);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -440,41 +365,35 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 权限实体查询
+     * 功能描述: 权限对象查询
      *
-     * @param: [id]
-     * @return: com.vip.darker.model.PermissionModel
-     * @auther: darker
-     * @date: 2018/7/30 15:31
+     * @param permissionId
+     * @return
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.GET)
-    public PermissionModel queryPermissionById(@PathVariable(value = "id") Integer id) {
-        return SpringBootService.getPermissionService().selectById(id);
+    public PermissionModel searchPermissionById(@PathVariable(value = "id") Integer permissionId) {
+        return SpringBootService.getPermissionService().selectById(permissionId);
     }
 
     /**
-     * 功能描述: 权限分页查询
+     * 权限列表查询
      *
-     * @param: [pageNum, pageSize]
-     * @return: java.util.List<com.vip.darker.model.PermissionModel>
-     * @auther: darker
-     * @date: 2018/7/20 11:42
+     * @param pageNum  起始页
+     * @param pageSize 每页大小
+     * @return
      */
     @RequestMapping(value = "/permissions", method = RequestMethod.GET)
-    public List<PermissionModel> queryAllPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<PermissionModel> searchListPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getPermissionService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     /**
-     * 功能描述: 权限分页查询,最大页数
+     * 功能描述: 权限列表页数
      *
-     * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/30 10:48
+     * @return
      */
     @RequestMapping(value = "/permissions/page", method = RequestMethod.GET)
-    public Map<String, Object> getPermissionMaxPage() {
+    public Map<String, Object> countPermissionMaxPage() {
 
         Map<String, Object> map = new HashMap<>();
 

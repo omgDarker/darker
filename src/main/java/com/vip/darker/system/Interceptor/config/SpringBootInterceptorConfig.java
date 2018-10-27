@@ -4,6 +4,7 @@ import com.vip.darker.system.Interceptor.LogInterceptor;
 import com.vip.darker.system.Interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SpringBootInterceptorConfig implements WebMvcConfigurer {
 
     /**
-     * 功能描述: 拦截器注册
+     * 功能描述: 拦截器配置
      *
      * @auther: darker
      * @date: 2018/9/12 16:47
@@ -26,5 +27,19 @@ public class SpringBootInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LogInterceptor()).addPathPatterns("/index/**").addPathPatterns("/admin/**");
         // 登录拦截配置
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin/home");
+    }
+
+    /**
+     * 功能描述: 视图控制器配置
+     *
+     * @auther: darker
+     * @date: 2018/10/27 16:08
+     */
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/about/*").setViewName("/index/about");
+        registry.addViewController("/admin/*").setViewName("/admin/login");
+        registry.addRedirectViewController("/photo/*", "/index/photo/3");
+        registry.addRedirectViewController("/message/*", "/index/message");
     }
 }

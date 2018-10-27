@@ -4,6 +4,7 @@ import com.vip.darker.service.*;
 import com.vip.darker.service.impl.*;
 import com.vip.darker.system.SpringBootApplicationContent;
 import com.vip.darker.system.load.SpringBootPropertiesLoad;
+import com.vip.darker.system.pool.AsyncTaskExecutorService;
 import com.vip.darker.system.redis.RedisService;
 
 /**
@@ -16,7 +17,6 @@ public class SpringBootService {
     /**
      * 功能描述: 资源service
      *
-     * @param: []
      * @return: com.vip.darker.service.ResourceService
      * @auther: darker
      * @date: 2018/7/26 17:43
@@ -28,7 +28,6 @@ public class SpringBootService {
     /**
      * 功能描述: 回收service
      *
-     * @param: []
      * @return: com.vip.darker.service.TrashService
      * @auther: darker
      * @date: 2018/7/26 17:44
@@ -40,7 +39,6 @@ public class SpringBootService {
     /**
      * 功能描述: 用户service
      *
-     * @param: []
      * @return: com.vip.darker.service.UserService
      * @auther: darker
      * @date: 2018/7/26 18:00
@@ -52,7 +50,6 @@ public class SpringBootService {
     /**
      * 功能描述: 角色service
      *
-     * @param: []
      * @return: com.vip.darker.service.RoleService
      * @auther: darker
      * @date: 2018/7/26 18:01
@@ -64,7 +61,6 @@ public class SpringBootService {
     /**
      * 功能描述: 权限service
      *
-     * @param: []
      * @return: com.vip.darker.service.PermissionService
      * @auther: darker
      * @date: 2018/7/26 18:03
@@ -76,7 +72,6 @@ public class SpringBootService {
     /**
      * 功能描述: 用户角色service
      *
-     * @param: []
      * @return: com.vip.darker.service.URRelationService
      * @auther: darker
      * @date: 2018/7/26 18:15
@@ -88,7 +83,6 @@ public class SpringBootService {
     /**
      * 功能描述: 角色权限service
      *
-     * @param: []
      * @return: com.vip.darker.service.RPRelationService
      * @auther: darker
      * @date: 2018/7/26 18:16
@@ -100,7 +94,6 @@ public class SpringBootService {
     /**
      * 功能描述: 文章service
      *
-     * @param: []
      * @return: com.vip.darker.service.ArticleService
      * @auther: darker
      * @date: 2018/7/26 18:05
@@ -112,7 +105,6 @@ public class SpringBootService {
     /**
      * 功能描述: 图片service
      *
-     * @param: []
      * @return: com.vip.darker.service.PhotoService
      * @auther: darker
      * @date: 2018/7/26 18:06
@@ -124,7 +116,6 @@ public class SpringBootService {
     /**
      * 功能描述: 留言板service
      *
-     * @param: []
      * @return: com.vip.darker.service.MessageService
      * @auther: darker
      * @date: 2018/7/26 18:07
@@ -136,7 +127,6 @@ public class SpringBootService {
     /**
      * 功能描述: 统计service
      *
-     * @param: []
      * @return: com.vip.darker.service.StatisticsService
      * @auther: darker
      * @date: 2018/7/26 18:09
@@ -148,7 +138,6 @@ public class SpringBootService {
     /**
      * 功能描述: 监控service
      *
-     * @param: []
      * @return: com.vip.darker.service.MonitorService
      * @auther: darker
      * @date: 2018/7/26 18:10
@@ -160,7 +149,6 @@ public class SpringBootService {
     /**
      * 功能描述: 分类service
      *
-     * @param: []
      * @return: com.vip.darker.service.ClassifyService
      * @auther: darker
      * @date: 2018/8/14 16:33
@@ -172,7 +160,6 @@ public class SpringBootService {
     /**
      * 功能描述: 栏目service
      *
-     * @param: []
      * @return: com.vip.darker.service.ColumnService
      * @auther: darker
      * @date: 2018/8/14 16:34
@@ -184,7 +171,6 @@ public class SpringBootService {
     /**
      * 功能描述: 友情链接service
      *
-     * @param: []
      * @return: com.vip.darker.service.LinkService
      * @auther: darker
      * @date: 2018/8/17 14:13
@@ -196,24 +182,33 @@ public class SpringBootService {
     /**
      * 功能描述: 初始化加载YML文件属性bean
      *
-     * @param: []
      * @return: SpringBootPropertiesLoad
      * @auther: darker
      * @date: 2018/8/28 14:13
      */
-    public static SpringBootPropertiesLoad getSpringBootPropertiesLoad(){
+    public static SpringBootPropertiesLoad getSpringBootPropertiesLoad() {
         return (SpringBootPropertiesLoad) SpringBootApplicationContent.getBean(SpringBootPropertiesLoad.BEAN_NAME);
     }
 
     /**
-     * 功能描述: 初始化加载YML文件属性bean
+     * 功能描述: 缓存service
      *
-     * @param: []
      * @return: SpringBootPropertiesLoad
      * @auther: darker
      * @date: 2018/8/28 14:13
      */
-    public static RedisService getRedisService(){
-        return (RedisService) SpringBootApplicationContent.getBean("redisService");
+    public static RedisService getRedisService() {
+        return (RedisService) SpringBootApplicationContent.getBean(RedisService.BEAN_NAME);
+    }
+
+    /**
+     * 功能描述: 异步线程service
+     *
+     * @return: SpringBootPropertiesLoad
+     * @auther: darker
+     * @date: 2018/10/27 10:50
+     */
+    public static AsyncTaskExecutorService getAsyncTaskExecutorService() {
+        return (AsyncTaskExecutorService) SpringBootApplicationContent.getBean(AsyncTaskExecutorService.BEAN_NAME);
     }
 }

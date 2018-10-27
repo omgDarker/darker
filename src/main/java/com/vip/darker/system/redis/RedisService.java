@@ -15,8 +15,11 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2018/9/20 11:23
  * @Description: redis操作service
  */
-@Service(value = "redisService")
+@Service(value = RedisService.BEAN_NAME)
 public class RedisService {
+
+    public static final String BEAN_NAME = "redisService";
+
     @Resource
     private  RedisTemplate<String, Object> redisTemplate;
 

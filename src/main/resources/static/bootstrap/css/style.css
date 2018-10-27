@@ -3458,8 +3458,7 @@ div[data-role="editor-toolbar"] {
     }
 
     .modal-header h4.modal-title {
-        font-weight: 300;
-        font-family: 'Lato', sans-serif;
+        font-family: "Microsoft YaHei", 'Arial', 'SimSun', serif;
     }
 
     .modal-body label {
@@ -3989,8 +3988,7 @@ div[data-role="editor-toolbar"] {
     /*panel heading color*/
     .panel-heading, .modal-header {
         background: #F7F7F7;
-        color: #688a7e;
-
+        color: #28342f;
     }
 
     .panel-heading h3 {
@@ -4270,7 +4268,6 @@ div[data-role="editor-toolbar"] {
     }
 
     .form-horizontal .form-group {
-        border-bottom: 1px solid #eff2f7;
         padding-bottom: 15px;
         margin-bottom: 15px;
     }
