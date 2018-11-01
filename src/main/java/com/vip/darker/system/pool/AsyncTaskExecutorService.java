@@ -37,6 +37,7 @@ public class AsyncTaskExecutorService {
      * @param userId 用户ID
      * @param roleId 角色ID
      */
+    @Async
     public void editURRelation(Integer userId, Integer roleId) {
         URRelation relation = new URRelation();
         relation.setUserId(userId);
@@ -49,6 +50,7 @@ public class AsyncTaskExecutorService {
      *
      * @param userId 用户ID
      */
+    @Async
     public void deleteURRelation(Integer userId) {
         SpringBootService.getURRelationService().delete(new EntityWrapper<URRelation>().where("userId={0}", userId));
     }
@@ -59,6 +61,7 @@ public class AsyncTaskExecutorService {
      * @param roleId       角色ID
      * @param permissionId 权限ID
      */
+    @Async
     public void addRPRelation(Integer roleId, Integer permissionId) {
         RPRelation relation = new RPRelation();
         relation.setRoleId(roleId);
@@ -72,6 +75,7 @@ public class AsyncTaskExecutorService {
      * @param roleId       角色ID
      * @param permissionId 权限ID
      */
+    @Async
     public void editRPRelation(Integer roleId, Integer permissionId) {
         RPRelation relation = new RPRelation();
         relation.setRoleId(roleId);
@@ -84,6 +88,7 @@ public class AsyncTaskExecutorService {
      *
      * @param roleId 角色ID
      */
+    @Async
     public void deleteRPRelation(Integer roleId) {
         SpringBootService.getRPRelationService().delete(new EntityWrapper<RPRelation>().where("roleId={0}", roleId));
     }

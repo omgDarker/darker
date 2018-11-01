@@ -46,7 +46,7 @@ public class RedirectController {
         synchronized (this) {
             // 1.网站浏览量PV初始化
             if (init) {
-                // 查询数据库,若值存在,则重置浏览量
+                // 查询数据库,若值存在,则重置浏览量PV
                 Map<String, Object> map = SpringBootService.getStatisticsService().selectMap(new EntityWrapper<StatisticsModel>().where("classify={0}", "pv"));
 
                 if (map != null) {
@@ -56,7 +56,7 @@ public class RedirectController {
                 }
                 init = false;
             }
-            // 2.网站访问人数
+            // 2.网站访问量VV
             List<UserModel> userList = (List<UserModel>) request.getServletContext().getAttribute("userList");
             if (userList == null) {
                 userList = new ArrayList<>();
@@ -69,8 +69,10 @@ public class RedirectController {
                 user.setName("陌生人");
                 user.setEmail("stranger@qq.vip.com");
                 user.setSessionId(sessionId);
-                user.setIp(request.getRemoteAddr());
-                user.setArea(WebSiteUtil.getCountryNameByIp(request.getRemoteAddr()));
+                // 获取IP
+                String ip = WebSiteUtil.getIpAddr(request);
+                user.setIp(ip);
+                user.setArea(WebSiteUtil.getCountryNameByIp(ip));
                 user.setLoginTime(new SimpleDateFormat("yyyy-MM--dd HH:mm:ss").format(new Date()));
                 userList.add(user);
                 // 持久化到DB
@@ -83,7 +85,7 @@ public class RedirectController {
                 Object cacheObj = SpringBootService.getRedisService().get(ConstantUtil.REDIS_KEY_ARTICLE);
                 // 判断缓存是否命中
                 if (cacheObj == null) {
-                    // 设置缓存
+                    // 重新设置缓存
                     SpringBootService.getRedisService().set(ConstantUtil.REDIS_KEY_ARTICLE, SpringBootService.getArticleService().selectList(new EntityWrapper<>()));
                 }
             } catch (Exception e) {

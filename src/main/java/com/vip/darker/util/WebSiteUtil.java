@@ -11,8 +11,10 @@ import com.vip.darker.service.base.SpringBootService;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +89,42 @@ public class WebSiteUtil {
     }
 
     /**
+     * 功能描述: 获取当前网络IP
+     *
+     * @auther: darker
+     * @date: 2018/10/31 18:11
+     */
+    public static String getIpAddr(HttpServletRequest request) {
+        String ipAddress = request.getHeader("x-forwarded-for");
+        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("Proxy-Client-IP");
+        }
+        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            ipAddress = request.getRemoteAddr();
+            if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")) {
+                // 根据网卡取本机配置的IP
+                InetAddress inet = null;
+                try {
+                    inet = InetAddress.getLocalHost();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+                ipAddress = inet != null ? inet.getHostAddress() : null;
+            }
+        }
+        // 对于通过多个代理的情况,第一个IP为客户端真实IP,多个IP按照','分割
+        if (ipAddress != null && ipAddress.length() > 15) {
+            if (ipAddress.indexOf(",") > 0) {
+                ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
+            }
+        }
+        return ipAddress;
+    }
+
+    /**
      * 功能描述: 根据IP获取国家名称
      *
      * @auther: darker
@@ -94,17 +132,16 @@ public class WebSiteUtil {
      */
     public static String getCountryNameByIp(String ip) {
 
-        if ("127.0.0.1".equals(ip) || "".equals(ip)) return "中国";
+        if ("127.0.0.1".equals(ip) || "192.168.1.197".equals(ip) || "".equals(ip)) return "中国";
 
         try {
-            // 创建 GeoLite2 数据库
+            // 创建GeoLite2数据库
             File database = ResourceUtils.getFile("classpath:db/GeoLite2-City.mmdb");
-            // 读取数据库内容
+            // 读取数据库内容,获取流
             DatabaseReader reader = new DatabaseReader.Builder(database).build();
-
-
+            // 根据IP获取地址
             InetAddress ipAddress = InetAddress.getByName(ip);
-            // 获取查询结果
+            // 根据地址对照数据库内容流获取相应信息
             CityResponse response = reader.city(ipAddress);
             // 获取国家信息
             Country country = response.getCountry();
@@ -112,7 +149,6 @@ public class WebSiteUtil {
             if (country != null) {
                 return country.getNames().get("zh-CN");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

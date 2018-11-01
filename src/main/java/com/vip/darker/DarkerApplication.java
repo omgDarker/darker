@@ -1,7 +1,7 @@
 package com.vip.darker;
 
 import com.vip.darker.system.SpringBootApplicationContent;
-import com.vip.darker.system.pool.config.AsyncTaskExecutorPoolConfig;
+import com.vip.darker.system.pool.AsyncTaskExecutorPool;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -49,7 +49,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling // 开启对定时任务的支持
 @EnableCaching // 开启对缓存的支持
 @EnableAsync// 开启对异步任务的支持
-@EnableConfigurationProperties({AsyncTaskExecutorPoolConfig.class}) // 开启配置属性支持
+@EnableConfigurationProperties({AsyncTaskExecutorPool.class}) // 开启配置属性支持
 @MapperScan("com.vip.darker.dao")
 public class DarkerApplication {
     public static void main(String[] args) {

@@ -1,16 +1,13 @@
 package com.vip.darker.system.pool;
 
-import com.vip.darker.system.pool.config.AsyncTaskExecutorPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.AsyncConfigurer;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -19,30 +16,35 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @Description: 线程池配置
  */
 @Configuration // 声明一个配置类
-@EnableAsync// 开启对异步任务的支持
-public class AsyncTaskExecutorPool implements AsyncConfigurer {
+@ConfigurationProperties(prefix = "pool")
+public class AsyncTaskExecutorPool {
+    // 核心线程数
+    @Value("${pool.core-pool-size}")
+    private int corePoolSize;
+    // 最大线程数
+    @Value("${pool.max-pool-size}")
+    private int maxPoolSize;
+    // 队列容量
+    @Value("${pool.queue-capacity}")
+    private int queueCapacity;
+    // 线程活跃时间(秒)
+    @Value("${pool.keep-alive-seconds}")
+    private int keepAliveSeconds;
 
     private Logger logger = LoggerFactory.getLogger(AsyncTaskExecutorPool.class);
 
-    private final AsyncTaskExecutorPoolConfig config;
-
-    @Autowired
-    public AsyncTaskExecutorPool(AsyncTaskExecutorPoolConfig config) {
-        this.config = config;
-    }
-
-    @Override
-    public Executor getAsyncExecutor() {
+    @Bean(name="threadPoolTaskExecutor")
+    public ThreadPoolTaskExecutor threadPoolTaskExecutor(){
 
         ThreadPoolTaskExecutor pool = new ThreadPoolTaskExecutor();
 
-        pool.setCorePoolSize(config.getCorePoolSize());
+        pool.setCorePoolSize(corePoolSize);
 
-        pool.setMaxPoolSize(config.getMaxPoolSize());
+        pool.setMaxPoolSize(maxPoolSize);
 
-        pool.setQueueCapacity(config.getQueueCapacity());
+        pool.setQueueCapacity(queueCapacity);
 
-        pool.setKeepAliveSeconds(config.getKeepAliveSeconds());
+        pool.setKeepAliveSeconds(keepAliveSeconds);
         // 设置默认线程名称前缀
         pool.setThreadNamePrefix("darker-");
         // 设置拒绝策略
@@ -51,18 +53,5 @@ public class AsyncTaskExecutorPool implements AsyncConfigurer {
         pool.setWaitForTasksToCompleteOnShutdown(true);
 
         return pool;
-    }
-
-    /**
-     * 异步任务中异常处理
-     *
-     * @return
-     */
-    @Override
-    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return (arg0, arg1, arg2) -> {
-            logger.error("==========================" + arg0.getMessage() + "==========================", arg0);
-            logger.error("exception method:" + arg1.getName());
-        };
     }
 }
