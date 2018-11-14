@@ -36,6 +36,9 @@ public class ArticleModel extends Model<ArticleModel> {
     @TableField(exist = false)
     private String columnName;  // 表示该属性不为数据库表字段,但又是必须使用的
 
+    @TableField(exist = false)
+    private String classifyName;  // 表示该属性不为数据库表字段,但又是必须使用的
+
     private Integer isDelete;
 
     private String creator;
@@ -130,6 +133,14 @@ public class ArticleModel extends Model<ArticleModel> {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+    }
+
+    public String getClassifyName() {
+        return classifyName;
+    }
+
+    public void setClassifyName(String classifyName) {
+        this.classifyName = classifyName;
     }
 
     public Integer getIsDelete() {

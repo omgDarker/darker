@@ -14,11 +14,11 @@ import java.util.*;
 /**
  * @Auther: Darker
  * @Date: 2018/7/30 14:07
- * @Description: 对象互转工具类
+ * @Description: 对象转换工具类
  */
-public class BeanToMapUtil {
+public class ConvertObject {
 
-    public BeanToMapUtil() {
+    public ConvertObject() {
     }
 
     /**

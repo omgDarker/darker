@@ -7,8 +7,8 @@ import com.vip.darker.model.RoleModel;
 import com.vip.darker.model.URRelation;
 import com.vip.darker.model.UserModel;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.BeanToMapUtil;
-import com.vip.darker.util.ConstantUtil;
+import com.vip.darker.util.ConvertObject;
+import com.vip.darker.util.Constant;
 import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -116,7 +116,7 @@ public class UserController {
 
         if (userModel != null) {
             try {
-                return BeanToMapUtil.convertBeanToMap(userModel);
+                return ConvertObject.convertBeanToMap(userModel);
             } catch (Exception e) {
                 logger.info("{}:bean转map失败!", "[" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
             }
@@ -135,7 +135,7 @@ public class UserController {
     public List<Map<String, Object>> searchListUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         try {
             List<UserModel> beanList = SpringBootService.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
-            List<Map<String, Object>> resultList = BeanToMapUtil.convertListBeanToListMap(beanList, UserModel.class);
+            List<Map<String, Object>> resultList = ConvertObject.convertListBeanToListMap(beanList, UserModel.class);
             for (Map<String, Object> map : resultList) {
                 int userId = Integer.valueOf(map.get("id") + "");
                 // 根据用户ID查找角色ID
@@ -180,7 +180,7 @@ public class UserController {
 
         int count = SpringBootService.getUserService().selectCount(new EntityWrapper<>());
 
-        map.put("userMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("userMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -270,7 +270,7 @@ public class UserController {
 
         if (roleModel != null) {
             try {
-                return BeanToMapUtil.convertBeanToMap(roleModel);
+                return ConvertObject.convertBeanToMap(roleModel);
             } catch (Exception e) {
                 logger.info("{}:bean转map失败!", Thread.currentThread().getStackTrace()[1].getMethodName());
             }
@@ -302,7 +302,7 @@ public class UserController {
 
         int count = SpringBootService.getRoleService().selectCount(new EntityWrapper<>());
 
-        map.put("roleMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("roleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -399,7 +399,7 @@ public class UserController {
 
         int count = SpringBootService.getPermissionService().selectCount(new EntityWrapper<>());
 
-        map.put("permissionMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("permissionMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }

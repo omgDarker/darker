@@ -3,7 +3,7 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.model.UserModel;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.ConstantUtil;
+import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +47,7 @@ public class AdminController {
 
         int count = SpringBootService.getResourceService().selectCount(new EntityWrapper<>());
 
-        modelAndView.addObject("maxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        modelAndView.addObject("maxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return modelAndView;
     }
@@ -66,9 +66,9 @@ public class AdminController {
         // 判断是否存在此用户
         Object obj = SpringBootService.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword()));
         if (obj != null) {
-            map.put(ConstantUtil.MSG, "用户已存在!");
+            map.put(Constant.MSG, "用户已存在!");
         } else {
-            map.put(ConstantUtil.MSG, SpringBootService.getUserService().insert(userModel) ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
+            map.put(Constant.MSG, SpringBootService.getUserService().insert(userModel) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
         }
         return map;
     }

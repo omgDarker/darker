@@ -7,7 +7,7 @@ import com.vip.darker.model.ColumnModel;
 import com.vip.darker.model.MessageModel;
 import com.vip.darker.model.PhotoModel;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.ConstantUtil;
+import com.vip.darker.util.Constant;
 import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +43,7 @@ public class IndexController {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // redis中取文章列表
-        List<ArticleModel> list = (List<ArticleModel>) SpringBootService.getRedisService().get(ConstantUtil.REDIS_KEY_ARTICLE);
+        List<ArticleModel> list = (List<ArticleModel>) SpringBootService.getRedisService().get(Constant.REDIS_KEY_ARTICLE);
 
         if (list != null && list.size() > 0) {
             list = list.subList((pageNum - 1) * pageSize, pageNum * pageSize > list.size() ? list.size() : pageNum * pageSize);
@@ -297,7 +297,7 @@ public class IndexController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, SpringBootService.getArticleService().updateById(articleModel) ? ConstantUtil.SUCCESS : ConstantUtil.FAIL);
+        map.put(Constant.MSG, SpringBootService.getArticleService().updateById(articleModel) ? Constant.SUCCESS : Constant.FAIL);
         map.put("likeAmount", likeAmount + 1);
 
         return map;
@@ -321,7 +321,7 @@ public class IndexController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, SpringBootService.getArticleService().updateById(articleModel) ? ConstantUtil.SUCCESS : ConstantUtil.FAIL);
+        map.put(Constant.MSG, SpringBootService.getArticleService().updateById(articleModel) ? Constant.SUCCESS : Constant.FAIL);
         map.put("likeNoAmount", likeNoAmount + 1);
 
         return map;

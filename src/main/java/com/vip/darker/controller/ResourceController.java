@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.controller.base.RedirectController;
 import com.vip.darker.model.*;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.ConstantUtil;
+import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -59,7 +59,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -79,7 +79,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -127,7 +127,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -160,7 +160,7 @@ public class ResourceController extends RedirectController {
 
         int count = SpringBootService.getTrashService().selectCount(new EntityWrapper<>());
 
-        map.put("trashMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("trashMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -182,7 +182,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -202,7 +202,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -222,7 +222,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -268,7 +268,7 @@ public class ResourceController extends RedirectController {
 
         int count = SpringBootService.getClassifyService().selectCount(new EntityWrapper<>());
 
-        map.put("classifyMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("classifyMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -290,7 +290,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -310,7 +310,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -330,7 +330,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -389,7 +389,7 @@ public class ResourceController extends RedirectController {
 
         int count = SpringBootService.getColumnService().selectCount(new EntityWrapper<>());
 
-        map.put("columnMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("columnMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -411,7 +411,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -431,7 +431,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -451,7 +451,7 @@ public class ResourceController extends RedirectController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -497,7 +497,7 @@ public class ResourceController extends RedirectController {
 
         int count = SpringBootService.getLinkService().selectCount(new EntityWrapper<>());
 
-        map.put("linkMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("linkMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }

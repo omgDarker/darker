@@ -2,10 +2,11 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.*;
+import com.vip.darker.model.ArticleModel;
+import com.vip.darker.model.MessageModel;
+import com.vip.darker.model.PhotoModel;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.BeanToMapUtil;
-import com.vip.darker.util.ConstantUtil;
+import com.vip.darker.util.Constant;
 import com.vip.darker.util.WebSiteUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -63,7 +64,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -83,7 +84,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -103,7 +104,7 @@ public class ContentController {
 
         int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<>());
 
-        map.put("articleMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("articleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -130,25 +131,17 @@ public class ContentController {
      * @date: 2018/7/20 15:49
      */
     @RequestMapping(value = "/allArticle", method = RequestMethod.GET)
-    public List<Map<String, Object>> queryArticleList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<ArticleModel> queryArticleList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 
         List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
 
-        try {
-            // BEAN转MAP
-            List<Map<String, Object>> resultList = BeanToMapUtil.convertListBeanToListMap(list, ArticleModel.class);
-
-            for (Map<String, Object> map : resultList) {
-                Map<String, Object> columnMap = SpringBootService.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", map.get("columnId")));
-                Map<String, Object> classifyMap = SpringBootService.getClassifyService().selectMap(new EntityWrapper<ClassifyModel>().where("id={0}", map.get("classifyId")));
-                map.put("columnName", columnMap.get("name"));
-                map.put("classifyName", classifyMap.get("name"));
-            }
-            return resultList;
-        } catch (Exception e) {
-            e.printStackTrace();
+        // id转name
+        for (ArticleModel articleModel : list) {
+            articleModel.setClassifyName(SpringBootService.getClassifyService().selectById(articleModel.getClassifyId()).getName());
+            articleModel.setColumnName(SpringBootService.getColumnService().selectById(articleModel.getColumnId()).getName());
         }
-        return null;
+
+        return list;
     }
 
     //****************************************图片模块****************************************//
@@ -168,7 +161,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_INSERT : ConstantUtil.FAIL_INSERT);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
 
         return map;
     }
@@ -188,7 +181,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -208,7 +201,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -228,7 +221,7 @@ public class ContentController {
 
         int count = SpringBootService.getPhotoService().selectCount(new EntityWrapper<>());
 
-        map.put("photoMaxPage", (count - 1) / (ConstantUtil.PAGE_SIZE + 2) + 1);
+        map.put("photoMaxPage", (count - 1) / (Constant.PAGE_SIZE + 2) + 1);
 
         return map;
     }
@@ -298,7 +291,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_UPDATE : ConstantUtil.FAIL_UPDATE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -318,7 +311,7 @@ public class ContentController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? ConstantUtil.SUCCESS_DELETE : ConstantUtil.FAIL_DELETE);
+        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
 
         return map;
     }
@@ -338,7 +331,7 @@ public class ContentController {
 
         int count = SpringBootService.getMessageService().selectCount(new EntityWrapper<>());
 
-        map.put("messageMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("messageMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
 
         return map;
     }

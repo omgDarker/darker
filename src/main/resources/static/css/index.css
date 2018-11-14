@@ -126,24 +126,8 @@ h3.blogtitle {
     text-decoration: underline;
 }
 
-.columntag {
-    background: url(../images/columnTag.png) no-repeat left center
-}
-
 .dtime {
     background: url(../images/posttime.gif) no-repeat 1px
-}
-
-.viewnum {
-    background: url(../images/watch.jpg) no-repeat left center
-}
-
-.likemuch {
-    background: url(../images/like.jpg) no-repeat left center
-}
-
-.likenomuch {
-    background: url(../images/likeNo.jpg) no-repeat left center
 }
 
 .blogpic img {
@@ -164,7 +148,7 @@ h3.blogtitle {
 
 .r_box {
     width: 300px;
-    margin: 20px 20px 0 0
+    margin: 5px 20px 0 0
 }
 
 .tit {
@@ -253,7 +237,7 @@ h3.blogtitle {
 
 .tuwen p {
     margin-top: 5px;
-    margin-left: 85px;
+    margin-left: 15px;
 }
 
 .tulanmu {
