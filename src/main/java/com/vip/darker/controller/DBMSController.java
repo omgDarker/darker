@@ -1,5 +1,6 @@
 package com.vip.darker.controller;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,13 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("dbms")
+@ConfigurationProperties(prefix = "spring.datasource.druid")
 public class DBMSController {
+
+    private String driverClassName; // 数据库驱动
+    private String url; // 数据库连接
+    private String username; // 用户名
+    private String password; // 密码
 
     /**
      * 功能描述: 获取数据库表信息
@@ -31,9 +38,9 @@ public class DBMSController {
 
         try {
             // 加载数据库驱动
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName(driverClassName).newInstance();
             // 获取数据库连接
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/darker", "root", "root");
+            conn = DriverManager.getConnection(url, username, password);
             // 获取数据库信息
             DatabaseMetaData dbMetaData = conn.getMetaData();
             // 获取数据库表信息
@@ -63,5 +70,37 @@ public class DBMSController {
             }
         }
         return result;
+    }
+
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

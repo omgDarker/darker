@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * @Auther: Darker
  * @Date: 2018/11/13 16:23
- * @Description: 结果集转换工具
+ * @Description: 结果集转换工具类
  */
 public class ConvertResult {
 

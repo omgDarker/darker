@@ -1,9 +1,9 @@
 package com.vip.darker.service.base;
 
+import com.vip.darker.properties.PropertiesStat;
 import com.vip.darker.service.*;
 import com.vip.darker.service.impl.*;
 import com.vip.darker.system.SpringBootApplicationContent;
-import com.vip.darker.system.load.SpringBootPropertiesLoad;
 import com.vip.darker.system.pool.AsyncTaskExecutorService;
 import com.vip.darker.system.redis.RedisService;
 
@@ -136,17 +136,6 @@ public class SpringBootService {
     }
 
     /**
-     * 功能描述: 监控service
-     *
-     * @return: com.vip.darker.service.MonitorService
-     * @auther: darker
-     * @date: 2018/7/26 18:10
-     */
-    public static MonitorService getMonitorService() {
-        return (MonitorService) SpringBootApplicationContent.getBean(MonitorServiceImpl.BEAN_NAME);
-    }
-
-    /**
      * 功能描述: 分类service
      *
      * @return: com.vip.darker.service.ClassifyService
@@ -182,12 +171,12 @@ public class SpringBootService {
     /**
      * 功能描述: 初始化加载YML文件属性bean
      *
-     * @return: SpringBootPropertiesLoad
+     * @return: PropertiesStat
      * @auther: darker
      * @date: 2018/8/28 14:13
      */
-    public static SpringBootPropertiesLoad getSpringBootPropertiesLoad() {
-        return (SpringBootPropertiesLoad) SpringBootApplicationContent.getBean(SpringBootPropertiesLoad.BEAN_NAME);
+    public static PropertiesStat getPropertiesStat() {
+        return (PropertiesStat) SpringBootApplicationContent.getBean(PropertiesStat.BEAN_NAME);
     }
 
     /**

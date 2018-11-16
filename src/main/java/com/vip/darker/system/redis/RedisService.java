@@ -154,7 +154,7 @@ public class RedisService {
      */
     public long desc(String key, long delta) {
         if (delta < 0) {
-            throw new RuntimeException("递增银子必须>0");
+            throw new RuntimeException("递增因子必须>0");
         }
         return redisTemplate.opsForValue().increment(key, -delta);
     }

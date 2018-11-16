@@ -11,15 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @Auther: Darker
- * @description ：后台管理页面控制器
+ * @description ：博客后台控制器
  * @date : 2018/7/17 23:08
  */
 @RestController
-@RequestMapping(value = "admin")
+@RequestMapping(value = AdminController.ADMIN)
 public class AdminController {
+
+    static final String ADMIN = "admin";
 
     /**
      * 功能描述: 后台登录跳转
@@ -30,7 +33,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login() {
-        return new ModelAndView("admin/login");
+        return new ModelAndView(ADMIN + "/login");
     }
 
     /**
@@ -43,7 +46,7 @@ public class AdminController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView admin() {
 
-        ModelAndView modelAndView = new ModelAndView("admin/home");
+        ModelAndView modelAndView = new ModelAndView(ADMIN + "/home");
 
         int count = SpringBootService.getResourceService().selectCount(new EntityWrapper<>());
 
@@ -64,12 +67,9 @@ public class AdminController {
     public Map<String, Object> register(UserModel userModel) {
         Map<String, Object> map = new HashMap<>();
         // 判断是否存在此用户
-        Object obj = SpringBootService.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword()));
-        if (obj != null) {
-            map.put(Constant.MSG, "用户已存在!");
-        } else {
-            map.put(Constant.MSG, SpringBootService.getUserService().insert(userModel) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
-        }
+        Optional.ofNullable(SpringBootService.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword())))
+                .map(opt -> map.put(Constant.MSG, "用户已存在!"))
+                .orElse(map.put(Constant.MSG, SpringBootService.getUserService().insert(userModel) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT));
         return map;
     }
 }

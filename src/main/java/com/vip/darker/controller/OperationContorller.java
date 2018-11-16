@@ -36,7 +36,7 @@ public class OperationContorller {
         // 统计访问量
         map.put("countWebVV", SpringBootService.getUserService().selectList(new EntityWrapper<>()).size());
         // 统计浏览量
-        map.put("countWebPV", SpringBootService.getSpringBootPropertiesLoad().getCountPV());
+        map.put("countWebPV", SpringBootService.getPropertiesStat().getCountPV());
         // 统计用户数*
         map.put("countWebUV", SpringBootService.getUserService().selectList(new EntityWrapper<UserModel>().setSqlSelect("distinct ip")).size());
         // 统计留言数

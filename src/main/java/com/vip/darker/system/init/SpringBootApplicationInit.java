@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Auther: Darker
  * @Date: 2018/8/28 14:30
- * @Description: springboot初始化后, 调用方法
+ * @Description: springboot初始化后, 获取tomcat配置参数
  */
 @Component
 public class SpringBootApplicationInit implements ApplicationRunner {

@@ -37,9 +37,7 @@ public class SpringBootInterceptorConfig implements WebMvcConfigurer {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/about/*").setViewName("/index/about");
-        registry.addViewController("/admin/*").setViewName("/admin/login");
-        registry.addRedirectViewController("/photo/*", "/index/photo/3");
-        registry.addRedirectViewController("/message/*", "/index/message");
+        registry.addViewController("/error/404").setViewName("/error/404");
+        registry.addViewController("/error/500").setViewName("/error/500");
     }
 }

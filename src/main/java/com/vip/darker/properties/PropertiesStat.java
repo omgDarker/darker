@@ -1,4 +1,4 @@
-package com.vip.darker.system.load;
+package com.vip.darker.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -6,19 +6,17 @@ import org.springframework.stereotype.Component;
 /**
  * @Auther: Darker
  * @Date: 2018/8/28 14:30
- * @Description: springboot初始化加载YML配置文件值(VV, PV, UV)
+ * @Description: 流量属性值(VV, PV, UV)
  */
-@Component(value = SpringBootPropertiesLoad.BEAN_NAME)
+@Component(value = PropertiesStat.BEAN_NAME)
 @ConfigurationProperties(prefix = "statistics") //.yml文件属性值前缀
-public class SpringBootPropertiesLoad {
+public class PropertiesStat {
 
-    public static final String BEAN_NAME = "springBootPropertiesLoad";
-    // 记录浏览量
-    private int countPV;
-    // 记录访问量
-    private int countVV;
-    // 记录访问人数
-    private int countUV;
+    public static final String BEAN_NAME = "propertiesStat";
+
+    private int countPV; // 记录浏览量
+    private int countVV; // 记录访问量
+    private int countUV; // 记录访问人数
 
     public int getCountPV() {
         return countPV;
@@ -45,14 +43,14 @@ public class SpringBootPropertiesLoad {
     }
 
     public int addCountPV() {
-        return countPV + 1;
+        return countPV++;
     }
 
     public int addCountVV() {
-        return countVV + 1;
+        return countVV++;
     }
 
     public int addCountUV() {
-        return countUV + 1;
+        return countUV++;
     }
 }

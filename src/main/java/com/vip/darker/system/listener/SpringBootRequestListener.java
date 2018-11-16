@@ -1,5 +1,6 @@
 package com.vip.darker.system.listener;
 
+import com.vip.darker.service.base.SpringBootService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,7 @@ import javax.servlet.annotation.WebListener;
 /**
  * @Auther: Darker
  * @Date: 2018/8/31 11:30
- * @Description: ServletRequestListener监听器统计用户信息
+ * @Description: request监听器 统计网站浏览量
  */
 @WebListener
 public class SpringBootRequestListener implements ServletRequestListener {
@@ -18,26 +19,28 @@ public class SpringBootRequestListener implements ServletRequestListener {
     private Logger logger = LoggerFactory.getLogger(SpringBootRequestListener.class);
 
     /**
-     * 功能描述: 每当一个request建立,将当前用户放入集合
+     * 功能描述: request每次请求调用方法
      *
-     * @param: [servletRequestEvent]
+     * @param: [event]
      * @auther: darker
      * @date: 2018/8/31 13:43
      */
-    @SuppressWarnings(value = "unchecked")
     @Override
-    public void requestInitialized(ServletRequestEvent servletRequestEvent) {
+    @SuppressWarnings(value = "unchecked")
+    public void requestInitialized(ServletRequestEvent event) {
+        // 当前PV值+1
+        int countPV = SpringBootService.getPropertiesStat().addCountPV();
+        logger.info("[当前网站浏览量的值]:{}", countPV);
     }
 
     /**
-     * 功能描述: 每当一个request销毁,将当前用户移出集合
+     * 功能描述: request每次销毁调用方法
      *
-     * @param: [servletRequestEvent]
+     * @param: [event]
      * @auther: darker
      * @date: 2018/8/31 13:43
      */
-    @SuppressWarnings(value = "unchecked")
     @Override
-    public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
+    public void requestDestroyed(ServletRequestEvent event) {
     }
 }

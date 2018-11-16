@@ -14,6 +14,7 @@ public class SpringBootApplicationContent {
 
     private static ApplicationContext applicationContext = null;
 
+    // 设置applicationContext
     public static void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         if (SpringBootApplicationContent.applicationContext == null) {
             SpringBootApplicationContent.applicationContext = applicationContext;
@@ -25,13 +26,12 @@ public class SpringBootApplicationContent {
         return applicationContext;
     }
 
-    // 通过name获取Bean.
+    // 通过name获取Bean
     public static Object getBean(String name) {
         return getApplicationContext().getBean(name);
-
     }
 
-    // 通过class获取Bean.
+    // 通过class获取Bean
     public static <T> T getBean(Class<T> clazz) {
         return getApplicationContext().getBean(clazz);
     }
@@ -42,7 +42,7 @@ public class SpringBootApplicationContent {
     }
 
     // 初始化获取所有controller
-    public static String[] controllers(Class<? extends Annotation>  clazz){
+    public static String[] controllers(Class<? extends Annotation> clazz) {
         return getApplicationContext().getBeanNamesForAnnotation(clazz);
     }
 }

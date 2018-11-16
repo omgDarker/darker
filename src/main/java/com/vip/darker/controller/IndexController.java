@@ -3,20 +3,17 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.ArticleModel;
-import com.vip.darker.model.ColumnModel;
 import com.vip.darker.model.MessageModel;
 import com.vip.darker.model.PhotoModel;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConvertAttribute;
 import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Auther: Darker
@@ -24,10 +21,10 @@ import java.util.Map;
  * @date : 2018/7/17 11:05
  */
 @RestController
-@RequestMapping(value = "index")
+@RequestMapping(value = IndexController.INDEX)
 public class IndexController {
 
-    private static final String INDEX = "index";
+    static final String INDEX = "index";
 
     /**
      * 功能描述: 博客首页
@@ -43,33 +40,25 @@ public class IndexController {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/home");
         // redis中取文章列表
-        List<ArticleModel> list = (List<ArticleModel>) SpringBootService.getRedisService().get(Constant.REDIS_KEY_ARTICLE);
+        List<ArticleModel> list = Optional.ofNullable((List<ArticleModel>) SpringBootService.getRedisService().get(Constant.REDIS_KEY_ARTICLE))
+                .map(opt -> opt.subList((pageNum - 1) * pageSize, pageNum * pageSize > opt.size() ? opt.size() : pageNum * pageSize))
+                .orElse(SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords());
 
-        if (list != null && list.size() > 0) {
-            list = list.subList((pageNum - 1) * pageSize, pageNum * pageSize > list.size() ? list.size() : pageNum * pageSize);
-        } else {
-            // 防止数据更新成功后,缓存失效
-            list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords();
-        }
-
-        for (ArticleModel model : list) {
+        list.forEach(model -> {
             // 处理文章摘要长度
-            if (StringUtils.isNotBlank(model.getSummary())) {
+            String summary = model.getSummary();
+            if (StringUtils.isNotBlank(summary)) {
                 if (StringUtils.isNotBlank(model.getImageName())) {
                     // 若存在图片
-                    model.setSummary(model.getSummary().substring(0, model.getSummary().length() > 90 ? 90 : model.getSummary().length()));
+                    model.setSummary(summary.substring(0, summary.length() > 90 ? 90 : summary.length()));
                 }
             }
             // 文章栏目信息
-            if (StringUtils.isNotBlank(model.getColumnId())) {
-                Map<String, Object> map = SpringBootService.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", model.getColumnId()));
-                if (map != null) {
-                    model.setColumnName(map.get("name") + "");
-                } else {
-                    model.setColumnName("其他类型");
-                }
-            }
-        }
+            String columnName = Optional.ofNullable(model.getColumnId())
+                    .map(opt -> ConvertAttribute.getColumnMap().get(Integer.valueOf(opt)))
+                    .orElse("其他类型");
+            model.setColumnName(columnName);
+        });
         // 文章总数
         int numSum = SpringBootService.getArticleService().selectCount(new EntityWrapper<>());
         // 当前页
@@ -101,13 +90,11 @@ public class IndexController {
         // 文章信息
         ArticleModel articleModel = SpringBootService.getArticleService().selectById(id);
         // 设置文章栏目名称
-        Map<String, Object> map = SpringBootService.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", articleModel.getColumnId()));
-        if (map != null) {
-            articleModel.setColumnName(map.get("name") + "");
-        } else {
-            articleModel.setColumnName("其他类型");
-        }
-        // 重新设置summary
+        String columnName = Optional.ofNullable(articleModel.getColumnId())
+                .map(opt -> ConvertAttribute.getColumnMap().get(Integer.valueOf(opt)))
+                .orElse("其他类型");
+        articleModel.setColumnName(columnName);
+        // 重置summary
         if ("<p></p>".equals(WebSiteUtil.replaceBlank(articleModel.getSummary()))) {
             articleModel.setSummary("");
         }
@@ -131,12 +118,8 @@ public class IndexController {
      */
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public ModelAndView about() {
-
         ModelAndView modelAndView = new ModelAndView(INDEX + "/about");
-        // 查询栏目列表
-        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
-
-        return modelAndView;
+        return modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
     }
 
     /**
@@ -154,9 +137,9 @@ public class IndexController {
         // 图片列表
         modelAndView.addObject("photoList", SpringBootService.getPhotoService().selectList(new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)));
         // 栏目列表
-        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
         // 栏目名称
-        modelAndView.addObject("columnName", SpringBootService.getColumnService().selectById(columnId).getName());
+        modelAndView.addObject("columnName", ConvertAttribute.getColumnMap().getOrDefault(columnId, "其他栏目"));
 
         return modelAndView;
     }
@@ -176,7 +159,7 @@ public class IndexController {
         // 图片列表
         modelAndView.addObject("photoList", SpringBootService.getPhotoService().selectList(new EntityWrapper<PhotoModel>().where("classifyId={0} ", classifyId)));
         // 栏目列表
-        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
 
         return modelAndView;
     }
@@ -190,7 +173,7 @@ public class IndexController {
      * @date: 2018/8/13 22:39
      */
     @RequestMapping(value = "/article/{classifyId}/{columnId}", method = RequestMethod.GET)
-    public ModelAndView getArticleByClassifyIdAndColumnId(@PathVariable(value = "classifyId") String classifyId, @PathVariable(value = "columnId") String columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+    public ModelAndView getArticleByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId") Integer columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
         // 文章总条数
@@ -200,13 +183,13 @@ public class IndexController {
         // 分类ID
         modelAndView.addObject("classifyId", classifyId);
         // 分类名称
-        modelAndView.addObject("classifyName", SpringBootService.getClassifyService().selectById(classifyId).getName());
+        modelAndView.addObject("classifyName", ConvertAttribute.getClassifyMap().getOrDefault(classifyId, "其他分类"));
         // 栏目ID
         modelAndView.addObject("columnId", columnId);
         // 栏目名称
-        modelAndView.addObject("columnName", SpringBootService.getColumnService().selectById(columnId).getName());
+        modelAndView.addObject("columnName", ConvertAttribute.getColumnMap().getOrDefault(columnId, "其他栏目"));
         // 栏目列表
-        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -226,27 +209,28 @@ public class IndexController {
      * @date: 2018/8/13 22:39
      */
     @RequestMapping(value = "/article/{classifyId}", method = RequestMethod.GET)
-    public ModelAndView getArticleByClassifyId(@PathVariable(value = "classifyId") String classifyId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+    public ModelAndView getArticleByClassifyId(@PathVariable(value = "classifyId") Integer classifyId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
         // 文章总条数
         int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId));
         // 根据条件查询文章
         List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId)).getRecords();
-        // 处理文章摘要长度
-        for (ArticleModel model : list) {
-            if (StringUtils.isNotBlank(model.getSummary())) {
-                model.setSummary(model.getSummary().substring(0, model.getSummary().length() > 130 ? 130 : model.getSummary().length()));
+        // 处理文章简介长度
+        list.forEach(opt -> {
+            Optional<String> optional = Optional.ofNullable(opt.getSummary());
+            if (optional.isPresent()) {
+                opt.setSummary(opt.getSummary().substring(0, opt.getSummary().length() > 130 ? 130 : opt.getSummary().length()));
             }
-        }
+        });
         // 文章列表
         modelAndView.addObject("list", list);
         // 分类ID
         modelAndView.addObject("classifyId", classifyId);
         // 分类名称
-        modelAndView.addObject("classifyName", SpringBootService.getClassifyService().selectById(classifyId).getName());
+        modelAndView.addObject("classifyName", ConvertAttribute.getClassifyMap().getOrDefault(classifyId, "其他分类"));
         // 栏目列表
-        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
         // 当前页
         modelAndView.addObject("pageNum", pageNum);
         // 总页数
@@ -274,7 +258,7 @@ public class IndexController {
         // 留言列表
         modelAndView.addObject("messageList", SpringBootService.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords());
         // 栏目列表
-        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
 
         return modelAndView;
     }

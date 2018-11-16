@@ -7,6 +7,7 @@ import com.vip.darker.model.MessageModel;
 import com.vip.darker.model.PhotoModel;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConvertAttribute;
 import com.vip.darker.util.WebSiteUtil;
 import org.springframework.web.bind.annotation.*;
 
@@ -135,11 +136,10 @@ public class ContentController {
 
         List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
 
-        // id转name
-        for (ArticleModel articleModel : list) {
-            articleModel.setClassifyName(SpringBootService.getClassifyService().selectById(articleModel.getClassifyId()).getName());
-            articleModel.setColumnName(SpringBootService.getColumnService().selectById(articleModel.getColumnId()).getName());
-        }
+        list.forEach(opt -> {
+            opt.setClassifyName(ConvertAttribute.getClassifyMap().get(Integer.valueOf(opt.getClassifyId())));
+            opt.setColumnName(ConvertAttribute.getColumnMap().get(Integer.valueOf(opt.getColumnId())));
+        });
 
         return list;
     }

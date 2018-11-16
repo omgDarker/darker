@@ -36,32 +36,35 @@ public class ImageController {
      * @date: 2018/8/8 11:53
      */
     @RequestMapping(value = "/uploadImage")
-    public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest) throws IOException {
+    public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest) {
         // 设置返回值
         Map<String, Object> map = new HashMap<>();
         // 获取上传图片列表
         List<MultipartFile> myImageList = multipartRequest.getFiles("file_data");
-
-        for (MultipartFile myImage : myImageList) {
-            // 获取上传文件原始名称
-            String oldImageName = myImage.getOriginalFilename();
-            // 存储图片的虚拟本地路径
-            String saveImagePath = Constant.PHOTO_PATH;
-            // 上传图片
-            if (oldImageName.length() > 0) {
-                // 新图片名称
-                String newImageName = UUID.randomUUID() + oldImageName.substring(oldImageName.indexOf("."));
-                // 新图片
-                File newImage = new File(saveImagePath + "\\" + newImageName);
-                // 将内存中的数据写入磁盘
-                myImage.transferTo(newImage);
-                // 将新图片名称返回前端
-                map.put(Constant.MSG, Constant.SUCCESS_UPLOAD);
-                map.put("myImage", newImageName);
-            } else {
-                map.put(Constant.MSG, Constant.FAIL_UPLOAD);
+        myImageList.forEach(opt -> {
+            try {
+                // 获取上传文件原始名称
+                String oldImageName = opt.getOriginalFilename();
+                // 存储图片的虚拟本地路径
+                String saveImagePath = Constant.PHOTO_PATH;
+                // 上传图片
+                if (oldImageName.length() > 0) {
+                    // 新图片名称
+                    String newImageName = UUID.randomUUID() + oldImageName.substring(oldImageName.indexOf("."));
+                    // 新图片
+                    File newImage = new File(saveImagePath + "\\" + newImageName);
+                    // 将内存中的数据写入磁盘
+                    opt.transferTo(newImage);
+                    // 将新图片名称返回前端
+                    map.put(Constant.MSG, Constant.SUCCESS_UPLOAD);
+                    map.put("myImage", newImageName);
+                } else {
+                    map.put(Constant.MSG, Constant.FAIL_UPLOAD);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }
+        });
         return map;
     }
 

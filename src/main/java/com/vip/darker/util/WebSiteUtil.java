@@ -37,9 +37,9 @@ public class WebSiteUtil {
      */
     public static void getWebOffsideInformation(ModelAndView modelAndView) {
         // 栏目列表
-        modelAndView.addObject("columnList", SpringBootService.getColumnService().selectList(new EntityWrapper<>()));
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
         // 网站累计浏览量
-        modelAndView.addObject("countPV", SpringBootService.getSpringBootPropertiesLoad().getCountPV());
+        modelAndView.addObject("countPV", SpringBootService.getPropertiesStat().getCountPV());
         // 友情列表
         modelAndView.addObject("linkList", SpringBootService.getLinkService().selectList(new EntityWrapper<>()));
         // 图片列表
@@ -94,7 +94,7 @@ public class WebSiteUtil {
      * @auther: darker
      * @date: 2018/10/31 18:11
      */
-    public static String getIpAddr(HttpServletRequest request) {
+    static String getIpAddr(HttpServletRequest request) {
         String ipAddress = request.getHeader("x-forwarded-for");
         if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("Proxy-Client-IP");

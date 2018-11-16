@@ -32,7 +32,7 @@ public class ScheduledTask {
             statisticsModel.setId(model.getId());
             switch (model.getClassify()) {
                 case "pv":
-                    statisticsModel.setAmount(SpringBootService.getSpringBootPropertiesLoad().getCountPV());
+                    statisticsModel.setAmount(SpringBootService.getPropertiesStat().getCountPV());
                     break;
                 case "vv":
                     statisticsModel.setAmount(SpringBootService.getUserService().selectList(new EntityWrapper<>()).size());

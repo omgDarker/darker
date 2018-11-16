@@ -7,8 +7,8 @@ import com.vip.darker.model.RoleModel;
 import com.vip.darker.model.URRelation;
 import com.vip.darker.model.UserModel;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.ConvertObject;
 import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConvertObject;
 import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -110,7 +110,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/users/{id}")
-    public Map<String, Object> searchUserById(@PathVariable(value = "id") Integer userId) {
+    public Map<String, Object> findUserById(@PathVariable(value = "id") Integer userId) {
 
         UserModel userModel = SpringBootService.getUserService().selectById(userId);
 
@@ -132,35 +132,35 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<Map<String, Object>> searchListUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<Map<String, Object>> findListUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         try {
             List<UserModel> beanList = SpringBootService.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
             List<Map<String, Object>> resultList = ConvertObject.convertListBeanToListMap(beanList, UserModel.class);
-            for (Map<String, Object> map : resultList) {
-                int userId = Integer.valueOf(map.get("id") + "");
+            resultList.forEach(opt -> {
+                int userId = Integer.valueOf(opt.get("id") + "");
                 // 根据用户ID查找角色ID
                 Map<String, Object> relationMap = SpringBootService.getURRelationService().selectMap(new EntityWrapper<URRelation>().where("userId={0}", userId));
                 if (relationMap != null && relationMap.size() > 0) {
                     int roleId = Integer.valueOf(relationMap.get("roleId") + "");
                     // 根据角色ID查找角色
                     RoleModel role = SpringBootService.getRoleService().selectById(roleId);
-                    map.put("roleName", StringUtils.isNotBlank(role.getName()) ? role.getName() : "游客");
+                    opt.put("roleName", StringUtils.isNotBlank(role.getName()) ? role.getName() : "游客");
                 } else {
-                    map.put("roleName", "游客");
+                    opt.put("roleName", "游客");
                 }
                 // 用户名
-                if (StringUtils.isBlank(map.get("name").toString())) {
-                    map.put("name", "陌生人");
+                if (StringUtils.isBlank(opt.get("name").toString())) {
+                    opt.put("name", "陌生人");
                 }
                 // 邮箱
-                if (StringUtils.isBlank(map.get("email").toString())) {
-                    map.put("email", "stranger@qq.vip.com");
+                if (StringUtils.isBlank(opt.get("email").toString())) {
+                    opt.put("email", "stranger@qq.vip.com");
                 }
                 // 地区
-                if (StringUtils.isBlank(map.get("area").toString())) {
-                    map.put("area", WebSiteUtil.getCountryNameByIp(map.get("ip").toString()));
+                if (StringUtils.isBlank(opt.get("area").toString())) {
+                    opt.put("area", WebSiteUtil.getCountryNameByIp(opt.get("ip").toString()));
                 }
-            }
+            });
             return resultList;
         } catch (Exception e) {
             logger.info("{}:用户分页查询异常!", Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -264,18 +264,8 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/roles/{id}")
-    public Map<String, Object> searchRoleById(@PathVariable(value = "id") Integer roleId) {
-
-        RoleModel roleModel = SpringBootService.getRoleService().selectById(roleId);
-
-        if (roleModel != null) {
-            try {
-                return ConvertObject.convertBeanToMap(roleModel);
-            } catch (Exception e) {
-                logger.info("{}:bean转map失败!", Thread.currentThread().getStackTrace()[1].getMethodName());
-            }
-        }
-        return null;
+    public RoleModel findRoleById(@PathVariable(value = "id") Integer roleId) {
+        return SpringBootService.getRoleService().selectById(roleId);
     }
 
     /**
@@ -286,7 +276,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
-    public List<RoleModel> searchListRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<RoleModel> findListRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getRoleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -371,7 +361,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.GET)
-    public PermissionModel searchPermissionById(@PathVariable(value = "id") Integer permissionId) {
+    public PermissionModel findPermissionById(@PathVariable(value = "id") Integer permissionId) {
         return SpringBootService.getPermissionService().selectById(permissionId);
     }
 
@@ -383,7 +373,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/permissions", method = RequestMethod.GET)
-    public List<PermissionModel> searchListPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<PermissionModel> findListPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getPermissionService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

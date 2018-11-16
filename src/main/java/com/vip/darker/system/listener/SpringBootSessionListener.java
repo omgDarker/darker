@@ -9,11 +9,12 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Auther: Darker
  * @Date: 2018/8/31 11:30
- * @Description: HttpSessionListener监听器统计
+ * @Description: session监听器 统计网站在线人数
  */
 @WebListener
 public class SpringBootSessionListener implements HttpSessionListener {
@@ -23,43 +24,40 @@ public class SpringBootSessionListener implements HttpSessionListener {
     private Logger logger = LoggerFactory.getLogger(SpringBootSessionListener.class);
 
     /**
-     * 功能描述: 每当一个session会话建立,在线用户人数+1
+     * 功能描述: 每当session建立,在线用户人数+1
      *
-     * @param: [httpSessionEvent]
+     * @param: [event]
      * @auther: darker
      * @date: 2018/8/31 13:43
      */
     @Override
-    public synchronized void sessionCreated(HttpSessionEvent httpSessionEvent) {
+    public synchronized void sessionCreated(HttpSessionEvent event) {
         onLine++;
-        // 在线用户的数量存储到域对象ServletContext的number中
-        httpSessionEvent.getSession().getServletContext().setAttribute("number", onLine);
+        event.getSession().getServletContext().setAttribute("number", onLine);
         logger.info("{}:当前在线人数:{}", "sessionCreated", onLine);
     }
 
     /**
-     * 功能描述: 每当一个session会话销毁,在线用户人数-1
+     * 功能描述: 每当session销毁,在线用户人数-1
      *
-     * @param: [httpSessionEvent]
+     * @param: [event]
      * @auther: darker
      * @date: 2018/8/31 13:43
      */
     @Override
     @SuppressWarnings("unchecked")
-    public synchronized void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
+    public synchronized void sessionDestroyed(HttpSessionEvent event) {
         onLine--;
-        // 在线用户的数量存储到域对象ServletContext的number中
-        httpSessionEvent.getSession().getServletContext().setAttribute("number", onLine);
+        event.getSession().getServletContext().setAttribute("number", onLine);
         logger.info("{}:当前在线人数:{}", "sessionDestroyed", onLine);
-        // 获取用户集合
-        List<UserModel> list = (List<UserModel>) httpSessionEvent.getSession().getServletContext().getAttribute("userList");
-        // 获取销毁用户sessionId
-        String sessionId = httpSessionEvent.getSession().getId();
-        // 如果当前用户在userList中,在session销毁时,将当前用户移出userList
-        if (SessionUtil.getUserBySessionId(list, sessionId) != null) {
-            list.remove(SessionUtil.getUserBySessionId(list, sessionId));
-        }
+        // 销毁退出用户
+        List<UserModel> list = (List<UserModel>) event.getSession().getServletContext().getAttribute("onlineList");
+
+        String sessionId = event.getSession().getId();
+
+        Optional.ofNullable(SessionUtil.getUserBySessionId(list, sessionId))
+                .map(list::remove);
         // 重置用户集合
-        httpSessionEvent.getSession().getServletContext().setAttribute("userList", list);
+        event.getSession().getServletContext().setAttribute("onlineList", list);
     }
 }
