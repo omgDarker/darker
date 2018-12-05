@@ -247,7 +247,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/photoMaxPage",
+                url: "/images/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -2728,7 +2728,7 @@ function photoPagination(photoMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/allPhoto",
+                url: "/images",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -2801,7 +2801,7 @@ function parsePhotoHtmlContent(data) {
 function addPhoto() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/content/addPhoto",
+        url: "/images",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -2843,7 +2843,7 @@ function addPhoto() {
 function queryPhoto(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/content/allPhoto/" + id,
+        url: "/images/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -2884,7 +2884,7 @@ function queryPhoto(id) {
 function updatePhoto() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/content/updatePhoto",
+        url: "/images",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -2941,7 +2941,7 @@ function deletePhoto(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/deletePhoto/" + id,
+                url: "/images/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true

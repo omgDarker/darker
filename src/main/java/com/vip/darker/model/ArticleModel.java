@@ -13,25 +13,25 @@ import java.util.Date;
 public class ArticleModel extends Model<ArticleModel> {
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Integer id; // 唯一标识
 
-    private String title;
+    private String title; // 题目
 
-    private String summary;
+    private String summary; // 简介
 
-    private String content;
+    private String content; // 内容
 
     private String imageName; // 首图名称
 
-    private Integer readAmount;
+    private Integer readAmount; // 阅读量
 
-    private Integer likeAmount;
+    private Integer likeAmount; // 喜欢量
 
-    private Integer likeNoAmount;
+    private Integer likeNoAmount; // 不喜欢量
 
-    private String classifyId; // 分类ID(生活点滴,技术联盟,个人相册)
+    private Integer classifyId; // 分类ID(生活点滴,技术联盟,个人相册)
 
-    private String columnId; // 栏目ID(下拉框选项)
+    private Integer columnId; // 栏目ID(下拉框选项)
 
     @TableField(exist = false)
     private String columnName;  // 表示该属性不为数据库表字段,但又是必须使用的
@@ -39,13 +39,13 @@ public class ArticleModel extends Model<ArticleModel> {
     @TableField(exist = false)
     private String classifyName;  // 表示该属性不为数据库表字段,但又是必须使用的
 
-    private Integer isDelete;
+    private Integer isDelete; // 标识:是否删除
 
-    private String creator;
+    private String creator; // 创建人名称
 
-    private Date createTime;
+    private Date createTime; // 创建时间
 
-    private Date updateTime;
+    private Date updateTime; // 更新时间
 
     public Integer getId() {
         return id;
@@ -111,19 +111,19 @@ public class ArticleModel extends Model<ArticleModel> {
         this.likeNoAmount = likeNoAmount;
     }
 
-    public String getClassifyId() {
+    public Integer getClassifyId() {
         return classifyId;
     }
 
-    public void setClassifyId(String classifyId) {
+    public void setClassifyId(Integer classifyId) {
         this.classifyId = classifyId;
     }
 
-    public String getColumnId() {
+    public Integer getColumnId() {
         return columnId;
     }
 
-    public void setColumnId(String columnId) {
+    public void setColumnId(Integer columnId) {
         this.columnId = columnId;
     }
 

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.ArticleModel;
 import com.vip.darker.model.MessageModel;
-import com.vip.darker.model.PhotoModel;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import com.vip.darker.util.ConvertAttribute;
@@ -91,7 +90,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 文章分页查询,最大页数
+     * 功能描述: 文章列表页数
      *
      * @param: []
      * @return: java.util.Map<>
@@ -99,7 +98,7 @@ public class ContentController {
      * @date: 2018/7/30 10:48
      */
     @RequestMapping(value = "/articleMaxPage", method = RequestMethod.GET)
-    public Map<String, Object> getArticleMaxPage() {
+    public Map<String, Object> countArticleMaxPage() {
 
         Map<String, Object> map = new HashMap<>();
 
@@ -111,7 +110,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 文章实体查询
+     * 功能描述: 文章对象查询
      *
      * @param: [id]
      * @return: com.vip.darker.model.ArticleModel
@@ -119,12 +118,12 @@ public class ContentController {
      * @date: 2018/8/1 16:49
      */
     @RequestMapping(value = "/allArticle/{id}", method = RequestMethod.GET)
-    public ArticleModel queryArticleById(@PathVariable(value = "id") Integer id) {
+    public ArticleModel findArticleById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getArticleService().selectById(id);
     }
 
     /**
-     * 功能描述: 文章分页查询
+     * 功能描述: 文章列表查询
      *
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.ArticleModel>
@@ -132,124 +131,16 @@ public class ContentController {
      * @date: 2018/7/20 15:49
      */
     @RequestMapping(value = "/allArticle", method = RequestMethod.GET)
-    public List<ArticleModel> queryArticleList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<ArticleModel> findListArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 
         List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
 
         list.forEach(opt -> {
-            opt.setClassifyName(ConvertAttribute.getClassifyMap().get(Integer.valueOf(opt.getClassifyId())));
-            opt.setColumnName(ConvertAttribute.getColumnMap().get(Integer.valueOf(opt.getColumnId())));
+            opt.setClassifyName(ConvertAttribute.getClassifyMap().get(opt.getClassifyId()));
+            opt.setColumnName(ConvertAttribute.getColumnMap().get(opt.getColumnId()));
         });
 
         return list;
-    }
-
-    //****************************************图片模块****************************************//
-
-    /**
-     * 功能描述: 图片新增
-     *
-     * @param: [photoModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:23
-     */
-    @RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
-    public Map<String, Object> addPhoto(PhotoModel photoModel) {
-
-        boolean flag = SpringBootService.getPhotoService().insert(photoModel);
-
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
-
-        return map;
-    }
-
-    /**
-     * 功能描述: 图片更新
-     *
-     * @param: [photoModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:29
-     */
-    @RequestMapping(value = "/updatePhoto", method = RequestMethod.PUT)
-    public Map<String, Object> updatePhoto(PhotoModel photoModel) {
-
-        boolean flag = SpringBootService.getPhotoService().updateById(photoModel);
-
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
-
-        return map;
-    }
-
-    /**
-     * 功能描述: 图片删除
-     *
-     * @param: [id]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:37
-     */
-    @RequestMapping(value = "/deletePhoto/{id}", method = RequestMethod.DELETE)
-    public Map<String, Object> deletePhoto(@PathVariable(value = "id") Integer id) {
-
-        boolean flag = SpringBootService.getPhotoService().deleteById(id);
-
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
-
-        return map;
-    }
-
-    /**
-     * 功能描述: 照片分页查询,最大页数
-     *
-     * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/2 22:56
-     */
-    @RequestMapping(value = "/photoMaxPage", method = RequestMethod.GET)
-    public Map<String, Object> getPhotoMaxPage() {
-
-        Map<String, Object> map = new HashMap<>();
-
-        int count = SpringBootService.getPhotoService().selectCount(new EntityWrapper<>());
-
-        map.put("photoMaxPage", (count - 1) / (Constant.PAGE_SIZE + 2) + 1);
-
-        return map;
-    }
-
-    /**
-     * 功能描述: 图片实体查询
-     *
-     * @param: [id]
-     * @return: com.vip.darker.model.PhotoModel
-     * @auther: darker
-     * @date: 2018/8/2 22:57
-     */
-    @RequestMapping(value = "/allPhoto/{id}", method = RequestMethod.GET)
-    public PhotoModel queryPhotoById(@PathVariable(value = "id") Integer id) {
-        return SpringBootService.getPhotoService().selectById(id);
-    }
-
-    /**
-     * 功能描述: 图片分页查询
-     *
-     * @param: [pageNum, pageSize]
-     * @return: java.util.List<com.vip.darker.model.PhotoModel>
-     * @auther: darker
-     * @date: 2018/7/20 15:46
-     */
-    @RequestMapping(value = "/allPhoto", method = RequestMethod.GET)
-    public List<PhotoModel> queryAllPhoto(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
-        return SpringBootService.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
     //****************************************留言板模块****************************************//
@@ -317,7 +208,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 留言板分页查询,最大页数
+     * 功能描述: 留言列表页数
      *
      * @param: []
      * @return: java.util.Map<>
@@ -325,7 +216,7 @@ public class ContentController {
      * @date: 2018/8/2 22:56
      */
     @RequestMapping(value = "/messageMaxPage", method = RequestMethod.GET)
-    public Map<String, Object> getMessageMaxPage() {
+    public Map<String, Object> countMessageMaxPage() {
 
         Map<String, Object> map = new HashMap<>();
 
@@ -337,7 +228,7 @@ public class ContentController {
     }
 
     /**
-     * 功能描述: 留言板实体查询
+     * 功能描述: 留言对象查询
      *
      * @param: [id]
      * @return: com.vip.darker.model.MessageModel
@@ -345,12 +236,12 @@ public class ContentController {
      * @date: 2018/8/2 22:57
      */
     @RequestMapping(value = "/allMessage/{id}", method = RequestMethod.GET)
-    public MessageModel queryMessageById(@PathVariable(value = "id") Integer id) {
+    public MessageModel findMessageById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getMessageService().selectById(id);
     }
 
     /**
-     * 功能描述: 留言板分页查询
+     * 功能描述: 留言列表查询
      *
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.MessageModel>
@@ -358,7 +249,7 @@ public class ContentController {
      * @date: 2018/7/20 15:43
      */
     @RequestMapping(value = "/allMessage", method = RequestMethod.GET)
-    public List<MessageModel> queryAllMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<MessageModel> findListMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

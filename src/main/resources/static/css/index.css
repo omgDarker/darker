@@ -16,14 +16,14 @@
 
 /*æÌ÷·*/
 .jztop {
-    background: url(../images/maintopbg.jpg) no-repeat;
+    background: url(../images/others/maintopbg.jpg) no-repeat;
     width: 1034px;
     margin: auto;
     height: 14px;
 }
 
 .jzend {
-    background: url(../images/mainendbg.jpg) no-repeat;
+    background: url(../images/others/mainendbg.jpg) no-repeat;
     width: 1034px;
     margin: auto;
     height: 14px;
@@ -127,7 +127,7 @@ h3.blogtitle {
 }
 
 .dtime {
-    background: url(../images/posttime.gif) no-repeat 1px
+    background: url(../images/others/posttime.gif) no-repeat 1px
 }
 
 .blogpic img {
@@ -156,7 +156,7 @@ h3.blogtitle {
     color: #fff;
     font-size: 18px;
     height: 44px;
-    background: url(../images/rtitbg.png) no-repeat;
+    background: url(../images/others/rtitbg.png) no-repeat;
     padding-left: 40px;
     margin: 0 0 10px 0
 }
@@ -241,7 +241,7 @@ h3.blogtitle {
 }
 
 .tulanmu {
-    background: url(../images/lanmbq.png) no-repeat center left;
+    background: url(../images/others/lanmbq.png) no-repeat center left;
     padding-left: 17px
 }
 
@@ -254,7 +254,7 @@ h3.blogtitle {
 }
 
 .tutime {
-    background: url(../images/datepng.png) no-repeat left center;
+    background: url(../images/others/datepng.png) no-repeat left center;
     padding-left: 15px
 }
 
@@ -540,7 +540,7 @@ input[type="checkbox"] {
     width: 12px;
     height: 12px;
     vertical-align: -2px;
-    background: url(../images/arrow.png);
+    background: url(../images/others/arrow.png);
     margin-left: 6px;
 }
 

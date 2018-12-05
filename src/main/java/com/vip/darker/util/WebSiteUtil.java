@@ -59,8 +59,6 @@ public class WebSiteUtil {
     private static List<ArticleModel> setColumnNameList(List<ArticleModel> list) {
 
         for (ArticleModel model : list) {
-            // 获取columnId
-            String columnId = model.getColumnId();
             // 根据columnId获取columnName
             Map<String, Object> map = SpringBootService.getColumnService().selectMap(new EntityWrapper<ColumnModel>().where("id={0}", model.getColumnId()));
             if (map != null) {

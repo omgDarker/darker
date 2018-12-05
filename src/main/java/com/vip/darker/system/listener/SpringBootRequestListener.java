@@ -26,7 +26,6 @@ public class SpringBootRequestListener implements ServletRequestListener {
      * @date: 2018/8/31 13:43
      */
     @Override
-    @SuppressWarnings(value = "unchecked")
     public void requestInitialized(ServletRequestEvent event) {
         // 当前PV值+1
         int countPV = SpringBootService.getPropertiesStat().addCountPV();

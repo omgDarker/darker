@@ -29,13 +29,13 @@
                     <div class="dttext">
                         <div class="xwpic">
                             <span th:if="${object.imageName!= null&&object.imageName!=''}">
-                                    <a th:href="@{'/image/showImage/'+${object.imageName}}">
-                                        <i><img th:src="@{'/image/showImage/'+${object.imageName}}" height="150"
+                                    <a th:href="@{'/images/show/'+${object.imageName}}">
+                                        <i><img th:src="@{'/images/show/'+${object.imageName}}" height="150"
                                                 width="200"></i>
                                     </a>
                             </span>
                             <span th:if="${object.imageName== null||object.imageName==''}">
-                                   <a th:href="@{'/index/article/detail/'+${object.id}}"><img src="/images/back/back4.jpg"></a>
+                                   <a th:href="@{'/index/article/detail/'+${object.id}}"><img src="/images/others/photo.jpg"></a>
                             </span>
                         </div>
                         <ul>

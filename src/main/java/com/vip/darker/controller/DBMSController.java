@@ -2,6 +2,7 @@ package com.vip.darker.controller;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
@@ -29,7 +30,7 @@ public class DBMSController {
      * @auther: darker
      * @date: 2018/9/17 10:49
      */
-    @RequestMapping(value = "/tables")
+    @RequestMapping(value = "/tables", method = RequestMethod.GET)
     public Map<String, Object> getDBTables() {
         // 数据库连接
         Connection conn = null;

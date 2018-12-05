@@ -1,8 +1,6 @@
 package com.vip.darker.controller.home;
 
 import com.vip.darker.util.SessionUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 public class HomeController {
-
-    private Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     /**
      * 功能描述: 博客首页

@@ -48,18 +48,18 @@
 
 * 表信息模块
 
-* 表操作模块(未完成)
+* 表操作模块(舍弃)
 
 * 统计模块
 
-* 监控模块(未完成)
+* 监控模块(舍弃)
 
 404 500页面
 -------
 
-* 404 http://127.0.0.1/index/error/404
+* 404 http://host:ip/index/error/404
 
-* 500 http://127.0.0.1/index/error/500
+* 500 http://host:ip/index/error/500
 
 druid
 -------
@@ -78,6 +78,13 @@ http://127.0.0.1/druid/index.html
 * 数据库 MySQL Redis(缓存)
 
 * 缓存策略 1.更新数据库 2.删除缓存(AOP后置事件处理)
+
+API
+-------
+
+文章列表:http://host:ip/darker/api/article
+
+留言列表:http://host:ip/darker/api/message
 
 时间轴
 -------
@@ -116,3 +123,5 @@ http://127.0.0.1/druid/index.html
 [20181018] 增加通过IP获取地区功能
 
 [20181023] 用户组增加线程池,用来处理关系表
+
+[20181205] 提供API

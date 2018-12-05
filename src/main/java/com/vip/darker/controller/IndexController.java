@@ -84,7 +84,7 @@ public class IndexController {
      * @date: 2018/8/10 16:49
      */
     @RequestMapping(value = "/article/detail/{id}", method = RequestMethod.GET)
-    public ModelAndView getArticleDetail(@PathVariable(value = "id") Integer id) {
+    public ModelAndView findDetailArticle(@PathVariable(value = "id") Integer id) {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article_detail");
         // 文章信息
@@ -131,7 +131,7 @@ public class IndexController {
      * @date: 2018/9/4 11:33
      */
     @RequestMapping(value = "/photo/{classifyId}/{columnId}", method = RequestMethod.GET)
-    public ModelAndView getPhotoByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId", required = false) Integer columnId) {
+    public ModelAndView findPhotoByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId", required = false) Integer columnId) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/photo");
         // 图片列表
@@ -153,7 +153,7 @@ public class IndexController {
      * @date: 2018/9/4 11:33
      */
     @RequestMapping(value = "/photo/{classifyId}", method = RequestMethod.GET)
-    public ModelAndView getPhotoByClassifyId(@PathVariable(value = "classifyId") Integer classifyId) {
+    public ModelAndView findPhotoByClassifyId(@PathVariable(value = "classifyId") Integer classifyId) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/photo");
         // 图片列表
@@ -173,7 +173,7 @@ public class IndexController {
      * @date: 2018/8/13 22:39
      */
     @RequestMapping(value = "/article/{classifyId}/{columnId}", method = RequestMethod.GET)
-    public ModelAndView getArticleByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId") Integer columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+    public ModelAndView findArticleByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId") Integer columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
         // 文章总条数
@@ -209,7 +209,7 @@ public class IndexController {
      * @date: 2018/8/13 22:39
      */
     @RequestMapping(value = "/article/{classifyId}", method = RequestMethod.GET)
-    public ModelAndView getArticleByClassifyId(@PathVariable(value = "classifyId") Integer classifyId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+    public ModelAndView findArticleByClassifyId(@PathVariable(value = "classifyId") Integer classifyId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
         ModelAndView modelAndView = new ModelAndView(INDEX + "/article");
         // 文章总条数
