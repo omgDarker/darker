@@ -36,7 +36,7 @@ public class Constant {
     public static final String MSG = "msg";
 
     //****************************************图片存储路径*************************************//
-    public static final String PHOTO_PATH = "G://picture";
+    public static final String PHOTO_PATH = "D://picture";
 
     //****************************************缓存KEY****************************************//
     public static final String REDIS_KEY_ARTICLE = "article";

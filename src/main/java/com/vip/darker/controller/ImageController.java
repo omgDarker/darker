@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.model.PhotoModel;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -14,10 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Auther: Darker
@@ -26,6 +25,8 @@ import java.util.UUID;
  */
 @RestController
 public class ImageController {
+
+    private Logger logger = LoggerFactory.getLogger(ImageController.class);
 
     /**
      * 功能描述: 图片新增
@@ -156,7 +157,7 @@ public class ImageController {
                 // 存储图片的虚拟本地路径
                 String saveImagePath = Constant.PHOTO_PATH;
                 // 上传图片
-                if (oldImageName.length() > 0) {
+                if (Objects.requireNonNull(oldImageName).length() > 0) {
                     // 新图片名称
                     String newImageName = UUID.randomUUID() + oldImageName.substring(oldImageName.indexOf("."));
                     // 新图片
@@ -206,7 +207,7 @@ public class ImageController {
             os.close();
             fis.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info("[系统找不到指定文件]:" + Constant.PHOTO_PATH + "/" + imageName);
         }
     }
 }
