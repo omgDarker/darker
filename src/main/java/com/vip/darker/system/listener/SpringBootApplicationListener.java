@@ -64,7 +64,7 @@ public class SpringBootApplicationListener implements ApplicationListener<Contex
         try {
             redisService.set(Constant.REDIS_KEY_ARTICLE, articleService.selectList(new EntityWrapper<>()));
         } catch (Exception e) {
-            logger.info("redis异常,请检查服务是否启动、用户密码是否设置!");
+            logger.info("[redis异常,请检查服务是否启动、用户密码是否设置!]");
         }
     }
 }

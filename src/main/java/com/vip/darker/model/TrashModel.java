@@ -14,11 +14,11 @@ public class TrashModel extends Model<TrashModel> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer contentId;
+    private String content; // 回收的内容
 
-    private String description;
+    private String description; // 描述
 
-    private String classify;
+    private String classify; // 分类
 
     private Integer isDelete;
 
@@ -36,12 +36,12 @@ public class TrashModel extends Model<TrashModel> {
         this.id = id;
     }
 
-    public Integer getContentId() {
-        return contentId;
+    public String getContent() {
+        return content;
     }
 
-    public void setContentId(Integer contentId) {
-        this.contentId = contentId;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getDescription() {
@@ -49,7 +49,7 @@ public class TrashModel extends Model<TrashModel> {
     }
 
     public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+        this.description = description;
     }
 
     public String getClassify() {
@@ -57,7 +57,7 @@ public class TrashModel extends Model<TrashModel> {
     }
 
     public void setClassify(String classify) {
-        this.classify = classify == null ? null : classify.trim();
+        this.classify = classify;
     }
 
     public Integer getIsDelete() {
@@ -73,7 +73,7 @@ public class TrashModel extends Model<TrashModel> {
     }
 
     public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
+        this.creator = creator;
     }
 
     public Date getCreateTime() {

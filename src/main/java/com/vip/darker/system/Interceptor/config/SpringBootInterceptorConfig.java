@@ -2,6 +2,7 @@ package com.vip.darker.system.Interceptor.config;
 
 import com.vip.darker.system.Interceptor.LogInterceptor;
 import com.vip.darker.system.Interceptor.LoginInterceptor;
+import com.vip.darker.system.Interceptor.TrashInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -27,6 +28,18 @@ public class SpringBootInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LogInterceptor()).addPathPatterns("/home").addPathPatterns("/admin");
         // 登录拦截配置
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin").addPathPatterns("/admin/");
+        // 删除方法拦截
+        registry.addInterceptor(new TrashInterceptor()).addPathPatterns("/**/**")
+                .excludePathPatterns("/bootstrap/**")
+                .excludePathPatterns("/editor/**")
+                .excludePathPatterns("/font-awesome/**")
+                .excludePathPatterns("/fonts/**")
+                .excludePathPatterns("/music/**")
+                .excludePathPatterns("/sweetalert/**")
+                .excludePathPatterns("/zeromodal/**")
+                .excludePathPatterns("/css/**")
+                .excludePathPatterns("/js/**")
+                .excludePathPatterns("/images/**");
     }
 
     /**
