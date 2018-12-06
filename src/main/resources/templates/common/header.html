@@ -42,33 +42,33 @@
         <nav>
             <ul class="navigation">
                 <ul class="menu">
-                    <li><a href="/index/home">网站首页</a></li>
-                    <li><a href="/index/about">关于我</a></li>
-                    <li><a href="/index/photo/3">视觉冲击</a>
+                    <li><a href="/home">网站首页</a></li>
+                    <li><a href="/home/about">关于我</a></li>
+                    <li><a href="/home/images/3">视觉冲击</a>
                         <ul>
                             <li th:each="column:${columnList}" th:if="${column.classifyId}==3">
-                                <a th:href="@{'/index/photo/'+${column.classifyId}+'/'+${column.id}}"
+                                <a th:href="@{'/home/images/'+${column.classifyId}+'/'+${column.id}}"
                                    th:text="${column.name}"></a>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="/index/article/1">生活点滴</a>
+                    <li><a href="/home/articles/1">生活点滴</a>
                         <ul>
                             <li th:each="column:${columnList}" th:if="${column.classifyId}==1">
-                                <a th:href="@{'/index/article/'+${column.classifyId}+'/'+${column.id}}"
+                                <a th:href="@{'/home/articles/'+${column.classifyId}+'/'+${column.id}}"
                                    th:text="${column.name}"></a>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="/index/article/2">技术联盟</a>
+                    <li><a href="/home/articles/2">技术联盟</a>
                         <ul>
                             <li th:each="column:${columnList}" th:if="${column.classifyId}==2">
-                                <a th:href="@{'/index/article/'+${column.classifyId}+'/'+${column.id}}"
+                                <a th:href="@{'/home/articles/'+${column.classifyId}+'/'+${column.id}}"
                                    th:text="${column.name}"></a>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="/index/message">留言板</a></li>
+                    <li><a href="/home/messages">留言板</a></li>
                 </ul>
             </ul>
         </nav>

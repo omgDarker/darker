@@ -77,14 +77,13 @@ body{
 	left: 350px;
 	width: 246px;
 	height: 179px;
-	background-image: url(../images/bubble.png);
-	background-repeat: no-repeat;
+	background: url(../images/others/bubble.png) no-repeat;
 	text-align: center;
 }
 
 .road .shadow .bubble a{
 	line-height: 140px;
-	font-family: "microsoft yahei";
+	font-family: "microsoft yahei", serif;
 	font-size: 1.5em;
 	color: #F8F8F5;
 	letter-spacing: 1px;
@@ -99,8 +98,7 @@ body{
 
 .road .shadow .shelt{
 	position: absolute;
-	margin: auto;
-	margin-top: -80px;
+	margin: -80px auto auto;
 	width: 330px;
 	height: 150px;
 	border:0px;
@@ -191,7 +189,7 @@ body{
 	left: -8px;
 	width: 330px;
 	height: 330px;
-	background: url(../images/sign.png) no-repeat;
+	background: url(../images/others/sign.png) no-repeat;
 	transform-origin: left bottom;
 	transform: rotate(17deg);
 }

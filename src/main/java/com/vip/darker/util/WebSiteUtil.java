@@ -6,7 +6,7 @@ import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.record.Country;
 import com.vip.darker.model.ArticleModel;
 import com.vip.darker.model.ColumnModel;
-import com.vip.darker.model.PhotoModel;
+import com.vip.darker.model.ImageModel;
 import com.vip.darker.service.base.SpringBootService;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,7 +43,7 @@ public class WebSiteUtil {
         // 友情列表
         modelAndView.addObject("linkList", SpringBootService.getLinkService().selectList(new EntityWrapper<>()));
         // 图片列表
-        modelAndView.addObject("photoList", SpringBootService.getPhotoService().selectList(new EntityWrapper<PhotoModel>().ne("columnId", "9")));
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageModel>().ne("columnId", "9")));
         // 文章列表<阅读排行>
         modelAndView.addObject("readAmountList", WebSiteUtil.setColumnNameList(SpringBootService.getArticleService().selectList(new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"))));
         // 文章列表<博主推荐>

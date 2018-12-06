@@ -11,7 +11,7 @@
         <div class="con_content">
             <div class="about_box">
                 <div class="banner">
-                    您现在的位置是：<a href="/index/home" target="_self">网站首页</a>
+                    您现在的位置是：<a href="/home" target="_self">网站首页</a>
                     <span th:text="'>>'+${classifyName}"></span>
                     <span th:text="'>>'+${columnName}" th:if="${columnName!=null&&columnName!=''}"></span>
                 </div>
@@ -35,12 +35,12 @@
                                     </a>
                             </span>
                             <span th:if="${object.imageName== null||object.imageName==''}">
-                                   <a th:href="@{'/index/article/detail/'+${object.id}}"><img src="/images/others/photo.jpg"></a>
+                                   <a th:href="@{'/articles/detail/'+${object.id}}"><img src="/images/others/photo.jpg"></a>
                             </span>
                         </div>
                         <ul>
                             <!-- 标题 -->
-                            <h2><a th:href="@{'/index/article/detail/'+${object.id}}"
+                            <h2><a th:href="@{'/articles/detail/'+${object.id}}"
                                    th:text="${object.title}"></a>
                             </h2>
                             <!-- 简述<字数不够100,会出错> -->
@@ -79,7 +79,7 @@
         // 栏目ID
         var columnId = $("#columnId").val();
         // 调用方法
-        var method = '/index/article/' + classifyId + '/' + columnId + '?pageNum=';
+        var method = '//' + classifyId + '/' + columnId + '?pageNum=';
         var pageHtml = '';
         // 数据存在才会显示分页
         if (numSum > 0) {

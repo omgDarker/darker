@@ -14,7 +14,7 @@
             <!-- 标题 -->
             <h3 class="blogtitle">
                 <span th:text="${object.columnName}"></span>
-                <a th:href="@{'/index/article/detail/'+${object.id}}" th:text="${object.title}"></a>&nbsp;
+                <a th:href="@{'/articles/detail/'+${object.id}}" th:text="${object.title}"></a>&nbsp;
                 <!-- 复制 -->
                 <a href="#" class="copy" data-clipboard-action="copy" data-clipboard-target="#contentDetail"
                    title="复制代码">
@@ -108,7 +108,7 @@
             <br/>
         </div>
         <!-- 右侧栏 -->
-        <div th:replace="index/home_right.html :: home_right"></div>
+        <div th:replace="home/home_right.html :: home_right"></div>
     </div>
     <div class="jzend"></div>
     <div th:replace="common/footer :: footer"></div>
@@ -117,7 +117,7 @@
     function addMessage() {
         $.ajax({
             //请求URL地址,controller的名称
-            url: "/content/addMessage",
+            url: "/messages",
             //请求返回数据格式为json,还可以是text等
             dataType: "JSON",
             //请求是否为异步,默认是true
@@ -207,7 +207,7 @@
         var likeAmount = $("#like").val();
         $.ajax({
             //请求URL地址,controller的名称
-            url: "/index/addLike/" + id,
+            url: "/articles/like/" + id,
             //请求返回数据格式为json,还可以是text等
             dataType: "JSON",
             //请求是否为异步,默认是true
@@ -262,7 +262,7 @@
         var likeNoAmount = $("#likeNo").val();
         $.ajax({
             //请求URL地址,controller的名称
-            url: "/index/addNoLike/" + id,
+            url: "/articles/likeNo/" + id,
             //请求返回数据格式为json,还可以是text等
             dataType: "JSON",
             //请求是否为异步,默认是true

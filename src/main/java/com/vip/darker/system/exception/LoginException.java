@@ -7,7 +7,6 @@ package com.vip.darker.system.exception;
  */
 public class LoginException extends RuntimeException {
 
-
     public LoginException() {
     }
 

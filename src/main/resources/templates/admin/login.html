@@ -27,7 +27,7 @@
                     <div class="login-form">
                         <!-- 登录 -->
                         <div class="sign-in-htm">
-                            <form action="/admin/home" method="get">
+                            <form action="/admin" method="get">
                                 <div class="group">
                                     <label for="name" class="label">Username</label><br>
                                     <input type="text" class="input" name="name" id="name">
@@ -133,7 +133,7 @@
                     contentDetail: '用户' + eval("(" + data + ")").msg,
                     okFn: function () {
                         // 跳转到网站首页
-                        window.location.reload("/index/home");
+                        window.location.reload("/home");
                     }
                 });
             },

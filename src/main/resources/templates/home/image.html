@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:include="common/head.html :: head"></head>
 <link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/photo.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/css/image.css" type="text/css" media="screen"/>
 <body>
 <div id="wrapper">
     <div th:include="common/header.html :: header"></div>
@@ -12,13 +12,13 @@
         <div class="con_content">
             <div class="about_box">
                 <div class="banner">
-                    您现在的位置是：<a href="/index/home" target="_self">网站首页</a>&nbsp;&gt;&gt;视觉冲击
+                    您现在的位置是：<a href="/home" target="_self">网站首页</a>&nbsp;&gt;&gt;视觉冲击
                     <span th:text="'>>'+${columnName}" th:if="${columnName!=null&&columnName!=''}"></span>
                 </div>
                 <div id="hs_container" class="hs_container">
                     <div class="hs_area hs_area1">
                         <img class="hs_visible" src="/images/others/photo.jpg" height="100%" width="100%">
-                        <img th:src="@{'/images/show/'+${photo.name}}" th:each="photo : ${photoList}" height="100%"
+                        <img th:src="@{'/images/show/'+${image.name}}" th:each="image : ${imageList}" height="100%"
                              width="100%">
                     </div>
                 </div>

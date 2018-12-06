@@ -41,9 +41,9 @@
     <!--<h3 class="tit">美图鉴赏</h3>-->
     <!--<div class="myscroll">-->
     <!--<ul>-->
-    <!--<li th:each="photo:${photoList}">-->
-    <!--<a th:href="@{'/images/show/'+${photo.name}}">-->
-    <!--<img th:src="@{'/images/show/'+${photo.name}}" height="100" width="200">-->
+    <!--<li th:each="image:${imageList}">-->
+    <!--<a th:href="@{'/images/show/'+${image.name}}">-->
+    <!--<img th:src="@{'/images/show/'+${image.name}}" height="100" width="200">-->
     <!--</a>-->
     <!--</li>-->
     <!--</ul>-->
@@ -54,7 +54,7 @@
         <h3 class="tit">阅读排行</h3>
         <ul>
             <li th:each="readAmount:${readAmountList}">
-                <a th:href="@{'/index/article/detail/'+${readAmount.id}}">
+                <a th:href="@{'/articles/detail/'+${readAmount.id}}">
                      <span th:if="${readAmount.imageName!=null&&readAmount.imageName!=''}">
                          <i><img th:src="@{'/images/show/'+${readAmount.imageName}}" height="55" width="200"></i>
                      </span>
@@ -75,7 +75,7 @@
         <h3 class="tit">博主推荐</h3>
         <ul>
             <li th:each="likeAmount:${likeAmountList}">
-                <a th:href="@{'/index/article/detail/'+${likeAmount.id}}">
+                <a th:href="@{'/articles/detail/'+${likeAmount.id}}">
                     <span th:if="${likeAmount.imageName!=null&&likeAmount.imageName!=''}">
                         <i><img th:src="@{'/images/show/'+${likeAmount.imageName}}" height="55" width="200"></i>
                     </span>

@@ -13,9 +13,9 @@
     <!-- container -->
     <div class="container">
         <!-- 左侧栏 -->
-        <div th:replace="index/home_left.html :: home_left"></div>
+        <div th:replace="home/home_left.html :: home_left"></div>
         <!-- 右侧栏 -->
-        <div th:replace="index/home_right.html :: home_right"></div>
+        <div th:replace="home/home_right.html :: home_right"></div>
     </div>
     <!-- 分界线end -->
     <div class="jzend"></div>
@@ -31,7 +31,7 @@
         // 总条数
         var numSum = parseInt($("#numSum").val());
         // 调用方法
-        var method = '/index/home?pageNum=';
+        var method = '/home?pageNum=';
         var pageHtml = '';
         pageHtml += '<a href="javascript:;">当前页[' + pageNum + ']</a>';
         // 当前页不是首页的时候才会显示

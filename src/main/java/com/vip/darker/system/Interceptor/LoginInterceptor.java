@@ -1,9 +1,9 @@
 package com.vip.darker.system.Interceptor;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.system.exception.LoginException;
 import com.vip.darker.model.UserModel;
 import com.vip.darker.service.base.SpringBootService;
+import com.vip.darker.system.exception.LoginException;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +32,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (user != null && password.equals("wangbingan")) {
             return true;
         }
-        throw new LoginException("异常登录,请注意!");
+        throw new LoginException("[异常登录,请注意!]");
     }
 }

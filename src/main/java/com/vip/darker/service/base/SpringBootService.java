@@ -105,12 +105,12 @@ public class SpringBootService {
     /**
      * 功能描述: 图片service
      *
-     * @return: com.vip.darker.service.PhotoService
+     * @return: com.vip.darker.service.ImageService
      * @auther: darker
      * @date: 2018/7/26 18:06
      */
-    public static PhotoService getPhotoService() {
-        return (PhotoService) SpringBootApplicationContent.getBean(PhotoServiceImpl.BEAN_NAME);
+    public static ImageService getImageService() {
+        return (ImageService) SpringBootApplicationContent.getBean(ImageServiceImpl.BEAN_NAME);
     }
 
     /**

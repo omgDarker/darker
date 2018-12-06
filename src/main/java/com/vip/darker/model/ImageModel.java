@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 import java.util.Date;
 
-@TableName(value = "content_photo")
-public class PhotoModel extends Model<PhotoModel> {
+@TableName(value = "content_image")
+public class ImageModel extends Model<ImageModel> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;

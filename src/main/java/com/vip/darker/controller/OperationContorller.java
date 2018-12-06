@@ -30,7 +30,7 @@ public class OperationContorller {
      * @date: 2018/9/13 18:14
      */
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
-    public Map<String, Object> queryStatisticsList() {
+    public Map<String, Object> findListStatistics() {
         // 设置参数
         Map<String, Object> map = new HashMap<>();
         // 统计访问量
@@ -46,7 +46,7 @@ public class OperationContorller {
         // 统计文章数
         map.put("countArticle", SpringBootService.getArticleService().selectCount(new EntityWrapper<>()));
         // 统计图片数
-        map.put("countPhoto", SpringBootService.getPhotoService().selectCount(new EntityWrapper<>()));
+        map.put("countimage", SpringBootService.getImageService().selectCount(new EntityWrapper<>()));
         // 统计点赞数*
         map.put("countLike", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleModel>().setSqlSelect("sum(likeAmount) as amount")).get("amount"));
         // 统计甩鞋数

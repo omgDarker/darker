@@ -22,7 +22,7 @@ import java.util.Map;
 public class ArticleAspect {
 
     // 申明切点,监控文章详情页方法
-    @Pointcut(value = "execution(public * com.vip.darker.controller.IndexController.getArticleDetail(*))")
+    @Pointcut(value = "execution(public * com.vip.darker.controller.ArticleController.findDetailArticle(*))")
     public void updatePV() {
 
     }

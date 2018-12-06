@@ -23,7 +23,7 @@ public class MybatisPlusConfig {
 
         PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
         // SQL执行性能分析,推荐开发环境使用,maxTime指sql最大执行时长
-        performanceInterceptor.setMaxTime(1000);
+        performanceInterceptor.setMaxTime(50000);
         // SQL开启格式化
         performanceInterceptor.setFormat(true);
 

@@ -24,9 +24,9 @@ public class SpringBootInterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 日志拦截配置
-        registry.addInterceptor(new LogInterceptor()).addPathPatterns("/index/**").addPathPatterns("/admin/**");
+        registry.addInterceptor(new LogInterceptor()).addPathPatterns("/home").addPathPatterns("/admin");
         // 登录拦截配置
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin/home");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin").addPathPatterns("/admin/");
     }
 
     /**

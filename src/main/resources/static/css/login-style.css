@@ -42,7 +42,6 @@ a {
 
 .header .canvaszz { /*用来解决视频右键菜单，用于视频上面的遮罩层*/
     width: 100%;
-    background-image: url(/images/login-background.jpg);
     height: 640px;
     position: absolute;
     z-index: 10;

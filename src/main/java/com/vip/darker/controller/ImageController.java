@@ -2,14 +2,16 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.PhotoModel;
+import com.vip.darker.model.ImageModel;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
+import com.vip.darker.util.ConvertAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -31,15 +33,15 @@ public class ImageController {
     /**
      * 功能描述: 图片新增
      *
-     * @param: [photoModel]
+     * @param: [ImageModel]
      * @return: boolean
      * @auther: darker
      * @date: 2018/7/20 15:23
      */
     @RequestMapping(value = "/images", method = RequestMethod.POST)
-    public Map<String, Object> addImage(PhotoModel photoModel) {
+    public Map<String, Object> addImage(ImageModel imageModel) {
 
-        boolean flag = SpringBootService.getPhotoService().insert(photoModel);
+        boolean flag = SpringBootService.getImageService().insert(imageModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -51,15 +53,15 @@ public class ImageController {
     /**
      * 功能描述: 图片更新
      *
-     * @param: [photoModel]
+     * @param: [ImageModel]
      * @return: boolean
      * @auther: darker
      * @date: 2018/7/20 15:29
      */
     @RequestMapping(value = "/images", method = RequestMethod.PUT)
-    public Map<String, Object> editImage(PhotoModel photoModel) {
+    public Map<String, Object> editImage(ImageModel imageModel) {
 
-        boolean flag = SpringBootService.getPhotoService().updateById(photoModel);
+        boolean flag = SpringBootService.getImageService().updateById(imageModel);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -79,7 +81,7 @@ public class ImageController {
     @RequestMapping(value = "/images/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteImage(@PathVariable(value = "id") Integer id) {
 
-        boolean flag = SpringBootService.getPhotoService().deleteById(id);
+        boolean flag = SpringBootService.getImageService().deleteById(id);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -101,9 +103,9 @@ public class ImageController {
 
         Map<String, Object> map = new HashMap<>();
 
-        int count = SpringBootService.getPhotoService().selectCount(new EntityWrapper<>());
+        int count = SpringBootService.getImageService().selectCount(new EntityWrapper<>());
 
-        map.put("photoMaxPage", (count - 1) / (Constant.PAGE_SIZE + 2) + 1);
+        map.put("imageMaxPage", (count - 1) / (Constant.PAGE_SIZE + 2) + 1);
 
         return map;
     }
@@ -112,26 +114,26 @@ public class ImageController {
      * 功能描述: 图片对象查询
      *
      * @param: [id]
-     * @return: com.vip.darker.model.PhotoModel
+     * @return: com.vip.darker.model.ImageModel
      * @auther: darker
      * @date: 2018/8/2 22:57
      */
     @RequestMapping(value = "/images/{id}", method = RequestMethod.GET)
-    public PhotoModel findImageById(@PathVariable(value = "id") Integer id) {
-        return SpringBootService.getPhotoService().selectById(id);
+    public ImageModel findImageById(@PathVariable(value = "id") Integer id) {
+        return SpringBootService.getImageService().selectById(id);
     }
 
     /**
      * 功能描述: 图片列表查询
      *
      * @param: [pageNum, pageSize]
-     * @return: java.util.List<com.vip.darker.model.PhotoModel>
+     * @return: java.util.List<com.vip.darker.model.ImageModel>
      * @auther: darker
      * @date: 2018/7/20 15:46
      */
     @RequestMapping(value = "/images", method = RequestMethod.GET)
-    public List<PhotoModel> findListImage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
-        return SpringBootService.getPhotoService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+    public List<ImageModel> findListImage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
+        return SpringBootService.getImageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
 
@@ -155,7 +157,7 @@ public class ImageController {
                 // 获取上传文件原始名称
                 String oldImageName = opt.getOriginalFilename();
                 // 存储图片的虚拟本地路径
-                String saveImagePath = Constant.PHOTO_PATH;
+                String saveImagePath = Constant.IMAGE_PATH;
                 // 上传图片
                 if (Objects.requireNonNull(oldImageName).length() > 0) {
                     // 新图片名称
@@ -188,7 +190,7 @@ public class ImageController {
     @RequestMapping(value = "/images/show/{imageName}", method = RequestMethod.GET)
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
         try {
-            FileInputStream fis = new FileInputStream(Constant.PHOTO_PATH + "/" + imageName);
+            FileInputStream fis = new FileInputStream(Constant.IMAGE_PATH + "/" + imageName);
             // 获取文件大小
             int size = fis.available();
             // 设置读取字节数
@@ -207,7 +209,49 @@ public class ImageController {
             os.close();
             fis.close();
         } catch (Exception e) {
-            logger.info("[系统找不到指定文件]:" + Constant.PHOTO_PATH + "/" + imageName);
+            logger.info("[系统找不到指定文件]:" + Constant.IMAGE_PATH + "/" + imageName);
         }
+    }
+
+    /**
+     * 功能描述: 视觉冲击
+     *
+     * @param: [classify, column]
+     * @return: ModelAndView
+     * @auther: darker
+     * @date: 2018/9/4 11:33
+     */
+    @RequestMapping(value = "/home/images/{classifyId}/{columnId}", method = RequestMethod.GET)
+    public ModelAndView findimageByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId", required = false) Integer columnId) {
+
+        ModelAndView modelAndView = new ModelAndView("home/image");
+        // 图片列表
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)));
+        // 栏目列表
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
+        // 栏目名称
+        modelAndView.addObject("columnName", ConvertAttribute.getColumnMap().getOrDefault(columnId, "其他栏目"));
+
+        return modelAndView;
+    }
+
+    /**
+     * 功能描述: 视觉冲击
+     *
+     * @param: [classify]
+     * @return: ModelAndView
+     * @auther: darker
+     * @date: 2018/9/4 11:33
+     */
+    @RequestMapping(value = "/home/images/{classifyId}", method = RequestMethod.GET)
+    public ModelAndView findImageByClassifyId(@PathVariable(value = "classifyId") Integer classifyId) {
+
+        ModelAndView modelAndView = new ModelAndView("home/image");
+        // 图片列表
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageModel>().where("classifyId={0} ", classifyId)));
+        // 栏目列表
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
+
+        return modelAndView;
     }
 }

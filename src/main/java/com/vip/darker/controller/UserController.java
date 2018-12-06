@@ -174,7 +174,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/users/page", method = RequestMethod.GET)
-    public Map<String, Object> countUserMaxPage() {
+    public Map<String, Object> countUserPage() {
 
         Map<String, Object> map = new HashMap<>();
 
@@ -286,7 +286,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/roles/page", method = RequestMethod.GET)
-    public Map<String, Object> countRoleMaxPage() {
+    public Map<String, Object> countRolePage() {
 
         Map<String, Object> map = new HashMap<>();
 
@@ -383,7 +383,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/permissions/page", method = RequestMethod.GET)
-    public Map<String, Object> countPermissionMaxPage() {
+    public Map<String, Object> countPermissionPage() {
 
         Map<String, Object> map = new HashMap<>();
 

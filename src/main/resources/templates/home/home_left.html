@@ -17,7 +17,7 @@
                 </span>
                 <!-- 标题 -->
                 <h3 class="blogtitle">
-                    <a th:href="@{'/index/article/detail/'+${object.id}}" th:text="${object.title}"></a>
+                    <a th:href="@{'/articles/detail/'+${object.id}}" th:text="${object.title}"></a>
                 </h3>
                 <!-- 简介 -->
                 <p th:utext="${object.summary}"></p>
@@ -35,7 +35,7 @@
                 <span class="fa fa-heartbeat f_l"
                       th:text="' 甩鞋('+${object.likeNoAmount}+')'"></span>
                 <span class="f_r">
-                    <a th:href="@{'/index/article/detail/'+${object.id}}">阅读原文&gt;&gt;</a></span>
+                    <a th:href="@{'/articles/detail/'+${object.id}}">阅读原文&gt;&gt;</a></span>
             </div>
         </li>
     </ul>

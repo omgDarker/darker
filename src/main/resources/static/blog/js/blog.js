@@ -16,7 +16,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/classifyMaxPage",
+                url: "/classifys/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -31,7 +31,6 @@ $(function () {
                 type: "GET",
                 //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
                 beforeSend: function () {
-
                 },
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
@@ -49,7 +48,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/columnMaxPage",
+                url: "/columns/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -82,7 +81,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/trashMaxPage",
+                url: "/trashs/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -214,7 +213,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/articleMaxPage",
+                url: "/articles/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -243,7 +242,7 @@ $(function () {
                 error: function () {
                 }
             });
-        } else if ('photo' === controls) {
+        } else if ('image' === controls) {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
@@ -267,7 +266,7 @@ $(function () {
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
                     // 调用分页
-                    photoPagination(data.photoMaxPage);
+                    imagePagination(data.imageMaxPage);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                 complete: function () {
@@ -280,7 +279,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/linkMaxPage",
+                url: "/links/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -313,7 +312,7 @@ $(function () {
             // ajax请求获取用户最大页数
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/messageMaxPage",
+                url: "/messages/page",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "JSON",
                 //请求是否为异步,默认是true
@@ -370,7 +369,7 @@ $(function () {
                     $("#countLink").text(data.countLink);
                     $("#countMessage").text(data.countMessage);
                     $("#countArticle").text(data.countArticle);
-                    $("#countPhoto").text(data.countPhoto);
+                    $("#countimage").text(data.countimage);
                     $("#countLike").text(data.countLike);
                     $("#countLikeNo").text(data.countLikeNo);
                     // 统计图
@@ -450,7 +449,7 @@ $(function () {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/all",
+                url: "/resources",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -490,7 +489,7 @@ $(function () {
 function queryClassifyList(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/allClassify",
+        url: "/classifys",
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -533,7 +532,7 @@ function queryClassifyList(id) {
 function queryColumnList(id, classifyId) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/allColumnList/" + classifyId,
+        url: "/columns/" + classifyId,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -599,7 +598,7 @@ function parseHtmlContent(data) {
 function addResource() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/add",
+        url: "/resources",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -640,7 +639,7 @@ function addResource() {
 function queryResource(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/all/" + id,
+        url: "/resources/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -683,7 +682,7 @@ function queryResource(id) {
 function updateResource() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/update",
+        url: "/resources",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -739,7 +738,7 @@ function deleteResource(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/delete/" + id,
+                url: "/resources/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -806,7 +805,7 @@ function classifyPagination(classifyMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/allClassify",
+                url: "/classifys",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -868,7 +867,7 @@ function parseClassifyHtmlContent(data) {
 function addClassify() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/addClassify",
+        url: "/classifys",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -910,7 +909,7 @@ function addClassify() {
 function queryClassify(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/allClassify/" + id,
+        url: "/classifys/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -952,7 +951,7 @@ function queryClassify(id) {
 function updateClassify() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/updateClassify",
+        url: "/classifys",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -1009,7 +1008,7 @@ function deleteClassify(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/deleteClassify/" + id,
+                url: "/classifys/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -1077,7 +1076,7 @@ function columnPagination(columnMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/allColumn",
+                url: "/columns",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -1141,7 +1140,7 @@ function parseColumnHtmlContent(data) {
 function addColumn() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/addColumn",
+        url: "/columns",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -1183,7 +1182,7 @@ function addColumn() {
 function queryColumn(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/allColumn/" + id,
+        url: "/columns/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -1227,7 +1226,7 @@ function queryColumn(id) {
 function updateColumn() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/updateColumn",
+        url: "/columns",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -1269,7 +1268,7 @@ function updateColumn() {
 function queryAllClassify(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/allClassify",
+        url: "/classifys",
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -1323,7 +1322,7 @@ function deleteColumn(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/deleteColumn/" + id,
+                url: "/columns/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -1390,7 +1389,7 @@ function trashPagination(trashMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/allTrash",
+                url: "/trashs",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -1466,7 +1465,7 @@ function deleteTrash(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/deleteTrash/" + id,
+                url: "/trashs/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -2443,7 +2442,7 @@ function articlePagination(articleMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/allArticle",
+                url: "/articles",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -2514,7 +2513,7 @@ function parseArticleHtmlContent(data) {
 function addArticle() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/content/addArticle",
+        url: "/articles",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -2558,7 +2557,7 @@ function addArticle() {
 function queryArticle(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/content/allArticle/" + id,
+        url: "/articles/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -2604,7 +2603,7 @@ function queryArticle(id) {
 function updateArticle() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/content/updateArticle",
+        url: "/articles",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -2661,7 +2660,7 @@ function deleteArticle(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/deleteArticle/" + id,
+                url: "/articles/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -2714,9 +2713,9 @@ function deleteArticle(id) {
 
 /*************************************************** 图片列表相关操作***************************************************/
 // 分页操作
-function photoPagination(photoMaxPage) {
-    $.jqPaginator('#photoPagination', {
-        totalPages: photoMaxPage, // 总页数
+function imagePagination(imageMaxPage) {
+    $.jqPaginator('#imagePagination', {
+        totalPages: imageMaxPage, // 总页数
         visiblePages: 10, // 显示的页码数量
         currentPage: 1, // 当前页
         prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
@@ -2748,7 +2747,7 @@ function photoPagination(photoMaxPage) {
                 //请求成功时的处理函数,参数(返回数据,返回状态)
                 success: function (data) {
                     // 组装HTML页面
-                    parsePhotoHtmlContent(data);
+                    parseimageHtmlContent(data);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
                 complete: function () {
@@ -2762,7 +2761,7 @@ function photoPagination(photoMaxPage) {
 }
 
 // 查询数据填充至HTML
-function parsePhotoHtmlContent(data) {
+function parseimageHtmlContent(data) {
 
     var htmlContent = "";
 
@@ -2787,18 +2786,18 @@ function parsePhotoHtmlContent(data) {
         htmlContent += ' <span>' + data[i].columnId + '</span>';
         htmlContent += ' </div>';
         htmlContent += ' <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">';
-        htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updatePhoto" onclick="javascript:queryPhoto(\'' + data[i].id + '\');">修改</button>';
-        htmlContent += ' <button class="btn btn-danger" data-toggle="modal" onclick="javascript:deletePhoto(\'' + data[i].id + '\');">删除</button>';
+        htmlContent += ' <button class="btn btn-success" data-toggle="modal" data-target="#updateimage" onclick="javascript:queryimage(\'' + data[i].id + '\');">修改</button>';
+        htmlContent += ' <button class="btn btn-danger" data-toggle="modal" onclick="javascript:deleteimage(\'' + data[i].id + '\');">删除</button>';
         htmlContent += ' </div>';
         htmlContent += ' </div>';
     }
-    $("#photoTablebody").html(htmlContent);
+    $("#imageTablebody").html(htmlContent);
     // 下拉框回显
-    queryColumnList("addPhotoColumnId", "3");
+    queryColumnList("addimageColumnId", "3");
 }
 
 // 新增操作
-function addPhoto() {
+function addimage() {
     $.ajax({
         //请求URL地址,controller的名称
         url: "/images",
@@ -2811,13 +2810,13 @@ function addPhoto() {
         //设置请求超时时间
         timeout: 1000,
         //参数值,如果URL带参数,这里就可以不用写了
-        data: $('#photoAddForm').serialize(),
+        data: $('#imageAddForm').serialize(),
         //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
         type: "POST",
         //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
         beforeSend: function () {
             // 隐藏模态窗
-            $("#addPhoto").modal('hide');
+            $("#addimage").modal('hide');
         },
         //请求成功时的处理函数,参数(返回数据,返回状态)
         success: function (data) {
@@ -2827,7 +2826,7 @@ function addPhoto() {
                 // 自动关闭弹窗
                 swal.close();
                 // 点击响应tab刷新页面
-                $("div[aria-controls='photo']").click();
+                $("div[aria-controls='image']").click();
             }, 2000);
         },
         //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -2840,7 +2839,7 @@ function addPhoto() {
 }
 
 // 查询资源实体
-function queryPhoto(id) {
+function queryimage(id) {
     $.ajax({
         //请求URL地址,controller的名称
         url: "/images/" + id,
@@ -2862,14 +2861,14 @@ function queryPhoto(id) {
         //请求成功时的处理函数,参数(返回数据,返回状态)
         success: function (data) {
             // 返回实体类
-            $("#photoId").val(data.id);
-            $("#photoTitle").val(data.title);
+            $("#imageId").val(data.id);
+            $("#imageTitle").val(data.title);
             // 防止只修改标题而导致内容丢失
-            $("#photoDescription").val(data.description);
+            $("#imageDescription").val(data.description);
             // 日记分类
-            $("#photoClassify" + data.classify).attr("checked", "checked");
+            $("#imageClassify" + data.classify).attr("checked", "checked");
             // 下拉框回显
-            queryColumnList("updatePhotoColumnId", "3");
+            queryColumnList("updateimageColumnId", "3");
         },
         //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
         complete: function () {
@@ -2881,7 +2880,7 @@ function queryPhoto(id) {
 }
 
 // 更新操作
-function updatePhoto() {
+function updateimage() {
     $.ajax({
         //请求URL地址,controller的名称
         url: "/images",
@@ -2894,13 +2893,13 @@ function updatePhoto() {
         //设置请求超时时间
         timeout: 1000,
         //参数值,如果URL带参数,这里就可以不用写了
-        data: $('#photoUpdateForm').serialize(),
+        data: $('#imageUpdateForm').serialize(),
         //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
         type: "PUT",
         //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
         beforeSend: function () {
             // 隐藏模态窗
-            $("#updatePhoto").modal('hide');
+            $("#updateimage").modal('hide');
         },
         //请求成功时的处理函数,参数(返回数据,返回状态)
         success: function (data) {
@@ -2910,7 +2909,7 @@ function updatePhoto() {
                 // 自动关闭弹窗
                 swal.close();
                 // 点击响应tab刷新页面
-                $("div[aria-controls='photo']").click();
+                $("div[aria-controls='image']").click();
             }, 2000);
         },
         //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -2923,7 +2922,7 @@ function updatePhoto() {
 }
 
 // 删除操作
-function deletePhoto(id) {
+function deleteimage(id) {
     swal({
         title: '确定删除吗?',  //弹出框的title
         text: '你将无法恢复它!', //弹出框里面的提示文本
@@ -2965,7 +2964,7 @@ function deletePhoto(id) {
                         // 自动关闭弹窗
                         swal.close();
                         // 点击响应tab刷新页面
-                        $("div[aria-controls='photo']").click();
+                        $("div[aria-controls='image']").click();
                     }, 2000);
                 },
                 //请求完成时的处理函数,参数(XMLHttpRequest对象,返回状态)//无论成与败均调用
@@ -3008,7 +3007,7 @@ function linkPagination(linkMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/allLink",
+                url: "/links",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -3073,7 +3072,7 @@ function parseLinkHtmlContent(data) {
 function addLink() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/addLink",
+        url: "/links",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -3115,7 +3114,7 @@ function addLink() {
 function queryLink(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/allLink/" + id,
+        url: "/links/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -3158,7 +3157,7 @@ function queryLink(id) {
 function updateLink() {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/resource/updateLink",
+        url: "/links",
         //请求返回数据格式为json,还可以是text等
         dataType: "JSON",
         //请求是否为异步,默认是true
@@ -3215,7 +3214,7 @@ function deletelink(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/resource/deleteLink/" + id,
+                url: "/links/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -3282,7 +3281,7 @@ function messagePagination(messageMaxPage) {
             // num->当前页
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/allMessage",
+                url: "/messages",
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -3344,7 +3343,7 @@ function parseMessageHtmlContent(data) {
 function queryMessage(id) {
     $.ajax({
         //请求URL地址,controller的名称
-        url: "/content/allMessage/" + id,
+        url: "/messages/" + id,
         //请求返回数据格式为json,还可以是text等
         dataType: "json",
         //请求是否为异步,默认是true
@@ -3395,7 +3394,7 @@ function deleteMessage(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/content/deleteMessage/" + id,
+                url: "/messages" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true
@@ -3498,7 +3497,7 @@ function statisticsCChart(data) {
         series: [{
             name: '统计量',
             type: 'bar',
-            data: [data.countMessage, data.countLink, data.countArticle, data.countPhoto, data.countLike, data.countLikeNo],
+            data: [data.countMessage, data.countLink, data.countArticle, data.countimage, data.countLike, data.countLikeNo],
             color: ['#61a0a8']
         }],
         label: {
