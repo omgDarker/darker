@@ -41,9 +41,11 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 
     /**
-     * 自定义缓存key生成策略
-     *
-     * @return
+     * @description:自定义缓存key生成策略
+     * @auther: WBA
+     * @date: 2018/12/11 17:33
+     * @param: []
+     * @return: org.springframework.cache.interceptor.KeyGenerator
      */
     @Bean
     public KeyGenerator keyGenerator() {
@@ -59,9 +61,11 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     /**
-     * 初始化缓存管理器,设置缓存的整体过期时间
-     *
-     * @return
+     * @description:初始化缓存管理器,设置缓存的整体过期时间
+     * @auther: WBA
+     * @date: 2018/12/11 17:33
+     * @param: []
+     * @return: org.springframework.cache.CacheManager
      */
     @Bean
     @Override
@@ -71,14 +75,17 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     /**
-     * 设置redisTemplate参数
-     *
-     * @return
+     * @description:设置redisTemplate参数
+     * @auther: WBA
+     * @date: 2018/12/11 17:33
+     * @param: []
+     * @return: org.springframework.data.redis.core.RedisTemplate
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
         //设置序列化
-        @SuppressWarnings({"rawtypes", "unchecked"}) Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        @SuppressWarnings({"rawtypes", "unchecked"})
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
@@ -96,9 +103,11 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     /**
-     * 缓存异常处理
-     *
-     * @return
+     * @description:缓存异常处理
+     * @auther: WBA
+     * @date: 2018/12/11 17:34
+     * @param: []
+     * @return: org.springframework.cache.interceptor.CacheErrorHandler
      */
     @Override
     @Bean

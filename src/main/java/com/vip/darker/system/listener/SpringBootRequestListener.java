@@ -19,11 +19,11 @@ public class SpringBootRequestListener implements ServletRequestListener {
     private Logger logger = LoggerFactory.getLogger(SpringBootRequestListener.class);
 
     /**
-     * 功能描述: request每次请求调用方法
-     *
+     * @description:request每次请求调用方法
+     * @auther: WBA
+     * @date: 2018/12/11 17:07
      * @param: [event]
-     * @auther: darker
-     * @date: 2018/8/31 13:43
+     * @return: void
      */
     @Override
     public void requestInitialized(ServletRequestEvent event) {
@@ -33,11 +33,11 @@ public class SpringBootRequestListener implements ServletRequestListener {
     }
 
     /**
-     * 功能描述: request每次销毁调用方法
-     *
+     * @description:request每次销毁调用方法
+     * @auther: WBA
+     * @date: 2018/12/11 17:07
      * @param: [event]
-     * @auther: darker
-     * @date: 2018/8/31 13:43
+     * @return: void
      */
     @Override
     public void requestDestroyed(ServletRequestEvent event) {

@@ -16,12 +16,13 @@ public class TrashInterceptor implements HandlerInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(TrashInterceptor.class);
 
+
     /**
-     * 功能描述: 方法执行之前
-     *
-     * @return: [boolean]
-     * @auther: darker
-     * @date: 2018/9/16 13:29
+     * @description:方法执行之前
+     * @auther: WBA
+     * @date: 2018/12/11 17:06
+     * @param: [request, response, o]
+     * @return: boolean
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {
@@ -88,20 +89,22 @@ public class TrashInterceptor implements HandlerInterceptor {
     }
 
     /**
-     * 功能描述: 方法执行之后,页面渲染前
-     *
-     * @auther: darker
-     * @date: 2018/9/16 13:29
+     * @description:方法执行之后,页面渲染前
+     * @auther: WBA
+     * @date: 2018/12/11 17:06
+     * @param: [request, response, o, modelAndView]
+     * @return: void
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) {
     }
 
     /**
-     * 功能描述: 整个请求结束后,页面也渲染完毕,一般是资源清理操作
-     *
-     * @auther: darker
-     * @date: 2018/9/16 13:29
+     * @description:整个请求结束后,页面也渲染完毕,一般是资源清理操作
+     * @auther: WBA
+     * @date: 2018/12/11 17:07
+     * @param: [request, response, o, e]
+     * @return: void
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) {

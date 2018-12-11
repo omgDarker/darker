@@ -32,12 +32,11 @@ public class HomeController {
     private static final String HOME = "home";
 
     /**
-     * 功能描述: 博客轮播图
-     *
+     * @description:博客轮播图
+     * @auther: WBA
+     * @date: 2018/12/11 16:40
      * @param: [request, response]
      * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/8/22 15:06
      */
     @RequestMapping(value = "/")
     public String home(HttpServletRequest request, HttpServletResponse response) {
@@ -47,12 +46,11 @@ public class HomeController {
     }
 
     /**
-     * 功能描述: 博客首页
-     *
-     * @param: [pageSize, pageNum]
+     * @description:博客首页
+     * @auther: WBA
+     * @date: 2018/12/11 16:40
+     * @param: [pageNum, pageSize]
      * @return: org.springframework.web.servlet.ModelAndView
-     * @auther: darker
-     * @date: 2018/8/10 16:49
      */
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     @SuppressWarnings(value = "unchecked")
@@ -96,11 +94,11 @@ public class HomeController {
     }
 
     /**
-     * 功能描述: 关于我
-     *
-     * @return: ModelAndView
-     * @auther: darker
-     * @date: 2018/9/4 11:33
+     * @description:关于我
+     * @auther: WBA
+     * @date: 2018/12/11 16:40
+     * @param: []
+     * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = HOME + "/about", method = RequestMethod.GET)
     public ModelAndView about() {

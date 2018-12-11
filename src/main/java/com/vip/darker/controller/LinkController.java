@@ -20,12 +20,11 @@ import java.util.Map;
 public class LinkController {
 
     /**
-     * 功能描述: 链接新增
-     *
+     * @description:链接新增
+     * @auther: WBA
+     * @date: 2018/12/11 16:53
      * @param: [linkModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/17 23:04
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/links", method = RequestMethod.POST)
     public Map<String, Object> addLink(LinkModel linkModel) {
@@ -40,14 +39,13 @@ public class LinkController {
     }
 
     /**
-     * 功能描述: 链接更新
-     *
+     * @description:链接更新
+     * @auther: WBA
+     * @date: 2018/12/11 16:53
      * @param: [linkModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/17 11:37
+     * @return: java.util.Map
      */
-    @RequestMapping(value = "/link", method = RequestMethod.PUT)
+    @RequestMapping(value = "/links", method = RequestMethod.PUT)
     public Map<String, Object> updateLink(LinkModel linkModel) {
 
         boolean flag = SpringBootService.getLinkService().updateById(linkModel);
@@ -60,12 +58,11 @@ public class LinkController {
     }
 
     /**
-     * 功能描述: 链接删除
-     *
+     * @description:链接删除
+     * @auther: WBA
+     * @date: 2018/12/11 16:54
      * @param: [id]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/20 11:39
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/links/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteLink(@PathVariable(value = "id") Integer id) {
@@ -80,12 +77,11 @@ public class LinkController {
     }
 
     /**
-     * 功能描述: 链接对象查询
-     *
+     * @description:链接对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:54
      * @param: [id]
      * @return: com.vip.darker.model.LinkModel
-     * @auther: darker
-     * @date: 2018/8/17 15:31
      */
     @RequestMapping(value = "/links/{id}")
     public LinkModel findLinkById(@PathVariable(value = "id") Integer id) {
@@ -93,12 +89,11 @@ public class LinkController {
     }
 
     /**
-     * 功能描述: 链接列表查询
-     *
+     * @description:链接列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:54
      * @param: [pageNum, pageSize]
-     * @return: java.util.List<com.vip.darker.model.ClassifyModel>
-     * @auther: darker
-     * @date: 2018/8/17 11:42
+     * @return: java.util.List<com.vip.darker.model.LinkModel>
      */
     @RequestMapping(value = "/links", method = RequestMethod.GET)
     public List<LinkModel> findListLink(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -106,12 +101,11 @@ public class LinkController {
     }
 
     /**
-     * 功能描述: 链接列表页数
-     *
+     * @description:链接列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 16:54
      * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/17 10:48
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/links/page", method = RequestMethod.GET)
     public Map<String, Object> getLinkPage() {

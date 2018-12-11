@@ -20,12 +20,11 @@ import java.util.Map;
 public class ColumnController {
 
     /**
-     * 功能描述: 栏目新增
-     *
+     * @description:栏目新增
+     * @auther: WBA
+     * @date: 2018/12/11 16:49
      * @param: [columnModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/15 23:04
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/columns", method = RequestMethod.POST)
     public Map<String, Object> addColumn(ColumnModel columnModel) {
@@ -40,12 +39,11 @@ public class ColumnController {
     }
 
     /**
-     * 功能描述: 栏目更新
-     *
+     * @description:栏目更新
+     * @auther: WBA
+     * @date: 2018/12/11 16:49
      * @param: [columnModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/15 11:37
+     * @return: java.util.Map<java.lang.String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.lang.Object>
      */
     @RequestMapping(value = "/columns", method = RequestMethod.PUT)
     public Map<String, Object> updateColumn(ColumnModel columnModel) {
@@ -60,12 +58,11 @@ public class ColumnController {
     }
 
     /**
-     * 功能描述: 栏目删除
-     *
+     * @description:栏目删除
+     * @auther: WBA
+     * @date: 2018/12/11 16:49
      * @param: [id]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/20 11:39
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/columns/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteColumn(@PathVariable(value = "id") Integer id) {
@@ -80,12 +77,11 @@ public class ColumnController {
     }
 
     /**
-     * 功能描述: 栏目对象查询
-     *
+     * @description:栏目对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:49
      * @param: [id]
      * @return: com.vip.darker.model.ColumnModel
-     * @auther: darker
-     * @date: 2018/8/15 15:31
      */
     @RequestMapping(value = "/columns/{id}")
     public ColumnModel queryColumnById(@PathVariable(value = "id") Integer id) {
@@ -93,12 +89,11 @@ public class ColumnController {
     }
 
     /**
-     * 功能描述: 栏目列表查询
-     *
+     * @description:栏目列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:50
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.ColumnModel>
-     * @auther: darker
-     * @date: 2018/8/15 11:42
      */
     @RequestMapping(value = "/columns", method = RequestMethod.GET)
     public List<ColumnModel> findListColumn(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -106,12 +101,11 @@ public class ColumnController {
     }
 
     /**
-     * 功能描述: 栏目列表页数
-     *
+     * @description:栏目列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 16:50
      * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/15 10:48
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/columns/page", method = RequestMethod.GET)
     public Map<String, Object> getColumnPage() {
@@ -126,12 +120,11 @@ public class ColumnController {
     }
 
     /**
-     * 功能描述: 根据分类ID查询栏目列表
-     *
+     * @description:根据分类ID查询栏目列表
+     * @auther: WBA
+     * @date: 2018/12/11 16:50
      * @param: [classifyId]
      * @return: java.util.List<com.vip.darker.model.ColumnModel>
-     * @auther: darker
-     * @date: 2018/9/4 10:36
      */
     @RequestMapping(value = "/columns/{classifyId}", method = RequestMethod.GET)
     public List<ColumnModel> findColumnByClassifyId(@PathVariable(value = "classifyId") Integer[] classifyId) {

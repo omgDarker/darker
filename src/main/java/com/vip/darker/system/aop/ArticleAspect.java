@@ -34,11 +34,11 @@ public class ArticleAspect {
     }
 
     /**
-     * 功能描述: 更新文章PV
-     *
+     * @description:更新文章PV
+     * @auther: WBA
+     * @date: 2018/12/11 17:03
      * @param: [point]
-     * @auther: darker
-     * @date: 2018/9/25 16:18
+     * @return: void
      */
     @After(value = "updatePV()")
     public void doAfter(JoinPoint point) {
@@ -56,11 +56,11 @@ public class ArticleAspect {
     }
 
     /**
-     * 功能描述: 文章缓存清空
-     *
+     * @description:文章缓存清空
+     * @auther: WBA
+     * @date: 2018/12/11 17:03
      * @param: [point]
-     * @auther: darker
-     * @date: 2018/9/25 16:18
+     * @return: void
      */
     @After(value = "deleteCache()")
     public void deleteCache(JoinPoint point) {

@@ -34,11 +34,11 @@ public class UserController {
     //****************************************用户模块****************************************//
 
     /**
-     * 功能描述: 用户新增
-     *
-     * @param roleId    角色ID
-     * @param userModel 用户对象
-     * @return
+     * @description:用户新增
+     * @auther: WBA
+     * @date: 2018/12/11 17:00
+     * @param: [roleId, userModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public Map<String, Object> addUser(@RequestParam(value = "roleId", required = false, defaultValue = "1") Integer roleId, UserModel userModel) {
@@ -58,12 +58,11 @@ public class UserController {
 
 
     /**
-     * 功能描述: 用户更新
-     *
-     * @param userId    用户ID
-     * @param roleId    角色ID
-     * @param userModel 用户对象
-     * @return
+     * @description:用户更新
+     * @auther: WBA
+     * @date: 2018/12/11 17:00
+     * @param: [userId, roleId, userModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
     public Map<String, Object> editUser(@PathVariable(value = "id") Integer userId, Integer roleId, UserModel userModel) {
@@ -82,10 +81,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 用户删除
-     *
-     * @param userId 用户ID
-     * @return
+     * @description:用户删除
+     * @auther: WBA
+     * @date: 2018/12/11 17:00
+     * @param: [userId]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteUser(@PathVariable(value = "id") Integer userId) {
@@ -104,10 +104,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 用户对象查询
-     *
-     * @param userId
-     * @return
+     * @description:用户对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 17:00
+     * @param: [userId]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/users/{id}")
     public Map<String, Object> findUserById(@PathVariable(value = "id") Integer userId) {
@@ -125,11 +126,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 用户列表查询
-     *
-     * @param pageNum  起始页
-     * @param pageSize 每页大小
-     * @return
+     * @description:用户列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 17:00
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<java.util.Map>
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<Map<String, Object>> findListUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -169,9 +170,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 用户列表页数
-     *
-     * @return
+     * @description:用户列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 17:01
+     * @param: []
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/users/page", method = RequestMethod.GET)
     public Map<String, Object> countUserPage() {
@@ -188,11 +191,11 @@ public class UserController {
     //****************************************角色模块****************************************//
 
     /**
-     * 角色新增
-     *
-     * @param permissionId 权限ID
-     * @param roleModel    角色对象
-     * @return
+     * @description:角色新增
+     * @auther: WBA
+     * @date: 2018/12/11 17:01
+     * @param: [permissionId, roleModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/roles", method = RequestMethod.POST)
     public Map<String, Object> addRole(@RequestParam(value = "permissionId") Integer permissionId, RoleModel roleModel) {
@@ -212,12 +215,11 @@ public class UserController {
 
 
     /**
-     * 功能描述: 角色更新
-     *
-     * @param roleId       角色ID
-     * @param permissionId 权限ID
-     * @param roleModel    角色对象
-     * @return
+     * @description:角色更新
+     * @auther: WBA
+     * @date: 2018/12/11 17:01
+     * @param: [roleId, permissionId, roleModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/roles/{id}", method = RequestMethod.PUT)
     public Map<String, Object> editRole(@PathVariable(value = "id") Integer roleId, Integer permissionId, RoleModel roleModel) {
@@ -236,10 +238,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 角色删除
-     *
-     * @param roleId 角色ID
-     * @return
+     * @description:角色删除
+     * @auther: WBA
+     * @date: 2018/12/11 17:01
+     * @param: [roleId]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/roles/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteRole(@PathVariable(value = "id") Integer roleId) {
@@ -258,10 +261,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 角色对象查询
-     *
-     * @param roleId 角色ID
-     * @return
+     * @description:角色对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 17:01
+     * @param: [roleId]
+     * @return: com.vip.darker.model.RoleModel
      */
     @RequestMapping(value = "/roles/{id}")
     public RoleModel findRoleById(@PathVariable(value = "id") Integer roleId) {
@@ -269,11 +273,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 角色列表查询
-     *
-     * @param pageNum  起始页
-     * @param pageSize 每页大小
-     * @return
+     * @description:角色列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 17:01
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<com.vip.darker.model.RoleModel>
      */
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
     public List<RoleModel> findListRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -281,9 +285,11 @@ public class UserController {
     }
 
     /**
-     * 角色列表页数
-     *
-     * @return
+     * @description:角色列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 17:02
+     * @param: []
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/roles/page", method = RequestMethod.GET)
     public Map<String, Object> countRolePage() {
@@ -300,10 +306,11 @@ public class UserController {
     //****************************************权限模块****************************************//
 
     /**
-     * 功能描述: 权限新增
-     *
-     * @param permissionModel 权限对象
-     * @return
+     * @description:权限新增
+     * @auther: WBA
+     * @date: 2018/12/11 17:02
+     * @param: [permissionModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/permissions", method = RequestMethod.POST)
     public Map<String, Object> addPermission(PermissionModel permissionModel) {
@@ -318,11 +325,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 权限更新
-     *
-     * @param permissionId    权限ID
-     * @param permissionModel 权限实体
-     * @return
+     * @description:权限更新
+     * @auther: WBA
+     * @date: 2018/12/11 17:02
+     * @param: [permissionId, permissionModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.PUT)
     public Map<String, Object> editPermission(@PathVariable(value = "id") Integer permissionId, PermissionModel permissionModel) {
@@ -337,10 +344,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 权限删除
-     *
-     * @param permissionId 权限ID
-     * @return
+     * @description:权限删除
+     * @auther: WBA
+     * @date: 2018/12/11 17:02
+     * @param: [permissionId]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deletePermission(@PathVariable(value = "id") Integer permissionId) {
@@ -355,10 +363,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 权限对象查询
-     *
-     * @param permissionId
-     * @return
+     * @description:权限对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 17:02
+     * @param: [permissionId]
+     * @return: com.vip.darker.model.PermissionModel
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.GET)
     public PermissionModel findPermissionById(@PathVariable(value = "id") Integer permissionId) {
@@ -366,11 +375,11 @@ public class UserController {
     }
 
     /**
-     * 权限列表查询
-     *
-     * @param pageNum  起始页
-     * @param pageSize 每页大小
-     * @return
+     * @description:权限列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 17:02
+     * @param: [pageNum, pageSize]
+     * @return: java.util.List<com.vip.darker.model.PermissionModel>
      */
     @RequestMapping(value = "/permissions", method = RequestMethod.GET)
     public List<PermissionModel> findListPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -378,9 +387,11 @@ public class UserController {
     }
 
     /**
-     * 功能描述: 权限列表页数
-     *
-     * @return
+     * @description:权限列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 17:03
+     * @param: []
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/permissions/page", method = RequestMethod.GET)
     public Map<String, Object> countPermissionPage() {

@@ -20,14 +20,12 @@ import java.util.Map;
 @RequestMapping(value = "operation")
 public class OperationContorller {
 
-    //****************************************统计模块****************************************//
-
     /**
-     * 功能描述: 查询统计信息列表
-     *
-     * @return: [map]
-     * @auther: darker
-     * @date: 2018/9/13 18:14
+     * @description:查询统计信息列表
+     * @auther: WBA
+     * @date: 2018/12/11 16:57
+     * @param: []
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
     public Map<String, Object> findListStatistics() {

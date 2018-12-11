@@ -30,13 +30,13 @@ public class ImageController {
 
     private Logger logger = LoggerFactory.getLogger(ImageController.class);
 
+
     /**
-     * 功能描述: 图片新增
-     *
-     * @param: [ImageModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:23
+     * @description:图片新增
+     * @auther: WBA
+     * @date: 2018/12/11 16:51
+     * @param: [imageModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/images", method = RequestMethod.POST)
     public Map<String, Object> addImage(ImageModel imageModel) {
@@ -51,12 +51,11 @@ public class ImageController {
     }
 
     /**
-     * 功能描述: 图片更新
-     *
-     * @param: [ImageModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:29
+     * @description:图片更新
+     * @auther: WBA
+     * @date: 2018/12/11 16:51
+     * @param: [imageModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/images", method = RequestMethod.PUT)
     public Map<String, Object> editImage(ImageModel imageModel) {
@@ -71,12 +70,11 @@ public class ImageController {
     }
 
     /**
-     * 功能描述: 图片删除
-     *
+     * @description:图片删除
+     * @auther: WBA
+     * @date: 2018/12/11 16:51
      * @param: [id]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:37
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/images/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteImage(@PathVariable(value = "id") Integer id) {
@@ -91,12 +89,11 @@ public class ImageController {
     }
 
     /**
-     * 功能描述: 图片列表页数
-     *
+     * @description:图片列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 16:51
      * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/2 22:56
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/images/page", method = RequestMethod.GET)
     public Map<String, Object> countImageMaxPage() {
@@ -111,12 +108,11 @@ public class ImageController {
     }
 
     /**
-     * 功能描述: 图片对象查询
-     *
+     * @description:图片对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:51
      * @param: [id]
      * @return: com.vip.darker.model.ImageModel
-     * @auther: darker
-     * @date: 2018/8/2 22:57
      */
     @RequestMapping(value = "/images/{id}", method = RequestMethod.GET)
     public ImageModel findImageById(@PathVariable(value = "id") Integer id) {
@@ -124,12 +120,11 @@ public class ImageController {
     }
 
     /**
-     * 功能描述: 图片列表查询
-     *
+     * @description:图片列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:51
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.ImageModel>
-     * @auther: darker
-     * @date: 2018/7/20 15:46
      */
     @RequestMapping(value = "/images", method = RequestMethod.GET)
     public List<ImageModel> findListImage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
@@ -138,12 +133,11 @@ public class ImageController {
 
 
     /**
-     * 功能描述: 图片上传
-     *
+     * @description:图片上传
+     * @auther: WBA
+     * @date: 2018/12/11 16:52
      * @param: [multipartRequest]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/8 11:53
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
     public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest) {
@@ -180,12 +174,11 @@ public class ImageController {
     }
 
     /**
-     * 功能描述: 图片展示
-     *
+     * @description:图片展示
+     * @auther: WBA
+     * @date: 2018/12/11 16:52
      * @param: [imageName, response]
      * @return: void
-     * @auther: darker
-     * @date: 2018/8/14 11:37
      */
     @RequestMapping(value = "/images/show/{imageName}", method = RequestMethod.GET)
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
@@ -214,12 +207,30 @@ public class ImageController {
     }
 
     /**
-     * 功能描述: 视觉冲击
-     *
-     * @param: [classify, column]
-     * @return: ModelAndView
-     * @auther: darker
-     * @date: 2018/9/4 11:33
+     * @description:视觉冲击
+     * @auther: WBA
+     * @date: 2018/12/11 16:52
+     * @param: [classifyId]
+     * @return: org.springframework.web.servlet.ModelAndView
+     */
+    @RequestMapping(value = "/home/images/{classifyId}", method = RequestMethod.GET)
+    public ModelAndView findImageByClassifyId(@PathVariable(value = "classifyId") Integer classifyId) {
+
+        ModelAndView modelAndView = new ModelAndView("home/image");
+        // 图片列表
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageModel>().where("classifyId={0} ", classifyId)));
+        // 栏目列表
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
+
+        return modelAndView;
+    }
+
+    /**
+     * @description:视觉冲击
+     * @auther: WBA
+     * @date: 2018/12/11 16:52
+     * @param: [classifyId, columnId]
+     * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = "/home/images/{classifyId}/{columnId}", method = RequestMethod.GET)
     public ModelAndView findimageByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId", required = false) Integer columnId) {
@@ -231,26 +242,6 @@ public class ImageController {
         modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
         // 栏目名称
         modelAndView.addObject("columnName", ConvertAttribute.getColumnMap().getOrDefault(columnId, "其他栏目"));
-
-        return modelAndView;
-    }
-
-    /**
-     * 功能描述: 视觉冲击
-     *
-     * @param: [classify]
-     * @return: ModelAndView
-     * @auther: darker
-     * @date: 2018/9/4 11:33
-     */
-    @RequestMapping(value = "/home/images/{classifyId}", method = RequestMethod.GET)
-    public ModelAndView findImageByClassifyId(@PathVariable(value = "classifyId") Integer classifyId) {
-
-        ModelAndView modelAndView = new ModelAndView("home/image");
-        // 图片列表
-        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageModel>().where("classifyId={0} ", classifyId)));
-        // 栏目列表
-        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
 
         return modelAndView;
     }

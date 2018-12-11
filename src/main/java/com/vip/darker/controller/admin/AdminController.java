@@ -21,45 +21,50 @@ import java.util.Optional;
 @RestController
 public class AdminController {
 
-    static final String ADMIN = "admin";
+    private static final String ADMIN = "admin";
 
     /**
-     * 功能描述: 登录跳转
-     *
-     * @return: modelAndView
-     * @auther: darker
-     * @date: 2018/9/14 18:31
+     * @description:登录页跳转
+     * @auther: WBA
+     * @date: 2018/12/11 14:33
+     * @param: []
+     * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
     public ModelAndView login() {
         return new ModelAndView(ADMIN + "/login");
     }
 
-
     /**
-     * 功能描述: 用户注册
-     *
+     * @description:用户注册
+     * @auther: WBA
+     * @date: 2018/12/11 14:53
      * @param: [userModel]
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/9/12 18:11
+     * @return: Map
      */
     @RequestMapping(value = "/admin/register", method = RequestMethod.POST)
     public Map<String, Object> register(UserModel userModel) {
         Map<String, Object> map = new HashMap<>();
         // 判断是否存在此用户
-        Optional.ofNullable(SpringBootService.getUserService().selectObj(new EntityWrapper<UserModel>().where("name={0}", userModel.getName()).and("password={0}", userModel.getPassword())))
-                .map(opt -> map.put(Constant.MSG, "用户已存在!"))
-                .orElse(map.put(Constant.MSG, SpringBootService.getUserService().insert(userModel) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT));
+        Optional<Object> opt = Optional.ofNullable(
+                SpringBootService.getUserService().selectObj(
+                        new EntityWrapper<UserModel>()
+                                .where("name={0}", userModel.getName())
+                                .and("password={0}", userModel.getPassword())));
+        if (opt.isPresent()) {
+            map.put(Constant.MSG, "已存在!");
+        } else {
+            map.put(Constant.MSG, SpringBootService.getUserService().insert(userModel) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
+        }
         return map;
     }
 
     /**
-     * 功能描述: 后台管理首页
-     *
-     * @return: modelAndView
-     * @auther: darker
-     * @date: 2018/7/24 23:08
+     * @description:博客后台首页
+     * @auther: WBA
+     * @date: 2018/12/11 14:56
+     * @param: []
+     * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView admin() {

@@ -24,15 +24,12 @@ import java.util.Optional;
 @RestController
 public class ArticleController {
 
-    //****************************************文章模块****************************************//
-
     /**
-     * 功能描述: 文章新增
-     *
+     * @description:文章新增
+     * @auther: WBA
+     * @date: 2018/12/11 16:42
      * @param: [articleModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:22
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/articles", method = RequestMethod.POST)
     public Map<String, Object> addArticle(ArticleModel articleModel) {
@@ -50,12 +47,11 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述:文章更新
-     *
+     * @description:文章更新
+     * @auther: WBA
+     * @date: 2018/12/11 16:43
      * @param: [articleModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:28
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/articles", method = RequestMethod.PUT)
     public Map<String, Object> editArticle(ArticleModel articleModel) {
@@ -70,12 +66,11 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述: 文章删除
-     *
+     * @description:文章删除
+     * @auther: WBA
+     * @date: 2018/12/11 16:43
      * @param: [id]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:35
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/articles/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteArticle(@PathVariable(value = "id") Integer id) {
@@ -90,12 +85,11 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述: 文章列表页数
-     *
+     * @description:文章列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 16:43
      * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/30 10:48
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/articles/page", method = RequestMethod.GET)
     public Map<String, Object> countArticlePage() {
@@ -110,12 +104,11 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述: 文章对象查询
-     *
+     * @description:文章对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:43
      * @param: [id]
      * @return: com.vip.darker.model.ArticleModel
-     * @auther: darker
-     * @date: 2018/8/1 16:49
      */
     @RequestMapping(value = "/articles/{id}", method = RequestMethod.GET)
     public ArticleModel findArticleById(@PathVariable(value = "id") Integer id) {
@@ -123,12 +116,11 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述: 文章列表查询
-     *
+     * @description:文章列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:44
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.ArticleModel>
-     * @auther: darker
-     * @date: 2018/7/20 15:49
      */
     @RequestMapping(value = "/articles", method = RequestMethod.GET)
     public List<ArticleModel> findListArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -144,12 +136,11 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述: 文章详情页
-     *
+     * @description:文章详情页
+     * @auther: WBA
+     * @date: 2018/12/11 16:45
      * @param: [id]
      * @return: org.springframework.web.servlet.ModelAndView
-     * @auther: darker
-     * @date: 2018/8/10 16:49
      */
     @RequestMapping(value = "/articles/detail/{id}", method = RequestMethod.GET)
     public ModelAndView findDetailArticle(@PathVariable(value = "id") Integer id) {
@@ -178,12 +169,11 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述: 点赞功能
-     *
+     * @description: 点赞功能
+     * @auther: WBA
+     * @date: 2018/12/11 16:45
      * @param: [id, likeAmount]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/20 16:32
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/articles/like/{id}", method = RequestMethod.POST)
     public Map<String, Object> addLike(@PathVariable(value = "id") Integer id, @RequestParam(value = "likeAmount") Integer likeAmount) {
@@ -202,12 +192,11 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述: 甩鞋功能
-     *
+     * @description:甩鞋功能
+     * @auther: WBA
+     * @date: 2018/12/11 16:45
      * @param: [id, likeNoAmount]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/20 16:32
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/articles/likeNo/{id}", method = RequestMethod.POST)
     public Map<String, Object> addLikeNo(@PathVariable(value = "id") Integer id, @RequestParam(value = "likeNoAmount") Integer likeNoAmount) {
@@ -226,53 +215,16 @@ public class ArticleController {
     }
 
     /**
-     * 功能描述: 生活点滴、技术联盟
-     *
-     * @param: [classify column]
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/8/13 22:39
-     */
-    @RequestMapping(value = "/home/articles/{classifyId}/{columnId}", method = RequestMethod.GET)
-    public ModelAndView findArticleByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId") Integer columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
-
-        ModelAndView modelAndView = new ModelAndView("home/article");
-        // 文章总条数
-        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId));
-        // 文章列表
-        modelAndView.addObject("list", SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords());
-        // 分类ID
-        modelAndView.addObject("classifyId", classifyId);
-        // 分类名称
-        modelAndView.addObject("classifyName", ConvertAttribute.getClassifyMap().getOrDefault(classifyId, "其他分类"));
-        // 栏目ID
-        modelAndView.addObject("columnId", columnId);
-        // 栏目名称
-        modelAndView.addObject("columnName", ConvertAttribute.getColumnMap().getOrDefault(columnId, "其他栏目"));
-        // 栏目列表
-        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
-        // 当前页
-        modelAndView.addObject("pageNum", pageNum);
-        // 总页数
-        modelAndView.addObject("pageNumSum", (count - 1) / pageSize + 1);
-        // 总条数
-        modelAndView.addObject("numSum", count);
-
-        return modelAndView;
-    }
-
-    /**
-     * 功能描述: 生活点滴、技术联盟
-     *
-     * @param: [classify]
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/8/13 22:39
+     * @description:生活点滴、技术联盟
+     * @auther: WBA
+     * @date: 2018/12/11 16:46
+     * @param: [classifyId, pageNum, pageSize]
+     * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = "/home/articles/{classifyId}", method = RequestMethod.GET)
     public ModelAndView findArticleByClassifyId(@PathVariable(value = "classifyId") Integer classifyId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
 
-        ModelAndView modelAndView = new ModelAndView( "home/article");
+        ModelAndView modelAndView = new ModelAndView("home/article");
         // 文章总条数
         int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId));
         // 根据条件查询文章
@@ -290,6 +242,41 @@ public class ArticleController {
         modelAndView.addObject("classifyId", classifyId);
         // 分类名称
         modelAndView.addObject("classifyName", ConvertAttribute.getClassifyMap().getOrDefault(classifyId, "其他分类"));
+        // 栏目列表
+        modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
+        // 当前页
+        modelAndView.addObject("pageNum", pageNum);
+        // 总页数
+        modelAndView.addObject("pageNumSum", (count - 1) / pageSize + 1);
+        // 总条数
+        modelAndView.addObject("numSum", count);
+
+        return modelAndView;
+    }
+
+    /**
+     * @description:生活点滴、技术联盟
+     * @auther: WBA
+     * @date: 2018/12/11 16:46
+     * @param: [classifyId, columnId, pageNum, pageSize]
+     * @return: org.springframework.web.servlet.ModelAndView
+     */
+    @RequestMapping(value = "/home/articles/{classifyId}/{columnId}", method = RequestMethod.GET)
+    public ModelAndView findArticleByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId") Integer columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+
+        ModelAndView modelAndView = new ModelAndView("home/article");
+        // 文章总条数
+        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId));
+        // 文章列表
+        modelAndView.addObject("list", SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords());
+        // 分类ID
+        modelAndView.addObject("classifyId", classifyId);
+        // 分类名称
+        modelAndView.addObject("classifyName", ConvertAttribute.getClassifyMap().getOrDefault(classifyId, "其他分类"));
+        // 栏目ID
+        modelAndView.addObject("columnId", columnId);
+        // 栏目名称
+        modelAndView.addObject("columnName", ConvertAttribute.getColumnMap().getOrDefault(columnId, "其他栏目"));
         // 栏目列表
         modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
         // 当前页

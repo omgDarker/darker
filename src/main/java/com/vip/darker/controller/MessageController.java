@@ -22,15 +22,12 @@ import java.util.Map;
 @RestController
 public class MessageController {
 
-    //****************************************留言模块****************************************//
-
     /**
-     * 功能描述: 留言新增
-     *
-     * @param: [messageModel]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:25
+     * @description:留言新增
+     * @auther: WBA
+     * @date: 2018/12/11 16:56
+     * @param: [articleId, messageModel]
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/messages", method = RequestMethod.POST)
     public Map<String, Object> addMessage(Integer articleId, MessageModel messageModel) {
@@ -47,12 +44,11 @@ public class MessageController {
     }
 
     /**
-     * 功能描述: 留言更新
-     *
+     * @description:留言更新
+     * @auther: WBA
+     * @date: 2018/12/11 16:56
      * @param: [messageModel]
-     * @return:
-     * @auther: darker
-     * @date: 2018/7/20 15:31
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/messages", method = RequestMethod.PUT)
     public Map<String, Object> editMessage(MessageModel messageModel) {
@@ -67,12 +63,11 @@ public class MessageController {
     }
 
     /**
-     * 功能描述: 留言删除
-     *
+     * @description:留言删除
+     * @auther: WBA
+     * @date: 2018/12/11 16:56
      * @param: [id]
-     * @return: boolean
-     * @auther: darker
-     * @date: 2018/7/20 15:39
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/messages/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteMessage(@PathVariable(value = "id") Integer id) {
@@ -87,12 +82,11 @@ public class MessageController {
     }
 
     /**
-     * 功能描述: 留言列表页数
-     *
+     * @description:留言列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 16:56
      * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/2 22:56
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/messages/page", method = RequestMethod.GET)
     public Map<String, Object> countMessagePage() {
@@ -107,12 +101,11 @@ public class MessageController {
     }
 
     /**
-     * 功能描述: 留言对象查询
-     *
+     * @description:留言对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:56
      * @param: [id]
      * @return: com.vip.darker.model.MessageModel
-     * @auther: darker
-     * @date: 2018/8/2 22:57
      */
     @RequestMapping(value = "/messages/{id}", method = RequestMethod.GET)
     public MessageModel findMessageById(@PathVariable(value = "id") Integer id) {
@@ -120,12 +113,11 @@ public class MessageController {
     }
 
     /**
-     * 功能描述: 留言列表查询
-     *
+     * @description:留言列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:57
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.MessageModel>
-     * @auther: darker
-     * @date: 2018/7/20 15:43
      */
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
     public List<MessageModel> findListMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -133,12 +125,11 @@ public class MessageController {
     }
 
     /**
-     * 功能描述: 留言板
-     *
+     * @description:留言板
+     * @auther: WBA
+     * @date: 2018/12/11 16:57
      * @param: [pageNum, pageSize]
-     * @return: java.lang.String
-     * @auther: darker
-     * @date: 2018/8/13 22:39
+     * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = "/home/messages", method = RequestMethod.GET)
     public ModelAndView findMessageBoard(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {

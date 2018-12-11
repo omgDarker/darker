@@ -18,10 +18,11 @@ public class AsyncTaskExecutorService {
     public static final String BEAN_NAME = "asyncTaskExecutorService";
 
     /**
-     * 用户角色关系数据新增
-     *
-     * @param userId 用户ID
-     * @param roleId 角色ID
+     * @description:用户角色关系数据新增
+     * @auther: WBA
+     * @date: 2018/12/11 17:22
+     * @param: [userId, roleId]
+     * @return: void
      */
     @Async
     public void addURRelation(Integer userId, Integer roleId) {
@@ -32,10 +33,11 @@ public class AsyncTaskExecutorService {
     }
 
     /**
-     * 用户角色关系数据更新
-     *
-     * @param userId 用户ID
-     * @param roleId 角色ID
+     * @description:用户角色关系数据更新
+     * @auther: WBA
+     * @date: 2018/12/11 17:22
+     * @param: [userId, roleId]
+     * @return: void
      */
     @Async
     public void editURRelation(Integer userId, Integer roleId) {
@@ -46,9 +48,11 @@ public class AsyncTaskExecutorService {
     }
 
     /**
-     * 用户角色关系数据删除
-     *
-     * @param userId 用户ID
+     * @description:用户角色关系数据删除
+     * @auther: WBA
+     * @date: 2018/12/11 17:23
+     * @param: [userId]
+     * @return: void
      */
     @Async
     public void deleteURRelation(Integer userId) {
@@ -56,10 +60,11 @@ public class AsyncTaskExecutorService {
     }
 
     /**
-     * 角色权限关系数据新增
-     *
-     * @param roleId       角色ID
-     * @param permissionId 权限ID
+     * @description:角色权限关系数据新增
+     * @auther: WBA
+     * @date: 2018/12/11 17:23
+     * @param: [roleId, permissionId]
+     * @return: void
      */
     @Async
     public void addRPRelation(Integer roleId, Integer permissionId) {
@@ -70,10 +75,11 @@ public class AsyncTaskExecutorService {
     }
 
     /**
-     * 角色权限关系数据更新
-     *
-     * @param roleId       角色ID
-     * @param permissionId 权限ID
+     * @description:角色权限关系数据更新
+     * @auther: WBA
+     * @date: 2018/12/11 17:23
+     * @param: [roleId, permissionId]
+     * @return: void
      */
     @Async
     public void editRPRelation(Integer roleId, Integer permissionId) {
@@ -84,9 +90,11 @@ public class AsyncTaskExecutorService {
     }
 
     /**
-     * 角色权限关系数据删除
-     *
-     * @param roleId 角色ID
+     * @description:角色权限关系数据删除
+     * @auther: WBA
+     * @date: 2018/12/11 17:23
+     * @param: [roleId]
+     * @return: void
      */
     @Async
     public void deleteRPRelation(Integer roleId) {

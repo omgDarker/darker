@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
 
     /**
-     * 功能描述: 登录执行之前,验证用户是否存在
-     *
-     * @return: [boolean]
-     * @auther: darker
-     * @date: 2018/9/12 16:47
+     * @description:登录执行之前,验证用户是否存在
+     * @auther: WBA
+     * @date: 2018/12/11 17:04
+     * @param: [request, response, o]
+     * @return: boolean
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {

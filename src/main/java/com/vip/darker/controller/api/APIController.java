@@ -28,8 +28,15 @@ public class APIController {
     // 操作结果集
     private Map<String, Object> map = new HashMap<>();
 
+    /**
+     * @description: 文章列表API
+     * @auther: WBA
+     * @date: 2018/12/11 16:36
+     * @param: []
+     * @return: com.vip.darker.model.ResultModel
+     */
     @RequestMapping(value = "/article", method = RequestMethod.GET)
-    public ResultModel queryArticle() {
+    public ResultModel findListArticle() {
         Optional<List<ArticleModel>> optional = Optional.ofNullable(SpringBootService.getArticleService().selectList(new EntityWrapper<>()));
 
         if (optional.isPresent()) {
@@ -39,8 +46,15 @@ public class APIController {
         return ConvertResult.result(-1, map);
     }
 
+    /**
+     * @description: 消息列表API
+     * @auther: WBA
+     * @date: 2018/12/11 16:36
+     * @param: []
+     * @return: com.vip.darker.model.ResultModel
+     */
     @RequestMapping(value = "/message", method = RequestMethod.GET)
-    public ResultModel queryMessage() {
+    public ResultModel findListMessage() {
         Optional<List<MessageModel>> optional = Optional.ofNullable(SpringBootService.getMessageService().selectList(new EntityWrapper<>()));
 
         if (optional.isPresent()) {

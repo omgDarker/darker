@@ -20,12 +20,11 @@ import java.util.Map;
 public class ClassifyController {
 
     /**
-     * 功能描述: 分类新增
-     *
+     * @description:分类新增
+     * @auther: WBA
+     * @date: 2018/12/11 16:47
      * @param: [classifyModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/15 23:04
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/classifys", method = RequestMethod.POST)
     public Map<String, Object> addClassify(ClassifyModel classifyModel) {
@@ -40,12 +39,11 @@ public class ClassifyController {
     }
 
     /**
-     * 功能描述: 分类更新
-     *
+     * @description:分类更新
+     * @auther: WBA
+     * @date: 2018/12/11 16:47
      * @param: [classifyModel]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/15 11:37
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/classifys", method = RequestMethod.PUT)
     public Map<String, Object> updateClassify(ClassifyModel classifyModel) {
@@ -60,12 +58,11 @@ public class ClassifyController {
     }
 
     /**
-     * 功能描述: 分类删除
-     *
+     * @description:分类删除
+     * @auther: WBA
+     * @date: 2018/12/11 16:48
      * @param: [id]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/20 11:39
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/classifys/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteClassify(@PathVariable(value = "id") Integer id) {
@@ -80,12 +77,11 @@ public class ClassifyController {
     }
 
     /**
-     * 功能描述: 分类对象查询
-     *
+     * @description: 分类对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:48
      * @param: [id]
      * @return: com.vip.darker.model.ClassifyModel
-     * @auther: darker
-     * @date: 2018/8/15 15:31
      */
     @RequestMapping(value = "/classifys/{id}")
     public ClassifyModel findClassifyById(@PathVariable(value = "id") Integer id) {
@@ -93,12 +89,11 @@ public class ClassifyController {
     }
 
     /**
-     * 功能描述: 分类列表查询
-     *
+     * @description:分类列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:48
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.ClassifyModel>
-     * @auther: darker
-     * @date: 2018/8/15 11:42
      */
     @RequestMapping(value = "/classifys", method = RequestMethod.GET)
     public List<ClassifyModel> findListClassify(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -106,12 +101,11 @@ public class ClassifyController {
     }
 
     /**
-     * 功能描述: 分类列表页数
-     *
+     * @description:分类列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 16:48
      * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/8/15 10:48
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/classifys/page", method = RequestMethod.GET)
     public Map<String, Object> getClassifyPage() {

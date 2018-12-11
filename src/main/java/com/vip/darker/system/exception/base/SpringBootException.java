@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class SpringBootException {
 
     /**
-     * 功能描述: 登录异常,返回登录页面
-     *
-     * @return: [String]
-     * @auther: darker
-     * @date: 2018/9/12 16:47
+     * @description:登录异常,返回登录页面
+     * @auther: WBA
+     * @date: 2018/12/11 17:04
+     * @param: [e]
+     * @return: java.lang.String
      */
     @ExceptionHandler(value = LoginException.class)
     public String errorLogin(Exception e) {

@@ -14,10 +14,13 @@ import org.springframework.context.annotation.Bean;
  */
 //@Configuration
 public class QueueMQConfig {
+
     /**
-     * 用户信息队列
-     *
-     * @return
+     * @description:用户信息队列
+     * @auther: WBA
+     * @date: 2018/12/11 17:09
+     * @param: []
+     * @return: org.springframework.amqp.core.Queue
      */
     @Bean(name = "user")
     public Queue queueUser() {
@@ -25,9 +28,11 @@ public class QueueMQConfig {
     }
 
     /**
-     * 角色信息队列
-     *
-     * @return
+     * @description:角色信息队列
+     * @auther: WBA
+     * @date: 2018/12/11 17:09
+     * @param: []
+     * @return: org.springframework.amqp.core.Queue
      */
     @Bean(name = "role")
     public Queue queueRole() {
@@ -35,9 +40,11 @@ public class QueueMQConfig {
     }
 
     /**
-     * 权限队列
-     *
-     * @return
+     * @description:权限队列
+     * @auther: WBA
+     * @date: 2018/12/11 17:09
+     * @param: []
+     * @return: org.springframework.amqp.core.Queue
      */
     @Bean(name = "permission")
     public Queue queuePermission() {
@@ -45,9 +52,11 @@ public class QueueMQConfig {
     }
 
     /**
-     * 交换机
-     *
-     * @return
+     * @description:交换机
+     * @auther: WBA
+     * @date: 2018/12/11 17:09
+     * @param: []
+     * @return: org.springframework.amqp.core.TopicExchange
      */
     @Bean
     public TopicExchange exchange() {
@@ -55,11 +64,11 @@ public class QueueMQConfig {
     }
 
     /**
-     * 交换机队列绑定
-     *
-     * @param queue    队列
-     * @param exchange 交换机
-     * @return
+     * @description:交换机队列绑定
+     * @auther: WBA
+     * @date: 2018/12/11 17:09
+     * @param: [queue, exchange]
+     * @return: org.springframework.amqp.core.Binding
      */
     @Bean
     Binding bindingExchangeUser(@Qualifier(value = "user") Queue queue, TopicExchange exchange) {

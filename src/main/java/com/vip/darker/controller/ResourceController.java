@@ -20,12 +20,11 @@ import java.util.Map;
 public class ResourceController {
 
     /**
-     * 功能描述: 资源新增
-     *
+     * @description:资源新增
+     * @auther: WBA
+     * @date: 2018/12/11 16:58
      * @param: [resourceModel]
-     * @return: org.springframework.web.servlet.ModelAndView
-     * @auther: darker
-     * @date: 2018/7/26 15:32
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/resources", method = RequestMethod.POST)
     public Map<String, Object> addResource(ResourceModel resourceModel) {
@@ -40,12 +39,11 @@ public class ResourceController {
     }
 
     /**
-     * 功能描述: 资源更新
-     *
+     * @description:资源更新
+     * @auther: WBA
+     * @date: 2018/12/11 16:58
      * @param: [resourceModel]
-     * @return: org.springframework.web.servlet.ModelAndView
-     * @auther: darker
-     * @date: 2018/7/26 15:33
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/resources", method = RequestMethod.PUT)
     public Map<String, Object> editResource(ResourceModel resourceModel) {
@@ -60,12 +58,11 @@ public class ResourceController {
     }
 
     /**
-     * 功能描述: 资源删除
-     *
+     * @description:资源删除
+     * @auther: WBA
+     * @date: 2018/12/11 16:58
      * @param: [id]
      * @return: java.util.Map
-     * @auther: darker
-     * @date: 2018/7/25 18:33
      */
     @RequestMapping(value = "/resources/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteReouseceById(@PathVariable(value = "id") Integer id) {
@@ -80,12 +77,11 @@ public class ResourceController {
     }
 
     /**
-     * 功能描述: 资源对象查询
-     *
+     * @description:资源对象查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:58
      * @param: [id]
      * @return: com.vip.darker.model.ResourceModel
-     * @auther: darker
-     * @date: 2018/7/25 22:25
      */
     @RequestMapping(value = "/resources/{id}", method = RequestMethod.GET)
     public ResourceModel findResouceById(@PathVariable(value = "id") Integer id) {
@@ -93,12 +89,11 @@ public class ResourceController {
     }
 
     /**
-     * 功能描述: 资源列表查询
-     *
+     * @description:资源列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:58
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.ResourceModel>
-     * @auther: darker
-     * @date: 2018/7/19 22:02
      */
     @RequestMapping(value = "/resources", method = RequestMethod.GET)
     public List<ResourceModel> findListResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum, @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {

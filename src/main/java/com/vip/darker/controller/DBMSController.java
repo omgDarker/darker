@@ -25,10 +25,11 @@ public class DBMSController {
     private String password; // 密码
 
     /**
-     * 功能描述: 获取数据库表信息
-     *
-     * @auther: darker
-     * @date: 2018/9/17 10:49
+     * @description:获取数据库表信息
+     * @auther: WBA
+     * @date: 2018/12/11 16:41
+     * @param: []
+     * @return: java.util.Map<java.lang.String,java.lang.Object>
      */
     @RequestMapping(value = "/tables", method = RequestMethod.GET)
     public Map<String, Object> getDBTables() {

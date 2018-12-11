@@ -24,11 +24,11 @@ public class SpringBootSessionListener implements HttpSessionListener {
     private Logger logger = LoggerFactory.getLogger(SpringBootSessionListener.class);
 
     /**
-     * 功能描述: 每当session建立,在线用户人数+1
-     *
+     * @description:每当session建立,在线用户人数+1
+     * @auther: WBA
+     * @date: 2018/12/11 17:08
      * @param: [event]
-     * @auther: darker
-     * @date: 2018/8/31 13:43
+     * @return: void
      */
     @Override
     public synchronized void sessionCreated(HttpSessionEvent event) {
@@ -38,11 +38,11 @@ public class SpringBootSessionListener implements HttpSessionListener {
     }
 
     /**
-     * 功能描述: 每当session销毁,在线用户人数-1
-     *
+     * @description:每当session销毁,在线用户人数-1
+     * @auther: WBA
+     * @date: 2018/12/11 17:08
      * @param: [event]
-     * @auther: darker
-     * @date: 2018/8/31 13:43
+     * @return: void
      */
     @Override
     @SuppressWarnings("unchecked")

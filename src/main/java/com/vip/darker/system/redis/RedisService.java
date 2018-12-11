@@ -21,16 +21,16 @@ public class RedisService {
     public static final String BEAN_NAME = "redisService";
 
     @Resource
-    private  RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     //================================common=================================//
 
     /**
-     * 指定缓存失效时间
-     *
-     * @param key  缓存主键
-     * @param time 失效时间
-     * @return
+     * @description:指定缓存失效时间
+     * @auther: WBA
+     * @date: 2018/12/11 17:23
+     * @param: [key, time]
+     * @return: boolean
      */
     @SuppressWarnings(value = "all")
     public boolean setExpire(String key, long time) {
@@ -46,29 +46,33 @@ public class RedisService {
     }
 
     /**
-     * 根据主键获取过期时间
-     *
-     * @param key
-     * @return
+     * @description:根据主键获取过期时间
+     * @auther: WBA
+     * @date: 2018/12/11 17:24
+     * @param: [key]
+     * @return: long
      */
     public long getExpire(String key) {
         return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
 
     /**
-     * 判断主键是否存在
-     *
-     * @param key
-     * @return
+     * @description:判断主键是否存在
+     * @auther: WBA
+     * @date: 2018/12/11 17:24
+     * @param: [key]
+     * @return: boolean
      */
     public boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
     }
 
     /**
-     * 根据主键,删除缓存
-     *
-     * @param key
+     * @description:根据主键,删除缓存
+     * @auther: WBA
+     * @date: 2018/12/11 17:24
+     * @param: [key]
+     * @return: void
      */
     @SuppressWarnings("unchecked")
     public void delKey(String[] key) {
@@ -82,21 +86,22 @@ public class RedisService {
     }
 
     /**
-     * 根据主键,获取缓存
-     *
-     * @param key
-     * @return
+     * @description:根据主键,获取缓存
+     * @auther: WBA
+     * @date: 2018/12/11 17:24
+     * @param: [key]
+     * @return: java.lang.Object
      */
     public Object get(String key) {
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 
     /**
-     * 设置缓存
-     *
-     * @param key
-     * @param value
-     * @return
+     * @description:设置缓存
+     * @auther: WBA
+     * @date: 2018/12/11 17:25
+     * @param: [key, value]
+     * @return: boolean
      */
     public boolean set(String key, Object value) {
         try {
@@ -109,12 +114,11 @@ public class RedisService {
     }
 
     /**
-     * 设置缓存并设置过期时间
-     *
-     * @param key
-     * @param value
-     * @param time
-     * @return
+     * @description:设置缓存并设置过期时间
+     * @auther: WBA
+     * @date: 2018/12/11 17:25
+     * @param: [key, value, time]
+     * @return: boolean
      */
     public boolean set(String key, Object value, long time) {
 
@@ -132,11 +136,11 @@ public class RedisService {
     }
 
     /**
-     * 递增
-     *
-     * @param key
-     * @param delta
-     * @return
+     * @description:递增
+     * @auther: WBA
+     * @date: 2018/12/11 17:25
+     * @param: [key, delta]
+     * @return: long
      */
     public long incr(String key, long delta) {
         if (delta < 0) {
@@ -146,11 +150,11 @@ public class RedisService {
     }
 
     /**
-     * 递减
-     *
-     * @param key
-     * @param delta
-     * @return
+     * @description:递减
+     * @auther: WBA
+     * @date: 2018/12/11 17:25
+     * @param: [key, delta]
+     * @return: long
      */
     public long desc(String key, long delta) {
         if (delta < 0) {
@@ -162,21 +166,22 @@ public class RedisService {
     //================================map=================================//
 
     /**
-     * HashGetMap
-     *
-     * @param key
-     * @return
+     * @description:根据主键,获取缓存
+     * @auther: WBA
+     * @date: 2018/12/11 17:25
+     * @param: [key]
+     * @return: java.util.Map
      */
     public Map<Object, Object> hmget(String key) {
         return redisTemplate.opsForHash().entries(key);
     }
 
     /**
-     * HashSetMap
-     *
-     * @param key
-     * @param map
-     * @return
+     * @description:设置缓存
+     * @auther: WBA
+     * @date: 2018/12/11 17:26
+     * @param: [key, map]
+     * @return: boolean
      */
     public boolean hmset(String key, Map<String, Object> map) {
         try {
@@ -189,12 +194,11 @@ public class RedisService {
     }
 
     /**
-     * HashSetMap 设置过期时间
-     *
-     * @param key
-     * @param map
-     * @param time 时间(秒)
-     * @return
+     * @description:设置缓存并设置过期时间
+     * @auther: WBA
+     * @date: 2018/12/11 17:26
+     * @param: [key, map, time]
+     * @return: boolean
      */
     public boolean hmset(String key, Map<String, Object> map, long time) {
         try {
@@ -210,23 +214,22 @@ public class RedisService {
     }
 
     /**
-     * HashGet
-     *
-     * @param key  键
-     * @param item 项
-     * @return
+     * @description:根据主键,获取缓存
+     * @auther: WBA
+     * @date: 2018/12/11 17:28
+     * @param: [key, item]
+     * @return: java.lang.Object
      */
     public Object hget(String key, String item) {
         return redisTemplate.opsForHash().get(key, item);
     }
 
     /**
-     * HashSet
-     *
-     * @param key   键
-     * @param item  项
-     * @param value 值
-     * @return
+     * @description:设置缓存
+     * @auther: WBA
+     * @date: 2018/12/11 17:28
+     * @param: [key, item, value]
+     * @return: boolean
      */
     public boolean hset(String key, String item, Object value) {
         try {
@@ -239,13 +242,11 @@ public class RedisService {
     }
 
     /**
-     * HashSet
-     *
-     * @param key   键
-     * @param item  项
-     * @param value 值
-     * @param time  过期时间
-     * @return
+     * @description:设置缓存并设置过期时间
+     * @auther: WBA
+     * @date: 2018/12/11 17:29
+     * @param: [key, item, value, time]
+     * @return: boolean
      */
     public boolean hset(String key, String item, Object value, long time) {
         try {
@@ -261,45 +262,44 @@ public class RedisService {
     }
 
     /**
-     * 删除hash表中的值
-     *
-     * @param key  键,不能为null
-     * @param item 项,可以是多个,但不能为null
+     * @description:删除hash表中的值
+     * @auther: WBA
+     * @date: 2018/12/11 17:29
+     * @param: [key, item]
+     * @return: void
      */
     public void hdel(String key, Object[] item) {
         redisTemplate.opsForHash().delete(key, item);
     }
 
     /**
-     * 判断hash表中是否有该项的值
-     *
-     * @param key  键,不能为null
-     * @param item 项,可以是多个,但不能为null
-     * @return
+     * @description:判断hash表中是否有该项的值
+     * @auther: WBA
+     * @date: 2018/12/11 17:29
+     * @param: [key, item]
+     * @return: boolean
      */
     public boolean hHasKey(String key, String item) {
         return redisTemplate.opsForHash().hasKey(key, item);
     }
 
     /**
-     * hash递增,若不存在则新建
-     *
-     * @param key  键
-     * @param item 项
-     * @param by   增量
-     * @return
+     * @description:hash递增,若不存在则新建
+     * @auther: WBA
+     * @date: 2018/12/11 17:29
+     * @param: [key, item, by]
+     * @return: double
      */
     public double hincr(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, by);
     }
 
     /**
-     * hash递减
-     *
-     * @param key
-     * @param item
-     * @param by
-     * @return
+     * @description:hash递减
+     * @auther: WBA
+     * @date: 2018/12/11 17:30
+     * @param: [key, item, by]
+     * @return: double
      */
     public double hdesc(String key, String item, double by) {
         return redisTemplate.opsForHash().increment(key, item, -by);
@@ -308,44 +308,44 @@ public class RedisService {
     //================================set=================================//
 
     /**
-     * 根据key获取set中的所有值
-     *
-     * @param key
-     * @return
+     * @description:根据key获取set中的所有值
+     * @auther: WBA
+     * @date: 2018/12/11 17:30
+     * @param: [key]
+     * @return: java.util.Set<java.lang.Object>
      */
     public Set<Object> sGet(String key) {
         return redisTemplate.opsForSet().members(key);
     }
 
     /**
-     * 根据value查询set中是否包含此值
-     *
-     * @param key
-     * @param value
-     * @return
+     * @description:根据value查询set中是否包含此值
+     * @auther: WBA
+     * @date: 2018/12/11 17:30
+     * @param: [key, value]
+     * @return: boolean
      */
     public boolean sHasKey(String key, Object value) {
         return redisTemplate.opsForSet().isMember(key, value);
     }
 
     /**
-     * 将数据放入set缓存
-     *
-     * @param key
-     * @param value
-     * @return 成功个数
+     * @description:将数据放入set缓存
+     * @auther: WBA
+     * @date: 2018/12/11 17:30
+     * @param: [key, value]
+     * @return: long
      */
     public long sSet(String key, Object[] value) {
         return redisTemplate.opsForSet().add(key, value);
     }
 
     /**
-     * 将数据放入set缓存
-     *
-     * @param key
-     * @param time  设置过期时间
-     * @param value
-     * @return
+     * @description:将数据放入set缓存并设置过期时间
+     * @auther: WBA
+     * @date: 2018/12/11 17:30
+     * @param: [key, time, value]
+     * @return: long
      */
     public long sSetAndTime(String key, long time, Object[] value) {
 
@@ -358,21 +358,22 @@ public class RedisService {
     }
 
     /**
-     * 根据key获取sey缓存长度
-     *
-     * @param key
-     * @return
+     * @description:根据key获取set缓存长度
+     * @auther: WBA
+     * @date: 2018/12/11 17:31
+     * @param: [key]
+     * @return: long
      */
     public long sGetSetSize(String key) {
         return redisTemplate.opsForSet().size(key);
     }
 
     /**
-     * 移除值为value的set集合
-     *
-     * @param key
-     * @param value
-     * @return
+     * @description:移除值为value的set集合
+     * @auther: WBA
+     * @date: 2018/12/11 17:31
+     * @param: [key, value]
+     * @return: long
      */
     public long setRemove(String key, Object[] value) {
         return redisTemplate.opsForSet().remove(key, value);
@@ -381,22 +382,22 @@ public class RedisService {
     //================================list=================================//
 
     /**
-     * 获取list缓存内容
-     *
-     * @param key   键
-     * @param start 开始
-     * @param end   结束(0到-1代表所有值)
-     * @return
+     * @description:获取list缓存内容
+     * @auther: WBA
+     * @date: 2018/12/11 17:31
+     * @param: [key, start, end]
+     * @return: java.util.List<java.lang.Object>
      */
     public List<Object> lGet(String key, long start, long end) {
         return redisTemplate.opsForList().range(key, start, end);
     }
 
     /**
-     * 获取list缓存长度
-     *
-     * @param key
-     * @return
+     * @description:获取list缓存长度
+     * @auther: WBA
+     * @date: 2018/12/11 17:31
+     * @param: [key]
+     * @return: long
      */
     public long lGetLisSize(String key) {
         return redisTemplate.opsForList().size(key);
@@ -405,20 +406,22 @@ public class RedisService {
     /**
      * 根据索引获取list缓存中的值
      *
-     * @param key
-     * @param index 索引(index>=0时,0->表头,1->第二个元素,依次类推;index<0时,-1->表尾,-2->倒数第二个元素,依次类推)
-     * @return
+     * @description:
+     * @auther: WBA
+     * @date: 2018/12/11 17:31
+     * @param: [key, index:索引(index>=0时,0->表头,1->第二个元素,依次类推;index<0时,-1->表尾,-2->倒数第二个元素,依次类推)]
+     * @return: java.lang.Object
      */
     public Object lGetIndex(String key, long index) {
         return redisTemplate.opsForList().index(key, index);
     }
 
     /**
-     * 设置list缓存值
-     *
-     * @param key
-     * @param value
-     * @return
+     * @description:设置list缓存值
+     * @auther: WBA
+     * @date: 2018/12/11 17:32
+     * @param: [key, value]
+     * @return: boolean
      */
     public boolean lSet(String key, Object value) {
         try {
@@ -431,12 +434,11 @@ public class RedisService {
     }
 
     /**
-     * 设置list缓存值
-     *
-     * @param key
-     * @param value
-     * @param time
-     * @return
+     * @description:设置list缓存值
+     * @auther: WBA
+     * @date: 2018/12/11 17:32
+     * @param: [key, value, time]
+     * @return: boolean
      */
     public boolean lSet(String key, Object value, long time) {
         try {
@@ -449,11 +451,11 @@ public class RedisService {
     }
 
     /**
-     * 设置list缓存值
-     *
-     * @param key
-     * @param value
-     * @return
+     * @description:设置list缓存值
+     * @auther: WBA
+     * @date: 2018/12/11 17:32
+     * @param: [key, value]
+     * @return: boolean
      */
     public boolean lSet(String key, List<Object> value) {
         try {
@@ -466,12 +468,11 @@ public class RedisService {
     }
 
     /**
-     * 设置list缓存值
-     *
-     * @param key
-     * @param value
-     * @param time
-     * @return
+     * @description:设置list缓存值
+     * @auther: WBA
+     * @date: 2018/12/11 17:32
+     * @param: [key, value, time]
+     * @return: boolean
      */
     public boolean lSet(String key, List<Object> value, long time) {
         try {
@@ -484,12 +485,11 @@ public class RedisService {
     }
 
     /**
-     * 根据索引更新list缓存中的某条数据
-     *
-     * @param key
-     * @param index
-     * @param value
-     * @return
+     * @description:根据索引更新list缓存中的某条数据
+     * @auther: WBA
+     * @date: 2018/12/11 17:32
+     * @param: [key, index, value]
+     * @return: boolean
      */
     public boolean lUpdateIndex(String key, long index, Object value) {
         try {
@@ -502,15 +502,13 @@ public class RedisService {
     }
 
     /**
-     * 移除N个值为value的数据
-     *
-     * @param key
-     * @param count
-     * @param value
-     * @return
+     * @description:移除N个值为value的数据
+     * @auther: WBA
+     * @date: 2018/12/11 17:32
+     * @param: [key, count, value]
+     * @return: long
      */
     public long lRemove(String key, long count, Object value) {
         return redisTemplate.opsForList().remove(key, count, value);
     }
-
 }

@@ -20,12 +20,11 @@ import java.util.Map;
 public class TrashController {
 
     /**
-     * 功能描述: 回收站删除
-     *
+     * @description:回收站删除
+     * @auther: WBA
+     * @date: 2018/12/11 16:59
      * @param: [id]
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/20 12:08
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/trashs/{id}", method = RequestMethod.DELETE)
     public Map<String, Object> deleteTrash(@PathVariable(value = "id") Integer id) {
@@ -40,12 +39,11 @@ public class TrashController {
     }
 
     /**
-     * 功能描述: 回收站列表查询
-     *
+     * @description:回收站列表查询
+     * @auther: WBA
+     * @date: 2018/12/11 16:59
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.TrashModel>
-     * @auther: darker
-     * @date: 2018/7/20 12:11
      */
     @RequestMapping(value = "/trashs", method = RequestMethod.GET)
     public List<TrashModel> findListTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -53,12 +51,11 @@ public class TrashController {
     }
 
     /**
-     * 功能描述: 回收站列表页数
-     *
+     * @description:回收站列表页数
+     * @auther: WBA
+     * @date: 2018/12/11 16:59
      * @param: []
-     * @return: java.util.Map<>
-     * @auther: darker
-     * @date: 2018/7/30 10:48
+     * @return: java.util.Map
      */
     @RequestMapping(value = "/trashs/page", method = RequestMethod.GET)
     public Map<String, Object> getTrashPage() {

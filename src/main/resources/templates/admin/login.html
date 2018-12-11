@@ -50,7 +50,7 @@
                         </div>
                         <!-- 注册 -->
                         <div class="sign-up-htm">
-                            <form id="addUser">
+                            <form id="registerUser">
                                 <div class="group">
                                     <label for="name" class="label">Username</label><br>
                                     <input type="text" class="input" name="name" id="name">
@@ -63,7 +63,7 @@
                                 <br>
                                 <div class="group">
                                     <label for="password" class="label">Repeat Password</label><br>
-                                    <input type="password" class="input" name="password" id="password2"
+                                    <input type="password" class="input" name="password1" id="password2"
                                            data-type="password">
                                 </div>
                                 <br>
@@ -112,7 +112,7 @@
             //设置请求超时时间
             timeout: 1000,
             //参数值,如果URL带参数,这里就可以不用写了
-            data: $('#addUser').serialize(),
+            data: $('#registerUser').serialize(),
             //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
             type: "POST",
             //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
@@ -120,7 +120,7 @@
                 if ($("#password1").val() !== $("#password2").val()) {
                     zeroModal.error({
                         content: '操作提示!',
-                        contentDetail:'两次密码不一致,请重新输入!'
+                        contentDetail: '两次密码不一致,请重新输入!'
                     });
                     return false;
                 }
