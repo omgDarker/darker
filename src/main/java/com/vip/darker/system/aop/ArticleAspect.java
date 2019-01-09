@@ -1,7 +1,7 @@
 package com.vip.darker.system.aop;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.model.ArticleModel;
+import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import org.aspectj.lang.JoinPoint;
@@ -45,12 +45,12 @@ public class ArticleAspect {
         // 获取文章ID
         int articleId = Integer.valueOf(point.getArgs()[0].toString());
         // 查询当前文章浏览量值
-        Map<String, Object> map = SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleModel>().where("id={0}", articleId));
+        Map<String, Object> map = SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleDO>().where("id={0}", articleId));
         // 浏览量+1,持久化到DB
-        ArticleModel articleModel = new ArticleModel();
-        articleModel.setId(articleId);
-        articleModel.setReadAmount(Integer.valueOf(map.get("readAmount").toString()) + 1);
-        SpringBootService.getArticleService().updateById(articleModel);
+        ArticleDO articleDO = new ArticleDO();
+        articleDO.setId(articleId);
+        articleDO.setReadAmount(Integer.valueOf(map.get("readAmount").toString()) + 1);
+        SpringBootService.getArticleService().updateById(articleDO);
         // 清空redis缓存
         SpringBootService.getRedisService().delKey(new String[]{Constant.REDIS_KEY_ARTICLE});
     }

@@ -1,8 +1,8 @@
 package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.model.ArticleModel;
-import com.vip.darker.model.UserModel;
+import com.vip.darker.entity.ArticleDO;
+import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +36,7 @@ public class OperationContorller {
         // 统计浏览量
         map.put("countWebPV", SpringBootService.getPropertiesStat().getCountPV());
         // 统计用户数*
-        map.put("countWebUV", SpringBootService.getUserService().selectList(new EntityWrapper<UserModel>().setSqlSelect("distinct ip")).size());
+        map.put("countWebUV", SpringBootService.getUserService().selectList(new EntityWrapper<UserDO>().setSqlSelect("distinct ip")).size());
         // 统计留言数
         map.put("countMessage", SpringBootService.getMessageService().selectCount(new EntityWrapper<>()));
         // 统计友链数
@@ -46,9 +46,9 @@ public class OperationContorller {
         // 统计图片数
         map.put("countimage", SpringBootService.getImageService().selectCount(new EntityWrapper<>()));
         // 统计点赞数*
-        map.put("countLike", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleModel>().setSqlSelect("sum(likeAmount) as amount")).get("amount"));
+        map.put("countLike", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleDO>().setSqlSelect("sum(likeAmount) as amount")).get("amount"));
         // 统计甩鞋数
-        map.put("countLikeNo", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleModel>().setSqlSelect("sum(likeNoAmount) as amount ")).get("amount"));
+        map.put("countLikeNo", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleDO>().setSqlSelect("sum(likeNoAmount) as amount ")).get("amount"));
 
         return map;
     }

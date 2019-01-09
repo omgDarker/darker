@@ -1,9 +1,9 @@
 package com.vip.darker.controller.api;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.model.ArticleModel;
-import com.vip.darker.model.MessageModel;
-import com.vip.darker.model.ResultModel;
+import com.vip.darker.entity.ArticleDO;
+import com.vip.darker.entity.MessageDO;
+import com.vip.darker.entity.ResultDTO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.ConvertResult;
 import org.springframework.context.annotation.Scope;
@@ -36,8 +36,8 @@ public class APIController {
      * @return: com.vip.darker.model.ResultModel
      */
     @RequestMapping(value = "/article", method = RequestMethod.GET)
-    public ResultModel findListArticle() {
-        Optional<List<ArticleModel>> optional = Optional.ofNullable(SpringBootService.getArticleService().selectList(new EntityWrapper<>()));
+    public ResultDTO findListArticle() {
+        Optional<List<ArticleDO>> optional = Optional.ofNullable(SpringBootService.getArticleService().selectList(new EntityWrapper<>()));
 
         if (optional.isPresent()) {
             map.put("article", optional.get());
@@ -54,8 +54,8 @@ public class APIController {
      * @return: com.vip.darker.model.ResultModel
      */
     @RequestMapping(value = "/message", method = RequestMethod.GET)
-    public ResultModel findListMessage() {
-        Optional<List<MessageModel>> optional = Optional.ofNullable(SpringBootService.getMessageService().selectList(new EntityWrapper<>()));
+    public ResultDTO findListMessage() {
+        Optional<List<MessageDO>> optional = Optional.ofNullable(SpringBootService.getMessageService().selectList(new EntityWrapper<>()));
 
         if (optional.isPresent()) {
             map.put("message", optional.get());

@@ -2,7 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.MessageModel;
+import com.vip.darker.entity.MessageDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import com.vip.darker.util.ConvertAttribute;
@@ -30,15 +30,15 @@ public class MessageController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/messages", method = RequestMethod.POST)
-    public Map<String, Object> addMessage(Integer articleId, MessageModel messageModel) {
+    public Map<String, Object> addMessage(Integer articleId, MessageDO messageDO) {
         // 留言新增
-        SpringBootService.getMessageService().insert(messageModel);
+        SpringBootService.getMessageService().insert(messageDO);
         // 留言信息
-        List<MessageModel> messageModelList = SpringBootService.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", articleId));
+        List<MessageDO> messageDOList = SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("articleId={0}", articleId));
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put("messageList", messageModelList);
+        map.put("messageList", messageDOList);
 
         return map;
     }
@@ -51,9 +51,9 @@ public class MessageController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/messages", method = RequestMethod.PUT)
-    public Map<String, Object> editMessage(MessageModel messageModel) {
+    public Map<String, Object> editMessage(MessageDO messageDO) {
 
-        boolean flag = SpringBootService.getMessageService().updateById(messageModel);
+        boolean flag = SpringBootService.getMessageService().updateById(messageDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -108,7 +108,7 @@ public class MessageController {
      * @return: com.vip.darker.model.MessageModel
      */
     @RequestMapping(value = "/messages/{id}", method = RequestMethod.GET)
-    public MessageModel findMessageById(@PathVariable(value = "id") Integer id) {
+    public MessageDO findMessageById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getMessageService().selectById(id);
     }
 
@@ -120,7 +120,7 @@ public class MessageController {
      * @return: java.util.List<com.vip.darker.model.MessageModel>
      */
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
-    public List<MessageModel> findListMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<MessageDO> findListMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

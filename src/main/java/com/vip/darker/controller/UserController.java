@@ -2,10 +2,10 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.PermissionModel;
-import com.vip.darker.model.RoleModel;
-import com.vip.darker.model.URRelation;
-import com.vip.darker.model.UserModel;
+import com.vip.darker.entity.PermissionDO;
+import com.vip.darker.entity.RoleDO;
+import com.vip.darker.entity.URRelationDO;
+import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import com.vip.darker.util.ConvertObject;
@@ -41,12 +41,12 @@ public class UserController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public Map<String, Object> addUser(@RequestParam(value = "roleId", required = false, defaultValue = "1") Integer roleId, UserModel userModel) {
+    public Map<String, Object> addUser(@RequestParam(value = "roleId", required = false, defaultValue = "1") Integer roleId, UserDO userDO) {
 
-        boolean flag = SpringBootService.getUserService().insert(userModel);
+        boolean flag = SpringBootService.getUserService().insert(userDO);
 
         if (flag) {
-            SpringBootService.getAsyncTaskExecutorService().addURRelation(userModel.getId(), roleId);
+            SpringBootService.getAsyncTaskExecutorService().addURRelation(userDO.getId(), roleId);
         }
 
         Map<String, Object> map = new HashMap<>();
@@ -65,12 +65,12 @@ public class UserController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
-    public Map<String, Object> editUser(@PathVariable(value = "id") Integer userId, Integer roleId, UserModel userModel) {
+    public Map<String, Object> editUser(@PathVariable(value = "id") Integer userId, Integer roleId, UserDO userDO) {
 
-        boolean flag = SpringBootService.getUserService().updateById(userModel);
+        boolean flag = SpringBootService.getUserService().updateById(userDO);
 
         if (flag) {
-            SpringBootService.getAsyncTaskExecutorService().editURRelation(userModel.getId(), roleId);
+            SpringBootService.getAsyncTaskExecutorService().editURRelation(userDO.getId(), roleId);
         }
 
         Map<String, Object> map = new HashMap<>();
@@ -113,11 +113,11 @@ public class UserController {
     @RequestMapping(value = "/users/{id}")
     public Map<String, Object> findUserById(@PathVariable(value = "id") Integer userId) {
 
-        UserModel userModel = SpringBootService.getUserService().selectById(userId);
+        UserDO userDO = SpringBootService.getUserService().selectById(userId);
 
-        if (userModel != null) {
+        if (userDO != null) {
             try {
-                return ConvertObject.convertBeanToMap(userModel);
+                return ConvertObject.convertBeanToMap(userDO);
             } catch (Exception e) {
                 logger.info("{}:bean转map失败!", "[" + Thread.currentThread().getStackTrace()[1].getMethodName() + "]");
             }
@@ -135,16 +135,16 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<Map<String, Object>> findListUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         try {
-            List<UserModel> beanList = SpringBootService.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
-            List<Map<String, Object>> resultList = ConvertObject.convertListBeanToListMap(beanList, UserModel.class);
+            List<UserDO> beanList = SpringBootService.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+            List<Map<String, Object>> resultList = ConvertObject.convertListBeanToListMap(beanList, UserDO.class);
             resultList.forEach(opt -> {
                 int userId = Integer.valueOf(opt.get("id") + "");
                 // 根据用户ID查找角色ID
-                Map<String, Object> relationMap = SpringBootService.getURRelationService().selectMap(new EntityWrapper<URRelation>().where("userId={0}", userId));
+                Map<String, Object> relationMap = SpringBootService.getURRelationService().selectMap(new EntityWrapper<URRelationDO>().where("userId={0}", userId));
                 if (relationMap != null && relationMap.size() > 0) {
                     int roleId = Integer.valueOf(relationMap.get("roleId") + "");
                     // 根据角色ID查找角色
-                    RoleModel role = SpringBootService.getRoleService().selectById(roleId);
+                    RoleDO role = SpringBootService.getRoleService().selectById(roleId);
                     opt.put("roleName", StringUtils.isNotBlank(role.getName()) ? role.getName() : "游客");
                 } else {
                     opt.put("roleName", "游客");
@@ -198,12 +198,12 @@ public class UserController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/roles", method = RequestMethod.POST)
-    public Map<String, Object> addRole(@RequestParam(value = "permissionId") Integer permissionId, RoleModel roleModel) {
+    public Map<String, Object> addRole(@RequestParam(value = "permissionId") Integer permissionId, RoleDO roleDO) {
 
-        boolean flag = SpringBootService.getRoleService().insert(roleModel);
+        boolean flag = SpringBootService.getRoleService().insert(roleDO);
 
         if (flag) {
-            SpringBootService.getAsyncTaskExecutorService().addRPRelation(roleModel.getId(), permissionId);
+            SpringBootService.getAsyncTaskExecutorService().addRPRelation(roleDO.getId(), permissionId);
         }
 
         Map<String, Object> map = new HashMap<>();
@@ -222,12 +222,12 @@ public class UserController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/roles/{id}", method = RequestMethod.PUT)
-    public Map<String, Object> editRole(@PathVariable(value = "id") Integer roleId, Integer permissionId, RoleModel roleModel) {
+    public Map<String, Object> editRole(@PathVariable(value = "id") Integer roleId, Integer permissionId, RoleDO roleDO) {
 
-        boolean flag = SpringBootService.getRoleService().updateById(roleModel);
+        boolean flag = SpringBootService.getRoleService().updateById(roleDO);
 
         if (flag) {
-            SpringBootService.getAsyncTaskExecutorService().editRPRelation(roleModel.getId(), permissionId);
+            SpringBootService.getAsyncTaskExecutorService().editRPRelation(roleDO.getId(), permissionId);
         }
 
         Map<String, Object> map = new HashMap<>();
@@ -268,7 +268,7 @@ public class UserController {
      * @return: com.vip.darker.model.RoleModel
      */
     @RequestMapping(value = "/roles/{id}")
-    public RoleModel findRoleById(@PathVariable(value = "id") Integer roleId) {
+    public RoleDO findRoleById(@PathVariable(value = "id") Integer roleId) {
         return SpringBootService.getRoleService().selectById(roleId);
     }
 
@@ -280,7 +280,7 @@ public class UserController {
      * @return: java.util.List<com.vip.darker.model.RoleModel>
      */
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
-    public List<RoleModel> findListRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<RoleDO> findListRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getRoleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -313,9 +313,9 @@ public class UserController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/permissions", method = RequestMethod.POST)
-    public Map<String, Object> addPermission(PermissionModel permissionModel) {
+    public Map<String, Object> addPermission(PermissionDO permissionDO) {
 
-        boolean flag = SpringBootService.getPermissionService().insert(permissionModel);
+        boolean flag = SpringBootService.getPermissionService().insert(permissionDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -332,9 +332,9 @@ public class UserController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.PUT)
-    public Map<String, Object> editPermission(@PathVariable(value = "id") Integer permissionId, PermissionModel permissionModel) {
+    public Map<String, Object> editPermission(@PathVariable(value = "id") Integer permissionId, PermissionDO permissionDO) {
 
-        boolean flag = SpringBootService.getPermissionService().updateById(permissionModel);
+        boolean flag = SpringBootService.getPermissionService().updateById(permissionDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -370,7 +370,7 @@ public class UserController {
      * @return: com.vip.darker.model.PermissionModel
      */
     @RequestMapping(value = "/permissions/{id}", method = RequestMethod.GET)
-    public PermissionModel findPermissionById(@PathVariable(value = "id") Integer permissionId) {
+    public PermissionDO findPermissionById(@PathVariable(value = "id") Integer permissionId) {
         return SpringBootService.getPermissionService().selectById(permissionId);
     }
 
@@ -382,7 +382,7 @@ public class UserController {
      * @return: java.util.List<com.vip.darker.model.PermissionModel>
      */
     @RequestMapping(value = "/permissions", method = RequestMethod.GET)
-    public List<PermissionModel> findListPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<PermissionDO> findListPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getPermissionService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

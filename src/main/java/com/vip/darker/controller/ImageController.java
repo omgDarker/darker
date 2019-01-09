@@ -2,7 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ImageModel;
+import com.vip.darker.entity.ImageDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import com.vip.darker.util.ConvertAttribute;
@@ -39,9 +39,9 @@ public class ImageController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/images", method = RequestMethod.POST)
-    public Map<String, Object> addImage(ImageModel imageModel) {
+    public Map<String, Object> addImage(ImageDO imageDO) {
 
-        boolean flag = SpringBootService.getImageService().insert(imageModel);
+        boolean flag = SpringBootService.getImageService().insert(imageDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -58,9 +58,9 @@ public class ImageController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/images", method = RequestMethod.PUT)
-    public Map<String, Object> editImage(ImageModel imageModel) {
+    public Map<String, Object> editImage(ImageDO imageDO) {
 
-        boolean flag = SpringBootService.getImageService().updateById(imageModel);
+        boolean flag = SpringBootService.getImageService().updateById(imageDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -115,7 +115,7 @@ public class ImageController {
      * @return: com.vip.darker.model.ImageModel
      */
     @RequestMapping(value = "/images/{id}", method = RequestMethod.GET)
-    public ImageModel findImageById(@PathVariable(value = "id") Integer id) {
+    public ImageDO findImageById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getImageService().selectById(id);
     }
 
@@ -127,7 +127,7 @@ public class ImageController {
      * @return: java.util.List<com.vip.darker.model.ImageModel>
      */
     @RequestMapping(value = "/images", method = RequestMethod.GET)
-    public List<ImageModel> findListImage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
+    public List<ImageDO> findListImage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
         return SpringBootService.getImageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -218,7 +218,7 @@ public class ImageController {
 
         ModelAndView modelAndView = new ModelAndView("home/image");
         // 图片列表
-        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageModel>().where("classifyId={0} ", classifyId)));
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageDO>().where("classifyId={0} ", classifyId)));
         // 栏目列表
         modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
 
@@ -237,7 +237,7 @@ public class ImageController {
 
         ModelAndView modelAndView = new ModelAndView("home/image");
         // 图片列表
-        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)));
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageDO>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)));
         // 栏目列表
         modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
         // 栏目名称

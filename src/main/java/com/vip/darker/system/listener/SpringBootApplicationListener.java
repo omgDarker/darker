@@ -1,9 +1,9 @@
 package com.vip.darker.system.listener;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.model.ClassifyModel;
-import com.vip.darker.model.ColumnModel;
-import com.vip.darker.model.StatisticsModel;
+import com.vip.darker.entity.ClassifyDO;
+import com.vip.darker.entity.ColumnDO;
+import com.vip.darker.entity.StatisticsDO;
 import com.vip.darker.service.ArticleService;
 import com.vip.darker.service.ClassifyService;
 import com.vip.darker.service.ColumnService;
@@ -34,18 +34,18 @@ public class SpringBootApplicationListener implements ApplicationListener<Contex
     public void onApplicationEvent(ContextRefreshedEvent event) {
         // 栏目
         ColumnService columnService = event.getApplicationContext().getBean(ColumnService.class);
-        List<ColumnModel> columnModelList = columnService.selectList(new EntityWrapper<>());
-        ConvertAttribute.setColumnList(columnModelList);
-        columnModelList.forEach(opt -> ConvertAttribute.getColumnMap().put(opt.getId(), opt.getName()));
+        List<ColumnDO> columnDOList = columnService.selectList(new EntityWrapper<>());
+        ConvertAttribute.setColumnList(columnDOList);
+        columnDOList.forEach(opt -> ConvertAttribute.getColumnMap().put(opt.getId(), opt.getName()));
         // 分类
         ClassifyService classifyService = event.getApplicationContext().getBean(ClassifyService.class);
-        List<ClassifyModel> classifyModelList = classifyService.selectList(new EntityWrapper<>());
-        classifyModelList.forEach(opt -> ConvertAttribute.getClassifyMap().put(opt.getId(), opt.getName()));
+        List<ClassifyDO> classifyDOList = classifyService.selectList(new EntityWrapper<>());
+        classifyDOList.forEach(opt -> ConvertAttribute.getClassifyMap().put(opt.getId(), opt.getName()));
         // PV
         StatisticsService statisticsService = event.getApplicationContext().getBean(StatisticsService.class);
         PropertiesStat propertiesStat = event.getApplicationContext().getBean(PropertiesStat.class);
-        List<StatisticsModel> statisticsModelList = statisticsService.selectList(new EntityWrapper<>());
-        statisticsModelList.forEach(opt -> {
+        List<StatisticsDO> statisticsDOList = statisticsService.selectList(new EntityWrapper<>());
+        statisticsDOList.forEach(opt -> {
             switch (opt.getClassify()) {
                 case "pv":
                     propertiesStat.setCountPV(opt.getAmount());

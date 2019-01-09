@@ -1,7 +1,7 @@
 package com.vip.darker.controller.admin;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.model.UserModel;
+import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,18 +43,18 @@ public class AdminController {
      * @return: Map
      */
     @RequestMapping(value = "/admin/register", method = RequestMethod.POST)
-    public Map<String, Object> register(UserModel userModel) {
+    public Map<String, Object> register(UserDO userDO) {
         Map<String, Object> map = new HashMap<>();
         // 判断是否存在此用户
         Optional<Object> opt = Optional.ofNullable(
                 SpringBootService.getUserService().selectObj(
-                        new EntityWrapper<UserModel>()
-                                .where("name={0}", userModel.getName())
-                                .and("password={0}", userModel.getPassword())));
+                        new EntityWrapper<UserDO>()
+                                .where("name={0}", userDO.getName())
+                                .and("password={0}", userDO.getPassword())));
         if (opt.isPresent()) {
             map.put(Constant.MSG, "已存在!");
         } else {
-            map.put(Constant.MSG, SpringBootService.getUserService().insert(userModel) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
+            map.put(Constant.MSG, SpringBootService.getUserService().insert(userDO) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
         }
         return map;
     }

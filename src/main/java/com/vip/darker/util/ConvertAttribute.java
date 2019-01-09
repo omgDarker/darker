@@ -1,6 +1,6 @@
 package com.vip.darker.util;
 
-import com.vip.darker.model.ColumnModel;
+import com.vip.darker.entity.ColumnDO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class ConvertAttribute {
     // 分类
     private static Map<Integer, String> classifyMap = new HashMap<>();
     // 栏目列表
-    private static List<ColumnModel> columnList = new ArrayList<>();
+    private static List<ColumnDO> columnList = new ArrayList<>();
 
     public static Map<Integer, String> getColumnMap() {
         return columnMap;
@@ -36,11 +36,11 @@ public class ConvertAttribute {
         ConvertAttribute.classifyMap = classifyMap;
     }
 
-    public static List<ColumnModel> getColumnList() {
+    public static List<ColumnDO> getColumnList() {
         return columnList;
     }
 
-    public static void setColumnList(List<ColumnModel> columnList) {
+    public static void setColumnList(List<ColumnDO> columnList) {
         ConvertAttribute.columnList = columnList;
     }
 }

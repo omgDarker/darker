@@ -1,9 +1,9 @@
 package com.vip.darker.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.vip.darker.model.UserModel;
+import com.vip.darker.entity.UserDO;
 
-public interface UserService extends IService<UserModel> {
+public interface UserService extends IService<UserDO> {
 
-    boolean add(UserModel userModel);
+    boolean add(UserDO userDO);
 }

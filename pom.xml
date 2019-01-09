@@ -28,7 +28,6 @@
         <geoip2.version>2.8.1</geoip2.version>
         <pagehelper.version>1.2.5</pagehelper.version>
         <log4j.version>2.10.0</log4j.version>
-        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
@@ -46,21 +45,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- 热部署模块 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- 热部署模块 -->
+        <!-- 这个需要为 true 热部署才有效 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
-        </dependency>
-        <!-- SpringBootTest -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test</artifactId>
+            <optional>true</optional>
         </dependency>
         <!-- AOP -->
         <dependency>
@@ -90,6 +85,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <!-- elasticsearch -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
         <!-- alibaba的druid数据库连接池 -->
         <dependency>
@@ -153,12 +153,6 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
-        </dependency>
-        <!-- 单元测试 -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
         </dependency>
     </dependencies>
     <build>

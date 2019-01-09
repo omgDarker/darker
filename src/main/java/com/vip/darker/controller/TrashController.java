@@ -2,7 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.TrashModel;
+import com.vip.darker.entity.TrashDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +46,7 @@ public class TrashController {
      * @return: java.util.List<com.vip.darker.model.TrashModel>
      */
     @RequestMapping(value = "/trashs", method = RequestMethod.GET)
-    public List<TrashModel> findListTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<TrashDO> findListTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getTrashService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

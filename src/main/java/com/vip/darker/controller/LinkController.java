@@ -2,7 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.LinkModel;
+import com.vip.darker.entity.LinkDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +27,9 @@ public class LinkController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/links", method = RequestMethod.POST)
-    public Map<String, Object> addLink(LinkModel linkModel) {
+    public Map<String, Object> addLink(LinkDO linkDO) {
 
-        boolean flag = SpringBootService.getLinkService().insert(linkModel);
+        boolean flag = SpringBootService.getLinkService().insert(linkDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -46,9 +46,9 @@ public class LinkController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/links", method = RequestMethod.PUT)
-    public Map<String, Object> updateLink(LinkModel linkModel) {
+    public Map<String, Object> updateLink(LinkDO linkDO) {
 
-        boolean flag = SpringBootService.getLinkService().updateById(linkModel);
+        boolean flag = SpringBootService.getLinkService().updateById(linkDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -84,7 +84,7 @@ public class LinkController {
      * @return: com.vip.darker.model.LinkModel
      */
     @RequestMapping(value = "/links/{id}")
-    public LinkModel findLinkById(@PathVariable(value = "id") Integer id) {
+    public LinkDO findLinkById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getLinkService().selectById(id);
     }
 
@@ -96,7 +96,7 @@ public class LinkController {
      * @return: java.util.List<com.vip.darker.model.LinkModel>
      */
     @RequestMapping(value = "/links", method = RequestMethod.GET)
-    public List<LinkModel> findListLink(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<LinkDO> findListLink(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getLinkService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

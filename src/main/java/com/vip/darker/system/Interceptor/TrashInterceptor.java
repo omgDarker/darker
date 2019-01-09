@@ -1,7 +1,7 @@
 package com.vip.darker.system.Interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.vip.darker.model.*;
+import com.vip.darker.entity.*;
 import com.vip.darker.service.base.SpringBootService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -38,47 +38,47 @@ public class TrashInterceptor implements HandlerInterceptor {
 
             switch (description) {
                 case "resources":
-                    ResourceModel resourceModel = SpringBootService.getResourceService().selectById(dataId);
-                    content = JSONObject.toJSONString(resourceModel);
+                    ResourceDo resourceDo = SpringBootService.getResourceService().selectById(dataId);
+                    content = JSONObject.toJSONString(resourceDo);
                     break;
                 case "classifys":
-                    ClassifyModel classifyModel = SpringBootService.getClassifyService().selectById(dataId);
-                    content = JSONObject.toJSONString(classifyModel);
+                    ClassifyDO classifyDO = SpringBootService.getClassifyService().selectById(dataId);
+                    content = JSONObject.toJSONString(classifyDO);
                     break;
                 case "columns":
-                    ColumnModel columnModel = SpringBootService.getColumnService().selectById(dataId);
-                    content = JSONObject.toJSONString(columnModel);
+                    ColumnDO columnDO = SpringBootService.getColumnService().selectById(dataId);
+                    content = JSONObject.toJSONString(columnDO);
                     break;
                 case "users":
-                    UserModel userModel = SpringBootService.getUserService().selectById(dataId);
-                    content = JSONObject.toJSONString(userModel);
+                    UserDO userDO = SpringBootService.getUserService().selectById(dataId);
+                    content = JSONObject.toJSONString(userDO);
                     break;
                 case "roles":
-                    RoleModel roleModel = SpringBootService.getRoleService().selectById(dataId);
-                    content = JSONObject.toJSONString(roleModel);
+                    RoleDO roleDO = SpringBootService.getRoleService().selectById(dataId);
+                    content = JSONObject.toJSONString(roleDO);
                     break;
                 case "permissions":
-                    PermissionModel permissionModel = SpringBootService.getPermissionService().selectById(dataId);
-                    content = JSONObject.toJSONString(permissionModel);
+                    PermissionDO permissionDO = SpringBootService.getPermissionService().selectById(dataId);
+                    content = JSONObject.toJSONString(permissionDO);
                     break;
                 case "articles":
-                    ArticleModel articleModel = SpringBootService.getArticleService().selectById(dataId);
-                    content = JSONObject.toJSONString(articleModel);
+                    ArticleDO articleDO = SpringBootService.getArticleService().selectById(dataId);
+                    content = JSONObject.toJSONString(articleDO);
                     break;
                 case "images":
-                    ImageModel imageModel = SpringBootService.getImageService().selectById(dataId);
-                    content = JSONObject.toJSONString(imageModel);
+                    ImageDO imageDO = SpringBootService.getImageService().selectById(dataId);
+                    content = JSONObject.toJSONString(imageDO);
                     break;
                 case "links":
-                    LinkModel linkModel = SpringBootService.getLinkService().selectById(dataId);
-                    content = JSONObject.toJSONString(linkModel);
+                    LinkDO linkDO = SpringBootService.getLinkService().selectById(dataId);
+                    content = JSONObject.toJSONString(linkDO);
                     break;
                 default:
                     logger.info("[删除的内容未增加到回收站]:" + requestURI);
                     break;
             }
             if (StringUtils.isNotBlank(content)) {
-                TrashModel t = new TrashModel();
+                TrashDO t = new TrashDO();
                 t.setContent(content);
                 t.setClassify(description);
                 t.setDescription(description);

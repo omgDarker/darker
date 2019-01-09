@@ -1,20 +1,17 @@
-#端口#
+#服务
 server:
-  #访问网站默认端口
   port: 80
 
-#spring相关配置#
+#spring相关配置
 spring:
-   #db相关配置#
    datasource:
       name: darker_pool
       type: com.alibaba.druid.pool.DruidDataSource
-      #druid连接池相关配置
+      #连接池相关配置
       druid:
-        #监控统计拦截filters
         filters: stat
         driver-class-name: com.mysql.jdbc.Driver
-        #基本属性
+        #基本属性信息
         url: jdbc:mysql://127.0.0.1:3306/darker?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
         username: root
         password: root
@@ -33,19 +30,10 @@ spring:
         test-while-idle: true
         test-on-borrow: false
         test-on-return: false
-        #打开PSCache,并指定每个连接上PSCache的大小.oracle设为true,mysql设为false.分库分表较多推荐设置为false
-        #解决了sql语句可以被预编译,对于oracle可以绕过数据库编译,对于mysql没有那么明显
-        pool-prepared-statements: false
-        max-pool-prepared-statement-per-connection-size: 20
-   #Redis#
    redis:
-      #服务地址
       host: 127.0.0.1
-      #端口号
       port: 6379
-      #密码(默认)
       password: redis
-      #连接池
       pool:
         #最大空闲连接
         max-idle: 100
@@ -57,16 +45,13 @@ spring:
         max-wait: -1
       #连接超时时间（毫秒.设置为0,启动失败）
       timeout: 10000
-   #静态资源访问路径#
    mvc:
      view:
        prefix: /templates/
        suffix: .html
      static-path-pattern: /**
-   #禁止thymeleaf缓存（建议：开发环境设置为false，生成环境设置为true）#
    thymeleaf:
      cache : false
-   #RabbitMQ#
    application:
      name: spring-boot-rabbitmq-sender
    rabbitmq:
@@ -75,20 +60,16 @@ spring:
      username: guest
      password: guest
 
-#MyBatisPlus#
 mybatis-plus:
-  #配置扫描xml
-  mapper-locations: classpath:mapper/*.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package: com.vip.darker.model
-  #全部配置
+  #VO扫描路径
+  type-aliases-package: com.vip.darker.entity
   global-config:
     #逻辑删除配置
     logic-delete-value: 0
     logic-not-delete-value: 1
     sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
 
-#分页#
+#分页
 pagehelper:
   helperDoalect: mysql
   reasonable: true
@@ -96,7 +77,7 @@ pagehelper:
   params: count=countSql
   returnPageInfo: check
 
-#统计信息#
+#常量值
 statistics:
   #记录浏览量
   countPV: 1000
@@ -105,7 +86,7 @@ statistics:
   #记录访问人数
   countUV: 235
 
-#线程池#
+#线程池
 pool:
   #最少数量
   core-pool-size: 5

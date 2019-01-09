@@ -1,7 +1,7 @@
 package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ResourceModel;
+import com.vip.darker.entity.ResourceDo;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +27,9 @@ public class ResourceController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/resources", method = RequestMethod.POST)
-    public Map<String, Object> addResource(ResourceModel resourceModel) {
+    public Map<String, Object> addResource(ResourceDo resourceDo) {
 
-        boolean flag = SpringBootService.getResourceService().insert(resourceModel);
+        boolean flag = SpringBootService.getResourceService().insert(resourceDo);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -46,9 +46,9 @@ public class ResourceController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/resources", method = RequestMethod.PUT)
-    public Map<String, Object> editResource(ResourceModel resourceModel) {
+    public Map<String, Object> editResource(ResourceDo resourceDo) {
 
-        boolean flag = SpringBootService.getResourceService().updateById(resourceModel);
+        boolean flag = SpringBootService.getResourceService().updateById(resourceDo);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -84,7 +84,7 @@ public class ResourceController {
      * @return: com.vip.darker.model.ResourceModel
      */
     @RequestMapping(value = "/resources/{id}", method = RequestMethod.GET)
-    public ResourceModel findResouceById(@PathVariable(value = "id") Integer id) {
+    public ResourceDo findResouceById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getResourceService().selectById(id);
     }
 
@@ -96,7 +96,7 @@ public class ResourceController {
      * @return: java.util.List<com.vip.darker.model.ResourceModel>
      */
     @RequestMapping(value = "/resources", method = RequestMethod.GET)
-    public List<ResourceModel> findListResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum, @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
+    public List<ResourceDo> findListResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum, @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return SpringBootService.getResourceService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

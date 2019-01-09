@@ -2,8 +2,8 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ArticleModel;
-import com.vip.darker.model.MessageModel;
+import com.vip.darker.entity.ArticleDO;
+import com.vip.darker.entity.MessageDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import com.vip.darker.util.ConvertAttribute;
@@ -32,12 +32,12 @@ public class ArticleController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/articles", method = RequestMethod.POST)
-    public Map<String, Object> addArticle(ArticleModel articleModel) {
+    public Map<String, Object> addArticle(ArticleDO articleDO) {
         // 重新设置summary,防止出现空简介
-        if ("<p></p>".equals(WebSiteUtil.replaceBlank(articleModel.getSummary()))) {
-            articleModel.setSummary("");
+        if ("<p></p>".equals(WebSiteUtil.replaceBlank(articleDO.getSummary()))) {
+            articleDO.setSummary("");
         }
-        boolean flag = SpringBootService.getArticleService().insert(articleModel);
+        boolean flag = SpringBootService.getArticleService().insert(articleDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -54,9 +54,9 @@ public class ArticleController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/articles", method = RequestMethod.PUT)
-    public Map<String, Object> editArticle(ArticleModel articleModel) {
+    public Map<String, Object> editArticle(ArticleDO articleDO) {
 
-        boolean flag = SpringBootService.getArticleService().updateById(articleModel);
+        boolean flag = SpringBootService.getArticleService().updateById(articleDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -111,7 +111,7 @@ public class ArticleController {
      * @return: com.vip.darker.model.ArticleModel
      */
     @RequestMapping(value = "/articles/{id}", method = RequestMethod.GET)
-    public ArticleModel findArticleById(@PathVariable(value = "id") Integer id) {
+    public ArticleDO findArticleById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getArticleService().selectById(id);
     }
 
@@ -123,9 +123,9 @@ public class ArticleController {
      * @return: java.util.List<com.vip.darker.model.ArticleModel>
      */
     @RequestMapping(value = "/articles", method = RequestMethod.GET)
-    public List<ArticleModel> findListArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<ArticleDO> findListArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 
-        List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
+        List<ArticleDO> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
 
         list.forEach(opt -> {
             opt.setClassifyName(ConvertAttribute.getClassifyMap().get(opt.getClassifyId()));
@@ -147,21 +147,21 @@ public class ArticleController {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView("home/article_detail");
         // 文章信息
-        ArticleModel articleModel = SpringBootService.getArticleService().selectById(id);
+        ArticleDO articleDO = SpringBootService.getArticleService().selectById(id);
         // 设置文章栏目名称
-        String columnName = Optional.ofNullable(articleModel.getColumnId())
+        String columnName = Optional.ofNullable(articleDO.getColumnId())
                 .map(opt -> ConvertAttribute.getColumnMap().get(Integer.valueOf(opt)))
                 .orElse("其他类型");
-        articleModel.setColumnName(columnName);
+        articleDO.setColumnName(columnName);
         // 重置summary
-        if ("<p></p>".equals(WebSiteUtil.replaceBlank(articleModel.getSummary()))) {
-            articleModel.setSummary("");
+        if ("<p></p>".equals(WebSiteUtil.replaceBlank(articleDO.getSummary()))) {
+            articleDO.setSummary("");
         }
-        modelAndView.addObject("object", articleModel);
+        modelAndView.addObject("object", articleDO);
         // 文章总数
         modelAndView.addObject("numSum", SpringBootService.getArticleService().selectCount(new EntityWrapper<>()));
         // 留言内容
-        modelAndView.addObject("messageList", SpringBootService.getMessageService().selectList(new EntityWrapper<MessageModel>().where("articleId={0}", id)));
+        modelAndView.addObject("messageList", SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("articleId={0}", id)));
         // 网站右侧信息列表
         WebSiteUtil.getWebOffsideInformation(modelAndView);
 
@@ -178,14 +178,14 @@ public class ArticleController {
     @RequestMapping(value = "/articles/like/{id}", method = RequestMethod.POST)
     public Map<String, Object> addLike(@PathVariable(value = "id") Integer id, @RequestParam(value = "likeAmount") Integer likeAmount) {
 
-        ArticleModel articleModel = new ArticleModel();
+        ArticleDO articleDO = new ArticleDO();
 
-        articleModel.setId(id);
-        articleModel.setLikeAmount(likeAmount + 1);
+        articleDO.setId(id);
+        articleDO.setLikeAmount(likeAmount + 1);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, SpringBootService.getArticleService().updateById(articleModel) ? Constant.SUCCESS : Constant.FAIL);
+        map.put(Constant.MSG, SpringBootService.getArticleService().updateById(articleDO) ? Constant.SUCCESS : Constant.FAIL);
         map.put("likeAmount", likeAmount + 1);
 
         return map;
@@ -201,14 +201,14 @@ public class ArticleController {
     @RequestMapping(value = "/articles/likeNo/{id}", method = RequestMethod.POST)
     public Map<String, Object> addLikeNo(@PathVariable(value = "id") Integer id, @RequestParam(value = "likeNoAmount") Integer likeNoAmount) {
 
-        ArticleModel articleModel = new ArticleModel();
+        ArticleDO articleDO = new ArticleDO();
 
-        articleModel.setId(id);
-        articleModel.setLikeNoAmount(likeNoAmount + 1);
+        articleDO.setId(id);
+        articleDO.setLikeNoAmount(likeNoAmount + 1);
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, SpringBootService.getArticleService().updateById(articleModel) ? Constant.SUCCESS : Constant.FAIL);
+        map.put(Constant.MSG, SpringBootService.getArticleService().updateById(articleDO) ? Constant.SUCCESS : Constant.FAIL);
         map.put("likeNoAmount", likeNoAmount + 1);
 
         return map;
@@ -226,9 +226,9 @@ public class ArticleController {
 
         ModelAndView modelAndView = new ModelAndView("home/article");
         // 文章总条数
-        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId));
+        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleDO>().where("classifyId={0} ", classifyId));
         // 根据条件查询文章
-        List<ArticleModel> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId)).getRecords();
+        List<ArticleDO> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleDO>().where("classifyId={0} ", classifyId)).getRecords();
         // 处理文章简介长度
         list.forEach(opt -> {
             Optional<String> optional = Optional.ofNullable(opt.getSummary());
@@ -266,9 +266,9 @@ public class ArticleController {
 
         ModelAndView modelAndView = new ModelAndView("home/article");
         // 文章总条数
-        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId));
+        int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleDO>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId));
         // 文章列表
-        modelAndView.addObject("list", SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords());
+        modelAndView.addObject("list", SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleDO>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)).getRecords());
         // 分类ID
         modelAndView.addObject("classifyId", classifyId);
         // 分类名称

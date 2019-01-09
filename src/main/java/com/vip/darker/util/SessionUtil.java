@@ -1,6 +1,6 @@
 package com.vip.darker.util;
 
-import com.vip.darker.model.UserModel;
+import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +24,9 @@ public class SessionUtil {
      * @param sessionId
      * @return
      */
-    public static UserModel getUserBySessionId(List<UserModel> list, String sessionId) {
+    public static UserDO getUserBySessionId(List<UserDO> list, String sessionId) {
         if (list != null && list.size() > 0) {
-            for (UserModel user : list) {
+            for (UserDO user : list) {
                 if (user.getSessionId().equals(sessionId)) {
                     return user;
                 }
@@ -41,7 +41,7 @@ public class SessionUtil {
      * @param list
      * @param sessionId
      */
-    public static void remove(List<UserModel> list, String sessionId) {
+    public static void remove(List<UserDO> list, String sessionId) {
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getSessionId().equals(sessionId)) {
@@ -60,7 +60,7 @@ public class SessionUtil {
     @SuppressWarnings(value = "unchecked")
     public static void resetOnlineList(HttpServletRequest request, HttpServletResponse response) {
         // 网站访问量VV
-        List<UserModel> onlineList = (List<UserModel>) request.getServletContext().getAttribute("onlineList");
+        List<UserDO> onlineList = (List<UserDO>) request.getServletContext().getAttribute("onlineList");
         if (onlineList == null) {
             onlineList = new ArrayList<>();
         }
@@ -68,7 +68,7 @@ public class SessionUtil {
         String sessionId = request.getSession().getId();
         // 若游客不存在用户列表中
         if (SessionUtil.getUserBySessionId(onlineList, sessionId) == null) {
-            UserModel user = new UserModel();
+            UserDO user = new UserDO();
             user.setName("陌生人");
             user.setEmail("stranger@qq.vip.com");
             user.setSessionId(sessionId);

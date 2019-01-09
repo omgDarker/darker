@@ -1,6 +1,6 @@
 package com.vip.darker.system.listener;
 
-import com.vip.darker.model.UserModel;
+import com.vip.darker.entity.UserDO;
 import com.vip.darker.util.SessionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class SpringBootSessionListener implements HttpSessionListener {
         event.getSession().getServletContext().setAttribute("number", onLine);
         logger.info("{}:当前在线人数:{}", "sessionDestroyed", onLine);
         // 销毁退出用户
-        List<UserModel> list = (List<UserModel>) event.getSession().getServletContext().getAttribute("onlineList");
+        List<UserDO> list = (List<UserDO>) event.getSession().getServletContext().getAttribute("onlineList");
 
         String sessionId = event.getSession().getId();
 

@@ -2,7 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ClassifyModel;
+import com.vip.darker.entity.ClassifyDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +27,9 @@ public class ClassifyController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/classifys", method = RequestMethod.POST)
-    public Map<String, Object> addClassify(ClassifyModel classifyModel) {
+    public Map<String, Object> addClassify(ClassifyDO classifyDO) {
 
-        boolean flag = SpringBootService.getClassifyService().insert(classifyModel);
+        boolean flag = SpringBootService.getClassifyService().insert(classifyDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -46,9 +46,9 @@ public class ClassifyController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/classifys", method = RequestMethod.PUT)
-    public Map<String, Object> updateClassify(ClassifyModel classifyModel) {
+    public Map<String, Object> updateClassify(ClassifyDO classifyDO) {
 
-        boolean flag = SpringBootService.getClassifyService().updateById(classifyModel);
+        boolean flag = SpringBootService.getClassifyService().updateById(classifyDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -84,7 +84,7 @@ public class ClassifyController {
      * @return: com.vip.darker.model.ClassifyModel
      */
     @RequestMapping(value = "/classifys/{id}")
-    public ClassifyModel findClassifyById(@PathVariable(value = "id") Integer id) {
+    public ClassifyDO findClassifyById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getClassifyService().selectById(id);
     }
 
@@ -96,7 +96,7 @@ public class ClassifyController {
      * @return: java.util.List<com.vip.darker.model.ClassifyModel>
      */
     @RequestMapping(value = "/classifys", method = RequestMethod.GET)
-    public List<ClassifyModel> findListClassify(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<ClassifyDO> findListClassify(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getClassifyService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

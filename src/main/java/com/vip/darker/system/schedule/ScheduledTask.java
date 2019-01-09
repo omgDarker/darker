@@ -1,8 +1,8 @@
 package com.vip.darker.system.schedule;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.model.StatisticsModel;
-import com.vip.darker.model.UserModel;
+import com.vip.darker.entity.StatisticsDO;
+import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,26 +25,26 @@ public class ScheduledTask {
     @Scheduled(cron = "0 0 0 * * ?") // 每天24点执行一次
     public void setV() {
         // 查询网站流量统计数据
-        List<StatisticsModel> flowList = SpringBootService.getStatisticsService().selectList(new EntityWrapper<>());
-        List<StatisticsModel> resultlist = new ArrayList<>();
-        for (StatisticsModel model : flowList) {
-            StatisticsModel statisticsModel = new StatisticsModel();
-            statisticsModel.setId(model.getId());
+        List<StatisticsDO> flowList = SpringBootService.getStatisticsService().selectList(new EntityWrapper<>());
+        List<StatisticsDO> resultlist = new ArrayList<>();
+        for (StatisticsDO model : flowList) {
+            StatisticsDO statisticsDO = new StatisticsDO();
+            statisticsDO.setId(model.getId());
             switch (model.getClassify()) {
                 case "pv":
-                    statisticsModel.setAmount(SpringBootService.getPropertiesStat().getCountPV());
+                    statisticsDO.setAmount(SpringBootService.getPropertiesStat().getCountPV());
                     break;
                 case "vv":
-                    statisticsModel.setAmount(SpringBootService.getUserService().selectList(new EntityWrapper<>()).size());
+                    statisticsDO.setAmount(SpringBootService.getUserService().selectList(new EntityWrapper<>()).size());
                     break;
                 case "uv":
-                    statisticsModel.setAmount(SpringBootService.getUserService().selectList(new EntityWrapper<UserModel>().setSqlSelect("distinct ip")).size());
+                    statisticsDO.setAmount(SpringBootService.getUserService().selectList(new EntityWrapper<UserDO>().setSqlSelect("distinct ip")).size());
                     break;
                 default:
                     logger.info("表operation_statistics存在脏数据,请仔细检查DB!");
                     break;
             }
-            resultlist.add(statisticsModel);
+            resultlist.add(statisticsDO);
         }
         SpringBootService.getStatisticsService().updateBatchById(resultlist);
         logger.info("setV()方法执行完成,流量数据已经持久化到DB!");

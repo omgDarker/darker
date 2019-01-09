@@ -2,7 +2,7 @@ package com.vip.darker.controller.home;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ArticleModel;
+import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import com.vip.darker.util.ConvertAttribute;
@@ -58,9 +58,9 @@ public class HomeController {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(HOME + "/home");
         // redis中取文章列表
-        List<ArticleModel> list = Optional.ofNullable((List<ArticleModel>) SpringBootService.getRedisService().get(Constant.REDIS_KEY_ARTICLE))
+        List<ArticleDO> list = Optional.ofNullable((List<ArticleDO>) SpringBootService.getRedisService().get(Constant.REDIS_KEY_ARTICLE))
                 .map(opt -> opt.subList((pageNum - 1) * pageSize, pageNum * pageSize > opt.size() ? opt.size() : pageNum * pageSize))
-                .orElse(SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleModel>().orderDesc(Collections.singletonList("updateTime"))).getRecords());
+                .orElse(SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleDO>().orderDesc(Collections.singletonList("updateTime"))).getRecords());
 
         list.forEach(model -> {
             // 处理文章摘要长度

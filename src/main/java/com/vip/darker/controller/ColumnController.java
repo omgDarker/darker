@@ -2,7 +2,7 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.vip.darker.model.ColumnModel;
+import com.vip.darker.entity.ColumnDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +27,9 @@ public class ColumnController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/columns", method = RequestMethod.POST)
-    public Map<String, Object> addColumn(ColumnModel columnModel) {
+    public Map<String, Object> addColumn(ColumnDO columnDO) {
 
-        boolean flag = SpringBootService.getColumnService().insert(columnModel);
+        boolean flag = SpringBootService.getColumnService().insert(columnDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -46,9 +46,9 @@ public class ColumnController {
      * @return: java.util.Map<java.lang.String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.lang.Object>
      */
     @RequestMapping(value = "/columns", method = RequestMethod.PUT)
-    public Map<String, Object> updateColumn(ColumnModel columnModel) {
+    public Map<String, Object> updateColumn(ColumnDO columnDO) {
 
-        boolean flag = SpringBootService.getColumnService().updateById(columnModel);
+        boolean flag = SpringBootService.getColumnService().updateById(columnDO);
 
         Map<String, Object> map = new HashMap<>();
 
@@ -84,7 +84,7 @@ public class ColumnController {
      * @return: com.vip.darker.model.ColumnModel
      */
     @RequestMapping(value = "/columns/{id}")
-    public ColumnModel queryColumnById(@PathVariable(value = "id") Integer id) {
+    public ColumnDO queryColumnById(@PathVariable(value = "id") Integer id) {
         return SpringBootService.getColumnService().selectById(id);
     }
 
@@ -96,7 +96,7 @@ public class ColumnController {
      * @return: java.util.List<com.vip.darker.model.ColumnModel>
      */
     @RequestMapping(value = "/columns", method = RequestMethod.GET)
-    public List<ColumnModel> findListColumn(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<ColumnDO> findListColumn(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getColumnService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -127,7 +127,7 @@ public class ColumnController {
      * @return: java.util.List<com.vip.darker.model.ColumnModel>
      */
     @RequestMapping(value = "/columns/{classifyId}", method = RequestMethod.GET)
-    public List<ColumnModel> findColumnByClassifyId(@PathVariable(value = "classifyId") Integer[] classifyId) {
-        return SpringBootService.getColumnService().selectList(new EntityWrapper<ColumnModel>().in("classifyId", classifyId));
+    public List<ColumnDO> findColumnByClassifyId(@PathVariable(value = "classifyId") Integer[] classifyId) {
+        return SpringBootService.getColumnService().selectList(new EntityWrapper<ColumnDO>().in("classifyId", classifyId));
     }
 }
