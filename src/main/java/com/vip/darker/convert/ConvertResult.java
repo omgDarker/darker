@@ -1,6 +1,7 @@
-package com.vip.darker.util;
+package com.vip.darker.convert;
 
 import com.vip.darker.entity.ResultDTO;
+import com.vip.darker.util.Constant;
 
 import java.util.Map;
 

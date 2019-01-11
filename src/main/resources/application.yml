@@ -59,7 +59,18 @@ spring:
      port: 5672
      username: guest
      password: guest
-
+   data:
+     elasticsearch:
+       repositories:
+         enabled: true
+       cluster-nodes: 127.0.0.1:9200
+       cluster-name: darker
+       properties:
+         path:
+           home: F:/elasticsearch-6.5.4/data/project/target/elastic
+         transport:
+           tcp:
+             connect_timeout: 120s
 mybatis-plus:
   #VO扫描路径
   type-aliases-package: com.vip.darker.entity

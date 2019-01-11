@@ -13,7 +13,7 @@ import java.util.Date;
 @BKDefinition(value = "分类表")
 public class ClassifyDO extends Model<ClassifyDO> implements Serializable {
 
-    private static final long serialVersionUID = -1L;
+    private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

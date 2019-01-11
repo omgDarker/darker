@@ -11,7 +11,7 @@ import com.vip.darker.service.StatisticsService;
 import com.vip.darker.properties.PropertiesStat;
 import com.vip.darker.system.redis.RedisService;
 import com.vip.darker.util.Constant;
-import com.vip.darker.util.ConvertAttribute;
+import com.vip.darker.convert.ConvertAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;

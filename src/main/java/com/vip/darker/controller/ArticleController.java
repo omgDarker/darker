@@ -6,7 +6,7 @@ import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.entity.MessageDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
-import com.vip.darker.util.ConvertAttribute;
+import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.util.WebSiteUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;

@@ -13,7 +13,7 @@ import java.util.Date;
 @BKDefinition(value = "链接表")
 public class LinkDO extends Model<LinkDO> implements Serializable {
 
-    private static final long serialVersionUID = -1L;
+    private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

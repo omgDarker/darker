@@ -8,7 +8,7 @@ import com.vip.darker.entity.URRelationDO;
 import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
-import com.vip.darker.util.ConvertObject;
+import com.vip.darker.convert.ConvertObject;
 import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

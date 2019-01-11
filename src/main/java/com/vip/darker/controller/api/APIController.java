@@ -5,7 +5,7 @@ import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.entity.MessageDO;
 import com.vip.darker.entity.ResultDTO;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.ConvertResult;
+import com.vip.darker.convert.ConvertResult;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
