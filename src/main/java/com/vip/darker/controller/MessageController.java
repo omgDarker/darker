@@ -2,10 +2,11 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.vip.darker.convert.ConvertAttribute;
+import com.vip.darker.elasticsearch.entity.MessageDTO;
 import com.vip.darker.entity.MessageDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
-import com.vip.darker.convert.ConvertAttribute;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,35 +30,25 @@ public class MessageController {
      * @param: [articleId, messageModel]
      * @return: java.util.Map
      */
-    @RequestMapping(value = "/messages", method = RequestMethod.POST)
-    public Map<String, Object> addMessage(Integer articleId, MessageDO messageDO) {
+    @PostMapping(value = "/messages")
+    public Map<String, Object> addMessage(@RequestBody MessageDO messageDO) {
         // 留言新增
-        SpringBootService.getMessageService().insert(messageDO);
-        // 留言信息
-        List<MessageDO> messageDOList = SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("articleId={0}", articleId));
+        boolean flag = SpringBootService.getMessageService().insert(messageDO);
+        // 若新增成功,则将对象添加到索引中
+        if (flag) {
+            // 应用场景:文章详情页
+            MessageDTO messageDTO = new MessageDTO();
+            messageDTO.setId(messageDO.getId());
+            messageDTO.setUsername(messageDO.getUserName());
+            messageDTO.setContent(messageDO.getContent());
+            SpringBootService.getMessageESService().save(messageDTO);
+        }
+        // 留言信息列表
+        List<MessageDO> messageDOList = SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("articleId={0}", messageDO.getArticleId()));
 
         Map<String, Object> map = new HashMap<>();
 
         map.put("messageList", messageDOList);
-
-        return map;
-    }
-
-    /**
-     * @description:留言更新
-     * @auther: WBA
-     * @date: 2018/12/11 16:56
-     * @param: [messageModel]
-     * @return: java.util.Map
-     */
-    @RequestMapping(value = "/messages", method = RequestMethod.PUT)
-    public Map<String, Object> editMessage(MessageDO messageDO) {
-
-        boolean flag = SpringBootService.getMessageService().updateById(messageDO);
-
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
 
         return map;
     }
@@ -69,11 +60,14 @@ public class MessageController {
      * @param: [id]
      * @return: java.util.Map
      */
-    @RequestMapping(value = "/messages/{id}", method = RequestMethod.DELETE)
-    public Map<String, Object> deleteMessage(@PathVariable(value = "id") Integer id) {
+    @DeleteMapping(value = "/messages/{id}")
+    public Map<String, Object> deleteMessage(@PathVariable(value = "id") Long id) {
 
-        boolean flag = SpringBootService.getMessageService().deleteById(id);
-
+        boolean flag = SpringBootService.getMessageService().deleteById(id.intValue());
+        // 若删除成功,则将对象从索引中移除
+        if (flag) {
+            SpringBootService.getMessageESService().delete(id);
+        }
         Map<String, Object> map = new HashMap<>();
 
         map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
@@ -88,7 +82,7 @@ public class MessageController {
      * @param: []
      * @return: java.util.Map
      */
-    @RequestMapping(value = "/messages/page", method = RequestMethod.GET)
+    @GetMapping(value = "/messages/page")
     public Map<String, Object> countMessagePage() {
 
         Map<String, Object> map = new HashMap<>();
@@ -107,8 +101,8 @@ public class MessageController {
      * @param: [id]
      * @return: com.vip.darker.model.MessageModel
      */
-    @RequestMapping(value = "/messages/{id}", method = RequestMethod.GET)
-    public MessageDO findMessageById(@PathVariable(value = "id") Integer id) {
+    @GetMapping(value = "/messages/{id}")
+    public MessageDO findMessageById(@PathVariable(value = "id") long id) {
         return SpringBootService.getMessageService().selectById(id);
     }
 
@@ -119,7 +113,7 @@ public class MessageController {
      * @param: [pageNum, pageSize]
      * @return: java.util.List<com.vip.darker.model.MessageModel>
      */
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
+    @GetMapping(value = "/messages")
     public List<MessageDO> findListMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
@@ -131,7 +125,7 @@ public class MessageController {
      * @param: [pageNum, pageSize]
      * @return: org.springframework.web.servlet.ModelAndView
      */
-    @RequestMapping(value = "/home/messages", method = RequestMethod.GET)
+    @GetMapping(value = "/home/messages")
     public ModelAndView findMessageBoard(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView("home/message");

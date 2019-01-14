@@ -1,5 +1,7 @@
 package com.vip.darker.service.base;
 
+import com.vip.darker.elasticsearch.service.MessageESService;
+import com.vip.darker.elasticsearch.service.impl.MessageESServiceImpl;
 import com.vip.darker.properties.PropertiesStat;
 import com.vip.darker.service.*;
 import com.vip.darker.service.impl.*;
@@ -199,5 +201,16 @@ public class SpringBootService {
      */
     public static AsyncTaskExecutorService getAsyncTaskExecutorService() {
         return (AsyncTaskExecutorService) SpringBootApplicationContent.getBean(AsyncTaskExecutorService.BEAN_NAME);
+    }
+
+    /**
+     * 功能描述: 留言信息索引service
+     *
+     * @return: SpringBootPropertiesLoad
+     * @auther: darker
+     * @date: 2018/10/27 10:50
+     */
+    public static MessageESService getMessageESService() {
+        return (MessageESService) SpringBootApplicationContent.getBean(MessageESServiceImpl.BEAN_NAME);
     }
 }

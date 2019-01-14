@@ -120,6 +120,8 @@
             url: "/messages",
             //请求返回数据格式为json,还可以是text等
             dataType: "JSON",
+            //请求数据格式为json
+            contentType: "application/json;charset=utf-8",
             //请求是否为异步,默认是true
             async: true,
             //是否从浏览器缓存中加载数据信息
@@ -127,7 +129,7 @@
             //设置请求超时时间
             timeout: 1000,
             //参数值,如果URL带参数,这里就可以不用写了
-            data: $('#messageAddForm').serialize(),
+            data: JSON.stringify(getFormJSONData($('#messageAddForm'))),
             //POST安全性高,数据量大;GET安全性低,数据量小,从浏览器获取数据
             type: "POST",
             //请求发出前的处理函数,参数(XMLHttpRequest对象,返回状态)
@@ -404,6 +406,18 @@
             }
         );
     });
+
+    // 序列化表单转JSON字符串
+    function getFormJSONData($form) {
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    }
 </script>
 </body>
 </html>

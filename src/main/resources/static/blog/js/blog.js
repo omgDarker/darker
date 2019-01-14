@@ -3394,7 +3394,7 @@ function deleteMessage(id) {
         if (isConfirm.value === true) {
             $.ajax({
                 //请求URL地址,controller的名称
-                url: "/messages" + id,
+                url: "/messages/" + id,
                 //请求返回数据格式为json,还可以是text等
                 dataType: "json",
                 //请求是否为异步,默认是true

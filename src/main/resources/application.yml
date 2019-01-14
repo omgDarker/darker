@@ -63,7 +63,8 @@ spring:
      elasticsearch:
        repositories:
          enabled: true
-       cluster-nodes: 127.0.0.1:9200
+       #java的es默认连接端口是9300,9200是http端口
+       cluster-nodes: 127.0.0.1:9300
        cluster-name: darker
        properties:
          path:

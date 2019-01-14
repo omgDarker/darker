@@ -13,7 +13,7 @@ import java.util.Date;
 @BKDefinition(value = "留言表")
 public class MessageDO extends Model<MessageDO> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8004450162591054126L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

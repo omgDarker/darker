@@ -7,10 +7,10 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.io.Serializable;
 
-@Document(indexName = "message", type = "message", shards = 1, replicas = 0)
+@Document(indexName = "darker", type = "message", shards = 1, replicas = 0)
 public class MessageDTO implements Serializable {
 
-    private static final long serialVersionUID = -1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @BKDefinition(value = "文档ID")

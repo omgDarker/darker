@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Auther: Darker
- * @description ：日志拦截器配置
- * @date : 2018/9/16 13:24
+ * @description:日志拦截器
+ * @auther: WBA
+ * @date: 2019/1/14 15:46
  */
 public class LogInterceptor implements HandlerInterceptor {
 

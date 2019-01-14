@@ -12,6 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @description:删除操作拦截器
+ * @auther: WBA
+ * @date: 2019/1/14 15:46
+ */
 public class TrashInterceptor implements HandlerInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(TrashInterceptor.class);

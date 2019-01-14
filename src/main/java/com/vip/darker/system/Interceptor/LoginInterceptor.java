@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Auther: Darker
- * @description ：登录拦截器配置
- * @date : 2018/9/12 16:36
+ * @description:登录拦截器
+ * @auther: WBA
+ * @date: 2019/1/14 15:46
  */
 public class LoginInterceptor implements HandlerInterceptor {
 

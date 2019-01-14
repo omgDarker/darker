@@ -6,10 +6,13 @@ import com.vip.darker.elasticsearch.service.MessageESService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service(value = MessageESServiceImpl.BEAN_NAME)
 public class MessageESServiceImpl implements MessageESService {
+
+    public static final String BEAN_NAME = "messageESService";
 
     private final MessageESRepository messageESRepository;
 
@@ -24,6 +27,11 @@ public class MessageESServiceImpl implements MessageESService {
     }
 
     @Override
+    public void delete(Long id) {
+        messageESRepository.deleteById(id);
+    }
+
+    @Override
     public Page<MessageDTO> search(String username, String content, Pageable pageable) {
         return null;
     }
@@ -31,6 +39,11 @@ public class MessageESServiceImpl implements MessageESService {
     @Override
     public Page<MessageDTO> search(String content, Pageable pageable) {
         return null;
+    }
+
+    @Override
+    public Page<MessageDTO> search(SearchQuery searchQuery) {
+        return messageESRepository.search(searchQuery);
     }
 
     @Override
