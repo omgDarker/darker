@@ -36,6 +36,11 @@ public class TrashInterceptor implements HandlerInterceptor {
             String content = "";
             // 获取请求URL
             String requestURI = request.getRequestURI();
+            // 移除留言删除操作
+            String[] URIArray = requestURI.split("/");
+            if (URIArray.length > 3) {
+                return true;
+            }
             // 回收类型
             String description = requestURI.split("/")[1];
             // 回收数据ID

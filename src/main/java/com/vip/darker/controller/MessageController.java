@@ -114,7 +114,8 @@ public class MessageController {
      * @return: java.util.List<com.vip.darker.model.MessageModel>
      */
     @GetMapping(value = "/messages")
-    public List<MessageDO> findListMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<MessageDO> findListMessage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                           @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getMessageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -126,7 +127,8 @@ public class MessageController {
      * @return: org.springframework.web.servlet.ModelAndView
      */
     @GetMapping(value = "/home/messages")
-    public ModelAndView findMessageBoard(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public ModelAndView findMessageBoard(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                         @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView("home/message");
         // 当前页

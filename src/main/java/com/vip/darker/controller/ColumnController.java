@@ -96,7 +96,8 @@ public class ColumnController {
      * @return: java.util.List<com.vip.darker.model.ColumnModel>
      */
     @RequestMapping(value = "/columns", method = RequestMethod.GET)
-    public List<ColumnDO> findListColumn(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<ColumnDO> findListColumn(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                         @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getColumnService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

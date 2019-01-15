@@ -96,7 +96,8 @@ public class LinkController {
      * @return: java.util.List<com.vip.darker.model.LinkModel>
      */
     @RequestMapping(value = "/links", method = RequestMethod.GET)
-    public List<LinkDO> findListLink(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<LinkDO> findListLink(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                     @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getLinkService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

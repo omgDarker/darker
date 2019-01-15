@@ -96,7 +96,8 @@ public class ResourceController {
      * @return: java.util.List<com.vip.darker.model.ResourceModel>
      */
     @RequestMapping(value = "/resources", method = RequestMethod.GET)
-    public List<ResourceDo> findListResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum, @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
+    public List<ResourceDo> findListResource(@RequestParam(name = "pageNum", required = false, defaultValue = "1") int pageNum,
+                                             @RequestParam(name = "pageSize", required = false, defaultValue = "10") int pageSize) {
         return SpringBootService.getResourceService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 }

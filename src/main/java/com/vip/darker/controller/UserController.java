@@ -2,13 +2,13 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.vip.darker.convert.ConvertObject;
 import com.vip.darker.entity.PermissionDO;
 import com.vip.darker.entity.RoleDO;
 import com.vip.darker.entity.URRelationDO;
 import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
-import com.vip.darker.convert.ConvertObject;
 import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -133,7 +133,8 @@ public class UserController {
      * @return: java.util.List<java.util.Map>
      */
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<Map<String, Object>> findListUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<Map<String, Object>> findListUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                                  @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         try {
             List<UserDO> beanList = SpringBootService.getUserService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
             List<Map<String, Object>> resultList = ConvertObject.convertListBeanToListMap(beanList, UserDO.class);
@@ -280,7 +281,8 @@ public class UserController {
      * @return: java.util.List<com.vip.darker.model.RoleModel>
      */
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
-    public List<RoleDO> findListRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<RoleDO> findListRole(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                     @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getRoleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -382,7 +384,8 @@ public class UserController {
      * @return: java.util.List<com.vip.darker.model.PermissionModel>
      */
     @RequestMapping(value = "/permissions", method = RequestMethod.GET)
-    public List<PermissionDO> findListPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<PermissionDO> findListPermission(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                                 @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getPermissionService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

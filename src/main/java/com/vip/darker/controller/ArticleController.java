@@ -2,11 +2,11 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.entity.MessageDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
-import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.util.WebSiteUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -123,7 +123,8 @@ public class ArticleController {
      * @return: java.util.List<com.vip.darker.model.ArticleModel>
      */
     @RequestMapping(value = "/articles", method = RequestMethod.GET)
-    public List<ArticleDO> findListArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<ArticleDO> findListArticle(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                           @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 
         List<ArticleDO> list = SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
 
@@ -176,7 +177,8 @@ public class ArticleController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/articles/like/{id}", method = RequestMethod.POST)
-    public Map<String, Object> addLike(@PathVariable(value = "id") Integer id, @RequestParam(value = "likeAmount") Integer likeAmount) {
+    public Map<String, Object> addLike(@PathVariable(value = "id") Integer id,
+                                       @RequestParam(value = "likeAmount") Integer likeAmount) {
 
         ArticleDO articleDO = new ArticleDO();
 
@@ -199,7 +201,8 @@ public class ArticleController {
      * @return: java.util.Map
      */
     @RequestMapping(value = "/articles/likeNo/{id}", method = RequestMethod.POST)
-    public Map<String, Object> addLikeNo(@PathVariable(value = "id") Integer id, @RequestParam(value = "likeNoAmount") Integer likeNoAmount) {
+    public Map<String, Object> addLikeNo(@PathVariable(value = "id") Integer id,
+                                         @RequestParam(value = "likeNoAmount") Integer likeNoAmount) {
 
         ArticleDO articleDO = new ArticleDO();
 
@@ -222,7 +225,9 @@ public class ArticleController {
      * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = "/home/articles/{classifyId}", method = RequestMethod.GET)
-    public ModelAndView findArticleByClassifyId(@PathVariable(value = "classifyId") Integer classifyId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
+    public ModelAndView findArticleByClassifyId(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                                @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+                                                @PathVariable(value = "classifyId") Integer classifyId) {
 
         ModelAndView modelAndView = new ModelAndView("home/article");
         // 文章总条数
@@ -262,8 +267,10 @@ public class ArticleController {
      * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = "/home/articles/{classifyId}/{columnId}", method = RequestMethod.GET)
-    public ModelAndView findArticleByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId") Integer columnId, @RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize) {
-
+    public ModelAndView findArticleByClassifyIdAndColumnId(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                                           @RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize,
+                                                           @PathVariable(value = "classifyId") Integer classifyId,
+                                                           @PathVariable(value = "columnId") Integer columnId) {
         ModelAndView modelAndView = new ModelAndView("home/article");
         // 文章总条数
         int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<ArticleDO>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId));

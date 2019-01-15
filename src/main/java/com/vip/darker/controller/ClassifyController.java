@@ -96,7 +96,8 @@ public class ClassifyController {
      * @return: java.util.List<com.vip.darker.model.ClassifyModel>
      */
     @RequestMapping(value = "/classifys", method = RequestMethod.GET)
-    public List<ClassifyDO> findListClassify(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<ClassifyDO> findListClassify(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getClassifyService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

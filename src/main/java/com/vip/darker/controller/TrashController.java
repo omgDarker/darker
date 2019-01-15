@@ -46,7 +46,8 @@ public class TrashController {
      * @return: java.util.List<com.vip.darker.model.TrashModel>
      */
     @RequestMapping(value = "/trashs", method = RequestMethod.GET)
-    public List<TrashDO> findListTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+    public List<TrashDO> findListTrash(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         return SpringBootService.getTrashService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 

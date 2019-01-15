@@ -127,7 +127,8 @@ public class ImageController {
      * @return: java.util.List<com.vip.darker.model.ImageModel>
      */
     @RequestMapping(value = "/images", method = RequestMethod.GET)
-    public List<ImageDO> findListImage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
+    public List<ImageDO> findListImage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "12") Integer pageSize) {
         return SpringBootService.getImageService().selectPage(new Page<>(pageNum, pageSize)).getRecords();
     }
 
@@ -233,7 +234,8 @@ public class ImageController {
      * @return: org.springframework.web.servlet.ModelAndView
      */
     @RequestMapping(value = "/home/images/{classifyId}/{columnId}", method = RequestMethod.GET)
-    public ModelAndView findimageByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId, @PathVariable(value = "columnId", required = false) Integer columnId) {
+    public ModelAndView findimageByClassifyIdAndColumnId(@PathVariable(value = "classifyId") Integer classifyId,
+                                                         @PathVariable(value = "columnId", required = false) Integer columnId) {
 
         ModelAndView modelAndView = new ModelAndView("home/image");
         // 图片列表
