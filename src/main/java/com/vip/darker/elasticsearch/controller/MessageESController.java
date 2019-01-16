@@ -1,6 +1,6 @@
 package com.vip.darker.elasticsearch.controller;
 
-import com.vip.darker.elasticsearch.entity.MessageDTO;
+import com.vip.darker.elasticsearch.entity.MessageESDTO;
 import com.vip.darker.entity.ResultDTO;
 import com.vip.darker.service.base.SpringBootService;
 import org.springframework.data.domain.PageRequest;
@@ -25,8 +25,8 @@ public class MessageESController {
      * @return: java.lang.String
      */
     @PostMapping("/add/index")
-    public ResultDTO addIndex(@RequestBody List<MessageDTO> messageDTOList) {
-        return SpringBootService.getMessageESService().saveBatch(messageDTOList);
+    public ResultDTO addIndex(@RequestBody List<MessageESDTO> messageESDTOList) {
+        return SpringBootService.getMessageESService().saveBatch(messageESDTOList);
     }
 
     /**

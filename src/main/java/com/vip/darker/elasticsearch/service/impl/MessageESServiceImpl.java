@@ -2,17 +2,15 @@ package com.vip.darker.elasticsearch.service.impl;
 
 import com.vip.darker.annotation.BKDefinition;
 import com.vip.darker.elasticsearch.dao.MessageESRepository;
-import com.vip.darker.elasticsearch.entity.MessageDTO;
+import com.vip.darker.elasticsearch.entity.MessageESDTO;
 import com.vip.darker.elasticsearch.service.MessageESService;
 import com.vip.darker.entity.ResultDTO;
-import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
 import org.elasticsearch.common.lucene.search.function.FiltersFunctionScoreQuery;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -37,9 +35,9 @@ public class MessageESServiceImpl implements MessageESService {
     }
 
     @Override
-    public ResultDTO save(MessageDTO messageDTO) {
+    public ResultDTO save(MessageESDTO messageESDTO) {
         try {
-            messageESRepository.save(messageDTO);
+            messageESRepository.save(messageESDTO);
             resultDTO.setCode(200);
             resultDTO.setMsg(Constant.SUCCESS_INSERT);
         } catch (Exception e) {
@@ -50,9 +48,9 @@ public class MessageESServiceImpl implements MessageESService {
     }
 
     @Override
-    public ResultDTO saveBatch(List<MessageDTO> messageDTOList) {
+    public ResultDTO saveBatch(List<MessageESDTO> messageESDTOList) {
         try {
-            messageESRepository.saveAll(messageDTOList);
+            messageESRepository.saveAll(messageESDTOList);
             resultDTO.setCode(200);
             resultDTO.setMsg(Constant.SUCCESS_INSERT);
         } catch (Exception e) {
@@ -96,11 +94,10 @@ public class MessageESServiceImpl implements MessageESService {
     public ResultDTO search(Pageable pageable, String key, String val) {
         try {
             SearchQuery searchQuery = getEntitySearchQuery(pageable, key, val);
-            Page<MessageDTO> goodsPage = SpringBootService.getMessageESService().search(searchQuery);
             resultDTO.setCode(200);
             resultDTO.setMsg(Constant.SUCCESS);
             Map<String, Object> map = new HashMap<>();
-            map.put("message", goodsPage.getContent());
+            map.put("message", messageESRepository.search(searchQuery).getContent());
             resultDTO.setResult(map);
         } catch (Exception e) {
             resultDTO.setCode(500);
@@ -110,18 +107,8 @@ public class MessageESServiceImpl implements MessageESService {
     }
 
     @Override
-    public Page<MessageDTO> search(Pageable pageable, String... key) {
-        return null;
-    }
-
-    @Override
-    public Page<MessageDTO> search(SearchQuery searchQuery) {
-        return messageESRepository.search(searchQuery);
-    }
-
-    @Override
-    public Page<MessageDTO> search(Pageable pageable) {
-        return messageESRepository.findAll(pageable);
+    public List<MessageESDTO> search(Pageable pageable) {
+        return messageESRepository.findAll(pageable).getContent();
     }
 
     /**
@@ -135,7 +122,7 @@ public class MessageESServiceImpl implements MessageESService {
         FunctionScoreQueryBuilder functionScoreQueryBuilder = QueryBuilders.functionScoreQuery(
                 QueryBuilders.matchPhraseQuery(key, val),
                 ScoreFunctionBuilders.weightFactorFunction(100))
-                //设置权重分 求和模式
+                //设置权重分求和模式
                 .scoreMode(FiltersFunctionScoreQuery.ScoreMode.SUM)
                 //设置权重分最低分
                 .setMinScore(10);

@@ -1,10 +1,8 @@
 package com.vip.darker.elasticsearch.service;
 
-import com.vip.darker.elasticsearch.entity.MessageDTO;
+import com.vip.darker.elasticsearch.entity.MessageESDTO;
 import com.vip.darker.entity.ResultDTO;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 
 import java.util.List;
 
@@ -17,7 +15,7 @@ public interface MessageESService {
      * @param: [messageDTO]
      * @return: com.vip.darker.entity.ResultDTO
      */
-    ResultDTO save(MessageDTO messageDTO);
+    ResultDTO save(MessageESDTO messageESDTO);
 
     /**
      * @description:索引批量新增
@@ -26,7 +24,7 @@ public interface MessageESService {
      * @param: [messageDTOList]
      * @return: com.vip.darker.entity.ResultDTO
      */
-    ResultDTO saveBatch(List<MessageDTO> messageDTOList);
+    ResultDTO saveBatch(List<MessageESDTO> messageESDTOList);
 
     /**
      * @description:索引删除
@@ -56,29 +54,11 @@ public interface MessageESService {
     ResultDTO search(Pageable pageable, String key, String val);
 
     /**
-     * @description:基于关键词进行检索,返回分页
-     * @auther: WBA
-     * @date: 2019/1/11 16:58
-     * @param: [username, content, pageable]
-     * @return: org.springframework.data.domain.Page<com.vip.darker.elasticsearch.entity.MessageDTO>
-     */
-    Page<MessageDTO> search(Pageable pageable, String... key);
-
-    /**
-     * @description:基于查询条件进行检索,返回分页
-     * @auther: WBA
-     * @date: 2019/1/14 11:18
-     * @param: [searchQuery]
-     * @return: org.springframework.data.domain.Page<com.vip.darker.elasticsearch.entity.MessageDTO>
-     */
-    Page<MessageDTO> search(SearchQuery searchQuery);
-
-    /**
      * @description:返回所有数据集合
      * @auther: WBA
      * @date: 2019/1/11 17:00
      * @param: [pageable]
      * @return: org.springframework.data.domain.Page<com.vip.darker.elasticsearch.entity.MessageDTO>
      */
-    Page<MessageDTO> search(Pageable pageable);
+    List<MessageESDTO> search(Pageable pageable);
 }

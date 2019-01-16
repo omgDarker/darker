@@ -3,7 +3,7 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.convert.ConvertAttribute;
-import com.vip.darker.elasticsearch.entity.MessageDTO;
+import com.vip.darker.elasticsearch.entity.MessageESDTO;
 import com.vip.darker.entity.MessageDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.util.Constant;
@@ -37,11 +37,11 @@ public class MessageController {
         // 若新增成功,则将对象添加到索引中
         if (flag) {
             // 应用场景:文章详情页
-            MessageDTO messageDTO = new MessageDTO();
-            messageDTO.setId(messageDO.getId());
-            messageDTO.setUsername(messageDO.getUserName());
-            messageDTO.setContent(messageDO.getContent());
-            SpringBootService.getMessageESService().save(messageDTO);
+            MessageESDTO messageESDTO = new MessageESDTO();
+            messageESDTO.setId(messageDO.getId());
+            messageESDTO.setUsername(messageDO.getUserName());
+            messageESDTO.setContent(messageDO.getContent());
+            SpringBootService.getMessageESService().save(messageESDTO);
         }
         // 留言信息列表
         List<MessageDO> messageDOList = SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("articleId={0}", messageDO.getArticleId()));

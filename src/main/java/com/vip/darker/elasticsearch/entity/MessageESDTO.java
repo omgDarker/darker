@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 
 @Document(indexName = "darker", type = "message", shards = 1, replicas = 0)
-public class MessageDTO implements Serializable {
+public class MessageESDTO implements Serializable {
 
     private static final long serialVersionUID = 3322035763899325878L;
 
@@ -20,18 +20,18 @@ public class MessageDTO implements Serializable {
     @BKDefinition(value = "留言内容")
     private String content;
 
-    public MessageDTO(Integer id, String username, String content) {
+    public MessageESDTO(Integer id, String username, String content) {
         this.id = id;
         this.username = username;
         this.content = content;
     }
 
-    public MessageDTO(String username, String content) {
+    public MessageESDTO(String username, String content) {
         this.username = username;
         this.content = content;
     }
 
-    public MessageDTO(){
+    public MessageESDTO(){
 
     }
 
