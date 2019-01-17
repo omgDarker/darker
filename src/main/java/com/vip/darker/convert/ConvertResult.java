@@ -1,6 +1,6 @@
 package com.vip.darker.convert;
 
-import com.vip.darker.entity.ResultDTO;
+import com.vip.darker.vo.ResultVO;
 import com.vip.darker.util.Constant;
 
 import java.util.Map;
@@ -17,8 +17,8 @@ public class ConvertResult {
      * @param map  操作结果集
      * @return
      */
-    public static ResultDTO result(int code, Map<String, Object> map) {
-        ResultDTO model = new ResultDTO();
+    public static ResultVO result(int code, Map<String, Object> map) {
+        ResultVO model = new ResultVO();
         model.setCode(code);
         model.setResult(map);
         switch (code) {

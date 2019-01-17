@@ -1,16 +1,11 @@
-package com.vip.darker.entity;
+package com.vip.darker.vo;
 
 import com.vip.darker.annotation.BKDefinition;
 
 import java.util.Map;
 
-/**
- * @Auther: Darker
- * @Date: 2018/11/13 17:03
- * @Description: 数据传输对象
- */
-@BKDefinition(value = "DTO")
-public class ResultDTO {
+@BKDefinition(value = "表现对象")
+public class ResultVO {
 
     @BKDefinition(value = "操作码")
     private int code;

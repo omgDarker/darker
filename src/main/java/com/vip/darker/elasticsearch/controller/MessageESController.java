@@ -1,7 +1,8 @@
 package com.vip.darker.elasticsearch.controller;
 
 import com.vip.darker.elasticsearch.entity.MessageESDTO;
-import com.vip.darker.entity.ResultDTO;
+import com.vip.darker.elasticsearch.entity.QueryParamDTO;
+import com.vip.darker.vo.ResultVO;
 import com.vip.darker.service.base.SpringBootService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class MessageESController {
      * @return: java.lang.String
      */
     @PostMapping("/add/index")
-    public ResultDTO addIndex(@RequestBody List<MessageESDTO> messageESDTOList) {
+    public ResultVO addIndex(@RequestBody List<MessageESDTO> messageESDTOList) {
         return SpringBootService.getMessageESService().saveBatch(messageESDTOList);
     }
 
@@ -37,7 +38,7 @@ public class MessageESController {
      * @return: void
      */
     @DeleteMapping("/del/index/{id}")
-    public ResultDTO delIndex(@PathVariable(value = "id") Long id) {
+    public ResultVO delIndex(@PathVariable(value = "id") Long id) {
         return SpringBootService.getMessageESService().delete(id);
     }
 
@@ -49,7 +50,7 @@ public class MessageESController {
      * @return: com.vip.darker.entity.ResultDTO
      */
     @PostMapping("del/index")
-    public ResultDTO delAllIndex(@RequestBody Long[] ids) {
+    public ResultVO delAllIndex(@RequestBody Long[] ids) {
         return SpringBootService.getMessageESService().deleteBatch(ids);
     }
 
@@ -57,14 +58,13 @@ public class MessageESController {
      * @description:索引检索
      * @auther: WBA
      * @date: 2019/1/15 18:26
-     * @param: [pageNum, pageSize, key, val]
+     * @param: [pageNum, pageSize, queryParamDTO]
      * @return: com.vip.darker.entity.ResultDTO
      */
     @GetMapping("/search/index")
-    public ResultDTO searchIndexList(@RequestParam(value = "pageNum", required = false, defaultValue = "0") Integer pageNum,
-                                     @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
-                                     @RequestParam(value = "key", required = false, defaultValue = "") String key,
-                                     @RequestParam(value = "val", required = false, defaultValue = "") String val) {
-        return SpringBootService.getMessageESService().search(PageRequest.of(pageNum, pageSize), key, val);
+    public ResultVO searchIndexList(@RequestParam(value = "pageNum", required = false, defaultValue = "0") Integer pageNum,
+                                    @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                                    @RequestBody QueryParamDTO queryParamDTO) {
+        return SpringBootService.getMessageESService().search(PageRequest.of(pageNum, pageSize), queryParamDTO);
     }
 }

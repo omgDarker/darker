@@ -13,7 +13,7 @@ import java.util.Date;
 @BKDefinition(value = "回收站表")
 public class TrashDO extends Model<TrashDO> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4801305062603719339L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

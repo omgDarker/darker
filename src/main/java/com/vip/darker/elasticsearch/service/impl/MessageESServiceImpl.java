@@ -3,8 +3,9 @@ package com.vip.darker.elasticsearch.service.impl;
 import com.vip.darker.annotation.BKDefinition;
 import com.vip.darker.elasticsearch.dao.MessageESRepository;
 import com.vip.darker.elasticsearch.entity.MessageESDTO;
+import com.vip.darker.elasticsearch.entity.QueryParamDTO;
 import com.vip.darker.elasticsearch.service.MessageESService;
-import com.vip.darker.entity.ResultDTO;
+import com.vip.darker.vo.ResultVO;
 import com.vip.darker.util.Constant;
 import org.elasticsearch.common.lucene.search.function.FiltersFunctionScoreQuery;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -27,7 +28,7 @@ public class MessageESServiceImpl implements MessageESService {
 
     private final MessageESRepository messageESRepository;
     @BKDefinition(value = "接收结果集")
-    private ResultDTO resultDTO = new ResultDTO();
+    private ResultVO resultVO = new ResultVO();
 
     @Autowired
     public MessageESServiceImpl(MessageESRepository messageESRepository) {
@@ -35,75 +36,75 @@ public class MessageESServiceImpl implements MessageESService {
     }
 
     @Override
-    public ResultDTO save(MessageESDTO messageESDTO) {
+    public ResultVO save(MessageESDTO messageESDTO) {
         try {
             messageESRepository.save(messageESDTO);
-            resultDTO.setCode(200);
-            resultDTO.setMsg(Constant.SUCCESS_INSERT);
+            resultVO.setCode(200);
+            resultVO.setMsg(Constant.SUCCESS_INSERT);
         } catch (Exception e) {
-            resultDTO.setCode(500);
-            resultDTO.setMsg(Constant.FAIL_INSERT);
+            resultVO.setCode(500);
+            resultVO.setMsg(Constant.FAIL_INSERT);
         }
-        return resultDTO;
+        return resultVO;
     }
 
     @Override
-    public ResultDTO saveBatch(List<MessageESDTO> messageESDTOList) {
+    public ResultVO saveBatch(List<MessageESDTO> messageESDTOList) {
         try {
             messageESRepository.saveAll(messageESDTOList);
-            resultDTO.setCode(200);
-            resultDTO.setMsg(Constant.SUCCESS_INSERT);
+            resultVO.setCode(200);
+            resultVO.setMsg(Constant.SUCCESS_INSERT);
         } catch (Exception e) {
             e.printStackTrace();
-            resultDTO.setCode(500);
-            resultDTO.setMsg(Constant.FAIL_INSERT);
+            resultVO.setCode(500);
+            resultVO.setMsg(Constant.FAIL_INSERT);
         }
-        return resultDTO;
+        return resultVO;
     }
 
     @Override
-    public ResultDTO delete(Long id) {
+    public ResultVO delete(Long id) {
         try {
             messageESRepository.deleteById(id);
-            resultDTO.setCode(200);
-            resultDTO.setMsg(Constant.SUCCESS_DELETE);
+            resultVO.setCode(200);
+            resultVO.setMsg(Constant.SUCCESS_DELETE);
         } catch (Exception e) {
-            resultDTO.setCode(500);
-            resultDTO.setMsg(Constant.FAIL_DELETE);
+            resultVO.setCode(500);
+            resultVO.setMsg(Constant.FAIL_DELETE);
         }
-        return resultDTO;
+        return resultVO;
 
     }
 
     @Override
-    public ResultDTO deleteBatch(Long[] ids) {
+    public ResultVO deleteBatch(Long[] ids) {
         try {
             for (Long id : ids) {
                 delete(id);
             }
-            resultDTO.setCode(200);
-            resultDTO.setMsg(Constant.SUCCESS_DELETE);
+            resultVO.setCode(200);
+            resultVO.setMsg(Constant.SUCCESS_DELETE);
         } catch (Exception e) {
-            resultDTO.setCode(500);
-            resultDTO.setMsg(Constant.FAIL_DELETE);
+            resultVO.setCode(500);
+            resultVO.setMsg(Constant.FAIL_DELETE);
         }
-        return resultDTO;
+        return resultVO;
     }
 
     @Override
-    public ResultDTO search(Pageable pageable, String key, String val) {
+    public ResultVO search(Pageable pageable, QueryParamDTO queryParamDTO) {
         try {
-            SearchQuery searchQuery = getEntitySearchQuery(pageable, key, val);
-            resultDTO.setCode(200);
-            resultDTO.setMsg(Constant.SUCCESS);
+            SearchQuery searchQuery = getEntitySearchQuery(pageable, queryParamDTO);
+            resultVO.setCode(200);
+            resultVO.setMsg(Constant.SUCCESS);
             Map<String, Object> map = new HashMap<>();
             map.put("message", messageESRepository.search(searchQuery).getContent());
-            resultDTO.setResult(map);
+            resultVO.setResult(map);
         } catch (Exception e) {
-            resultDTO.setCode(500);
-            resultDTO.setMsg(Constant.FAIL);
+            resultVO.setCode(500);
+            resultVO.setMsg(Constant.FAIL);
         }
-        return resultDTO;
+        return resultVO;
     }
 
     @Override
@@ -118,9 +119,9 @@ public class MessageESServiceImpl implements MessageESService {
      * @param: [pageable, key, val]
      * @return: org.springframework.data.elasticsearch.core.query.SearchQuery
      */
-    private SearchQuery getEntitySearchQuery(Pageable pageable, String key, String val) {
+    private SearchQuery getEntitySearchQuery(Pageable pageable, QueryParamDTO queryParamDTO) {
         FunctionScoreQueryBuilder functionScoreQueryBuilder = QueryBuilders.functionScoreQuery(
-                QueryBuilders.matchPhraseQuery(key, val),
+                QueryBuilders.matchPhraseQuery(queryParamDTO.getKey(), queryParamDTO.getVal()),
                 ScoreFunctionBuilders.weightFactorFunction(100))
                 //设置权重分求和模式
                 .scoreMode(FiltersFunctionScoreQuery.ScoreMode.SUM)

@@ -13,7 +13,7 @@ import java.util.Date;
 @BKDefinition(value = "角色权限关系表")
 public class RPRelationDO extends Model<RPRelationDO> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 7207868257509919089L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

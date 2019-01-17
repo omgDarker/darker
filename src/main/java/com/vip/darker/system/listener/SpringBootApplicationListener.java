@@ -8,7 +8,7 @@ import com.vip.darker.service.ArticleService;
 import com.vip.darker.service.ClassifyService;
 import com.vip.darker.service.ColumnService;
 import com.vip.darker.service.StatisticsService;
-import com.vip.darker.properties.PropertiesStat;
+import com.vip.darker.properties.PropertiesStatDTO;
 import com.vip.darker.system.redis.RedisService;
 import com.vip.darker.util.Constant;
 import com.vip.darker.convert.ConvertAttribute;
@@ -43,18 +43,18 @@ public class SpringBootApplicationListener implements ApplicationListener<Contex
         classifyDOList.forEach(opt -> ConvertAttribute.getClassifyMap().put(opt.getId(), opt.getName()));
         // PV
         StatisticsService statisticsService = event.getApplicationContext().getBean(StatisticsService.class);
-        PropertiesStat propertiesStat = event.getApplicationContext().getBean(PropertiesStat.class);
+        PropertiesStatDTO propertiesStatDTO = event.getApplicationContext().getBean(PropertiesStatDTO.class);
         List<StatisticsDO> statisticsDOList = statisticsService.selectList(new EntityWrapper<>());
         statisticsDOList.forEach(opt -> {
             switch (opt.getClassify()) {
                 case "pv":
-                    propertiesStat.setCountPV(opt.getAmount());
+                    propertiesStatDTO.setCountPV(opt.getAmount());
                     break;
                 case "vv":
-                    propertiesStat.setCountVV(opt.getAmount());
+                    propertiesStatDTO.setCountVV(opt.getAmount());
                     break;
                 case "uv":
-                    propertiesStat.setCountUV(opt.getAmount());
+                    propertiesStatDTO.setCountUV(opt.getAmount());
                     break;
             }
         });

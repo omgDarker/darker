@@ -2,7 +2,7 @@ package com.vip.darker.service.base;
 
 import com.vip.darker.elasticsearch.service.MessageESService;
 import com.vip.darker.elasticsearch.service.impl.MessageESServiceImpl;
-import com.vip.darker.properties.PropertiesStat;
+import com.vip.darker.properties.PropertiesStatDTO;
 import com.vip.darker.service.*;
 import com.vip.darker.service.impl.*;
 import com.vip.darker.system.SpringBootApplicationContent;
@@ -177,8 +177,8 @@ public class SpringBootService {
      * @auther: darker
      * @date: 2018/8/28 14:13
      */
-    public static PropertiesStat getPropertiesStat() {
-        return (PropertiesStat) SpringBootApplicationContent.getBean(PropertiesStat.BEAN_NAME);
+    public static PropertiesStatDTO getPropertiesStat() {
+        return (PropertiesStatDTO) SpringBootApplicationContent.getBean(PropertiesStatDTO.BEAN_NAME);
     }
 
     /**

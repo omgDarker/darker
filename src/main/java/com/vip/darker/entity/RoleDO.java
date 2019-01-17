@@ -13,7 +13,7 @@ import java.util.Date;
 @BKDefinition(value = "角色表")
 public class RoleDO extends Model<RoleDO> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 7593645851273874106L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

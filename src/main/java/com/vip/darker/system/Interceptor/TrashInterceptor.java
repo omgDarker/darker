@@ -48,8 +48,8 @@ public class TrashInterceptor implements HandlerInterceptor {
 
             switch (description) {
                 case "resources":
-                    ResourceDo resourceDo = SpringBootService.getResourceService().selectById(dataId);
-                    content = JSONObject.toJSONString(resourceDo);
+                    ResourceDO resourceDO = SpringBootService.getResourceService().selectById(dataId);
+                    content = JSONObject.toJSONString(resourceDO);
                     break;
                 case "classifys":
                     ClassifyDO classifyDO = SpringBootService.getClassifyService().selectById(dataId);

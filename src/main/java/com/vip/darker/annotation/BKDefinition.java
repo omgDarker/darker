@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * @Auther: Darker
  * @Date: 2019/01/09 17:24
- * @Description: DO注解
+ * @Description: 注解
  */
 @Target(value = {ElementType.TYPE, ElementType.METHOD, ElementType.FIELD}) //标注在方法和属性上
 @Retention(value = RetentionPolicy.RUNTIME) //运行时

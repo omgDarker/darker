@@ -12,9 +12,9 @@ import java.util.Date;
 
 @TableName(value = "resource_content")
 @BKDefinition(value = "资源表")
-public class ResourceDo extends Model<ResourceDo> implements Serializable {
+public class ResourceDO extends Model<ResourceDO> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8637447467519786265L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

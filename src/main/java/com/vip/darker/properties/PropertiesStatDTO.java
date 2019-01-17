@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
  * @Date: 2018/8/28 14:30
  * @Description: 流量属性值
  */
-@Component(value = PropertiesStat.BEAN_NAME)
+@Component(value = PropertiesStatDTO.BEAN_NAME)
 @ConfigurationProperties(prefix = "statistics") //.yml文件属性值前缀
-public class PropertiesStat {
+public class PropertiesStatDTO {
 
     public static final String BEAN_NAME = "propertiesStat";
     @BKDefinition(value = "记录浏览量VV")

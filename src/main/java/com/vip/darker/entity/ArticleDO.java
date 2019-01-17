@@ -14,7 +14,7 @@ import java.util.Date;
 @BKDefinition(value = "文章表")
 public class ArticleDO extends Model<ArticleDO> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8000144237693925984L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

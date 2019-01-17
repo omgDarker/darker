@@ -13,7 +13,7 @@ import java.util.Date;
 @BKDefinition(value = "图片表")
 public class ImageDO extends Model<ImageDO> implements Serializable{
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4295588827981208475L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")

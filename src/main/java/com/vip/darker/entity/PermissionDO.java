@@ -13,7 +13,7 @@ import java.util.Date;
 @BKDefinition(value = "权限表")
 public class PermissionDO extends Model<PermissionDO> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7593211504195188014L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")
