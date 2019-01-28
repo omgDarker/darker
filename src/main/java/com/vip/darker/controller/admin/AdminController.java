@@ -2,8 +2,9 @@ package com.vip.darker.controller.admin;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.entity.UserDO;
+import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.Constant;
+import com.vip.darker.utils.ConstantUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,9 +53,9 @@ public class AdminController {
                                 .where("name={0}", userDO.getName())
                                 .and("password={0}", userDO.getPassword())));
         if (opt.isPresent()) {
-            map.put(Constant.MSG, "已存在!");
+            map.put(ConstantUtil.MSG, "已存在!");
         } else {
-            map.put(Constant.MSG, SpringBootService.getUserService().insert(userDO) ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
+            map.put(ConstantUtil.MSG, SpringBootService.getUserService().insert(userDO) ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
         }
         return map;
     }
@@ -73,7 +74,7 @@ public class AdminController {
 
         int count = SpringBootService.getResourceService().selectCount(new EntityWrapper<>());
 
-        modelAndView.addObject("maxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        modelAndView.addObject("maxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return modelAndView;
     }

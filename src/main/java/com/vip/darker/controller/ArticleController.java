@@ -5,9 +5,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.entity.MessageDO;
+import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.Constant;
-import com.vip.darker.util.WebSiteUtil;
+import com.vip.darker.utils.ConstantUtil;
+import com.vip.darker.utils.WebSiteUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,7 +42,7 @@ public class ArticleController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
+        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
 
         return map;
     }
@@ -60,7 +61,7 @@ public class ArticleController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
+        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
 
         return map;
     }
@@ -79,7 +80,7 @@ public class ArticleController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
+        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
@@ -98,7 +99,7 @@ public class ArticleController {
 
         int count = SpringBootService.getArticleService().selectCount(new EntityWrapper<>());
 
-        map.put("articleMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put("articleMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return map;
     }
@@ -187,7 +188,7 @@ public class ArticleController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, SpringBootService.getArticleService().updateById(articleDO) ? Constant.SUCCESS : Constant.FAIL);
+        map.put(ConstantUtil.MSG, SpringBootService.getArticleService().updateById(articleDO) ? OperationStatusEnum.SUCCESS.getName() : OperationStatusEnum.FAIL.getName());
         map.put("likeAmount", likeAmount + 1);
 
         return map;
@@ -211,7 +212,7 @@ public class ArticleController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, SpringBootService.getArticleService().updateById(articleDO) ? Constant.SUCCESS : Constant.FAIL);
+        map.put(ConstantUtil.MSG, SpringBootService.getArticleService().updateById(articleDO) ? OperationStatusEnum.SUCCESS.getName() : OperationStatusEnum.FAIL.getName());
         map.put("likeNoAmount", likeNoAmount + 1);
 
         return map;

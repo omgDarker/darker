@@ -5,8 +5,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.elasticsearch.entity.MessageESDTO;
 import com.vip.darker.entity.MessageDO;
+import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.Constant;
+import com.vip.darker.utils.ConstantUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,7 +71,7 @@ public class MessageController {
         }
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
+        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
@@ -89,7 +90,7 @@ public class MessageController {
 
         int count = SpringBootService.getMessageService().selectCount(new EntityWrapper<>());
 
-        map.put("messageMaxPage", (count - 1) / Constant.PAGE_SIZE + 1);
+        map.put("messageMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
 
         return map;
     }

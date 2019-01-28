@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.Constant;
+import com.vip.darker.utils.ConstantUtil;
 import com.vip.darker.convert.ConvertAttribute;
-import com.vip.darker.util.SessionUtil;
-import com.vip.darker.util.WebSiteUtil;
+import com.vip.darker.utils.SessionUtil;
+import com.vip.darker.utils.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +58,7 @@ public class HomeController {
         // 跳转页
         ModelAndView modelAndView = new ModelAndView(HOME + "/home");
         // redis中取文章列表
-        List<ArticleDO> list = Optional.ofNullable((List<ArticleDO>) SpringBootService.getRedisService().get(Constant.REDIS_KEY_ARTICLE))
+        List<ArticleDO> list = Optional.ofNullable((List<ArticleDO>) SpringBootService.getRedisService().get(ConstantUtil.REDIS_KEY_ARTICLE))
                 .map(opt -> opt.subList((pageNum - 1) * pageSize, pageNum * pageSize > opt.size() ? opt.size() : pageNum * pageSize))
                 .orElse(SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleDO>().orderDesc(Collections.singletonList("updateTime"))).getRecords());
 

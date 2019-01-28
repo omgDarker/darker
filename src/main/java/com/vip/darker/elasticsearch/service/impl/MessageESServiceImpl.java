@@ -5,8 +5,8 @@ import com.vip.darker.elasticsearch.dao.MessageESRepository;
 import com.vip.darker.elasticsearch.entity.MessageESDTO;
 import com.vip.darker.elasticsearch.entity.QueryParamDTO;
 import com.vip.darker.elasticsearch.service.MessageESService;
+import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.vo.ResultVO;
-import com.vip.darker.util.Constant;
 import org.elasticsearch.common.lucene.search.function.FiltersFunctionScoreQuery;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
@@ -40,10 +40,10 @@ public class MessageESServiceImpl implements MessageESService {
         try {
             messageESRepository.save(messageESDTO);
             resultVO.setCode(200);
-            resultVO.setMsg(Constant.SUCCESS_INSERT);
+            resultVO.setMsg(OperationStatusEnum.SUCCESS_INSERT.getName());
         } catch (Exception e) {
             resultVO.setCode(500);
-            resultVO.setMsg(Constant.FAIL_INSERT);
+            resultVO.setMsg(OperationStatusEnum.FAIL_INSERT.getName());
         }
         return resultVO;
     }
@@ -53,11 +53,11 @@ public class MessageESServiceImpl implements MessageESService {
         try {
             messageESRepository.saveAll(messageESDTOList);
             resultVO.setCode(200);
-            resultVO.setMsg(Constant.SUCCESS_INSERT);
+            resultVO.setMsg(OperationStatusEnum.SUCCESS_INSERT.getName());
         } catch (Exception e) {
             e.printStackTrace();
             resultVO.setCode(500);
-            resultVO.setMsg(Constant.FAIL_INSERT);
+            resultVO.setMsg(OperationStatusEnum.FAIL_INSERT.getName());
         }
         return resultVO;
     }
@@ -67,10 +67,10 @@ public class MessageESServiceImpl implements MessageESService {
         try {
             messageESRepository.deleteById(id);
             resultVO.setCode(200);
-            resultVO.setMsg(Constant.SUCCESS_DELETE);
+            resultVO.setMsg(OperationStatusEnum.SUCCESS_DELETE.getName());
         } catch (Exception e) {
             resultVO.setCode(500);
-            resultVO.setMsg(Constant.FAIL_DELETE);
+            resultVO.setMsg(OperationStatusEnum.FAIL_DELETE.getName());
         }
         return resultVO;
 
@@ -83,10 +83,10 @@ public class MessageESServiceImpl implements MessageESService {
                 delete(id);
             }
             resultVO.setCode(200);
-            resultVO.setMsg(Constant.SUCCESS_DELETE);
+            resultVO.setMsg(OperationStatusEnum.SUCCESS_DELETE.getName());
         } catch (Exception e) {
             resultVO.setCode(500);
-            resultVO.setMsg(Constant.FAIL_DELETE);
+            resultVO.setMsg(OperationStatusEnum.FAIL_DELETE.getName());
         }
         return resultVO;
     }
@@ -96,13 +96,13 @@ public class MessageESServiceImpl implements MessageESService {
         try {
             SearchQuery searchQuery = getEntitySearchQuery(pageable, queryParamDTO);
             resultVO.setCode(200);
-            resultVO.setMsg(Constant.SUCCESS);
+            resultVO.setMsg(OperationStatusEnum.SUCCESS.getName());
             Map<String, Object> map = new HashMap<>();
             map.put("message", messageESRepository.search(searchQuery).getContent());
             resultVO.setResult(map);
         } catch (Exception e) {
             resultVO.setCode(500);
-            resultVO.setMsg(Constant.FAIL);
+            resultVO.setMsg(OperationStatusEnum.FAIL.getName());
         }
         return resultVO;
     }

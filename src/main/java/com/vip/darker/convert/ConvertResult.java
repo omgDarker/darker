@@ -1,7 +1,7 @@
 package com.vip.darker.convert;
 
+import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.vo.ResultVO;
-import com.vip.darker.util.Constant;
 
 import java.util.Map;
 
@@ -23,7 +23,7 @@ public class ConvertResult {
         model.setResult(map);
         switch (code) {
             case 0:
-                model.setMsg(Constant.SUCCESS);
+                model.setMsg(OperationStatusEnum.SUCCESS.getName());
                 break;
             case 404:
                 model.setMsg("404");
@@ -32,7 +32,7 @@ public class ConvertResult {
                 model.setMsg("500");
                 break;
             default:
-                model.setMsg(Constant.FAIL);
+                model.setMsg(OperationStatusEnum.FAIL.getName());
                 break;
         }
         return model;

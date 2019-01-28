@@ -1,4 +1,4 @@
-package com.vip.darker.util;
+package com.vip.darker.utils;
 
 import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;

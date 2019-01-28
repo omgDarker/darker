@@ -1,4 +1,4 @@
-package com.vip.darker.util;
+package com.vip.darker.utils;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.maxmind.geoip2.DatabaseReader;

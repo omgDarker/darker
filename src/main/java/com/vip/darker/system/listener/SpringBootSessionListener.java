@@ -1,7 +1,7 @@
 package com.vip.darker.system.listener;
 
 import com.vip.darker.entity.UserDO;
-import com.vip.darker.util.SessionUtil;
+import com.vip.darker.utils.SessionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

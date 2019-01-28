@@ -1,58 +1,28 @@
 [BK]个人博客-搬砖King的成长之路
 ====
-网站首页
+网站首页视图
 -------
 ![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/index.png)
-博客首页
+
+博客首页视图
 -------
 ![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/index_home.png)
 
-* 网站首页
-
-* 关于我
-
-* 视觉冲击
-
-* 生活点滴 技术联盟
-
-* 留言板
-
-登录页面
+登录视图
 -------
 ![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/admin_login.png)
-管理页面
+
+管理视图
 -------
 ![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/admin_home.png)
 
-* 资源模块(待使用)
+技术架构
+-------
+![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/BK_FM.png)
 
-* 用户模块
-
-* 角色模块
-
-* 权限模块
-
-* 分类模块
-
-* 栏目模块
-
-* 回收站模块
-
-* 日记模块(舍弃)
-
-* 文章模块
-
-* 图片模块
-
-* 留言板模块
-
-* 表信息模块
-
-* 表操作模块(舍弃)
-
-* 统计模块
-
-* 监控模块(舍弃)
+功能模块
+-------
+![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/BK_TA.png)
 
 404 500页面
 -------
@@ -64,20 +34,7 @@
 druid
 -------
 
-http://127.0.0.1/druid/index.html
-
-架构设计
--------
-
-* 前端 Bootstrap(样式) Themeleaf(模板引擎) SweetAlert(弹窗) ECharts(图表)
-
-* 后端 SpringBoot MybatisPlus
-
-* 组件 wangEditor(富文本框) fileInput(图片上传) jqPaginator(分页)
-
-* 数据库 MySQL Redis(缓存)
-
-* 缓存策略 1.更新数据库 2.删除缓存(AOP后置事件处理)
+http://host:ip/druid/index.html
 
 API
 -------

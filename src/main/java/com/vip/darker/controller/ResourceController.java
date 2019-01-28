@@ -2,8 +2,9 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.entity.ResourceDO;
+import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.util.Constant;
+import com.vip.darker.utils.ConstantUtil;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class ResourceController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_INSERT : Constant.FAIL_INSERT);
+        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
 
         return map;
     }
@@ -52,7 +53,7 @@ public class ResourceController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_UPDATE : Constant.FAIL_UPDATE);
+        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
 
         return map;
     }
@@ -71,7 +72,7 @@ public class ResourceController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(Constant.MSG, flag ? Constant.SUCCESS_DELETE : Constant.FAIL_DELETE);
+        map.put(ConstantUtil.MSG, flag ?  OperationStatusEnum.SUCCESS_DELETE.getName() :  OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
