@@ -16,11 +16,11 @@
 -------
 ![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/admin_home.png)
 
-技术架构
+功能模块
 -------
 ![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/BK_FM.png)
 
-功能模块
+技术架构
 -------
 ![image](https://github.com/omgDarker/darker/blob/master/src/main/resources/static/images/github/BK_TA.png)
 
