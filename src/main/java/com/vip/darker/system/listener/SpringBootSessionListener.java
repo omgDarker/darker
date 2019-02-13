@@ -1,7 +1,7 @@
 package com.vip.darker.system.listener;
 
 import com.vip.darker.entity.UserDO;
-import com.vip.darker.utils.SessionUtil;
+import com.vip.darker.util.SessionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @Auther: Darker
@@ -19,7 +20,7 @@ import java.util.Optional;
 @WebListener
 public class SpringBootSessionListener implements HttpSessionListener {
 
-    private int onLine = 0;
+    private AtomicInteger onLine = new AtomicInteger(0);
 
     private Logger logger = LoggerFactory.getLogger(SpringBootSessionListener.class);
 
@@ -31,8 +32,8 @@ public class SpringBootSessionListener implements HttpSessionListener {
      * @return: void
      */
     @Override
-    public synchronized void sessionCreated(HttpSessionEvent event) {
-        onLine++;
+    public void sessionCreated(HttpSessionEvent event) {
+        onLine.getAndIncrement();
         event.getSession().getServletContext().setAttribute("number", onLine);
         logger.info("{}:当前在线人数:{}", "sessionCreated", onLine);
     }
@@ -46,8 +47,8 @@ public class SpringBootSessionListener implements HttpSessionListener {
      */
     @Override
     @SuppressWarnings("unchecked")
-    public synchronized void sessionDestroyed(HttpSessionEvent event) {
-        onLine--;
+    public void sessionDestroyed(HttpSessionEvent event) {
+        onLine.getAndDecrement();
         event.getSession().getServletContext().setAttribute("number", onLine);
         logger.info("{}:当前在线人数:{}", "sessionDestroyed", onLine);
         // 销毁退出用户

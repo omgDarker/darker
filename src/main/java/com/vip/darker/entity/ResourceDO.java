@@ -1,11 +1,11 @@
 package com.vip.darker.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.vip.darker.annotation.BKDefinition;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -26,16 +26,20 @@ public class ResourceDO extends Model<ResourceDO> implements Serializable {
     @BKDefinition(value = "路径")
     private String path;
     @BKDefinition(value = "父节点名称")
+    @TableField(value = "parent_name")
     private String parentName;
-    @BKDefinition(value = "分类名称") // 此字段无意义
+    @BKDefinition(value = "分类名称")
     private String classify;
     @BKDefinition(value = "标识:是否删除")
-    private Integer isDelete;
+    @TableField(value = "is_deleted")
+    private Integer deleted;
     @BKDefinition(value = "创建人")
     private String creator;
     @BKDefinition(value = "创建时间")
+    @TableField(value = "create_time")
     private Date createTime;
     @BKDefinition(value = "更新时间")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     public Integer getId() {
@@ -86,16 +90,12 @@ public class ResourceDO extends Model<ResourceDO> implements Serializable {
         this.classify = classify;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public Integer getDeleted() {
+        return deleted;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        if (isDelete != null) {
-            this.isDelete = isDelete;
-        } else {
-            this.isDelete = 0;
-        }
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     public String getCreator() {
@@ -103,12 +103,7 @@ public class ResourceDO extends Model<ResourceDO> implements Serializable {
     }
 
     public void setCreator(String creator) {
-        if (StringUtils.isNotBlank(creator)) {
-            this.creator = creator;
-        } else {
-            this.creator = "darker";
-        }
-
+        this.creator = creator;
     }
 
     public Date getCreateTime() {
@@ -116,11 +111,7 @@ public class ResourceDO extends Model<ResourceDO> implements Serializable {
     }
 
     public void setCreateTime(Date createTime) {
-        if (createTime != null) {
-            this.createTime = createTime;
-        } else {
-            this.createTime = new Date();
-        }
+        this.createTime = createTime;
     }
 
     public Date getUpdateTime() {

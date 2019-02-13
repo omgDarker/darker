@@ -1,4 +1,4 @@
-package com.vip.darker.utils;
+package com.vip.darker.util;
 
 import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
@@ -24,7 +24,7 @@ public class SessionUtil {
      * @param sessionId
      * @return
      */
-    public static UserDO getUserBySessionId(List<UserDO> list, String sessionId) {
+     public static UserDO getUserBySessionId(List<UserDO> list, String sessionId) {
         if (list != null && list.size() > 0) {
             for (UserDO user : list) {
                 if (user.getSessionId().equals(sessionId)) {

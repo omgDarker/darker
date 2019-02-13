@@ -10,7 +10,7 @@ import com.vip.darker.service.ColumnService;
 import com.vip.darker.service.StatisticsService;
 import com.vip.darker.properties.PropertiesStatDTO;
 import com.vip.darker.system.redis.RedisService;
-import com.vip.darker.utils.ConstantUtil;
+import com.vip.darker.constant.ConfigConstant;
 import com.vip.darker.convert.ConvertAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +62,7 @@ public class SpringBootApplicationListener implements ApplicationListener<Contex
         RedisService redisService = event.getApplicationContext().getBean(RedisService.class);
         ArticleService articleService = event.getApplicationContext().getBean(ArticleService.class);
         try {
-            redisService.set(ConstantUtil.REDIS_KEY_ARTICLE, articleService.selectList(new EntityWrapper<>()));
+            redisService.set(ConfigConstant.REDIS_KEY_ARTICLE, articleService.selectList(new EntityWrapper<>()));
         } catch (Exception e) {
             logger.info("[redis异常,请检查服务是否启动、用户密码是否设置!]");
         }

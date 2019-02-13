@@ -6,7 +6,7 @@ import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.entity.ImageDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.utils.ConstantUtil;
+import com.vip.darker.constant.ConfigConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +46,7 @@ public class ImageController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
+        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
 
         return map;
     }
@@ -65,7 +65,7 @@ public class ImageController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
+        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
 
         return map;
     }
@@ -84,7 +84,7 @@ public class ImageController {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(ConstantUtil.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
+        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
@@ -103,7 +103,7 @@ public class ImageController {
 
         int count = SpringBootService.getImageService().selectCount(new EntityWrapper<>());
 
-        map.put("imageMaxPage", (count - 1) / (ConstantUtil.PAGE_SIZE + 2) + 1);
+        map.put("imageMaxPage", (count - 1) / (ConfigConstant.PAGE_SIZE + 2) + 1);
 
         return map;
     }
@@ -153,7 +153,7 @@ public class ImageController {
                 // 获取上传文件原始名称
                 String oldImageName = opt.getOriginalFilename();
                 // 存储图片的虚拟本地路径
-                String saveImagePath = ConstantUtil.IMAGE_PATH;
+                String saveImagePath = ConfigConstant.IMAGE_PATH;
                 // 上传图片
                 if (Objects.requireNonNull(oldImageName).length() > 0) {
                     // 新图片名称
@@ -163,10 +163,10 @@ public class ImageController {
                     // 将内存中的数据写入磁盘
                     opt.transferTo(newImage);
                     // 将新图片名称返回前端
-                    map.put(ConstantUtil.MSG, OperationStatusEnum.SUCCESS_UPLOAD.getName());
+                    map.put(ConfigConstant.MSG, OperationStatusEnum.SUCCESS_UPLOAD.getName());
                     map.put("myImage", newImageName);
                 } else {
-                    map.put(ConstantUtil.MSG, OperationStatusEnum.FAIL_UPLOAD.getName());
+                    map.put(ConfigConstant.MSG, OperationStatusEnum.FAIL_UPLOAD.getName());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -185,7 +185,7 @@ public class ImageController {
     @RequestMapping(value = "/images/show/{imageName}", method = RequestMethod.GET)
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
         try {
-            FileInputStream fis = new FileInputStream(ConstantUtil.IMAGE_PATH + "/" + imageName);
+            FileInputStream fis = new FileInputStream(ConfigConstant.IMAGE_PATH + "/" + imageName);
             // 获取文件大小
             int size = fis.available();
             // 设置读取字节数
@@ -204,7 +204,7 @@ public class ImageController {
             os.close();
             fis.close();
         } catch (Exception e) {
-            logger.info("[系统找不到指定文件]:" + ConstantUtil.IMAGE_PATH + "/" + imageName);
+            logger.info("[系统找不到指定文件]:" + ConfigConstant.IMAGE_PATH + "/" + imageName);
         }
     }
 
@@ -220,7 +220,7 @@ public class ImageController {
 
         ModelAndView modelAndView = new ModelAndView("home/image");
         // 图片列表
-        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageDO>().where("classifyId={0} ", classifyId)));
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageDO>().where("classify_id={0} ", classifyId)));
         // 栏目列表
         modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
 
@@ -240,7 +240,7 @@ public class ImageController {
 
         ModelAndView modelAndView = new ModelAndView("home/image");
         // 图片列表
-        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageDO>().where("classifyId={0} ", classifyId).and("columnId={0}", columnId)));
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageDO>().where("classify_id={0} ", classifyId).and("column_id={0}", columnId)));
         // 栏目列表
         modelAndView.addObject("columnList", ConvertAttribute.getColumnList());
         // 栏目名称

@@ -3,7 +3,7 @@ package com.vip.darker.system.aop;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.utils.ConstantUtil;
+import com.vip.darker.constant.ConfigConstant;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -52,7 +52,7 @@ public class ArticleAspect {
         articleDO.setReadAmount(Integer.valueOf(map.get("readAmount").toString()) + 1);
         SpringBootService.getArticleService().updateById(articleDO);
         // 清空redis缓存
-        SpringBootService.getRedisService().delKey(new String[]{ConstantUtil.REDIS_KEY_ARTICLE});
+        SpringBootService.getRedisService().delKey(new String[]{ConfigConstant.REDIS_KEY_ARTICLE});
     }
 
     /**
@@ -64,6 +64,6 @@ public class ArticleAspect {
      */
     @After(value = "deleteCache()")
     public void deleteCache(JoinPoint point) {
-        SpringBootService.getRedisService().delKey(new String[]{ConstantUtil.REDIS_KEY_ARTICLE});
+        SpringBootService.getRedisService().delKey(new String[]{ConfigConstant.REDIS_KEY_ARTICLE});
     }
 }

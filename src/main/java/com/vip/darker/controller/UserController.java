@@ -8,8 +8,8 @@ import com.vip.darker.entity.RoleDO;
 import com.vip.darker.entity.URRelationDO;
 import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.utils.ConstantUtil;
-import com.vip.darker.utils.WebSiteUtil;
+import com.vip.darker.constant.ConfigConstant;
+import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -184,7 +184,7 @@ public class UserController {
 
         int count = SpringBootService.getUserService().selectCount(new EntityWrapper<>());
 
-        map.put("userMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("userMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -300,7 +300,7 @@ public class UserController {
 
         int count = SpringBootService.getRoleService().selectCount(new EntityWrapper<>());
 
-        map.put("roleMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("roleMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -403,7 +403,7 @@ public class UserController {
 
         int count = SpringBootService.getPermissionService().selectCount(new EntityWrapper<>());
 
-        map.put("permissionMaxPage", (count - 1) / ConstantUtil.PAGE_SIZE + 1);
+        map.put("permissionMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
 
         return map;
     }

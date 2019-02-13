@@ -1,6 +1,7 @@
 package com.vip.darker.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -19,6 +20,7 @@ public class StatisticsDO extends Model<StatisticsDO> implements Serializable {
     @BKDefinition(value = "主键ID")
     private Integer id;
     @BKDefinition(value = "内容ID")
+    @TableField(value = "content_id")
     private Integer contentId;
     @BKDefinition(value = "内容")
     private String content;
@@ -27,12 +29,15 @@ public class StatisticsDO extends Model<StatisticsDO> implements Serializable {
     @BKDefinition(value = "分类")
     private String classify;
     @BKDefinition(value = "标识:是否删除")
-    private Integer isDelete;
+    @TableField(value = "is_deleted")
+    private Integer deleted;
     @BKDefinition(value = "创建人")
     private String creator;
     @BKDefinition(value = "创建时间")
+    @TableField(value = "create_time")
     private Date createTime;
     @BKDefinition(value = "更新时间")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     public Integer getId() {
@@ -75,12 +80,12 @@ public class StatisticsDO extends Model<StatisticsDO> implements Serializable {
         this.classify = classify;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public Integer getDeleted() {
+        return deleted;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     public String getCreator() {

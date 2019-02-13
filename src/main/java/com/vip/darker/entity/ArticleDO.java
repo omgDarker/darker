@@ -26,30 +26,39 @@ public class ArticleDO extends Model<ArticleDO> implements Serializable {
     @BKDefinition(value = "内容")
     private String content;
     @BKDefinition(value = "首图名称")
+    @TableField(value = "image_name")
     private String imageName;
     @BKDefinition(value = "阅读量")
+    @TableField(value = "read_amount")
     private Integer readAmount;
     @BKDefinition(value = "点赞量")
+    @TableField(value = "like_amount")
     private Integer likeAmount;
     @BKDefinition(value = "甩鞋量")
+    @TableField(value = "like_no_amount")
     private Integer likeNoAmount;
     @BKDefinition(value = "分类ID")
+    @TableField(value = "classify_id")
     private Integer classifyId;
     @BKDefinition(value = "栏目ID")
+    @TableField(value = "column_id")
     private Integer columnId;
-    @TableField(exist = false)
     @BKDefinition(value = "分类名称")
+    @TableField(exist = false)
     private String classifyName;
     @BKDefinition(value = "栏目名称")
     @TableField(exist = false)
     private String columnName;
-    @BKDefinition(value = "标识:是否删除")
-    private Integer isDelete;
+    @BKDefinition(value = "标识:是否删除(增加is会引起RPC框架解析序列化错误)")
+    @TableField(value = "is_deleted")
+    private Integer deleted;
     @BKDefinition(value = "创建人")
     private String creator;
     @BKDefinition(value = "创建时间")
+    @TableField(value = "create_time")
     private Date createTime;
     @BKDefinition(value = "更新时间")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     public Integer getId() {
@@ -148,12 +157,12 @@ public class ArticleDO extends Model<ArticleDO> implements Serializable {
         this.columnName = columnName;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public Integer getDeleted() {
+        return deleted;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     public String getCreator() {
@@ -178,6 +187,29 @@ public class ArticleDO extends Model<ArticleDO> implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "ArticleDO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", summary='" + summary + '\'' +
+                ", content='" + content + '\'' +
+                ", imageName='" + imageName + '\'' +
+                ", readAmount=" + readAmount +
+                ", likeAmount=" + likeAmount +
+                ", likeNoAmount=" + likeNoAmount +
+                ", classifyId=" + classifyId +
+                ", columnId=" + columnId +
+                ", classifyName='" + classifyName + '\'' +
+                ", columnName='" + columnName + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 
     @Override

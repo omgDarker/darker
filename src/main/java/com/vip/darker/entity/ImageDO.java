@@ -1,6 +1,7 @@
 package com.vip.darker.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -11,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "content_image")
 @BKDefinition(value = "图片表")
-public class ImageDO extends Model<ImageDO> implements Serializable{
+public class ImageDO extends Model<ImageDO> implements Serializable {
 
     private static final long serialVersionUID = 4295588827981208475L;
 
@@ -25,20 +26,27 @@ public class ImageDO extends Model<ImageDO> implements Serializable{
     @BKDefinition(value = "名称")
     private String name;
     @BKDefinition(value = "阅读量")
+    @TableField(value = "read_amount")
     private Integer readAmount;
     @BKDefinition(value = "点赞量")
+    @TableField(value = "like_amount")
     private Integer likeAmount;
     @BKDefinition(value = "分类ID")
+    @TableField(value = "classify_id")
     private Integer classifyId;
     @BKDefinition(value = "栏目ID")
+    @TableField(value = "column_id")
     private Integer columnId;
     @BKDefinition(value = "标识:是否删除")
-    private Integer isDelete;
+    @TableField(value = "is_deleted")
+    private Integer deleted;
     @BKDefinition(value = "创建人")
     private String creator;
     @BKDefinition(value = "创建时间")
+    @TableField(value = "create_time")
     private Date createTime;
     @BKDefinition(value = "更新时间")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     public Integer getId() {
@@ -105,12 +113,12 @@ public class ImageDO extends Model<ImageDO> implements Serializable{
         this.columnId = columnId;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
+    public Integer getDeleted() {
+        return deleted;
     }
 
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     public String getCreator() {

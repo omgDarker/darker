@@ -1,4 +1,4 @@
-package com.vip.darker.utils;
+package com.vip.darker.constant;
 
 import com.vip.darker.annotation.BKDefinition;
 
@@ -6,9 +6,9 @@ import com.vip.darker.annotation.BKDefinition;
  * @Auther: Darker
  * @Date: 2018/7/26 15:27
  * @DateUpdate: 2018/10/17
- * @Description: 常量类
+ * @Description: 系统配置常量类
  */
-public class ConstantUtil {
+public class ConfigConstant {
 
     @BKDefinition(value = "每页条数")
     public static final int PAGE_SIZE = 10;

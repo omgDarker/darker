@@ -1,4 +1,4 @@
-package com.vip.darker.utils;
+package com.vip.darker.util;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.maxmind.geoip2.DatabaseReader;
@@ -44,7 +44,7 @@ public class WebSiteUtil {
         // 友情列表
         modelAndView.addObject("linkList", SpringBootService.getLinkService().selectList(new EntityWrapper<>()));
         // 图片列表
-        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageDO>().ne("columnId", "9")));
+        modelAndView.addObject("imageList", SpringBootService.getImageService().selectList(new EntityWrapper<ImageDO>().ne("column_id", "9")));
         // 文章列表<阅读排行>
         modelAndView.addObject("readAmountList", WebSiteUtil.setColumnNameList(SpringBootService.getArticleService().selectList(new EntityWrapper<ArticleDO>().orderDesc(Collections.singletonList("readAmount")).last("LIMIT 5"))));
         // 文章列表<博主推荐>
