@@ -12,9 +12,9 @@ import java.util.Date;
 
 @TableName(value = "blog_user")
 @BKDefinition(value = "用户表")
-public class UserDO extends Model<UserDO> implements Serializable {
+public class UserDO extends Model<UserDO> {
 
-    private static final long serialVersionUID = 4948161550343850108L;
+    private static final long serialVersionUID = 409196026452916837L;
 
     @TableId(value = "id", type = IdType.AUTO)
     @BKDefinition(value = "主键ID")
@@ -146,5 +146,24 @@ public class UserDO extends Model<UserDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "UserDO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", area='" + area + '\'' +
+                ", ip='" + ip + '\'' +
+                ", sessionId='" + sessionId + '\'' +
+                ", loginTime='" + loginTime + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

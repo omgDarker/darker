@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "blog_role")
 @BKDefinition(value = "角色表")
-public class RoleDO extends Model<RoleDO> implements Serializable {
+public class RoleDO extends Model<RoleDO> {
 
     private static final long serialVersionUID = 7593645851273874106L;
 
@@ -94,5 +94,19 @@ public class RoleDO extends Model<RoleDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "RoleDO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

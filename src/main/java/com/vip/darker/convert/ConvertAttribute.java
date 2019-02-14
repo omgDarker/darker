@@ -13,11 +13,18 @@ import java.util.Map;
  * @Description: 属性值转换工具类 初始化由SpringBootApplicationListener监听器填充数据
  */
 public class ConvertAttribute {
-    // 栏目
+
+    /**
+     * 栏目
+     */
     private static Map<Integer, String> columnMap = new HashMap<>();
-    // 分类
+    /**
+     * 分类
+     */
     private static Map<Integer, String> classifyMap = new HashMap<>();
-    // 栏目列表
+    /**
+     * 栏目列表
+     */
     private static List<ColumnDO> columnList = new ArrayList<>();
 
     public static Map<Integer, String> getColumnMap() {

@@ -2,10 +2,10 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.vip.darker.constant.CommonConstant;
 import com.vip.darker.entity.ClassifyDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.constant.ConfigConstant;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,6 +21,11 @@ import java.util.Map;
 public class ClassifyController {
 
     /**
+     * 操作结果集
+     */
+    Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
+
+    /**
      * @description:分类新增
      * @auther: WBA
      * @date: 2018/12/11 16:47
@@ -32,9 +37,7 @@ public class ClassifyController {
 
         boolean flag = SpringBootService.getClassifyService().insert(classifyDO);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
 
         return map;
     }
@@ -51,9 +54,7 @@ public class ClassifyController {
 
         boolean flag = SpringBootService.getClassifyService().updateById(classifyDO);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
 
         return map;
     }
@@ -70,9 +71,7 @@ public class ClassifyController {
 
         boolean flag = SpringBootService.getClassifyService().deleteById(id);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
@@ -112,11 +111,9 @@ public class ClassifyController {
     @RequestMapping(value = "/classifys/page", method = RequestMethod.GET)
     public Map<String, Object> getClassifyPage() {
 
-        Map<String, Object> map = new HashMap<>();
-
         int count = SpringBootService.getClassifyService().selectCount(new EntityWrapper<>());
 
-        map.put("classifyMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
+        map.put("classifyMaxPage", (count - 1) / CommonConstant.PAGE_SIZE + 1);
 
         return map;
     }

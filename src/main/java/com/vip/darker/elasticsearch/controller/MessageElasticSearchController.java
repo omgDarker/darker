@@ -1,6 +1,6 @@
 package com.vip.darker.elasticsearch.controller;
 
-import com.vip.darker.elasticsearch.entity.MessageESDTO;
+import com.vip.darker.elasticsearch.entity.MessageElaticsSearchDTO;
 import com.vip.darker.elasticsearch.entity.QueryParamDTO;
 import com.vip.darker.vo.ResultVO;
 import com.vip.darker.service.base.SpringBootService;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/message")
-public class MessageESController {
+public class MessageElasticSearchController {
 
     /**
      * @description:索引新增
@@ -26,8 +26,8 @@ public class MessageESController {
      * @return: java.lang.String
      */
     @PostMapping("/add/index")
-    public ResultVO addIndex(@RequestBody List<MessageESDTO> messageESDTOList) {
-        return SpringBootService.getMessageESService().saveBatch(messageESDTOList);
+    public ResultVO addIndex(@RequestBody List<MessageElaticsSearchDTO> messageElaticsSearchDTOList) {
+        return SpringBootService.getMessageESService().saveBatch(messageElaticsSearchDTOList);
     }
 
     /**

@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "content_article")
 @BKDefinition(value = "文章表")
-public class ArticleDO extends Model<ArticleDO> implements Serializable {
+public class ArticleDO extends Model<ArticleDO> {
 
     private static final long serialVersionUID = 8000144237693925984L;
 
@@ -190,6 +190,11 @@ public class ArticleDO extends Model<ArticleDO> implements Serializable {
     }
 
     @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+
+    @Override
     public String toString() {
         super.toString();
         return "ArticleDO{" +
@@ -210,10 +215,5 @@ public class ArticleDO extends Model<ArticleDO> implements Serializable {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
-    }
-
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
     }
 }

@@ -8,17 +8,17 @@ import java.util.Map;
 public class ResultVO {
 
     @BKDefinition(value = "操作码")
-    private int code;
+    private Integer code;
     @BKDefinition(value = "操作信息")
     private String msg;
     @BKDefinition(value = "结果集")
     private Map<String, Object> result;
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -36,5 +36,14 @@ public class ResultVO {
 
     public void setResult(Map<String, Object> result) {
         this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return "ResultVO{" +
+                "code=" + code +
+                ", msg='" + msg + '\'' +
+                ", result=" + result +
+                '}';
     }
 }

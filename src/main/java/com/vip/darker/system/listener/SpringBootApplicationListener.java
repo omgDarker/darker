@@ -1,17 +1,17 @@
 package com.vip.darker.system.listener;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.vip.darker.constant.CommonConstant;
+import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.entity.ClassifyDO;
 import com.vip.darker.entity.ColumnDO;
 import com.vip.darker.entity.StatisticsDO;
+import com.vip.darker.properties.PropertiesStatDTO;
 import com.vip.darker.service.ArticleService;
 import com.vip.darker.service.ClassifyService;
 import com.vip.darker.service.ColumnService;
 import com.vip.darker.service.StatisticsService;
-import com.vip.darker.properties.PropertiesStatDTO;
 import com.vip.darker.system.redis.RedisService;
-import com.vip.darker.constant.ConfigConstant;
-import com.vip.darker.convert.ConvertAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @Auther: Darker
  * @Date: 2018/11/15 14:13
- * @Description: spring容器初始化后 加载常用数据
+ * @Description: spring容器初始化后, 加载常用数据
  */
 @Component
 public class SpringBootApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -56,13 +56,16 @@ public class SpringBootApplicationListener implements ApplicationListener<Contex
                 case "uv":
                     propertiesStatDTO.setCountUV(opt.getAmount());
                     break;
+                default:
+                    logger.info("[spring容器初始化后,{}类型数据未加载!]", opt.getClassify());
+                    break;
             }
         });
         // redis缓存
         RedisService redisService = event.getApplicationContext().getBean(RedisService.class);
         ArticleService articleService = event.getApplicationContext().getBean(ArticleService.class);
         try {
-            redisService.set(ConfigConstant.REDIS_KEY_ARTICLE, articleService.selectList(new EntityWrapper<>()));
+            redisService.set(CommonConstant.REDIS_KEY_ARTICLE, articleService.selectList(new EntityWrapper<>()));
         } catch (Exception e) {
             logger.info("[redis异常,请检查服务是否启动、用户密码是否设置!]");
         }

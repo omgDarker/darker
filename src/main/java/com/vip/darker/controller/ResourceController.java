@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.entity.ResourceDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.constant.ConfigConstant;
+import com.vip.darker.constant.CommonConstant;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,6 +21,11 @@ import java.util.Map;
 public class ResourceController {
 
     /**
+     * 操作结果集
+     */
+    Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
+
+    /**
      * @description:资源新增
      * @auther: WBA
      * @date: 2018/12/11 16:58
@@ -32,9 +37,7 @@ public class ResourceController {
 
         boolean flag = SpringBootService.getResourceService().insert(resourceDO);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
 
         return map;
     }
@@ -51,9 +54,7 @@ public class ResourceController {
 
         boolean flag = SpringBootService.getResourceService().updateById(resourceDO);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
 
         return map;
     }
@@ -70,9 +71,7 @@ public class ResourceController {
 
         boolean flag = SpringBootService.getResourceService().deleteById(id);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ?  OperationStatusEnum.SUCCESS_DELETE.getName() :  OperationStatusEnum.FAIL_DELETE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }

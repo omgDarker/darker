@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "blog_permission")
 @BKDefinition(value = "权限表")
-public class PermissionDO extends Model<PermissionDO> implements Serializable {
+public class PermissionDO extends Model<PermissionDO> {
 
     private static final long serialVersionUID = -7593211504195188014L;
 
@@ -94,5 +94,19 @@ public class PermissionDO extends Model<PermissionDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "PermissionDO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

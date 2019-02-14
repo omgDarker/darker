@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.record.Country;
+import com.vip.darker.constant.AttributeConstant;
+import com.vip.darker.constant.HttpConstant;
 import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.entity.ColumnDO;
@@ -95,15 +97,15 @@ public class WebSiteUtil {
      */
     static String getIpAddr(HttpServletRequest request) {
         String ipAddress = request.getHeader("x-forwarded-for");
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        if (ipAddress == null || ipAddress.length() == 0 || AttributeConstant.UNKNOWN.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("Proxy-Client-IP");
         }
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        if (ipAddress == null || ipAddress.length() == 0 || AttributeConstant.UNKNOWN.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        if (ipAddress == null || ipAddress.length() == 0 || AttributeConstant.UNKNOWN.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
-            if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")) {
+            if (ipAddress.equals(HttpConstant.LOCAL_IP) || ipAddress.equals(HttpConstant.LOCAL_SECOND_IP)) {
                 // 根据网卡取本机配置的IP
                 InetAddress inet = null;
                 try {
@@ -131,7 +133,9 @@ public class WebSiteUtil {
      */
     public static String getCountryNameByIp(String ip) {
 
-        if ("127.0.0.1".equals(ip) || "192.168.1.197".equals(ip) || "".equals(ip)) return "中国";
+        if (HttpConstant.LOCAL_IP.equals(ip) || HttpConstant.HOST_IP.equals(ip) || "".equals(ip)) {
+            return "中国";
+        }
 
         try {
             // 创建GeoLite2数据库

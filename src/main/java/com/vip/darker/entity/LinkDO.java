@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "content_link")
 @BKDefinition(value = "链接表")
-public class LinkDO extends Model<LinkDO> implements Serializable {
+public class LinkDO extends Model<LinkDO> {
 
     private static final long serialVersionUID = -9060328236523773117L;
 
@@ -104,5 +104,20 @@ public class LinkDO extends Model<LinkDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "LinkDO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", description='" + description + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

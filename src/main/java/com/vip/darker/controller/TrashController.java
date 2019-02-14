@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.entity.TrashDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.constant.ConfigConstant;
+import com.vip.darker.constant.CommonConstant;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,6 +21,11 @@ import java.util.Map;
 public class TrashController {
 
     /**
+     * 操作结果集
+     */
+    Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
+
+    /**
      * @description:回收站删除
      * @auther: WBA
      * @date: 2018/12/11 16:59
@@ -32,9 +37,7 @@ public class TrashController {
 
         boolean flag = SpringBootService.getTrashService().deleteById(id);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
@@ -62,11 +65,9 @@ public class TrashController {
     @RequestMapping(value = "/trashs/page", method = RequestMethod.GET)
     public Map<String, Object> getTrashPage() {
 
-        Map<String, Object> map = new HashMap<>();
-
         int count = SpringBootService.getTrashService().selectCount(new EntityWrapper<>());
 
-        map.put("trashMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
+        map.put("trashMaxPage", (count - 1) / CommonConstant.PAGE_SIZE + 1);
 
         return map;
     }

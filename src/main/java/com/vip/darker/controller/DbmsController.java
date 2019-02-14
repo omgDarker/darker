@@ -1,5 +1,6 @@
 package com.vip.darker.controller;
 
+import com.vip.darker.constant.CommonConstant;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,26 +18,37 @@ import java.util.Map;
 @RestController
 @RequestMapping("dbms")
 @ConfigurationProperties(prefix = "spring.datasource.druid")
-public class DBMSController {
-
-    private String driverClassName; // 数据库驱动
-    private String url; // 数据库连接
-    private String username; // 用户名
-    private String password; // 密码
+public class DbmsController {
+    /**
+     * 数据库驱动
+     */
+    private String driverClassName;
+    /**
+     * 数据库连接
+     */
+    private String url;
+    /**
+     * 用户名
+     */
+    private String username;
+    /**
+     * 密码
+     */
+    private String password;
 
     /**
      * @description:获取数据库表信息
      * @auther: WBA
      * @date: 2018/12/11 16:41
      * @param: []
-     * @return: java.util.Map<java.lang.String,java.lang.Object>
+     * @return: java.util.Map<java.lang.String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.lang.Object>
      */
     @RequestMapping(value = "/tables", method = RequestMethod.GET)
     public Map<String, Object> getDBTables() {
         // 数据库连接
         Connection conn = null;
         // 结果集
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
 
         try {
             // 加载数据库驱动
@@ -50,11 +62,12 @@ public class DBMSController {
             while (tableSet.next()) {
                 // 获取数据库表名
                 String tableName = tableSet.getString("TABLE_NAME");
-                Map<String, Object> column = new HashMap<>();
+
                 PreparedStatement ps = conn.prepareStatement("select * from " + tableName);
                 // 获取查询表的字段信息
                 ResultSet columnSet = ps.executeQuery();
                 ResultSetMetaData meta = columnSet.getMetaData();
+                Map<String, Object> column = new HashMap<>((int) (meta.getColumnCount() / 0.75 + 1));
                 for (int i = 1; i < meta.getColumnCount() + 1; i++) {
                     column.put(meta.getColumnName(i), meta.getColumnType(i));
                 }

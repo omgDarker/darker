@@ -1,6 +1,7 @@
 package com.vip.darker.convert;
 
 
+import com.vip.darker.constant.CommonConstant;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.beans.BeanInfo;
@@ -25,16 +26,16 @@ public class ConvertObject {
      * 将Map对象转化为JavaBean
      *
      * @param map
-     * @param T
+     * @param cls
      * @return
      * @throws Exception
      */
-    private static <T> T convertMapToBean(Map<String, Object> map, Class<T> T) throws Exception {
+    private static <T> T convertMapToBean(Map<String, Object> map, Class<T> cls) throws Exception {
         if (map == null || map.size() == 0) {
             return null;
         }
-        //获取map中所有的key值，全部更新成大写，添加到keys集合中,与mybatis中驼峰命名匹配
-        Map<String, Object> newMap = new HashMap<>();
+        // 获取map中所有的key值，全部更新成大写，添加到keys集合中,与mybatis中驼峰命名匹配
+        Map<String, Object> newMap = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
         for (Map.Entry<String, Object> stringObjectEntry : map.entrySet()) {
             String key = stringObjectEntry.getKey();
             Object mvalue = map.get(key);
@@ -44,8 +45,8 @@ public class ConvertObject {
             }
             newMap.put(key.toUpperCase(Locale.US), mvalue);
         }
-        BeanInfo beanInfo = Introspector.getBeanInfo(T);
-        T bean = T.newInstance();
+        BeanInfo beanInfo = Introspector.getBeanInfo(cls);
+        T bean = cls.newInstance();
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
         for (PropertyDescriptor descriptor : propertyDescriptors) {
             String propertyName = descriptor.getName();
@@ -71,10 +72,13 @@ public class ConvertObject {
      */
     public static Map<String, Object> convertBeanToMap(Object bean) throws IntrospectionException, IllegalAccessException, InvocationTargetException {
         Class<?> type = bean.getClass();
-        Map<String, Object> returnMap = new HashMap<>();
+
         BeanInfo beanInfo = Introspector.getBeanInfo(type);
 
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+
+        Map<String, Object> returnMap = new HashMap<>((int) (propertyDescriptors.length / 0.75 + 1));
+
         for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
             String propertyName = propertyDescriptor.getName();
             if (!"class".equals(propertyName)) {
@@ -94,15 +98,15 @@ public class ConvertObject {
      * 将List<Map>对象转化为List<JavaBean>
      *
      * @param listMap
-     * @param T
+     * @param cls
      * @return List
      * @throws Exception
      */
-    public static <T> List<T> convertListMapToListBean(List<Map<String, Object>> listMap, Class<T> T) throws Exception {
+    public static <T> List<T> convertListMapToListBean(List<Map<String, Object>> listMap, Class<T> cls) throws Exception {
         List<T> beanList = new ArrayList<>();
         if (listMap != null && !listMap.isEmpty()) {
             for (Map<String, Object> map : listMap) {
-                T bean = convertMapToBean(map, T);
+                T bean = convertMapToBean(map, cls);
                 beanList.add(bean);
             }
             return beanList;
@@ -117,7 +121,7 @@ public class ConvertObject {
      * @return
      * @throws Exception
      */
-    public static <T> List<Map<String, Object>> convertListBeanToListMap(List<T> beanList, Class<T> T) throws Exception {
+    public static <T> List<Map<String, Object>> convertListBeanToListMap(List<T> beanList, Class<T> cls) throws Exception {
         List<Map<String, Object>> mapList = new ArrayList<>();
         for (T bean : beanList) {
             Map<String, Object> map = convertBeanToMap(bean);

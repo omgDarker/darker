@@ -3,11 +3,11 @@ package com.vip.darker.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.convert.ConvertAttribute;
-import com.vip.darker.elasticsearch.entity.MessageESDTO;
+import com.vip.darker.elasticsearch.entity.MessageElaticsSearchDTO;
 import com.vip.darker.entity.MessageDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.constant.ConfigConstant;
+import com.vip.darker.constant.CommonConstant;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +25,11 @@ import java.util.Map;
 public class MessageController {
 
     /**
+     * 操作结果集
+     */
+    Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
+
+    /**
      * @description:留言新增
      * @auther: WBA
      * @date: 2018/12/11 16:56
@@ -38,16 +43,14 @@ public class MessageController {
         // 若新增成功,则将对象添加到索引中
         if (flag) {
             // 应用场景:文章详情页
-            MessageESDTO messageESDTO = new MessageESDTO();
-            messageESDTO.setId(messageDO.getId());
-            messageESDTO.setUsername(messageDO.getUserName());
-            messageESDTO.setContent(messageDO.getContent());
-            SpringBootService.getMessageESService().save(messageESDTO);
+            MessageElaticsSearchDTO messageElaticsSearchDTO = new MessageElaticsSearchDTO();
+            messageElaticsSearchDTO.setId(messageDO.getId());
+            messageElaticsSearchDTO.setUsername(messageDO.getUserName());
+            messageElaticsSearchDTO.setContent(messageDO.getContent());
+            SpringBootService.getMessageESService().save(messageElaticsSearchDTO);
         }
         // 留言信息列表
-        List<MessageDO> messageDOList = SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("articleId={0}", messageDO.getArticleId()));
-
-        Map<String, Object> map = new HashMap<>();
+        List<MessageDO> messageDOList = SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("article_id={0}", messageDO.getArticleId()));
 
         map.put("messageList", messageDOList);
 
@@ -69,9 +72,8 @@ public class MessageController {
         if (flag) {
             SpringBootService.getMessageESService().delete(id);
         }
-        Map<String, Object> map = new HashMap<>();
 
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
@@ -86,11 +88,9 @@ public class MessageController {
     @GetMapping(value = "/messages/page")
     public Map<String, Object> countMessagePage() {
 
-        Map<String, Object> map = new HashMap<>();
-
         int count = SpringBootService.getMessageService().selectCount(new EntityWrapper<>());
 
-        map.put("messageMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
+        map.put("messageMaxPage", (count - 1) / CommonConstant.PAGE_SIZE + 1);
 
         return map;
     }

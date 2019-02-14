@@ -1,6 +1,7 @@
-package com.vip.darker.system.Interceptor;
+package com.vip.darker.system.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.vip.darker.constant.HttpConstant;
 import com.vip.darker.entity.*;
 import com.vip.darker.service.base.SpringBootService;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +22,6 @@ public class TrashInterceptor implements HandlerInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(TrashInterceptor.class);
 
-
     /**
      * @description:方法执行之前
      * @auther: WBA
@@ -31,14 +31,16 @@ public class TrashInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {
-        if ("DELETE".equals(request.getMethod())) {
+        if (HttpConstant.METHOD_DELETE.equals(request.getMethod())) {
             // 接收删除内容
             String content = "";
             // 获取请求URL
             String requestURI = request.getRequestURI();
             // 移除留言删除操作
-            String[] URIArray = requestURI.split("/");
-            if (URIArray.length > 3) {
+            String[] uriArray = requestURI.split("/");
+            // 临界值
+            int length = 3;
+            if (uriArray.length > length) {
                 return true;
             }
             // 回收类型

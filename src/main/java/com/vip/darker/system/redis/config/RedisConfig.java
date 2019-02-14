@@ -27,7 +27,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @Description: redis配置
  */
 @Configuration
-@EnableCaching // 必须加,使配置生效
+@EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
     private static final Logger log = LoggerFactory.getLogger(RedisConfig.class);
@@ -48,6 +48,7 @@ public class RedisConfig extends CachingConfigurerSupport {
      * @return: org.springframework.cache.interceptor.KeyGenerator
      */
     @Bean
+    @Override
     public KeyGenerator keyGenerator() {
         return (target, method, params) -> {
             StringBuilder sb = new StringBuilder();
@@ -94,10 +95,14 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         RedisSerializer stringSerializer = new StringRedisSerializer();
-        redisTemplate.setKeySerializer(stringSerializer); // key序列化
-        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer); // value序列化
-        redisTemplate.setHashKeySerializer(stringSerializer); // Hash key序列化
-        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer); // Hash value序列化
+        // key序列化
+        redisTemplate.setKeySerializer(stringSerializer);
+        // value序列化
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        // Hash key序列化
+        redisTemplate.setHashKeySerializer(stringSerializer);
+        // Hash value序列化
+        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }

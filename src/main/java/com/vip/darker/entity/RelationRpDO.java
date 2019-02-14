@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "relation_role_permission")
 @BKDefinition(value = "角色权限关系表")
-public class RPRelationDO extends Model<RPRelationDO> implements Serializable {
+public class RelationRpDO extends Model<RelationRpDO> {
 
     private static final long serialVersionUID = 7207868257509919089L;
 
@@ -96,5 +96,19 @@ public class RPRelationDO extends Model<RPRelationDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "RPRelationDO{" +
+                "id=" + id +
+                ", roleId=" + roleId +
+                ", permissionId=" + permissionId +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

@@ -1,8 +1,8 @@
 package com.vip.darker.elasticsearch.service.impl;
 
 import com.vip.darker.annotation.BKDefinition;
-import com.vip.darker.elasticsearch.dao.MessageESRepository;
-import com.vip.darker.elasticsearch.entity.MessageESDTO;
+import com.vip.darker.elasticsearch.dao.MessageElasticSearchRepository;
+import com.vip.darker.elasticsearch.entity.MessageElaticsSearchDTO;
 import com.vip.darker.elasticsearch.entity.QueryParamDTO;
 import com.vip.darker.elasticsearch.service.MessageESService;
 import com.vip.darker.enums.OperationStatusEnum;
@@ -26,19 +26,19 @@ public class MessageESServiceImpl implements MessageESService {
 
     public static final String BEAN_NAME = "messageESService";
 
-    private final MessageESRepository messageESRepository;
+    private final MessageElasticSearchRepository messageElasticSearchRepository;
     @BKDefinition(value = "接收结果集")
     private ResultVO resultVO = new ResultVO();
 
     @Autowired
-    public MessageESServiceImpl(MessageESRepository messageESRepository) {
-        this.messageESRepository = messageESRepository;
+    public MessageESServiceImpl(MessageElasticSearchRepository messageElasticSearchRepository) {
+        this.messageElasticSearchRepository = messageElasticSearchRepository;
     }
 
     @Override
-    public ResultVO save(MessageESDTO messageESDTO) {
+    public ResultVO save(MessageElaticsSearchDTO messageElaticsSearchDTO) {
         try {
-            messageESRepository.save(messageESDTO);
+            messageElasticSearchRepository.save(messageElaticsSearchDTO);
             resultVO.setCode(200);
             resultVO.setMsg(OperationStatusEnum.SUCCESS_INSERT.getName());
         } catch (Exception e) {
@@ -49,9 +49,9 @@ public class MessageESServiceImpl implements MessageESService {
     }
 
     @Override
-    public ResultVO saveBatch(List<MessageESDTO> messageESDTOList) {
+    public ResultVO saveBatch(List<MessageElaticsSearchDTO> messageElaticsSearchDTOList) {
         try {
-            messageESRepository.saveAll(messageESDTOList);
+            messageElasticSearchRepository.saveAll(messageElaticsSearchDTOList);
             resultVO.setCode(200);
             resultVO.setMsg(OperationStatusEnum.SUCCESS_INSERT.getName());
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class MessageESServiceImpl implements MessageESService {
     @Override
     public ResultVO delete(Long id) {
         try {
-            messageESRepository.deleteById(id);
+            messageElasticSearchRepository.deleteById(id);
             resultVO.setCode(200);
             resultVO.setMsg(OperationStatusEnum.SUCCESS_DELETE.getName());
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class MessageESServiceImpl implements MessageESService {
             resultVO.setCode(200);
             resultVO.setMsg(OperationStatusEnum.SUCCESS.getName());
             Map<String, Object> map = new HashMap<>();
-            map.put("message", messageESRepository.search(searchQuery).getContent());
+            map.put("message", messageElasticSearchRepository.search(searchQuery).getContent());
             resultVO.setResult(map);
         } catch (Exception e) {
             resultVO.setCode(500);
@@ -108,8 +108,8 @@ public class MessageESServiceImpl implements MessageESService {
     }
 
     @Override
-    public List<MessageESDTO> search(Pageable pageable) {
-        return messageESRepository.findAll(pageable).getContent();
+    public List<MessageElaticsSearchDTO> search(Pageable pageable) {
+        return messageElasticSearchRepository.findAll(pageable).getContent();
     }
 
     /**

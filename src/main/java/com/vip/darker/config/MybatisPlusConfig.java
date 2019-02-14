@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+/**
+ * @Author: Darker
+ * @Date: 2019/2/14 11:28
+ */
 @Configuration
 public class MybatisPlusConfig {
 

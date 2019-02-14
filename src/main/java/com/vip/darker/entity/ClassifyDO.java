@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "resource_classify")
 @BKDefinition(value = "分类表")
-public class ClassifyDO extends Model<ClassifyDO> implements Serializable {
+public class ClassifyDO extends Model<ClassifyDO> {
 
     private static final long serialVersionUID = -5870352348039106781L;
 
@@ -94,5 +94,19 @@ public class ClassifyDO extends Model<ClassifyDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "ClassifyDO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

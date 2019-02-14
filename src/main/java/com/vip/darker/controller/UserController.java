@@ -2,13 +2,14 @@ package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.vip.darker.constant.AttributeConstant;
 import com.vip.darker.convert.ConvertObject;
 import com.vip.darker.entity.PermissionDO;
 import com.vip.darker.entity.RoleDO;
-import com.vip.darker.entity.URRelationDO;
+import com.vip.darker.entity.RelationUrDO;
 import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.constant.ConfigConstant;
+import com.vip.darker.constant.CommonConstant;
 import com.vip.darker.util.WebSiteUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -31,6 +32,11 @@ public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    /**
+     * 操作结果集
+     */
+    Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
+
     //****************************************用户模块****************************************//
 
     /**
@@ -48,8 +54,6 @@ public class UserController {
         if (flag) {
             SpringBootService.getAsyncTaskExecutorService().addURRelation(userDO.getId(), roleId);
         }
-
-        Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "新增成功!" : "新增失败!");
 
@@ -73,8 +77,6 @@ public class UserController {
             SpringBootService.getAsyncTaskExecutorService().editURRelation(userDO.getId(), roleId);
         }
 
-        Map<String, Object> map = new HashMap<>();
-
         map.put("msg", flag ? "更新成功!" : "更新失败!");
 
         return map;
@@ -95,8 +97,6 @@ public class UserController {
         if (flag) {
             SpringBootService.getAsyncTaskExecutorService().deleteURRelation(userId);
         }
-
-        Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "删除成功!" : "删除失败!");
 
@@ -141,7 +141,7 @@ public class UserController {
             resultList.forEach(opt -> {
                 int userId = Integer.valueOf(opt.get("id") + "");
                 // 根据用户ID查找角色ID
-                Map<String, Object> relationMap = SpringBootService.getURRelationService().selectMap(new EntityWrapper<URRelationDO>().where("userId={0}", userId));
+                Map<String, Object> relationMap = SpringBootService.getURRelationService().selectMap(new EntityWrapper<RelationUrDO>().where("userId={0}", userId));
                 if (relationMap != null && relationMap.size() > 0) {
                     int roleId = Integer.valueOf(relationMap.get("roleId") + "");
                     // 根据角色ID查找角色
@@ -151,15 +151,15 @@ public class UserController {
                     opt.put("roleName", "游客");
                 }
                 // 用户名
-                if (StringUtils.isBlank(opt.get("name").toString())) {
+                if (StringUtils.isBlank(opt.get(AttributeConstant.NAME).toString())) {
                     opt.put("name", "陌生人");
                 }
                 // 邮箱
-                if (StringUtils.isBlank(opt.get("email").toString())) {
+                if (StringUtils.isBlank(opt.get(AttributeConstant.EMAIL).toString())) {
                     opt.put("email", "stranger@qq.vip.com");
                 }
                 // 地区
-                if (StringUtils.isBlank(opt.get("area").toString())) {
+                if (StringUtils.isBlank(opt.get(AttributeConstant.AREA).toString())) {
                     opt.put("area", WebSiteUtil.getCountryNameByIp(opt.get("ip").toString()));
                 }
             });
@@ -180,11 +180,9 @@ public class UserController {
     @RequestMapping(value = "/users/page", method = RequestMethod.GET)
     public Map<String, Object> countUserPage() {
 
-        Map<String, Object> map = new HashMap<>();
-
         int count = SpringBootService.getUserService().selectCount(new EntityWrapper<>());
 
-        map.put("userMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
+        map.put("userMaxPage", (count - 1) / CommonConstant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -206,8 +204,6 @@ public class UserController {
         if (flag) {
             SpringBootService.getAsyncTaskExecutorService().addRPRelation(roleDO.getId(), permissionId);
         }
-
-        Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "新增成功!" : "新增失败!");
 
@@ -231,8 +227,6 @@ public class UserController {
             SpringBootService.getAsyncTaskExecutorService().editRPRelation(roleDO.getId(), permissionId);
         }
 
-        Map<String, Object> map = new HashMap<>();
-
         map.put("msg", flag ? "更新成功!" : "更新失败!");
 
         return map;
@@ -253,8 +247,6 @@ public class UserController {
         if (flag) {
             SpringBootService.getAsyncTaskExecutorService().deleteRPRelation(roleId);
         }
-
-        Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "删除成功!" : "删除失败!");
 
@@ -296,11 +288,9 @@ public class UserController {
     @RequestMapping(value = "/roles/page", method = RequestMethod.GET)
     public Map<String, Object> countRolePage() {
 
-        Map<String, Object> map = new HashMap<>();
-
         int count = SpringBootService.getRoleService().selectCount(new EntityWrapper<>());
 
-        map.put("roleMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
+        map.put("roleMaxPage", (count - 1) / CommonConstant.PAGE_SIZE + 1);
 
         return map;
     }
@@ -319,8 +309,6 @@ public class UserController {
 
         boolean flag = SpringBootService.getPermissionService().insert(permissionDO);
 
-        Map<String, Object> map = new HashMap<>();
-
         map.put("msg", flag ? "新增成功!" : "新增失败!");
 
         return map;
@@ -338,8 +326,6 @@ public class UserController {
 
         boolean flag = SpringBootService.getPermissionService().updateById(permissionDO);
 
-        Map<String, Object> map = new HashMap<>();
-
         map.put("msg", flag ? "更新成功!" : "更新失败!");
 
         return map;
@@ -356,8 +342,6 @@ public class UserController {
     public Map<String, Object> deletePermission(@PathVariable(value = "id") Integer permissionId) {
 
         boolean flag = SpringBootService.getPermissionService().deleteById(permissionId);
-
-        Map<String, Object> map = new HashMap<>();
 
         map.put("msg", flag ? "删除成功!" : "删除失败!");
 
@@ -399,11 +383,9 @@ public class UserController {
     @RequestMapping(value = "/permissions/page", method = RequestMethod.GET)
     public Map<String, Object> countPermissionPage() {
 
-        Map<String, Object> map = new HashMap<>();
-
         int count = SpringBootService.getPermissionService().selectCount(new EntityWrapper<>());
 
-        map.put("permissionMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
+        map.put("permissionMaxPage", (count - 1) / CommonConstant.PAGE_SIZE + 1);
 
         return map;
     }

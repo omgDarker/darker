@@ -10,16 +10,16 @@ import org.springframework.stereotype.Component;
  * @Description: 流量属性值
  */
 @Component(value = PropertiesStatDTO.BEAN_NAME)
-@ConfigurationProperties(prefix = "statistics") //.yml文件属性值前缀
+@ConfigurationProperties(prefix = "statistics")
 public class PropertiesStatDTO {
 
     public static final String BEAN_NAME = "propertiesStat";
     @BKDefinition(value = "记录浏览量VV")
-    private int countPV;
+    private Integer countPV;
     @BKDefinition(value = "记录访问量PV")
-    private int countVV;
+    private Integer countVV;
     @BKDefinition(value = "记录访问人数UV")
-    private int countUV;
+    private Integer countUV;
 
     public int getCountPV() {
         return countPV;
@@ -55,5 +55,14 @@ public class PropertiesStatDTO {
 
     public int addCountUV() {
         return countUV++;
+    }
+
+    @Override
+    public String toString() {
+        return "PropertiesStatDTO{" +
+                "countPV=" + countPV +
+                ", countVV=" + countVV +
+                ", countUV=" + countUV +
+                '}';
     }
 }

@@ -15,26 +15,34 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @Date: 2018/10/23 16:28
  * @Description: 线程池配置
  */
-@Configuration // 声明一个配置类
+@Configuration
 @ConfigurationProperties(prefix = "pool")
 public class AsyncTaskExecutorPool {
-    // 核心线程数
+    /**
+     * 核心线程数
+     */
     @Value("${pool.core-pool-size}")
     private int corePoolSize;
-    // 最大线程数
+    /**
+     * 最大线程数
+     */
     @Value("${pool.max-pool-size}")
     private int maxPoolSize;
-    // 队列容量
+    /**
+     * 队列容量
+     */
     @Value("${pool.queue-capacity}")
     private int queueCapacity;
-    // 线程活跃时间(秒)
+    /**
+     * 线程活跃时间(秒)
+     */
     @Value("${pool.keep-alive-seconds}")
     private int keepAliveSeconds;
 
     private Logger logger = LoggerFactory.getLogger(AsyncTaskExecutorPool.class);
 
-    @Bean(name="threadPoolTaskExecutor")
-    public ThreadPoolTaskExecutor threadPoolTaskExecutor(){
+    @Bean(name = "threadPoolTaskExecutor")
+    public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
 
         ThreadPoolTaskExecutor pool = new ThreadPoolTaskExecutor();
 

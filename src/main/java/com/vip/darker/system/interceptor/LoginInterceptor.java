@@ -1,6 +1,7 @@
-package com.vip.darker.system.Interceptor;
+package com.vip.darker.system.interceptor;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.vip.darker.constant.CommonConstant;
 import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.system.exception.LoginException;
@@ -29,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         String password = request.getParameter("password");
         Object user = SpringBootService.getUserService().selectObj(new EntityWrapper<UserDO>().where("name={0}", name).and("password={0}", password));
         // 防止游客,恶意登录
-        if (user != null && password.equals("wangbingan")) {
+        if (user != null && CommonConstant.LOGIN_PASSWORD.equals(password)) {
             return true;
         }
         throw new LoginException("[异常登录,请注意!]");

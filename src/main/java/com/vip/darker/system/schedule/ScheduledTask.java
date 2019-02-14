@@ -22,7 +22,10 @@ public class ScheduledTask {
 
     private Logger logger = LoggerFactory.getLogger(ScheduledTask.class);
 
-    @Scheduled(cron = "0 0 0 * * ?") // 每天24点执行一次
+    /**
+     * 每天24点执行一次
+     */
+    @Scheduled(cron = "0 0 0 * * ?")
     public void setV() {
         // 查询网站流量统计数据
         List<StatisticsDO> flowList = SpringBootService.getStatisticsService().selectList(new EntityWrapper<>());

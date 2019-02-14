@@ -29,4 +29,12 @@ public class QueryParamDTO implements Serializable {
     public void setVal(Object val) {
         this.val = val;
     }
+
+    @Override
+    public String toString() {
+        return "QueryParamDTO{" +
+                "key='" + key + '\'' +
+                ", val=" + val +
+                '}';
+    }
 }

@@ -6,7 +6,7 @@ import com.vip.darker.convert.ConvertAttribute;
 import com.vip.darker.entity.ImageDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.constant.ConfigConstant;
+import com.vip.darker.constant.CommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +31,10 @@ public class ImageController {
 
     private Logger logger = LoggerFactory.getLogger(ImageController.class);
 
+    /**
+     * 操作结果集
+     */
+    Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
 
     /**
      * @description:图片新增
@@ -44,9 +48,7 @@ public class ImageController {
 
         boolean flag = SpringBootService.getImageService().insert(imageDO);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
 
         return map;
     }
@@ -63,9 +65,7 @@ public class ImageController {
 
         boolean flag = SpringBootService.getImageService().updateById(imageDO);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
 
         return map;
     }
@@ -82,9 +82,7 @@ public class ImageController {
 
         boolean flag = SpringBootService.getImageService().deleteById(id);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
@@ -99,11 +97,9 @@ public class ImageController {
     @RequestMapping(value = "/images/page", method = RequestMethod.GET)
     public Map<String, Object> countImageMaxPage() {
 
-        Map<String, Object> map = new HashMap<>();
-
         int count = SpringBootService.getImageService().selectCount(new EntityWrapper<>());
 
-        map.put("imageMaxPage", (count - 1) / (ConfigConstant.PAGE_SIZE + 2) + 1);
+        map.put("imageMaxPage", (count - 1) / (CommonConstant.PAGE_SIZE + 2) + 1);
 
         return map;
     }
@@ -143,8 +139,6 @@ public class ImageController {
      */
     @RequestMapping(value = "/images/upload", method = RequestMethod.POST)
     public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest) {
-        // 设置返回值
-        Map<String, Object> map = new HashMap<>();
         // 获取上传图片列表
         List<MultipartFile> myImageList = multipartRequest.getFiles("file_data");
 
@@ -153,7 +147,7 @@ public class ImageController {
                 // 获取上传文件原始名称
                 String oldImageName = opt.getOriginalFilename();
                 // 存储图片的虚拟本地路径
-                String saveImagePath = ConfigConstant.IMAGE_PATH;
+                String saveImagePath = CommonConstant.IMAGE_PATH;
                 // 上传图片
                 if (Objects.requireNonNull(oldImageName).length() > 0) {
                     // 新图片名称
@@ -163,10 +157,10 @@ public class ImageController {
                     // 将内存中的数据写入磁盘
                     opt.transferTo(newImage);
                     // 将新图片名称返回前端
-                    map.put(ConfigConstant.MSG, OperationStatusEnum.SUCCESS_UPLOAD.getName());
+                    map.put(CommonConstant.MSG, OperationStatusEnum.SUCCESS_UPLOAD.getName());
                     map.put("myImage", newImageName);
                 } else {
-                    map.put(ConfigConstant.MSG, OperationStatusEnum.FAIL_UPLOAD.getName());
+                    map.put(CommonConstant.MSG, OperationStatusEnum.FAIL_UPLOAD.getName());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -185,7 +179,7 @@ public class ImageController {
     @RequestMapping(value = "/images/show/{imageName}", method = RequestMethod.GET)
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
         try {
-            FileInputStream fis = new FileInputStream(ConfigConstant.IMAGE_PATH + "/" + imageName);
+            FileInputStream fis = new FileInputStream(CommonConstant.IMAGE_PATH + "/" + imageName);
             // 获取文件大小
             int size = fis.available();
             // 设置读取字节数
@@ -204,7 +198,7 @@ public class ImageController {
             os.close();
             fis.close();
         } catch (Exception e) {
-            logger.info("[系统找不到指定文件]:" + ConfigConstant.IMAGE_PATH + "/" + imageName);
+            logger.info("[系统找不到指定文件]:" + CommonConstant.IMAGE_PATH + "/" + imageName);
         }
     }
 

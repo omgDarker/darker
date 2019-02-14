@@ -1,11 +1,12 @@
 package com.vip.darker.controller.api;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.vip.darker.constant.CommonConstant;
+import com.vip.darker.convert.ConvertResult;
 import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.entity.MessageDO;
-import com.vip.darker.vo.ResultVO;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.convert.ConvertResult;
+import com.vip.darker.vo.ResultVO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +25,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/darker/api")
 @Scope(value = "prototype")
-public class APIController {
-    // 操作结果集
-    private Map<String, Object> map = new HashMap<>();
+public class ApiController {
+    /**
+     * 操作结果集
+     */
+    private Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
 
     /**
      * @description: 文章列表API

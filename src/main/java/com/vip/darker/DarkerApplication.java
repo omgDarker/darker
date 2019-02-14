@@ -53,7 +53,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan("com.vip.darker.dao")
 public class DarkerApplication {
     public static void main(String[] args) {
-        // Springboot整合Elasticsearch 在项目启动前设置一下的属性，防止报错
+        // Springboot整合Elasticsearch,在项目启动前设置一下的属性，防止报错
         System.setProperty("es.set.netty.runtime.available.processors", "false");
 
         ApplicationContext applicationContext = SpringApplication.run(DarkerApplication.class, args);

@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "relation_user_role")
 @BKDefinition(value = "用户角色表")
-public class URRelationDO extends Model<URRelationDO> implements Serializable {
+public class RelationUrDO extends Model<RelationUrDO> {
 
     private static final long serialVersionUID = 6459670573428982538L;
 
@@ -96,5 +96,19 @@ public class URRelationDO extends Model<URRelationDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "URRelationDO{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", roleId=" + roleId +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

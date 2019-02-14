@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "operation_statistics")
 @BKDefinition(value = "统计表")
-public class StatisticsDO extends Model<StatisticsDO> implements Serializable {
+public class StatisticsDO extends Model<StatisticsDO> {
 
     private static final long serialVersionUID = -5049223570498051834L;
 
@@ -115,5 +115,21 @@ public class StatisticsDO extends Model<StatisticsDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "StatisticsDO{" +
+                "id=" + id +
+                ", contentId=" + contentId +
+                ", content='" + content + '\'' +
+                ", amount=" + amount +
+                ", classify='" + classify + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

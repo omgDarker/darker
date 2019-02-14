@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 
 /**
- * @Auther: Darker
+ * @Author: Darker
  * @Date: 2018/9/03 10:24
  * @Description: 全局异常跳转页面配置
  */

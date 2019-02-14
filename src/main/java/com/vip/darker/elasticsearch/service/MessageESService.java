@@ -1,6 +1,6 @@
 package com.vip.darker.elasticsearch.service;
 
-import com.vip.darker.elasticsearch.entity.MessageESDTO;
+import com.vip.darker.elasticsearch.entity.MessageElaticsSearchDTO;
 import com.vip.darker.elasticsearch.entity.QueryParamDTO;
 import com.vip.darker.vo.ResultVO;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ public interface MessageESService {
      * @param: [messageDTO]
      * @return: com.vip.darker.entity.ResultDTO
      */
-    ResultVO save(MessageESDTO messageESDTO);
+    ResultVO save(MessageElaticsSearchDTO messageElaticsSearchDTO);
 
     /**
      * @description:索引批量新增
@@ -25,7 +25,7 @@ public interface MessageESService {
      * @param: [messageDTOList]
      * @return: com.vip.darker.entity.ResultDTO
      */
-    ResultVO saveBatch(List<MessageESDTO> messageESDTOList);
+    ResultVO saveBatch(List<MessageElaticsSearchDTO> messageElaticsSearchDTOList);
 
     /**
      * @description:索引删除
@@ -61,5 +61,5 @@ public interface MessageESService {
      * @param: [pageable]
      * @return: org.springframework.data.domain.Page<com.vip.darker.elasticsearch.entity.MessageDTO>
      */
-    List<MessageESDTO> search(Pageable pageable);
+    List<MessageElaticsSearchDTO> search(Pageable pageable);
 }

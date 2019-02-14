@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "resource_column")
 @BKDefinition(value = "栏目表")
-public class ColumnDO extends Model<ColumnDO> implements Serializable{
+public class ColumnDO extends Model<ColumnDO> {
 
     private static final long serialVersionUID = 2267262811673617640L;
 
@@ -102,9 +102,23 @@ public class ColumnDO extends Model<ColumnDO> implements Serializable{
         this.updateTime = updateTime;
     }
 
-
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "ColumnDO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", classifyId=" + classifyId +
+                ", description='" + description + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.vip.darker.entity.LinkDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.constant.ConfigConstant;
+import com.vip.darker.constant.CommonConstant;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -21,6 +21,11 @@ import java.util.Map;
 public class LinkController {
 
     /**
+     * 操作结果集
+     */
+    Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
+
+    /**
      * @description:链接新增
      * @auther: WBA
      * @date: 2018/12/11 16:53
@@ -32,9 +37,7 @@ public class LinkController {
 
         boolean flag = SpringBootService.getLinkService().insert(linkDO);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_INSERT.getName() : OperationStatusEnum.FAIL_INSERT.getName());
 
         return map;
     }
@@ -51,9 +54,7 @@ public class LinkController {
 
         boolean flag = SpringBootService.getLinkService().updateById(linkDO);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_UPDATE.getName() : OperationStatusEnum.FAIL_UPDATE.getName());
 
         return map;
     }
@@ -70,9 +71,7 @@ public class LinkController {
 
         boolean flag = SpringBootService.getLinkService().deleteById(id);
 
-        Map<String, Object> map = new HashMap<>();
-
-        map.put(ConfigConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
+        map.put(CommonConstant.MSG, flag ? OperationStatusEnum.SUCCESS_DELETE.getName() : OperationStatusEnum.FAIL_DELETE.getName());
 
         return map;
     }
@@ -112,11 +111,9 @@ public class LinkController {
     @RequestMapping(value = "/links/page", method = RequestMethod.GET)
     public Map<String, Object> getLinkPage() {
 
-        Map<String, Object> map = new HashMap<>();
-
         int count = SpringBootService.getLinkService().selectCount(new EntityWrapper<>());
 
-        map.put("linkMaxPage", (count - 1) / ConfigConstant.PAGE_SIZE + 1);
+        map.put("linkMaxPage", (count - 1) / CommonConstant.PAGE_SIZE + 1);
 
         return map;
     }

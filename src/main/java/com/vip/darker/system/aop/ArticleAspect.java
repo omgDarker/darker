@@ -1,9 +1,9 @@
 package com.vip.darker.system.aop;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.vip.darker.constant.CommonConstant;
 import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.service.base.SpringBootService;
-import com.vip.darker.constant.ConfigConstant;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,13 +21,17 @@ import java.util.Map;
 @Component
 public class ArticleAspect {
 
-    // 申明切点,监控文章详情页方法
+    /**
+     * 申明切点,监控文章详情页方法
+     */
     @Pointcut(value = "execution(public * com.vip.darker.controller.ArticleController.findDetailArticle(*))")
     public void updatePV() {
 
     }
 
-    // 申明切点,监控文章更新方法
+    /**
+     * 申明切点,监控文章更新方法
+     */
     @Pointcut(value = "execution(* *Article(..))")
     public void deleteCache() {
 
@@ -52,7 +56,7 @@ public class ArticleAspect {
         articleDO.setReadAmount(Integer.valueOf(map.get("readAmount").toString()) + 1);
         SpringBootService.getArticleService().updateById(articleDO);
         // 清空redis缓存
-        SpringBootService.getRedisService().delKey(new String[]{ConfigConstant.REDIS_KEY_ARTICLE});
+        SpringBootService.getRedisService().delKey(new String[]{CommonConstant.REDIS_KEY_ARTICLE});
     }
 
     /**
@@ -64,6 +68,6 @@ public class ArticleAspect {
      */
     @After(value = "deleteCache()")
     public void deleteCache(JoinPoint point) {
-        SpringBootService.getRedisService().delKey(new String[]{ConfigConstant.REDIS_KEY_ARTICLE});
+        SpringBootService.getRedisService().delKey(new String[]{CommonConstant.REDIS_KEY_ARTICLE});
     }
 }

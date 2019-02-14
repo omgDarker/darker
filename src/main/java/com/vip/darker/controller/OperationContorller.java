@@ -1,6 +1,7 @@
 package com.vip.darker.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.vip.darker.constant.CommonConstant;
 import com.vip.darker.entity.ArticleDO;
 import com.vip.darker.entity.UserDO;
 import com.vip.darker.service.base.SpringBootService;
@@ -30,7 +31,7 @@ public class OperationContorller {
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
     public Map<String, Object> findListStatistics() {
         // 设置参数
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
         // 统计访问量
         map.put("countWebVV", SpringBootService.getUserService().selectList(new EntityWrapper<>()).size());
         // 统计浏览量

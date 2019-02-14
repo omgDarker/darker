@@ -1,8 +1,8 @@
-package com.vip.darker.system.Interceptor.config;
+package com.vip.darker.system.interceptor.config;
 
-import com.vip.darker.system.Interceptor.LogInterceptor;
-import com.vip.darker.system.Interceptor.LoginInterceptor;
-import com.vip.darker.system.Interceptor.TrashInterceptor;
+import com.vip.darker.system.interceptor.LogInterceptor;
+import com.vip.darker.system.interceptor.LoginInterceptor;
+import com.vip.darker.system.interceptor.TrashInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

@@ -1,4 +1,4 @@
-package com.vip.darker.system.Interceptor;
+package com.vip.darker.system.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

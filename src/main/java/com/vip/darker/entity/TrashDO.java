@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "resource_trash")
 @BKDefinition(value = "回收站表")
-public class TrashDO extends Model<TrashDO> implements Serializable {
+public class TrashDO extends Model<TrashDO> {
 
     private static final long serialVersionUID = 4801305062603719339L;
 
@@ -104,5 +104,20 @@ public class TrashDO extends Model<TrashDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "TrashDO{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", description='" + description + '\'' +
+                ", classify='" + classify + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

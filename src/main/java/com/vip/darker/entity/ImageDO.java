@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "content_image")
 @BKDefinition(value = "图片表")
-public class ImageDO extends Model<ImageDO> implements Serializable {
+public class ImageDO extends Model<ImageDO> {
 
     private static final long serialVersionUID = 4295588827981208475L;
 
@@ -148,5 +148,24 @@ public class ImageDO extends Model<ImageDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "ImageDO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", readAmount=" + readAmount +
+                ", likeAmount=" + likeAmount +
+                ", classifyId=" + classifyId +
+                ", columnId=" + columnId +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

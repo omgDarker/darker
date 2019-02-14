@@ -12,7 +12,7 @@ import java.util.Date;
 
 @TableName(value = "content_message")
 @BKDefinition(value = "留言表")
-public class MessageDO extends Model<MessageDO> implements Serializable {
+public class MessageDO extends Model<MessageDO> {
 
     private static final long serialVersionUID = -8004450162591054126L;
 
@@ -127,5 +127,22 @@ public class MessageDO extends Model<MessageDO> implements Serializable {
     @Override
     protected Serializable pkVal() {
         return this.id;
+    }
+
+    @Override
+    public String toString() {
+        super.toString();
+        return "MessageDO{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", articleId=" + articleId +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", content='" + content + '\'' +
+                ", deleted=" + deleted +
+                ", creator='" + creator + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

@@ -1,8 +1,8 @@
 package com.vip.darker.system.pool;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.vip.darker.entity.RPRelationDO;
-import com.vip.darker.entity.URRelationDO;
+import com.vip.darker.entity.RelationRpDO;
+import com.vip.darker.entity.RelationUrDO;
 import com.vip.darker.service.base.SpringBootService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class AsyncTaskExecutorService {
      */
     @Async
     public void addURRelation(Integer userId, Integer roleId) {
-        URRelationDO relation = new URRelationDO();
+        RelationUrDO relation = new RelationUrDO();
         relation.setUserId(userId);
         relation.setRoleId(roleId);
         SpringBootService.getURRelationService().insert(relation);
@@ -41,10 +41,10 @@ public class AsyncTaskExecutorService {
      */
     @Async
     public void editURRelation(Integer userId, Integer roleId) {
-        URRelationDO relation = new URRelationDO();
+        RelationUrDO relation = new RelationUrDO();
         relation.setUserId(userId);
         relation.setRoleId(roleId);
-        SpringBootService.getURRelationService().update(relation, new EntityWrapper<URRelationDO>().where("userId={0}", userId));
+        SpringBootService.getURRelationService().update(relation, new EntityWrapper<RelationUrDO>().where("userId={0}", userId));
     }
 
     /**
@@ -56,7 +56,7 @@ public class AsyncTaskExecutorService {
      */
     @Async
     public void deleteURRelation(Integer userId) {
-        SpringBootService.getURRelationService().delete(new EntityWrapper<URRelationDO>().where("userId={0}", userId));
+        SpringBootService.getURRelationService().delete(new EntityWrapper<RelationUrDO>().where("userId={0}", userId));
     }
 
     /**
@@ -68,7 +68,7 @@ public class AsyncTaskExecutorService {
      */
     @Async
     public void addRPRelation(Integer roleId, Integer permissionId) {
-        RPRelationDO relation = new RPRelationDO();
+        RelationRpDO relation = new RelationRpDO();
         relation.setRoleId(roleId);
         relation.setPermissionId(permissionId);
         SpringBootService.getRPRelationService().insert(relation);
@@ -83,10 +83,10 @@ public class AsyncTaskExecutorService {
      */
     @Async
     public void editRPRelation(Integer roleId, Integer permissionId) {
-        RPRelationDO relation = new RPRelationDO();
+        RelationRpDO relation = new RelationRpDO();
         relation.setRoleId(roleId);
         relation.setPermissionId(permissionId);
-        SpringBootService.getRPRelationService().update(relation, new EntityWrapper<RPRelationDO>().where("roleId={0}", roleId));
+        SpringBootService.getRPRelationService().update(relation, new EntityWrapper<RelationRpDO>().where("roleId={0}", roleId));
     }
 
     /**
@@ -98,6 +98,6 @@ public class AsyncTaskExecutorService {
      */
     @Async
     public void deleteRPRelation(Integer roleId) {
-        SpringBootService.getRPRelationService().delete(new EntityWrapper<RPRelationDO>().where("roleId={0}", roleId));
+        SpringBootService.getRPRelationService().delete(new EntityWrapper<RelationRpDO>().where("roleId={0}", roleId));
     }
 }
