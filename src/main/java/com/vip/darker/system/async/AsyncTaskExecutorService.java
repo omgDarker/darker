@@ -1,4 +1,4 @@
-package com.vip.darker.system.pool;
+package com.vip.darker.system.async;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.vip.darker.entity.RelationRpDO;

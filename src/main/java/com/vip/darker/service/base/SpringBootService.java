@@ -6,7 +6,7 @@ import com.vip.darker.properties.PropertiesStatDTO;
 import com.vip.darker.service.*;
 import com.vip.darker.service.impl.*;
 import com.vip.darker.system.SpringBootApplicationContent;
-import com.vip.darker.system.pool.AsyncTaskExecutorService;
+import com.vip.darker.system.async.AsyncTaskExecutorService;
 import com.vip.darker.system.redis.RedisService;
 
 /**

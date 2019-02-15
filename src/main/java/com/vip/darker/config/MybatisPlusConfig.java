@@ -52,8 +52,6 @@ public class MybatisPlusConfig {
     @Bean
     @ConfigurationProperties(value = "spring.datasource.druid")
     public DataSource dataSource() {
-        return DruidDataSourceBuilder
-                .create()
-                .build();
+        return DruidDataSourceBuilder.create().build();
     }
 }

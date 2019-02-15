@@ -1,4 +1,4 @@
-package com.vip.darker.system.pool;
+package com.vip.darker.system.async;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @Auther: Darker
  * @Date: 2018/10/23 16:28
- * @Description: 线程池配置
+ * @Description: 异步任务线程池配置
  */
 @Configuration
 @ConfigurationProperties(prefix = "pool")
@@ -54,7 +54,7 @@ public class AsyncTaskExecutorPool {
 
         pool.setKeepAliveSeconds(keepAliveSeconds);
         // 设置默认线程名称前缀
-        pool.setThreadNamePrefix("darker-");
+        pool.setThreadNamePrefix("AsyncTask-");
         // 设置拒绝策略
         pool.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         // 等待所有任务结束后,在关闭线程池

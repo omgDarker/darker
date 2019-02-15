@@ -1,7 +1,7 @@
 package com.vip.darker;
 
 import com.vip.darker.system.SpringBootApplicationContent;
-import com.vip.darker.system.pool.AsyncTaskExecutorPool;
+import com.vip.darker.system.async.AsyncTaskExecutorPool;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

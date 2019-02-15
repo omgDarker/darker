@@ -18,9 +18,9 @@ import java.util.List;
  * @Description: 定时任务
  */
 @Component
-public class ScheduledTask {
+public class ScheduleTask {
 
-    private Logger logger = LoggerFactory.getLogger(ScheduledTask.class);
+    private Logger logger = LoggerFactory.getLogger(ScheduleTask.class);
 
     /**
      * 每天24点执行一次
