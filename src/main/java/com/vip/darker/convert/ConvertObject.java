@@ -3,12 +3,12 @@ package com.vip.darker.convert;
 
 import com.vip.darker.constant.CommonConstant;
 import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -19,36 +19,33 @@ import java.util.*;
  */
 public class ConvertObject {
 
-    public ConvertObject() {
-    }
+    private static Logger logger = LoggerFactory.getLogger(ConvertObject.class);
 
     /**
-     * 将Map对象转化为JavaBean
+     * 将map对象转化为bean
      *
      * @param map
      * @param cls
-     * @return
+     * @return bean
      * @throws Exception
      */
     private static <T> T convertMapToBean(Map<String, Object> map, Class<T> cls) throws Exception {
         if (map == null || map.size() == 0) {
             return null;
         }
-        // 获取map中所有的key值，全部更新成大写，添加到keys集合中,与mybatis中驼峰命名匹配
+        // 获取map中所有的key值,全部更新成大写,添加到keys集合中,与mybatis中驼峰命名匹配
         Map<String, Object> newMap = new HashMap<>(CommonConstant.MAP_DEFAULT_INITIAL_CAPACITY);
-        for (Map.Entry<String, Object> stringObjectEntry : map.entrySet()) {
-            String key = stringObjectEntry.getKey();
-            Object mvalue = map.get(key);
-            String characterConstant = "_";
-            if (key.contains(characterConstant)) {
-                key = key.replaceAll(characterConstant, "");
+        map.forEach((key, value) -> {
+            if (key.contains(CommonConstant.CHARACTER_UNDERLINE)) {
+                key = key.replaceAll(CommonConstant.CHARACTER_UNDERLINE, "");
             }
-            newMap.put(key.toUpperCase(Locale.US), mvalue);
-        }
+            newMap.put(key.toUpperCase(Locale.US), value);
+        });
         BeanInfo beanInfo = Introspector.getBeanInfo(cls);
         T bean = cls.newInstance();
         PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
         for (PropertyDescriptor descriptor : propertyDescriptors) {
+
             String propertyName = descriptor.getName();
             String upperPropertyName = propertyName.toUpperCase();
 
@@ -62,15 +59,13 @@ public class ConvertObject {
     }
 
     /**
-     * 将JavaBean对象转化为Map对象
+     * 将bean对象转化为map对象
      *
      * @param bean
-     * @return
-     * @throws IntrospectionException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
+     * @return map
+     * @throws Exception
      */
-    public static Map<String, Object> convertBeanToMap(Object bean) throws IntrospectionException, IllegalAccessException, InvocationTargetException {
+    public static Map<String, Object> convertBeanToMap(Object bean) throws Exception {
         Class<?> type = bean.getClass();
 
         BeanInfo beanInfo = Introspector.getBeanInfo(type);
@@ -95,37 +90,45 @@ public class ConvertObject {
     }
 
     /**
-     * 将List<Map>对象转化为List<JavaBean>
+     * 将List<map>对象转化为List<bean>
      *
-     * @param listMap
+     * @param mapList
      * @param cls
      * @return List
-     * @throws Exception
      */
-    public static <T> List<T> convertListMapToListBean(List<Map<String, Object>> listMap, Class<T> cls) throws Exception {
+    public static <T> List<T> convertListMapToListBean(List<Map<String, Object>> mapList, Class<T> cls) {
         List<T> beanList = new ArrayList<>();
-        if (listMap != null && !listMap.isEmpty()) {
-            for (Map<String, Object> map : listMap) {
-                T bean = convertMapToBean(map, cls);
-                beanList.add(bean);
-            }
-            return beanList;
+        if (mapList != null && !mapList.isEmpty()) {
+            mapList.forEach(item -> {
+                try {
+                    T bean = convertMapToBean(item, cls);
+                    beanList.add(bean);
+                } catch (Exception e) {
+                    logger.info("List<map>->List<bean>失败!");
+                }
+            });
         }
         return beanList;
     }
 
     /**
-     * 将List<JavaBean>对象转化为List<Map>
+     * 将List<bean>对象转化为List<map>
      *
      * @param beanList
-     * @return
-     * @throws Exception
+     * @param cls
+     * @return List
      */
-    public static <T> List<Map<String, Object>> convertListBeanToListMap(List<T> beanList, Class<T> cls) throws Exception {
+    public static <T> List<Map<String, Object>> convertListBeanToListMap(List<T> beanList, Class<T> cls) {
         List<Map<String, Object>> mapList = new ArrayList<>();
-        for (T bean : beanList) {
-            Map<String, Object> map = convertBeanToMap(bean);
-            mapList.add(map);
+        if (beanList != null && beanList.isEmpty()) {
+            beanList.forEach(bean -> {
+                try {
+                    Map<String, Object> map = convertBeanToMap(bean);
+                    mapList.add(map);
+                } catch (Exception e) {
+                    logger.info("List<bean>->List<map>失败!");
+                }
+            });
         }
         return mapList;
     }

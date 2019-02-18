@@ -5,15 +5,15 @@ import com.vip.darker.service.base.SpringBootService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * @Auther: Darker
  * @Date: 2018/8/31 13:51
- * @Description: session操作类
+ * @Description: session工具类
  */
 public class SessionUtil {
 
@@ -24,7 +24,7 @@ public class SessionUtil {
      * @param sessionId
      * @return
      */
-     public static UserDO getUserBySessionId(List<UserDO> list, String sessionId) {
+    public static UserDO getUserBySessionId(List<UserDO> list, String sessionId) {
         if (list != null && list.size() > 0) {
             for (UserDO user : list) {
                 if (user.getSessionId().equals(sessionId)) {
@@ -69,14 +69,14 @@ public class SessionUtil {
         // 若游客不存在用户列表中
         if (SessionUtil.getUserBySessionId(onlineList, sessionId) == null) {
             UserDO user = new UserDO();
-            user.setName("陌生人");
+            user.setName("stranger");
             user.setEmail("stranger@qq.vip.com");
             user.setSessionId(sessionId);
             // 获取IP
             String ip = WebSiteUtil.getIpAddr(request);
             user.setIp(ip);
             user.setArea(WebSiteUtil.getCountryNameByIp(ip));
-            user.setLoginTime(new SimpleDateFormat("yyyy-MM--dd HH:mm:ss").format(new Date()));
+            user.setLoginTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             onlineList.add(user);
             // 持久化到DB
             SpringBootService.getUserService().insert(user);

@@ -24,4 +24,6 @@ public class CommonConstant {
     public static final String SUMMARY_LABEL = "<p></p>";
     @BKDefinition(value = "登录密码")
     public static final String LOGIN_PASSWORD = "wangbingan";
+    @BKDefinition(value = "下划线")
+    public static final String CHARACTER_UNDERLINE = "_";
 }
