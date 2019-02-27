@@ -43,6 +43,26 @@ API
 
 留言列表:http://host:ip/darker/api/message
 
+ELK redis
+-------
+设置redis密码:config set requirepass redis
+
+redis认证:auth redis
+
+获取redis密码:config get requirepass
+
+启动elasticsearch:./elasticsearch.bat
+ 
+启动head插件:grunt server
+
+启动kibana:./kibana
+
+Elasticsearch访问地址:http://127.0.0.1:9200/?pretty
+
+Elasticsearch-head插件访问地址:http://127.0.0.1:9100/
+
+Kibana访问地址:http://127.0.0.1:5601
+
 时间轴
 -------
 [20180712] springboot框架搭建
@@ -85,6 +105,6 @@ API
 
 [20190115] 增加ElasticSearch接口
 
-[20190213] 数据库字段属性规范化
+[20190215] 规范代码、数据库命名
 
-[20190214] CODE命名规范化
+[20190227] synchronized实例
