@@ -1,11 +1,16 @@
 package com.vip.darker.system.sync;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @Auther: Darker
  * @Date: 2019/02/27
- * @Description: 同步类锁(同一对象才会抢时间片)
+ * @Description: 同步类锁
  */
 public class SynchronizedClassLock implements Runnable {
+
+    private static Logger logger = LoggerFactory.getLogger(SynchronizedClassLock.class);
 
     private static int num = 0;
 
@@ -21,7 +26,7 @@ public class SynchronizedClassLock implements Runnable {
         t2.start();
         t1.join();
         t2.join();
-        System.out.println(num);
+        logger.info(num + "");
     }
 
     @Override
@@ -38,11 +43,11 @@ public class SynchronizedClassLock implements Runnable {
      */
     private void lockclass() {
         synchronized (SynchronizedClassLock.class) {
-            System.out.println(Thread.currentThread().getName() + ":starting");
+            logger.info(Thread.currentThread().getName() + ":starting");
             for (int i = 0; i < count; i++) {
                 num++;
             }
-            System.out.println(Thread.currentThread().getName() + ":ending");
+            logger.info(Thread.currentThread().getName() + ":ending");
         }
     }
 
@@ -54,10 +59,10 @@ public class SynchronizedClassLock implements Runnable {
      * @return: void
      */
     private static synchronized void lockstaticmethod() {
-        System.out.println(Thread.currentThread().getName() + ":starting");
+        logger.info(Thread.currentThread().getName() + ":starting");
         for (int i = 0; i < count; i++) {
             num++;
         }
-        System.out.println(Thread.currentThread().getName() + ":ending");
+        logger.info(Thread.currentThread().getName() + ":ending");
     }
 }
