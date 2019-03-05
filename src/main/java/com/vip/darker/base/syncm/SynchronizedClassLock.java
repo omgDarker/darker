@@ -1,4 +1,4 @@
-package com.vip.darker.system.sync;
+package com.vip.darker.base.syncm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
