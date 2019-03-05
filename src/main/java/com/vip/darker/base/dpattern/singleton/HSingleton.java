@@ -15,12 +15,12 @@ public class HSingleton {
     /**
      * 2.创建对象实例
      */
-    private static HSingleton instance = new HSingleton();
+    private static volatile HSingleton instance = new HSingleton();
 
     /**
      * 3.封装对象实例
      */
-    public static HSingleton getInstance() {
+    public static synchronized HSingleton getInstance() {
         return instance;
     }
 }

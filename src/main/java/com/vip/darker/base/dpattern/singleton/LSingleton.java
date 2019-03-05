@@ -13,16 +13,20 @@ public class LSingleton {
     }
 
     /**
-     * 2.创建私有对象实例,但不初始化
+     * 2.创建私有对象实例(volatile防止指令重排)
      */
-    private static LSingleton instance;
+    private static volatile LSingleton instance = null;
 
     /**
      * 3.封装对象实例
      */
     public static LSingleton getInstance() {
         if (instance == null) {
-            instance = new LSingleton();
+            synchronized (LSingleton.class) {
+                if (instance == null) {
+                    instance = new LSingleton();
+                }
+            }
         }
         return instance;
     }
