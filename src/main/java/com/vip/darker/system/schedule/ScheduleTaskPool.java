@@ -17,8 +17,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class ScheduleTaskPool implements SchedulingConfigurer {
 
-    private Logger logger = LoggerFactory.getLogger(ScheduleTaskPool.class);
-
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();

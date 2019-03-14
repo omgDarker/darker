@@ -49,14 +49,6 @@ public class PropertiesStatDTO {
         return countPV++;
     }
 
-    public int addCountVV() {
-        return countVV++;
-    }
-
-    public int addCountUV() {
-        return countUV++;
-    }
-
     @Override
     public String toString() {
         return "PropertiesStatDTO{" +
