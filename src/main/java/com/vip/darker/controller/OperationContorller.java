@@ -47,9 +47,9 @@ public class OperationContorller {
         // 统计图片数
         map.put("countimage", SpringBootService.getImageService().selectCount(new EntityWrapper<>()));
         // 统计点赞数*
-        map.put("countLike", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleDO>().setSqlSelect("sum(likeAmount) as amount")).get("amount"));
+        map.put("countLike", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleDO>().setSqlSelect("sum(like_amount) as amount")).get("amount"));
         // 统计甩鞋数
-        map.put("countLikeNo", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleDO>().setSqlSelect("sum(likeNoAmount) as amount ")).get("amount"));
+        map.put("countLikeNo", SpringBootService.getArticleService().selectMap(new EntityWrapper<ArticleDO>().setSqlSelect("sum(like_no_amount) as amount ")).get("amount"));
 
         return map;
     }

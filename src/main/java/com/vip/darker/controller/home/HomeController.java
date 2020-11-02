@@ -59,7 +59,7 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView(HOME + "/home");
         // redis中取文章列表
         List<ArticleDO> list = Optional.ofNullable((List<ArticleDO>) SpringBootService.getRedisService().get(CommonConstant.REDIS_KEY_ARTICLE))
-                .map(opt -> opt.subList((pageNum - 1) * pageSize, pageNum * pageSize > opt.size() ? opt.size() : pageNum * pageSize))
+                .map(opt -> opt.subList((pageNum - 1) * pageSize, Math.min(pageNum * pageSize, opt.size())))
                 .orElse(SpringBootService.getArticleService().selectPage(new Page<>(pageNum, pageSize), new EntityWrapper<ArticleDO>().orderDesc(Collections.singletonList("updateTime"))).getRecords());
 
         list.forEach(model -> {
@@ -68,7 +68,7 @@ public class HomeController {
             if (StringUtils.isNotBlank(summary)) {
                 if (StringUtils.isNotBlank(model.getImageName())) {
                     // 若存在图片
-                    model.setSummary(summary.substring(0, summary.length() > 90 ? 90 : summary.length()));
+                    model.setSummary(summary.substring(0, Math.min(summary.length(), 90)));
                 }
             }
             // 文章栏目信息

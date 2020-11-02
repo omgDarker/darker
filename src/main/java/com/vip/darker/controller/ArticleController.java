@@ -160,7 +160,7 @@ public class ArticleController {
         // 文章总数
         modelAndView.addObject("numSum", SpringBootService.getArticleService().selectCount(new EntityWrapper<>()));
         // 留言内容
-        modelAndView.addObject("messageList", SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("articleId={0}", id)));
+        modelAndView.addObject("messageList", SpringBootService.getMessageService().selectList(new EntityWrapper<MessageDO>().where("article_id={0}", id)));
         // 网站右侧信息列表
         WebSiteUtil.getWebOffsideInformation(modelAndView);
 
