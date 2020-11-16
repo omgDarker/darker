@@ -2,8 +2,6 @@ package com.vip.darker.constant;
 
 import com.vip.darker.annotation.BKDefinition;
 
-import java.io.File;
-
 /**
  * @Auther: Darker
  * @Date: 2018/7/26 15:27
@@ -18,12 +16,8 @@ public class CommonConstant {
     public static final int MAP_DEFAULT_INITIAL_CAPACITY = 1 << 4;
     @BKDefinition(value = "响应标识")
     public static final String MSG = "msg";
-    @BKDefinition(value = "图片存储路径")
-    public static final String PATH_IMAGE = "/src/main/resources/static/images/article/";
-    @BKDefinition(value = "项目路径")
-    public static final String PATH_ITEM = new File("").getAbsolutePath();
-    @BKDefinition(value = "图片名称")
-    public static final String NAME_IMAGE = "52b62193-cbd0-4c6e-862a-34b12b353844.png";
+    @BKDefinition(value = "默认图片名称")
+    public static final String IMAGE_DEFAULT = "52b62193-cbd0-4c6e-862a-34b12b353844.png";
     @BKDefinition(value = "缓存KEY")
     public static final String REDIS_KEY_ARTICLE = "article";
     @BKDefinition(value = "摘要标签")

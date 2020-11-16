@@ -7,6 +7,7 @@ import com.vip.darker.entity.ImageDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.constant.CommonConstant;
+import com.vip.darker.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -145,7 +146,7 @@ public class ImageController {
                 // 获取上传文件原始名称
                 String oldImageName = opt.getOriginalFilename();
                 // 存储图片的虚拟本地路径
-                String saveImagePath = CommonConstant.PATH_IMAGE;
+                String saveImagePath = CommonUtil.getImageUrl("");
                 // 上传图片
                 if (Objects.requireNonNull(oldImageName).length() > 0) {
                     // 新图片名称
@@ -176,15 +177,17 @@ public class ImageController {
      */
     @RequestMapping(value = "/images/show/{imageName}", method = RequestMethod.GET)
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
-        String filePath = CommonConstant.PATH_ITEM + CommonConstant.PATH_IMAGE + imageName;
-        File file = new File(filePath);
+        String imageUrl = CommonUtil.getImageUrl(imageName);
+        log.info("======>首图imageUrl:{}", imageUrl);
+        log.info("======>dir:{}",System.getProperty("user.dir"));
+        File file = new File(imageUrl);
         if (!file.exists() && !file.isDirectory()) {
-            filePath = CommonConstant.PATH_ITEM + CommonConstant.PATH_IMAGE + CommonConstant.NAME_IMAGE;
+            imageUrl = CommonUtil.getImageUrl(CommonConstant.IMAGE_DEFAULT);
         }
         FileInputStream fis = null;
         OutputStream os = null;
         try {
-            fis = new FileInputStream(filePath);
+            fis = new FileInputStream(imageUrl);
             // 获取文件大小
             int size = fis.available();
             // 设置读取字节数
@@ -200,7 +203,7 @@ public class ImageController {
             // 将内存数据写入磁盘
             os.flush();
         } catch (Exception e) {
-            log.error("系统找不到指定文件filePath:{}", filePath);
+            log.error("系统找不到指定文件filePath:{}", imageUrl);
         }
         try {
             if (os != null) {
