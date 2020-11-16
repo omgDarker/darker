@@ -7,8 +7,7 @@ import com.vip.darker.entity.ImageDO;
 import com.vip.darker.enums.OperationStatusEnum;
 import com.vip.darker.service.base.SpringBootService;
 import com.vip.darker.constant.CommonConstant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -26,10 +25,9 @@ import java.util.*;
  * @Date: 2018/8/7 23:02
  * @Description: 图片控制器
  */
+@Slf4j
 @RestController
 public class ImageController {
-
-    private Logger logger = LoggerFactory.getLogger(ImageController.class);
 
     /**
      * 操作结果集
@@ -147,7 +145,7 @@ public class ImageController {
                 // 获取上传文件原始名称
                 String oldImageName = opt.getOriginalFilename();
                 // 存储图片的虚拟本地路径
-                String saveImagePath = CommonConstant.IMAGE_PATH;
+                String saveImagePath = CommonConstant.PATH_IMAGE;
                 // 上传图片
                 if (Objects.requireNonNull(oldImageName).length() > 0) {
                     // 新图片名称
@@ -178,9 +176,15 @@ public class ImageController {
      */
     @RequestMapping(value = "/images/show/{imageName}", method = RequestMethod.GET)
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
+        String filePath = CommonConstant.PATH_ITEM + CommonConstant.PATH_IMAGE + imageName;
+        File file = new File(filePath);
+        if (!file.exists() && !file.isDirectory()) {
+            filePath = CommonConstant.PATH_ITEM + CommonConstant.PATH_IMAGE + CommonConstant.NAME_IMAGE;
+        }
+        FileInputStream fis = null;
+        OutputStream os = null;
         try {
-            logger.info("=========>AAAA:{}",CommonConstant.IMAGE_PATH + "/" + imageName);
-            FileInputStream fis = new FileInputStream(CommonConstant.IMAGE_PATH + "/" + imageName);
+            fis = new FileInputStream(filePath);
             // 获取文件大小
             int size = fis.available();
             // 设置读取字节数
@@ -190,17 +194,25 @@ public class ImageController {
             // 设置返回文件类型
             response.setContentType("image/*");
             // 获取输出流
-            OutputStream os = response.getOutputStream();
+            os = response.getOutputStream();
             // 输出数据
             os.write(data);
             // 将内存数据写入磁盘
             os.flush();
-            // 关闭流
-            os.close();
-            fis.close();
         } catch (Exception e) {
-            logger.info("[系统找不到指定文件]:" + CommonConstant.IMAGE_PATH + "/" + imageName);
+            log.error("系统找不到指定文件filePath:{}", filePath);
         }
+        try {
+            if (os != null) {
+                os.close();
+            }
+            if (fis != null) {
+                fis.close();
+            }
+        } catch (Exception e) {
+            log.error("流关闭异常");
+        }
+
     }
 
     /**

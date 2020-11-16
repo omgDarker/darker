@@ -6,10 +6,14 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.vip.darker.annotation.BKDefinition;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "resource_column")
 @BKDefinition(value = "栏目表")
 public class ColumnDO extends Model<ColumnDO> {

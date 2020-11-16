@@ -6,10 +6,14 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.vip.darker.annotation.BKDefinition;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "resource_trash")
 @BKDefinition(value = "回收站表")
 public class TrashDO extends Model<TrashDO> {
@@ -37,87 +41,8 @@ public class TrashDO extends Model<TrashDO> {
     @TableField(value = "update_time")
     private Date updateTime;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getClassify() {
-        return classify;
-    }
-
-    public void setClassify(String classify) {
-        this.classify = classify;
-    }
-
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
-    }
-
-    @Override
-    public String toString() {
-        super.toString();
-        return "TrashDO{" +
-                "id=" + id +
-                ", content='" + content + '\'' +
-                ", description='" + description + '\'' +
-                ", classify='" + classify + '\'' +
-                ", deleted=" + deleted +
-                ", creator='" + creator + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
     }
 }

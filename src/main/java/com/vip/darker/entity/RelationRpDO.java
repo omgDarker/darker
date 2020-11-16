@@ -6,10 +6,14 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.vip.darker.annotation.BKDefinition;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "relation_role_permission")
 @BKDefinition(value = "角色权限关系表")
 public class RelationRpDO extends Model<RelationRpDO> {
@@ -37,78 +41,8 @@ public class RelationRpDO extends Model<RelationRpDO> {
     @TableField(value = "update_time")
     private Date updateTime;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public Integer getPermissionId() {
-        return permissionId;
-    }
-
-    public void setPermissionId(Integer permissionId) {
-        this.permissionId = permissionId;
-    }
-
-    public Integer getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Integer deleted) {
-        this.deleted = deleted;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
-    }
-
-    @Override
-    public String toString() {
-        super.toString();
-        return "RPRelationDO{" +
-                "id=" + id +
-                ", roleId=" + roleId +
-                ", permissionId=" + permissionId +
-                ", deleted=" + deleted +
-                ", creator='" + creator + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
     }
 }
