@@ -179,7 +179,7 @@ public class ImageController {
     @RequestMapping(value = "/images/show/{imageName}", method = RequestMethod.GET)
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
         try {
-            logger.info("=========>:{}",CommonConstant.IMAGE_PATH + "/" + imageName);
+            logger.info("=========>AAAA:{}",CommonConstant.IMAGE_PATH + "/" + imageName);
             FileInputStream fis = new FileInputStream(CommonConstant.IMAGE_PATH + "/" + imageName);
             // 获取文件大小
             int size = fis.available();

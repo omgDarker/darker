@@ -13,7 +13,7 @@
             <div class="bloginfo">
                 <!-- 文章首图 -->
                 <span class="blogpic" th:if="${object.imageName!=null&&object.imageName!=''}" style="margin-top:5px;">
-                    <i><img th:src="@{'/usr/local/image/'+${object.imageName}}" height="100" width="200"></i>
+                    <i><img th:src="@{'/images/show'+${object.imageName}}" height="100" width="200"></i>
                 </span>
                 <!-- 标题 -->
                 <h3 class="blogtitle">
@@ -39,5 +39,5 @@
             </div>
         </li>
     </ul>
-    <div class="pagelist" id="selectPage" value=""></div>
+    <div class="pagelist" id="selectPage"></div>
 </div>
