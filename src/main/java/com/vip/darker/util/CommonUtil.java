@@ -23,7 +23,7 @@ public class CommonUtil {
 
     public static String getImageUrl(String fileName) {
         if (isLinux()) {
-            return System.getProperty("user.dir") + "/target/classes/static/images/article/" + fileName;
+            return System.getProperty("user.dir") + "/images" + fileName;
         }
         return System.getProperty("user.dir") + "/src/main/resources/static/images/article/" + fileName;
     }

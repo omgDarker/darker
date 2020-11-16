@@ -179,7 +179,6 @@ public class ImageController {
     public void showImage(@PathVariable(value = "imageName") String imageName, HttpServletResponse response) {
         String imageUrl = CommonUtil.getImageUrl(imageName);
         log.info("======>首图imageUrl:{}", imageUrl);
-        log.info("======>dir:{}",System.getProperty("user.dir"));
         File file = new File(imageUrl);
         if (!file.exists() && !file.isDirectory()) {
             imageUrl = CommonUtil.getImageUrl(CommonConstant.IMAGE_DEFAULT);
