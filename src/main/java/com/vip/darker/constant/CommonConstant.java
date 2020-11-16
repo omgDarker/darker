@@ -17,7 +17,7 @@ public class CommonConstant {
     @BKDefinition(value = "响应标识")
     public static final String MSG = "msg";
     @BKDefinition(value = "图片存储路径")
-    public static final String IMAGE_PATH = "G://picture";
+    public static final String IMAGE_PATH = "/usr/local/image/";
     @BKDefinition(value = "缓存KEY")
     public static final String REDIS_KEY_ARTICLE = "article";
     @BKDefinition(value = "摘要标签")
