@@ -10,8 +10,10 @@ import java.lang.annotation.Target;
  * @Date: 2019/01/09 17:24
  * @Description: 注解
  */
-@Target(value = {ElementType.TYPE, ElementType.METHOD, ElementType.FIELD}) //标注在方法和属性上
-@Retention(value = RetentionPolicy.RUNTIME) //运行时
+//标注在方法和属性上
+@Target(value = {ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
+//运行时
+@Retention(value = RetentionPolicy.RUNTIME)
 public @interface BKDefinition {
     String value() default "";
 }

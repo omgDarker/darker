@@ -19,6 +19,7 @@ import java.util.Map;
 @RequestMapping("dbms")
 @ConfigurationProperties(prefix = "spring.datasource.druid")
 public class DbmsController {
+
     /**
      * 数据库驱动
      */
@@ -41,10 +42,10 @@ public class DbmsController {
      * @auther: WBA
      * @date: 2018/12/11 16:41
      * @param: []
-     * @return: java.util.Map<java.lang.String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               java.lang.Object>
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
      */
     @RequestMapping(value = "/tables", method = RequestMethod.GET)
-    public Map<String, Object> getDBTables() {
+    public Map<String, Object> getTables() {
         // 数据库连接
         Connection conn = null;
         // 结果集
@@ -63,7 +64,7 @@ public class DbmsController {
                 // 获取数据库表名
                 String tableName = tableSet.getString("TABLE_NAME");
 
-                PreparedStatement ps = conn.prepareStatement("select * from " + tableName);
+                PreparedStatement ps = conn.prepareStatement("SELECT * FROM" + tableName);
                 // 获取查询表的字段信息
                 ResultSet columnSet = ps.executeQuery();
                 ResultSetMetaData meta = columnSet.getMetaData();

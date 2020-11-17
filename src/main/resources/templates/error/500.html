@@ -10,29 +10,27 @@
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript">
         $(function () {
-            var h = $(window).height();
+            let h = $(window).height();
             $('body').height(h);
             $('.mianBox').height(h);
             centerWindow(".tipInfo");
         });
-
         //1.居中方法，传入需要剧中的标签
         function center(a) {
-            var wWidth = $(window).width();
-            var wHeight = $(window).height();
-            var boxWidth = $(a).width();
-            var boxHeight = $(a).height();
-            var scrollTop = $(window).scrollTop();
-            var scrollLeft = $(window).scrollLeft();
-            var top = scrollTop + (wHeight - boxHeight) / 2;
-            var left = scrollLeft + (wWidth - boxWidth) / 2;
+            let wWidth = $(window).width();
+            let wHeight = $(window).height();
+            let boxWidth = $(a).width();
+            let boxHeight = $(a).height();
+            let scrollTop = $(window).scrollTop();
+            let scrollLeft = $(window).scrollLeft();
+            let top = scrollTop + (wHeight - boxHeight) / 2;
+            let left = scrollLeft + (wWidth - boxWidth) / 2;
             $(a).css({
                 "top": top,
                 "left": left
             });
         }
-
-        //2.将盒子方法放入这个方，方便法统一调用
+        //2.将盒子方法放入这个方法，方便统一调用
         function centerWindow(a) {
             center(a);
             //自适应窗口
@@ -57,9 +55,9 @@
                 <p><b id="wait">6</b>秒后,自动<a id="href" href="/home">跳转!</a></p>
                 <script type="text/javascript">
                     (function () {
-                        var wait = document.getElementById('wait'), href = document.getElementById('href').href;
-                        var interval = setInterval(function () {
-                            var time = --wait.innerHTML;
+                        let wait = document.getElementById('wait'), href = document.getElementById('href').href;
+                        let interval = setInterval(function () {
+                            let time = --wait.innerHTML;
                             if (time <= 0) {
                                 clearInterval(interval);
                                 location.href = href;
