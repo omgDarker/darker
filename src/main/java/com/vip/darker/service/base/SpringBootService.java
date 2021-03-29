@@ -211,6 +211,6 @@ public class SpringBootService {
      * @date: 2018/10/27 10:50
      */
     public static MessageESService getMessageESService() {
-        return (MessageESService) SpringBootApplicationContent.getBean(MessageESServiceImpl.BEAN_NAME);
+        return null;
     }
 }
