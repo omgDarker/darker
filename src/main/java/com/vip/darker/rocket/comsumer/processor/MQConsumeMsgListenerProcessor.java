@@ -1,11 +1,11 @@
 package com.vip.darker.rocket.comsumer.processor;
 
-import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
-import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
-import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
-import com.alibaba.rocketmq.common.message.MessageExt;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -53,4 +53,5 @@ public class MQConsumeMsgListenerProcessor implements MessageListenerConcurrentl
         log.info("接收到消息msgExTList:{}", msgExtList);
         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
     }
+
 }

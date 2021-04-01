@@ -1,9 +1,9 @@
 package com.vip.darker.rocket.producer;
 
-import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
-import com.alibaba.rocketmq.client.producer.SendResult;
-import com.alibaba.rocketmq.common.message.Message;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.common.message.Message;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class DarkerProducer {
         String msg = "demo delay msg";
         log.info("消息开始发送delay msg:{}", msg);
         Message message = new Message("DemoTopic", null, msg.getBytes());
-        message.setDelayTimeLevel(4);
+        message.setDelayTimeLevel(3);
         SendResult sendResult = defaultMQProducer.send(message);
         log.info("消息发送完成delay sendResult:{}", sendResult);
         defaultMQProducer.shutdown();

@@ -1,14 +1,12 @@
 package com.vip.darker.rocket.comsumer.bean;
 
-import com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
-import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.vip.darker.rocket.comsumer.processor.MQConsumeMsgListenerProcessor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.util.StringUtils;
 
 /**
  * @author : wangbingan[www.wangbingan.com]
@@ -20,16 +18,34 @@ import org.springframework.util.StringUtils;
 @SpringBootConfiguration
 public class MQConsumerConfiguration {
 
+    /**
+     * 服务注册地址
+     */
     @Value("${spring.rocketmq.consumer.namesrvAddr}")
     private String namesrvAddr;
+    /**
+     * 分组
+     */
     @Value("${spring.rocketmq.consumer.groupName}")
     private String groupName;
+    /**
+     * topics
+     */
     @Value("${spring.rocketmq.consumer.topics}")
     private String topics;
+    /**
+     * 消费最小线程数
+     */
     @Value("${spring.rocketmq.consumer.consumeThreadMin}")
     private int consumeThreadMin;
+    /**
+     * 消费最大线程数
+     */
     @Value("${spring.rocketmq.consumer.consumeThreadMax}")
     private int consumeThreadMax;
+    /**
+     * 批量消费大小（例如消息集合大小为3,如采用默认值1,那么需要将消息集合拆成3个,用线程去执行）
+     */
     @Value("${spring.rocketmq.consumer.consumeMessageBatchMaxSize}")
     private int consumeMessageBatchMaxSize;
     @Autowired
@@ -37,30 +53,16 @@ public class MQConsumerConfiguration {
 
     @Bean
     public DefaultMQPushConsumer getRocketMQConsumer() {
-        if (StringUtils.isEmpty(this.groupName)) {
-            log.error("consumer groupName is blank");
-        }
-        if (StringUtils.isEmpty(this.namesrvAddr)) {
-            log.error("consumer nameServerAddr is blank");
-        }
-        if (StringUtils.isEmpty(this.topics)) {
-            log.error("consumer topics is blank");
-        }
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(this.groupName);
-        consumer.setNamesrvAddr(this.namesrvAddr);
-        consumer.setConsumeThreadMin(this.consumeThreadMin);
-        consumer.setConsumeThreadMax(this.consumeThreadMax);
-        consumer.setConsumeMessageBatchMaxSize(this.consumeMessageBatchMaxSize);
-        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-        consumer.setMessageListener(mqConsumeMsgListenerProcessor);
         try {
-            String[] topicTagsArr = this.topics.split(";");
-            for (String topicTags : topicTagsArr) {
-                String[] topicTag = topicTags.split("~");
-                consumer.subscribe(topicTag[0], topicTag[1]);
-            }
+            consumer.setNamesrvAddr(this.namesrvAddr);
+            consumer.setConsumeThreadMin(this.consumeThreadMin);
+            consumer.setConsumeThreadMax(this.consumeThreadMax);
+            consumer.setConsumeMessageBatchMaxSize(this.consumeMessageBatchMaxSize);
+            consumer.setMessageListener(mqConsumeMsgListenerProcessor);
+            consumer.subscribe(this.topics, "");
             consumer.start();
-            log.info("consumer is start groupName:{},topics:{},namesrvAddr:{}", this.groupName, this.topics, this.namesrvAddr);
+            log.info("consumer is start namesrvAddr:{},groupName:{},topics:{}", this.namesrvAddr, this.groupName, this.topics);
         } catch (Exception e) {
             log.error("consumer is error:{}", e.getMessage(), e);
         }

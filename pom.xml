@@ -133,9 +133,9 @@
         </dependency>
         <!-- RocketMQ 4.8.0 -->
         <dependency>
-            <groupId>com.alibaba.rocketmq</groupId>
+            <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
-            <version>3.2.6</version>
+            <version>4.5.0</version>
         </dependency>
         <!-- spring2.0集成redis所需common-pool2 -->
         <dependency>
