@@ -1,4 +1,4 @@
-package com.vip.darker.excel;
+package com.vip.core.excel;
 
 import com.alibaba.excel.EasyExcel;
 
